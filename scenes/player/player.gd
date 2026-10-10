@@ -21,6 +21,7 @@ extends CharacterBody2D
 @export var pull_power = 250.0
 
 @export var line_width = 10.0
+@export var max_line_squish = 2.0
 
 
 var grappling = false
@@ -139,7 +140,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Draw rope
 	if grappling:
-		grapple_visual.width = line_width * (rope_len / (global_position - grapple_target.global_position).length())
+		grapple_visual.width = line_width * min((rope_len / (global_position - grapple_target.global_position).length()), max_line_squish)
 		grapple_visual.points = [Vector2.ZERO, grapple_visual.to_local(grapple_target.global_position)]
 
 
