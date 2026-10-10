@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ch81su7nh77vx"]
+
+[ext_resource type="Script" uid="uid://bpo0dsawpb3qj" path="res://utilities/ui/pixel_menu_manager.gd" id="1_o5qli"]
+[ext_resource type="Theme" uid="uid://djxds56cenfds" path="res://assets/default_theme.tres" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://ntda7takqfc0" path="res://scenes/examples/start_screen.tscn" id="2_0wfyh"]
+
+[node name="PixelMenuManager" type="Control" unique_id=33857186]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_sugp2")
+script = ExtResource("1_o5qli")
+first_scene = ExtResource("2_0wfyh")
+metadata/_custom_type_script = "uid://bpo0dsawpb3qj"

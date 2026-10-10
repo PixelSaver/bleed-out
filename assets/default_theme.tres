@@ -1,0 +1,23 @@
+[gd_resource type="Theme" format=3 uid="uid://djxds56cenfds"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gkedh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_plx5h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7qcy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rfxp3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fdur0"]
+
+[resource]
+default_font_size = 40
+Button/styles/disabled = SubResource("StyleBoxEmpty_gkedh")
+Button/styles/focus = SubResource("StyleBoxEmpty_plx5h")
+Button/styles/hover = SubResource("StyleBoxEmpty_c7qcy")
+Button/styles/normal = SubResource("StyleBoxEmpty_rfxp3")
+Button/styles/pressed = SubResource("StyleBoxEmpty_fdur0")
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 20

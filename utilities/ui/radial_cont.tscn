@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://smirxkthwbug"]
+
+[ext_resource type="Script" uid="uid://cgqxa5bu3nmg2" path="res://utilities/ui/radial_cont.gd" id="1_1dgmo"]
+
+[node name="RadialCont" type="Container" unique_id=747638657]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_1dgmo")
+radius = 1300.0
+separation = 200.0
+circle_center = Vector2(-1100, 0)
+
+[node name="Control" type="Control" parent="." unique_id=111601215]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1046155606]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 0
+offset_top = -50.0
+offset_right = 500.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.86678416, 0.86678416)
+pivot_offset_ratio = Vector2(0, 0.5)
+
+[node name="Control2" type="Control" parent="." unique_id=1581645109]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control2" unique_id=960101115]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 0
+offset_top = -50.0
+offset_right = 500.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.86678416, 0.86678416)
+pivot_offset_ratio = Vector2(0, 0.5)
+
+[node name="Control3" type="Control" parent="." unique_id=1907010077]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control3" unique_id=232860704]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 0
+offset_top = -50.0
+offset_right = 500.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.86678416, 0.86678416)
+pivot_offset_ratio = Vector2(0, 0.5)
+
+[node name="Control4" type="Control" parent="." unique_id=1077528178]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control4" unique_id=269422511]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 0
+offset_top = -50.0
+offset_right = 500.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.86678416, 0.86678416)
+pivot_offset_ratio = Vector2(0, 0.5)

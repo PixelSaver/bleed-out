@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://b2tnmriqsxxa3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vq46"]
+draw_center = false
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(1, 1, 1, 1)
+
+[node name="StandardButton" type="Button" unique_id=21917414]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=2115521555]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+mouse_filter = 2
+
+[node name="ButtonBorder" type="Panel" parent="MarginContainer2" unique_id=220389595]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8vq46")
+
+[node name="ButtonText" type="RichTextLabel" parent="MarginContainer2/ButtonBorder" unique_id=1208120521]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 55
+text = "Play"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,207 @@
+[gd_scene format=3 uid="uid://7x4wtf5puk2g"]
+
+[ext_resource type="Script" uid="uid://dm1gtebn2nadw" path="res://scenes/examples/tweenable_showcase.gd" id="1_pmtvh"]
+[ext_resource type="Script" uid="uid://b4pdlxyjxim6i" path="res://utilities/ui/tweenable.gd" id="2_j21xj"]
+
+[node name="TweenableShowcase" type="Control" unique_id=1789264344]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_pmtvh")
+metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=996085948]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 76.0
+offset_right = 297.0
+offset_bottom = 116.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect" unique_id=570335465]
+script = ExtResource("2_j21xj")
+direction = Vector2(0, -1)
+distance = 34.500577983226705
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=502118873]
+layout_mode = 0
+offset_left = 802.0
+offset_top = 125.0
+offset_right = 842.0
+offset_bottom = 165.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect2" unique_id=313581716]
+script = ExtResource("2_j21xj")
+direction = Vector2(0, 1)
+distance = 140.25872008381288
+
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=323784566]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 351.0
+offset_right = 432.0
+offset_bottom = 391.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect3" unique_id=1278514241]
+script = ExtResource("2_j21xj")
+direction = Vector2(0, -1)
+distance = 145.55236026815282
+
+[node name="ColorRect4" type="ColorRect" parent="." unique_id=509606353]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 173.0
+offset_right = 480.0
+offset_bottom = 213.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect4" unique_id=2015664163]
+script = ExtResource("2_j21xj")
+direction = Vector2(-1, 0)
+distance = 99.87048715930774
+
+[node name="ColorRect5" type="ColorRect" parent="." unique_id=394905820]
+layout_mode = 0
+offset_left = 814.0
+offset_top = 340.0
+offset_right = 854.0
+offset_bottom = 380.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect5" unique_id=994578813]
+script = ExtResource("2_j21xj")
+direction = Vector2(0, 1)
+distance = 140.04877446453773
+
+[node name="ColorRect6" type="ColorRect" parent="." unique_id=1568865778]
+layout_mode = 0
+offset_left = 1046.0
+offset_top = 147.0
+offset_right = 1086.0
+offset_bottom = 187.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect6" unique_id=1146499964]
+script = ExtResource("2_j21xj")
+direction = Vector2(0, -1)
+distance = 112.51118769039144
+
+[node name="ColorRect7" type="ColorRect" parent="." unique_id=386454345]
+layout_mode = 0
+offset_left = 674.0
+offset_top = 257.0
+offset_right = 714.0
+offset_bottom = 297.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect7" unique_id=1398582285]
+script = ExtResource("2_j21xj")
+direction = Vector2(1, 0)
+distance = 111.5524444944918
+
+[node name="ColorRect8" type="ColorRect" parent="." unique_id=784666246]
+layout_mode = 0
+offset_left = 473.0
+offset_top = 579.0
+offset_right = 513.0
+offset_bottom = 619.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect8" unique_id=1425921053]
+script = ExtResource("2_j21xj")
+direction = Vector2(-1, 0)
+distance = 46.05869340930363
+
+[node name="ColorRect9" type="ColorRect" parent="." unique_id=154866183]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 345.0
+offset_right = 96.0
+offset_bottom = 385.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect9" unique_id=168569294]
+script = ExtResource("2_j21xj")
+direction = Vector2(-1, 0)
+distance = 73.88315884859124
+
+[node name="ColorRect10" type="ColorRect" parent="." unique_id=922727829]
+layout_mode = 0
+offset_left = 235.0
+offset_top = 282.0
+offset_right = 275.0
+offset_bottom = 322.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect10" unique_id=126187465]
+script = ExtResource("2_j21xj")
+direction = Vector2(0, 1)
+distance = 124.156940419801
+
+[node name="ColorRect11" type="ColorRect" parent="." unique_id=1873831001]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 517.0
+offset_right = 250.0
+offset_bottom = 557.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect11" unique_id=1195473352]
+script = ExtResource("2_j21xj")
+direction = Vector2(0, 1)
+distance = 138.90347666850178
+
+[node name="ColorRect12" type="ColorRect" parent="." unique_id=2073727912]
+layout_mode = 0
+offset_left = 567.0
+offset_top = 421.0
+offset_right = 607.0
+offset_bottom = 461.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect12" unique_id=1751722857]
+script = ExtResource("2_j21xj")
+direction = Vector2(0, 1)
+distance = 91.442585160072
+
+[node name="ColorRect13" type="ColorRect" parent="." unique_id=1281834606]
+layout_mode = 0
+offset_left = 737.0
+offset_top = 503.0
+offset_right = 777.0
+offset_bottom = 543.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect13" unique_id=51592109]
+script = ExtResource("2_j21xj")
+direction = Vector2(0, 1)
+distance = 186.08897636535585
+
+[node name="ColorRect14" type="ColorRect" parent="." unique_id=1677932229]
+layout_mode = 0
+offset_left = 1024.0
+offset_top = 362.0
+offset_right = 1064.0
+offset_bottom = 402.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect14" unique_id=17864880]
+script = ExtResource("2_j21xj")
+direction = Vector2(-1, 0)
+distance = 35.16674711150715
+
+[node name="ColorRect15" type="ColorRect" parent="." unique_id=1809883362]
+layout_mode = 0
+offset_left = 995.0
+offset_top = 519.0
+offset_right = 1035.0
+offset_bottom = 559.0
+offset_transform_enabled = true
+
+[node name="Tweenable" type="Node" parent="ColorRect15" unique_id=62126066]
+script = ExtResource("2_j21xj")
+direction = Vector2(0, -1)
+distance = 9.702996376979677
