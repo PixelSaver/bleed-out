@@ -6,3 +6,5 @@ enum States {
 var state : States = States.START
 
 var menu_manager: PixelMenuManager
+
+var grapple_man: GrappleManager
