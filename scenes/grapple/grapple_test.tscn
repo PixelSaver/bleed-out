@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c3sd6k1wws2m6"]
+
+[ext_resource type="Script" uid="uid://e0s6oeo4pcwr" path="res://utilities/ui/pixel_menu.gd" id="1_rxssq"]
+
+[node name="GrappleTest" type="Control" unique_id=2082098217]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_rxssq")
+metadata/_custom_type_script = "uid://e0s6oeo4pcwr"

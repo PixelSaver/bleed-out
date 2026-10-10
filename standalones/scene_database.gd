@@ -7,8 +7,8 @@ enum Scene {
 }
 
 var scenes = {
-	Scene.START: preload("res://scenes/examples/start_screen.tscn"),
-	Scene.TWEENABLE_SHOWCASE: preload("res://scenes/examples/tweenable_showcase.tscn"),
+	#Scene.START: preload("res://scenes/examples/start_screen.tscn"),
+	#Scene.TWEENABLE_SHOWCASE: preload("res://scenes/examples/tweenable_showcase.tscn"),
 }
 func get_scene(scene:Scene) -> PackedScene:
 	if scenes.has(scene):

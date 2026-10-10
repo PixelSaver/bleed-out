@@ -28,7 +28,6 @@ func transition_to_scene(new_scene:PackedScene):
 	current_scene = new_scene.instantiate() as PixelMenu
 	add_child(current_scene)
 	current_scene.start_anim()
-
 func _ready() -> void:
 	Global.menu_manager = self
 	if OS.is_debug_build() and debug_first_scene:

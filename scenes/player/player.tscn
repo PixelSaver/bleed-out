@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dgiajep4rvt4e"]
+
+[ext_resource type="Script" uid="uid://dtvxmu6o1o5s" path="res://scenes/player/player.gd" id="1_dovo2"]
+[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_gmlin"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lvxji"]
+size = Vector2(64, 64)
+
+[node name="Player" type="CharacterBody2D" unique_id=1594943802 node_paths=PackedStringArray("grapple_ray", "grapple_visual")]
+collision_layer = 2
+script = ExtResource("1_dovo2")
+grapple_ray = NodePath("RayCast2D")
+grapple_visual = NodePath("Line2D")
+metadata/_edit_group_ = true
+
+[node name="Line2D" type="Line2D" parent="." unique_id=725335474]
+visible = false
+default_color = Color(0.576471, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1215173214]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gmlin")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363614896]
+shape = SubResource("RectangleShape2D_lvxji")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=710715339]
+enabled = false
+target_position = Vector2(500, 0)
+collision_mask = 4
+hit_from_inside = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1994130706]
