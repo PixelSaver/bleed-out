@@ -59,7 +59,6 @@ func search_for_grapple_point(grapples: Array[GrapplePoint]) -> GrapplePoint:
 	)
 	if candidates.is_empty():
 		return null
-	print("Candidates first %s" % candidates[0][0])
 	return candidates[0][0]
 	
 

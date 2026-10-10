@@ -41,7 +41,6 @@ func _ready() -> void:
 func search_grapple_points(points: Array[GrapplePoint]) -> GrapplePoint:
 	var grapple_point := grapple_cone.search_for_grapple_point(points)
 	if grapple_point == null:
-		print("Grapple point is null")
 		return
 	var e = grapple_point.get_enemy()
 	if e != null:
@@ -70,7 +69,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		if Input.is_action_just_pressed("grapple"):
 			grapple_target = search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
-			print("Target is %s" % grapple_target)
 			if grapple_target:
 				var grapple_offset = global_position - grapple_target.global_position
 				grapple_dist = grapple_offset.length()
