@@ -81,12 +81,13 @@ func _physics_process(delta: float) -> void:
 			#grapple_ray.look_at(get_global_mouse_position())
 			#grapple_ray.force_raycast_update()
 			#if grapple_ray.is_colliding():
-			grapple_target = Global.grapple_man.get_closest_grapple(self.global_position)
-			var grapple_offset = global_position - grapple_target.global_position
-			rope_len = max(grapple_offset.length(), min_rope_len)
-			
-			grappling = true
-			grapple_visual.visible = true
+			grapple_target = search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
+			if grapple_target:
+				var grapple_offset = global_position - grapple_target.global_position
+				rope_len = max(grapple_offset.length(), min_rope_len)
+				
+				grappling = true
+				grapple_visual.visible = true
 	
 	
 	
