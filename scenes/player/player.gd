@@ -11,7 +11,7 @@ extends CharacterBody2D
 @export var max_drift = 300.0
 @export var momentum_cheat = 0.0 # 0.5
 @export var damp_transfer = 1.0 # 0.5
-@export var min_swing_speed = 600.0
+@export var min_swing_speed = 700.0
 @export var max_angular_vel = 20.0
 #@export var min_angular_vel = 3.0
 @export var min_rope_len = 100.0
@@ -43,8 +43,9 @@ func _physics_process(delta: float) -> void:
 	# Handle grapple/ungrapple
 	if grappling:
 		# Checking if rope is taut
-		if ((global_position - grapple_target.global_position).length() > rope_len):
-			slack_to_taut()
+		var grapple_offset = grapple_target.global_position - global_position
+		if (grapple_offset.length() > rope_len || (grapple_offset.dot(velocity) < 0 && grapple_offset.length() >= min_rope_len)):
+			slack_to_taut(grapple_offset.length() > rope_len)
 		# Ungrappling if you let go of the button or hit some terrain
 		if Input.is_action_just_released("grapple") or get_slide_collision_count() > 0:
 			if rope_taut:
@@ -143,9 +144,11 @@ func _physics_process(delta: float) -> void:
 		grapple_visual.points = [Vector2.ZERO, grapple_visual.to_local(grapple_target.global_position)]
 
 
-func slack_to_taut():
+func slack_to_taut(use_old_len: bool):
 	var grapple_offset = global_position - grapple_target.global_position
 	grapple_dist = grapple_offset.length()
+	if not use_old_len:
+		rope_len = grapple_dist
 	grapple_angle = grapple_offset.angle()
 	var radial_dir = grapple_offset.normalized()
 	radial_vel = velocity.dot(radial_dir)
