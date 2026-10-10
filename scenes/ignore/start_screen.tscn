@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ntda7takqfc0"]
 
-[ext_resource type="Script" uid="uid://cj4pcxg1uy6" path="res://scenes/examples/start_menu.gd" id="1_tx5wa"]
+[ext_resource type="Script" uid="uid://cj4pcxg1uy6" path="res://scenes/ignore/start_menu.gd" id="1_tx5wa"]
 [ext_resource type="Script" uid="uid://crut4r5gwigu0" path="res://utilities/ui/menus/default_button.gd" id="2_xm27e"]
 [ext_resource type="Script" uid="uid://cjmmhbp1b5312" path="res://addons/StyleboxFancy/StyleBorder.gd" id="3_ddckj"]
 [ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="4_ur6ah"]

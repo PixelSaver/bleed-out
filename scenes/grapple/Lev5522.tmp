@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmfyr3q2be0rr"]
+
+[ext_resource type="Script" path="res://Scenes/player.gd" id="1_0yhaq"]
+[ext_resource type="Texture2D" uid="uid://n1w2c0cylcqf" path="res://icon.svg" id="1_753qe"]
+[ext_resource type="PackedScene" uid="uid://cyf2hd4ljp631" path="res://Objects/grapple_point.tscn" id="3_j6xcq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cw781"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4feu"]
+size = Vector2(128, 128)
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(572, 315)
+
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("grapple_ray", "grapple_visual")]
+position = Vector2(0, 237)
+collision_layer = 2
+script = ExtResource("1_0yhaq")
+grapple_ray = NodePath("RayCast2D")
+grapple_visual = NodePath("Line2D")
+metadata/_edit_group_ = true
+
+[node name="Line2D" type="Line2D" parent="Player"]
+visible = false
+default_color = Color(0.576471, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_753qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_cw781")
+
+[node name="RayCast2D" type="RayCast2D" parent="Player"]
+enabled = false
+target_position = Vector2(500, 0)
+collision_mask = 4
+hit_from_inside = true
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(5, 327)
+scale = Vector2(9.6, 0.12)
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
+texture = ExtResource("1_753qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_c4feu")
+
+[node name="GrapplePoint" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(4, -228)
+
+[node name="GrapplePoint2" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(-390, 72)
+
+[node name="GrapplePoint3" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(383, 56)
+
+[node name="GrapplePoint4" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(331, -196)
+
+[node name="GrapplePoint5" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(-382, -211)
+
+[node name="GrapplePoint6" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(-2, 39)
+
+[node name="GrapplePoint7" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(857, 83)
+
+[node name="GrapplePoint8" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(1265, -126)
+
+[node name="GrapplePoint9" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(1261, 123)
+
+[node name="GrapplePoint10" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(1892, -29)
+
+[node name="GrapplePoint11" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(2228, -23)
+
+[node name="GrapplePoint12" parent="." instance=ExtResource("3_j6xcq")]
+position = Vector2(2556, -20)
