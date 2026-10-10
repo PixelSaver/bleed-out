@@ -110,7 +110,6 @@ func _physics_process(delta: float) -> void:
 		# There is a minimum angular velocity
 		#angular_vel = sign(angular_vel) * max(abs(angular_vel), min_swing_speed / grapple_dist)
 		angular_vel = sign(angular_vel) * clamp(abs(angular_vel), min_swing_speed / grapple_dist, max_angular_vel)
-		print(angular_vel)
 		#angular_vel = sign(angular_vel) * maxf(abs(angular_vel), min_angular_vel)
 		grapple_angle += angular_vel * delta
 		var swing_to = grapple_target.global_position + grapple_dist * Vector2(cos(grapple_angle), sin(grapple_angle))
