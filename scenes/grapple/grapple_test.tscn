@@ -1,66 +1,55 @@
 [gd_scene format=3 uid="uid://c3sd6k1wws2m6"]
 
-[ext_resource type="Script" uid="uid://e0s6oeo4pcwr" path="res://utilities/ui/pixel_menu.gd" id="1_rxssq"]
-[ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="2_dm38r"]
-[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="3_6x5g0"]
-[ext_resource type="PackedScene" uid="uid://cyf2hd4ljp631" path="res://scenes/grapple/grapple_point.tscn" id="4_6x5g0"]
-[ext_resource type="Script" uid="uid://dvqvjwi36wi03" path="res://scenes/grapple/grapple_manager.gd" id="4_inf4i"]
+[ext_resource type="Script" uid="uid://cydaxb5ff3l6v" path="res://scenes/grapple/grapple_test.gd" id="1_inf4i"]
+[ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="2_inf4i"]
+[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="3_cbpcd"]
+[ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="4_6x5g0"]
+[ext_resource type="PackedScene" uid="uid://1pcpqa3u0tdt" path="res://scenes/enemy/enemy.tscn" id="5_inf4i"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cr6d6"]
-size = Vector2(128, 128)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gkedh"]
 
-[node name="GrappleTest" type="Control" unique_id=2082098217]
+[node name="GrappleTest" type="Control" unique_id=1629713699]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_rxssq")
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_inf4i")
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
-[node name="Player" parent="." unique_id=1594943802 instance=ExtResource("2_dm38r")]
+[node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
+script = ExtResource("4_6x5g0")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=214112741]
-position = Vector2(1.9999981, 97.000015)
-scale = Vector2(15.055, 0.25)
-metadata/_edit_group_ = true
+[node name="Enemy" parent="EnemyManager" unique_id=1871561913 instance=ExtResource("5_inf4i")]
+position = Vector2(412, 369)
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=2104578666]
-texture = ExtResource("3_6x5g0")
+[node name="Enemy2" parent="EnemyManager" unique_id=206726785 instance=ExtResource("5_inf4i")]
+position = Vector2(776, 279)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=872965608]
-shape = SubResource("RectangleShape2D_cr6d6")
+[node name="Enemy3" parent="EnemyManager" unique_id=1737922587 instance=ExtResource("5_inf4i")]
+position = Vector2(307, 47)
 
-[node name="GrappleManager" type="Node2D" parent="." unique_id=77931171]
-script = ExtResource("4_inf4i")
-metadata/_custom_type_script = "uid://dvqvjwi36wi03"
+[node name="Enemy4" parent="EnemyManager" unique_id=195335146 instance=ExtResource("5_inf4i")]
+position = Vector2(1180, 123)
 
-[node name="GrapplePoint" parent="GrappleManager" unique_id=776523109 instance=ExtResource("4_6x5g0")]
-position = Vector2(1, -280)
+[node name="Enemy5" parent="EnemyManager" unique_id=1312404207 instance=ExtResource("5_inf4i")]
+position = Vector2(1223, 459)
 
-[node name="GrapplePoint2" parent="GrappleManager" unique_id=222662050 instance=ExtResource("4_6x5g0")]
-position = Vector2(347, -280)
+[node name="Enemy6" parent="EnemyManager" unique_id=1818259750 instance=ExtResource("5_inf4i")]
+position = Vector2(88, 412)
 
-[node name="GrapplePoint3" parent="GrappleManager" unique_id=1132085696 instance=ExtResource("4_6x5g0")]
-position = Vector2(-381, -274)
+[node name="Enemy7" parent="EnemyManager" unique_id=1809148246 instance=ExtResource("5_inf4i")]
+position = Vector2(614, 113)
 
-[node name="GrapplePoint4" parent="GrappleManager" unique_id=807134165 instance=ExtResource("4_6x5g0")]
-position = Vector2(-408, -567)
+[node name="Player" parent="." unique_id=1594943802 instance=ExtResource("2_inf4i")]
+position = Vector2(573, 607)
 
-[node name="GrapplePoint5" parent="GrappleManager" unique_id=1471780341 instance=ExtResource("4_6x5g0")]
-position = Vector2(-2, -599)
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1028182488]
+position = Vector2(587, 652)
 
-[node name="GrapplePoint6" parent="GrappleManager" unique_id=663423077 instance=ExtResource("4_6x5g0")]
-position = Vector2(380, -571)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1149386952]
+shape = SubResource("WorldBoundaryShape2D_gkedh")
 
-[node name="GrapplePoint7" parent="GrappleManager" unique_id=1815168220 instance=ExtResource("4_6x5g0")]
-position = Vector2(882, -609)
-
-[node name="GrapplePoint8" parent="GrappleManager" unique_id=1263019415 instance=ExtResource("4_6x5g0")]
-position = Vector2(-910, -599)
-
-[node name="GrapplePoint9" parent="GrappleManager" unique_id=159837398 instance=ExtResource("4_6x5g0")]
-position = Vector2(1420, -669)
-
-[node name="GrapplePoint10" parent="GrappleManager" unique_id=573679589 instance=ExtResource("4_6x5g0")]
-position = Vector2(2005, -960)
-
-[node name="GrapplePoint11" parent="GrappleManager" unique_id=351516022 instance=ExtResource("4_6x5g0")]
-position = Vector2(2780, -1165)
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1592227356]
+position = Vector2(-4, 70)
+scale = Vector2(17.603748, -1.0802966)
+texture = ExtResource("3_cbpcd")

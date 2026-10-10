@@ -1,8 +1,11 @@
 extends CharacterBody2D
 
+@export var grapple_cone: GrappleCone
+
 @export var grapple_ray: RayCast2D
 @export var grapple_visual: Line2D
 
+## Speed at which player walks (duh)
 @export var walk_speed = 5000.0
 @export var friction = 8.0
 @export var jump_power = -1000.0
@@ -26,11 +29,11 @@ extends CharacterBody2D
 
 var grappling = false
 var grapple_target: Node2D
-var rope_len
-var grapple_dist
-var grapple_angle
-var angular_vel
-var radial_vel
+var rope_len = 0.
+var grapple_dist = 0.
+var grapple_angle = 0.
+var angular_vel = Vector2.ZERO
+var radial_vel = Vector2.ZERO
 
 var rope_taut = false
 
@@ -39,6 +42,18 @@ var rope_taut = false
 func _ready() -> void:
 	pass # Replace with function body.
 
+func search_grapple_points(points: Array[GrapplePoint]) -> GrapplePoint:
+	var grapple_point := grapple_cone.search_for_grapple_point(points)
+	if grapple_point == null:
+		return
+	var e = grapple_point.get_enemy()
+	if e != null:
+		e.modulate = Color.BLACK
+	return grapple_point
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		grapple_cone.look_at(get_global_mouse_position())
 
 func _physics_process(delta: float) -> void:
 	# Handle grapple/ungrapple
@@ -67,12 +82,13 @@ func _physics_process(delta: float) -> void:
 			#grapple_ray.look_at(get_global_mouse_position())
 			#grapple_ray.force_raycast_update()
 			#if grapple_ray.is_colliding():
-			grapple_target = Global.grapple_man.get_closest_grapple(self.global_position)
-			var grapple_offset = global_position - grapple_target.global_position
-			rope_len = max(grapple_offset.length(), min_rope_len)
-			
-			grappling = true
-			grapple_visual.visible = true
+			grapple_target = search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
+			if grapple_target:
+				var grapple_offset = global_position - grapple_target.global_position
+				rope_len = max(grapple_offset.length(), min_rope_len)
+				
+				grappling = true
+				grapple_visual.visible = true
 	
 	
 	

@@ -7,4 +7,4 @@ var state : States = States.START
 
 var menu_manager: PixelMenuManager
 
-var grapple_man: GrappleManager
+var enemy_man: EnemyManager
