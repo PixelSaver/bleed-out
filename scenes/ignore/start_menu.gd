@@ -24,7 +24,7 @@ func _on_button_pressed(_name:String) -> void:
 			Global.menu_manager.transition_to_scene(tweenable_showcase)
 		_:
 			push_warning("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
-			Log.warn("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
+			#Log.warn("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
 
 func start_anim() -> void: pass
 func end_anim() -> void: pass

@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://7p6rhgl7w0ta"]
+
+[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="1_753qe"]
+[ext_resource type="Script" uid="uid://dtvxmu6o1o5s" path="res://scenes/player/player.gd" id="1_fwg13"]
+[ext_resource type="PackedScene" uid="uid://cyf2hd4ljp631" path="res://scenes/grapple/grapple_point.tscn" id="3_j6xcq"]
+[ext_resource type="Script" uid="uid://dvqvjwi36wi03" path="res://scenes/grapple/grapple_manager.gd" id="3_x55vw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cw781"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4feu"]
+size = Vector2(128, 128)
+
+[node name="Node2D" type="Node2D" unique_id=1845428300]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=206606452 node_paths=PackedStringArray("grapple_ray", "grapple_visual")]
+position = Vector2(0, 237)
+collision_layer = 2
+script = ExtResource("1_fwg13")
+grapple_ray = NodePath("RayCast2D")
+grapple_visual = NodePath("Line2D")
+metadata/_edit_group_ = true
+
+[node name="Line2D" type="Line2D" parent="Player" unique_id=239085776]
+visible = false
+default_color = Color(0.576471, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=420136884]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_753qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1047141577]
+shape = SubResource("RectangleShape2D_cw781")
+
+[node name="RayCast2D" type="RayCast2D" parent="Player" unique_id=1714867602]
+enabled = false
+target_position = Vector2(500, 0)
+collision_mask = 4
+hit_from_inside = true
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=998808492]
+
+[node name="Ground" type="StaticBody2D" parent="." unique_id=909448687]
+position = Vector2(5, 327)
+scale = Vector2(9.6, 0.12)
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground" unique_id=1640260248]
+texture = ExtResource("1_753qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=470121523]
+shape = SubResource("RectangleShape2D_c4feu")
+
+[node name="GrappleManager" type="Node2D" parent="." unique_id=552924116]
+script = ExtResource("3_x55vw")
+
+[node name="GrapplePoint" parent="GrappleManager" unique_id=776523109 instance=ExtResource("3_j6xcq")]
+position = Vector2(4, -228)
+
+[node name="GrapplePoint2" parent="GrappleManager" unique_id=1092515820 instance=ExtResource("3_j6xcq")]
+position = Vector2(-390, 72)
+
+[node name="GrapplePoint3" parent="GrappleManager" unique_id=1995771412 instance=ExtResource("3_j6xcq")]
+position = Vector2(383, 56)
+
+[node name="GrapplePoint4" parent="GrappleManager" unique_id=183279574 instance=ExtResource("3_j6xcq")]
+position = Vector2(331, -196)
+
+[node name="GrapplePoint5" parent="GrappleManager" unique_id=1172980381 instance=ExtResource("3_j6xcq")]
+position = Vector2(-382, -211)
+
+[node name="GrapplePoint6" parent="GrappleManager" unique_id=2008385878 instance=ExtResource("3_j6xcq")]
+position = Vector2(-2, 39)
+
+[node name="GrapplePoint7" parent="GrappleManager" unique_id=912674747 instance=ExtResource("3_j6xcq")]
+position = Vector2(857, 83)
+
+[node name="GrapplePoint8" parent="GrappleManager" unique_id=542870537 instance=ExtResource("3_j6xcq")]
+position = Vector2(1265, -126)
+
+[node name="GrapplePoint9" parent="GrappleManager" unique_id=1786313931 instance=ExtResource("3_j6xcq")]
+position = Vector2(1261, 123)
+
+[node name="GrapplePoint10" parent="GrappleManager" unique_id=1153192151 instance=ExtResource("3_j6xcq")]
+position = Vector2(1892, -29)
+
+[node name="GrapplePoint11" parent="GrappleManager" unique_id=800358214 instance=ExtResource("3_j6xcq")]
+position = Vector2(2228, -23)
+
+[node name="GrapplePoint12" parent="GrappleManager" unique_id=821092240 instance=ExtResource("3_j6xcq")]
+position = Vector2(2556, -20)

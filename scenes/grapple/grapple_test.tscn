@@ -1,9 +1,55 @@
 [gd_scene format=3 uid="uid://c3sd6k1wws2m6"]
 
-[ext_resource type="Script" uid="uid://e0s6oeo4pcwr" path="res://utilities/ui/pixel_menu.gd" id="1_rxssq"]
+[ext_resource type="Script" uid="uid://cydaxb5ff3l6v" path="res://scenes/grapple/grapple_test.gd" id="1_inf4i"]
+[ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="2_inf4i"]
+[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="3_cbpcd"]
+[ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="4_6x5g0"]
+[ext_resource type="PackedScene" uid="uid://1pcpqa3u0tdt" path="res://scenes/enemy/enemy.tscn" id="5_inf4i"]
 
-[node name="GrappleTest" type="Control" unique_id=2082098217]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gkedh"]
+
+[node name="GrappleTest" type="Control" unique_id=1629713699]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_rxssq")
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_inf4i")
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
+
+[node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
+script = ExtResource("4_6x5g0")
+
+[node name="Enemy" parent="EnemyManager" unique_id=1871561913 instance=ExtResource("5_inf4i")]
+position = Vector2(412, 369)
+
+[node name="Enemy2" parent="EnemyManager" unique_id=206726785 instance=ExtResource("5_inf4i")]
+position = Vector2(776, 279)
+
+[node name="Enemy3" parent="EnemyManager" unique_id=1737922587 instance=ExtResource("5_inf4i")]
+position = Vector2(307, 47)
+
+[node name="Enemy4" parent="EnemyManager" unique_id=195335146 instance=ExtResource("5_inf4i")]
+position = Vector2(1180, 123)
+
+[node name="Enemy5" parent="EnemyManager" unique_id=1312404207 instance=ExtResource("5_inf4i")]
+position = Vector2(1223, 459)
+
+[node name="Enemy6" parent="EnemyManager" unique_id=1818259750 instance=ExtResource("5_inf4i")]
+position = Vector2(88, 412)
+
+[node name="Enemy7" parent="EnemyManager" unique_id=1809148246 instance=ExtResource("5_inf4i")]
+position = Vector2(614, 113)
+
+[node name="Player" parent="." unique_id=1594943802 instance=ExtResource("2_inf4i")]
+position = Vector2(573, 607)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1028182488]
+position = Vector2(587, 652)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1149386952]
+shape = SubResource("WorldBoundaryShape2D_gkedh")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1592227356]
+position = Vector2(-4, 70)
+scale = Vector2(17.603748, -1.0802966)
+texture = ExtResource("3_cbpcd")
