@@ -60,11 +60,12 @@ func _input(event: InputEvent) -> void:
 		grapple_cone.look_at(get_global_mouse_position())
 
 func _physics_process(delta: float) -> void:
-	grapple_target = search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
+	var temp_grapple_target = search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
 	
 	# Handle grapple/ungrapple
 	if grappling:
 		# Checking if rope is taut
+		if grapple_target == null: return
 		var grapple_offset = grapple_target.global_position - global_position
 		if (grapple_offset.length() > rope_len || (grapple_offset.dot(velocity) < 0 && grapple_offset.length() >= min_rope_len)):
 			slack_to_taut(grapple_offset.length() > rope_len)
@@ -87,7 +88,8 @@ func _physics_process(delta: float) -> void:
 			rope_taut = false
 	else:
 		if Input.is_action_just_pressed("grapple"):
-			if grapple_target:
+			if temp_grapple_target:
+				grapple_target = temp_grapple_target
 				var grapple_offset = global_position - grapple_target.global_position
 				rope_len = max(grapple_offset.length(), min_rope_len)
 				
