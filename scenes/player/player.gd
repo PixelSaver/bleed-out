@@ -1,10 +1,12 @@
 extends CharacterBody2D
 
+@export_group("Nodes")
 @export var grapple_cone: GrappleCone
-
 @export var grapple_ray: RayCast2D
 @export var grapple_visual: Line2D
+@export var health_component: HealthComponent
 
+@export_group("Player Movement Tweaks")
 ## Speed at which player walks (duh)
 @export var walk_speed = 5000.0
 @export var friction = 8.0
@@ -43,7 +45,10 @@ var rope_taut = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	health_component.death.connect(_on_death)
+
+func _on_death() -> void:
+	pass
 
 func search_grapple_points(points: Array[GrapplePoint]) -> GrapplePoint:
 	var grapple_point := grapple_cone.search_for_grapple_point(points)

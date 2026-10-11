@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dtvxmu6o1o5s" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_gmlin"]
 [ext_resource type="Script" uid="uid://7auyfxeuk5gq" path="res://scenes/player/grapple_cone.gd" id="3_gmlin"]
+[ext_resource type="Script" uid="uid://fj7ykktocnh6" path="res://utilities/health_component.gd" id="4_lvxji"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lvxji"]
 size = Vector2(64, 64)
@@ -11,12 +12,13 @@ size = Vector2(64, 64)
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="Player" type="CharacterBody2D" unique_id=1594943802 node_paths=PackedStringArray("grapple_cone", "grapple_ray", "grapple_visual")]
+[node name="Player" type="CharacterBody2D" unique_id=1594943802 node_paths=PackedStringArray("grapple_cone", "grapple_ray", "grapple_visual", "health_component")]
 collision_layer = 2
 script = ExtResource("1_dovo2")
 grapple_cone = NodePath("GrappleCone")
 grapple_ray = NodePath("RayCast2D")
 grapple_visual = NodePath("Line2D")
+health_component = NodePath("HealthComponent")
 metadata/_edit_group_ = true
 
 [node name="Line2D" type="Line2D" parent="." unique_id=725335474]
@@ -50,3 +52,10 @@ angle_penalty_falloff = SubResource("Curve_gmlin")
 polygon = PackedVector2Array(0, 0, 229.66399, -554.30536, 456.26633, -389.6422, 583.4247, -140.05588, 583.4247, 140.05588, 456.26633, 389.6422, 229.66399, 554.30536)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=756565011]
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1430402067 node_paths=PackedStringArray("target")]
+script = ExtResource("4_lvxji")
+health = 100.0
+max_health = 100.0
+target = NodePath("..")
+metadata/_custom_type_script = "uid://fj7ykktocnh6"
