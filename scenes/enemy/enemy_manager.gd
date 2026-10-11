@@ -14,7 +14,6 @@ func _ready() -> void:
 
 func _on_enemy_highlight(e:Enemy) -> void:
 	if e == highlighted_enemy or e == null: return
-	print("Highlighted: %s" % e)
 	if highlighted_enemy != null:
 		highlighted_enemy.highlight(false)
 	e.highlight(true)
