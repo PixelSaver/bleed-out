@@ -27,6 +27,10 @@ player_movement_component = NodePath("PlayerMovementComponent")
 metadata/_custom_type_script = "uid://dtvxmu6o1o5s"
 metadata/_edit_group_ = true
 
+[node name="Line2D" type="Line2D" parent="." unique_id=725335474]
+visible = false
+default_color = Color(0.576471, 0, 0, 1)
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1215173214]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gmlin")
@@ -64,17 +68,13 @@ end_cap_mode = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=756565011]
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1430402067 node_paths=PackedStringArray("target")]
+[node name="HealthComponent" type="Node" parent="." unique_id=1430402067]
 script = ExtResource("4_lvxji")
 health = 100.0
 max_health = 100.0
-target = NodePath("")
 metadata/_custom_type_script = "uid://fj7ykktocnh6"
 
-[node name="PlayerMovementComponent" type="Node" parent="." unique_id=1393850491]
+[node name="PlayerMovementComponent" type="Node" parent="." unique_id=1393850491 node_paths=PackedStringArray("grapple_visual")]
 script = ExtResource("5_p47bc")
+grapple_visual = NodePath("../Line2D")
 metadata/_custom_type_script = "uid://dxokftqplcdj8"
-
-[node name="Line2D" type="Line2D" parent="PlayerMovementComponent" unique_id=725335474]
-visible = false
-default_color = Color(0.576471, 0, 0, 1)
