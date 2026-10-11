@@ -12,11 +12,14 @@ extends CharacterBody2D
 @export var gravity = 1000.0
 @export var drift_speed = 500.0
 @export var max_drift = 300.0
+
 @export var momentum_cheat = 0.0 # 0.5
 @export var damp_transfer = 1.0 # 0.5
 @export var min_swing_speed = 700.0
 @export var max_angular_vel = 20.0
-#@export var min_angular_vel = 3.0
+@export var release_boost_normal = 100.0
+@export var release_boost_tangent = 200.0
+
 @export var min_rope_len = 100.0
 @export var min_grapple_dist = 100.0
 @export var spring_strength = 100.0
@@ -66,7 +69,9 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_released("grapple") or get_slide_collision_count() > 0:
 			if rope_taut:
 				# Proper velocity when releasing grapple
-				velocity = (radial_vel * Vector2(cos(grapple_angle), sin(grapple_angle)) + grapple_dist * angular_vel * Vector2(-sin(grapple_angle), cos(grapple_angle)))
+				velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
+							+ (grapple_dist * angular_vel + release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
+				
 				rope_taut = false
 				
 			grappling = false
@@ -111,8 +116,10 @@ func _physics_process(delta: float) -> void:
 		if grapple_dist < old_dist:
 			grapple_dist = max(grapple_dist, min(min_grapple_dist, old_dist))
 		
-		# That effect where figure skaters spin faster without their arms out
+		# Apply gravity to spin
 		angular_vel += gravity * cos(grapple_angle) / grapple_dist * delta
+		
+		# That effect where figure skaters spin faster without their arms out
 		angular_vel *= (old_dist / grapple_dist) ** 2
 		
 		# Transfer damped radial energy into angular momentum
