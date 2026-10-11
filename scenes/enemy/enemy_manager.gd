@@ -3,13 +3,22 @@ extends Node2D
 class_name EnemyManager
 
 var enemies: Array[Enemy] = []
-
+var highlighted_enemy: Enemy = null
 
 func _ready() -> void:
 	Global.enemy_man = self
 	for child in get_children():
 		if child is Enemy and not enemies.has(child):
 			enemies.append(child)
+	SignalBus.highlight_enemy.connect(_on_enemy_highlight)
+
+func _on_enemy_highlight(e:Enemy) -> void:
+	if e == highlighted_enemy or e == null: return
+	print("Highlighted: %s" % e)
+	if highlighted_enemy != null:
+		highlighted_enemy.highlight(false)
+	e.highlight(true)
+	highlighted_enemy = e
 
 func get_enemies() -> Array[Enemy]:
 	return enemies

@@ -26,7 +26,7 @@ extends CharacterBody2D
 
 
 var grappling = false
-var grapple_target: Node2D
+var grapple_target: GrapplePoint
 var rope_len = 0.
 var grapple_dist = 0.
 var grapple_angle = 0.
@@ -41,10 +41,11 @@ func _ready() -> void:
 func search_grapple_points(points: Array[GrapplePoint]) -> GrapplePoint:
 	var grapple_point := grapple_cone.search_for_grapple_point(points)
 	if grapple_point == null:
+		SignalBus.highlight_enemy.emit(null)
 		return
 	var e = grapple_point.get_enemy()
 	if e != null:
-		e.modulate = Color.BLACK
+		SignalBus.highlight_enemy.emit(grapple_point.get_enemy())
 	return grapple_point
 
 func _input(event: InputEvent) -> void:
@@ -52,6 +53,8 @@ func _input(event: InputEvent) -> void:
 		grapple_cone.look_at(get_global_mouse_position())
 
 func _physics_process(delta: float) -> void:
+	grapple_target = search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
+	
 	# Handle grapple/ungrapple
 	if grappling:
 		# Ungrappling if you let go of the button or hit some terrain
@@ -68,7 +71,6 @@ func _physics_process(delta: float) -> void:
 			grapple_visual.visible = false
 	else:
 		if Input.is_action_just_pressed("grapple"):
-			grapple_target = search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
 			if grapple_target:
 				var grapple_offset = global_position - grapple_target.global_position
 				grapple_dist = grapple_offset.length()

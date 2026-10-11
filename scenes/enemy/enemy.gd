@@ -7,9 +7,5 @@ class_name Enemy
 func get_grapple_pos() -> GrapplePoint:
 	return grapple_point.get_grapple_pos() if grapple_point else null
 
-func _process(delta: float) -> void:
-	if modulate != Color.WHITE:
-		call_deferred("reset_col")
-
-func reset_col() -> void:
-	self_modulate = Color.WHITE
+func highlight(do_highlight:bool) -> void:
+	$ColorRect.color.a = 0.4 if do_highlight else 0.0

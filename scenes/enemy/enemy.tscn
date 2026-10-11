@@ -1,20 +1,8 @@
 [gd_scene format=3 uid="uid://1pcpqa3u0tdt"]
 
 [ext_resource type="Script" uid="uid://df1tier0hhuyl" path="res://scenes/enemy/enemy.gd" id="1_4a83h"]
-[ext_resource type="Shader" uid="uid://dxhefiyfbhffg" path="res://shaders/sphere.gdshader" id="2_40wdo"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="3_tjssy"]
 [ext_resource type="Script" uid="uid://cihaphm0cdl2f" path="res://scenes/grapple/grapple_point.gd" id="4_tjssy"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gkedh"]
-shader = ExtResource("2_40wdo")
-shader_parameter/center = Vector2(0.5, 0.5)
-shader_parameter/radius = 0.5
-shader_parameter/rotation_speed_x = 0.0
-shader_parameter/rotation_speed_y = 0.3
-shader_parameter/rotation_speed_z = 0.0
-shader_parameter/rotation_offset_x = 0.0
-shader_parameter/rotation_offset_y = 0.0
-shader_parameter/rotation_offset_z = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
 radius = 32.0
@@ -28,14 +16,21 @@ freeze = true
 script = ExtResource("1_4a83h")
 grapple_point = NodePath("GrapplePoint")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=824649474]
-material = SubResource("ShaderMaterial_gkedh")
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_tjssy")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619995234]
 shape = SubResource("CircleShape2D_gkedh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=824649474]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_tjssy")
 
 [node name="GrapplePoint" type="Node2D" parent="." unique_id=1850899063]
 script = ExtResource("4_tjssy")
 metadata/_custom_type_script = "uid://cihaphm0cdl2f"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1782595555]
+offset_right = 40.0
+offset_bottom = 40.0
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(-0.5, -0.5)
+offset_transform_scale = Vector2(1.5, 1.5)
+color = Color(1, 0, 0, 0.4117647)
