@@ -33,4 +33,4 @@ offset_bottom = 40.0
 offset_transform_enabled = true
 offset_transform_position_ratio = Vector2(-0.5, -0.5)
 offset_transform_scale = Vector2(1.5, 1.5)
-color = Color(1, 0, 0, 0.4117647)
+color = Color(1, 0, 0, 0)
