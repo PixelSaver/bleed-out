@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bpo0dsawpb3qj" path="res://utilities/ui/pixel_menu_manager.gd" id="1_o5qli"]
 [ext_resource type="Theme" uid="uid://djxds56cenfds" path="res://assets/default_theme.tres" id="1_sugp2"]
-[ext_resource type="PackedScene" uid="uid://c3sd6k1wws2m6" path="res://scenes/grapple/grapple_test.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://djjpk5t0kr1x1" path="res://scenes/map/LevelTest2.tscn" id="3_sugp2"]
 
 [node name="PixelMenuManager" type="Control" unique_id=33857186]
 layout_mode = 3

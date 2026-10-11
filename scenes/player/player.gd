@@ -14,7 +14,10 @@ func _ready() -> void:
 	health_component.death.connect(_on_death)
 
 func _on_death() -> void:
-	pass
+	_respawn()
+	
+func _respawn() -> void:
+	self.global_position = Vector2(573, 607)
 
 func search_grapple_points(points: Array[GrapplePoint]) -> GrapplePoint:
 	var grapple_point := grapple_cone.search_for_grapple_point(points)
