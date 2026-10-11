@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @export_group("Nodes")
 @export var grapple_cone: GrappleCone
