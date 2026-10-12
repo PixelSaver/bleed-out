@@ -79,7 +79,7 @@ func process_movement(p:Player, delta: float) -> void:
 				pulling = true
 				pull_time = 0.0
 		else:
-			if Input.is_action_just_pressed("grapple"):
+			if Input.is_action_just_pressed("grapple") and not p.is_on_floor():
 				if temp_grapple_target:
 					grapple_target = temp_grapple_target
 					var grapple_offset = p.global_position - grapple_target.global_position

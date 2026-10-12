@@ -1,0 +1,141 @@
+[gd_scene format=3 uid="uid://ro53mlitfb72"]
+
+[ext_resource type="Script" uid="uid://dfbyeglc66ipo" path="res://scenes/start/settings_screen.gd" id="1_qhn4s"]
+[ext_resource type="Script" uid="uid://wtvudyq1wn44" path="res://scenes/start/start_menu_button.gd" id="2_82a1w"]
+
+[node name="SettingsScreen" type="Control" unique_id=375478135 node_paths=PackedStringArray("buttons")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_qhn4s")
+buttons = [NodePath("MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/Exit")]
+metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1738152873]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer" unique_id=1800877387]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel" unique_id=1787330703]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer" unique_id=119682485]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=1334398142]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Settings" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=450856124]
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[font_size=40]Settings"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Control" type="Control" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=99077461]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="Exit" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=584470528 node_paths=PackedStringArray("tweenable")]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("2_82a1w")
+tweenable = NodePath("")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/Exit" unique_id=40868084]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "X"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=1403541156]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=2143934568]
+layout_mode = 2
+
+[node name="SettingsRow" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1546839636]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/SettingsRow" unique_id=2128065599]
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "test"
+fit_content = true
+autowrap_mode = 0
+
+[node name="SettingsRow2" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=393257625]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/SettingsRow2" unique_id=1864276270]
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "test"
+fit_content = true
+autowrap_mode = 0
+
+[node name="SettingsRow3" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1555619875]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/SettingsRow3" unique_id=912400469]
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "test"
+fit_content = true
+autowrap_mode = 0
+
+[node name="SettingsRow4" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=219282287]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/SettingsRow4" unique_id=357711081]
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "test"
+fit_content = true
+autowrap_mode = 0
+
+[node name="SettingsRow5" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1974271653]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer/SettingsRow5" unique_id=863873811]
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "test"
+fit_content = true
+autowrap_mode = 0

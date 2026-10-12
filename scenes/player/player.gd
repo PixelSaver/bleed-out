@@ -7,8 +7,22 @@ class_name Player
 @export var health_component: HealthComponent
 @export var player_movement_component: PlayerMovementComponent
 @export var respawn_delay: float = 0.2
+var invinicibility_counter: float = 0.0
 
+## Set the time the player is invincible for in seconds
+func set_invincibility(time:float) -> void:
+	invinicibility_counter = time
 
+func _process(delta: float) -> void:
+	if invinicibility_counter > 0:
+		invinicibility_counter -= delta
+
+## Checks if the player is invincible
+func is_invincible() -> bool:
+	return invinicibility_counter > 0
+
+func damage(atk:Attack) -> void:
+	health_component.damage(atk)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
