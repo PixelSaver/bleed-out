@@ -7,6 +7,8 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_avisv"]
 
 [node name="DeathPlane" type="Area2D" unique_id=2126560236]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_8276u")
 starting_speed = 50.0
 
