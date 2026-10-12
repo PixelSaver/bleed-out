@@ -14,10 +14,11 @@ func _ready() -> void:
 	health_component.death.connect(_on_death)
 
 func _on_death() -> void:
-	_respawn()
+	await get_tree().create_timer(.2).timeout
+	_reload_level()
 	
-func _respawn() -> void:
-	self.global_position = Vector2(573, 607)
+func _reload_level() -> void:
+	get_tree().call_deferred("reload_current_scene")
 
 func search_grapple_points(points: Array[GrapplePoint]) -> GrapplePoint:
 	var grapple_point := grapple_cone.search_for_grapple_point(points)

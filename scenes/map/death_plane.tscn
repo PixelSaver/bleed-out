@@ -13,8 +13,8 @@ script = ExtResource("1_8276u")
 shape = SubResource("WorldBoundaryShape2D_p4ttq")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1018574356]
-position = Vector2(0, 94.75)
-scale = Vector2(800, 190.5)
+position = Vector2(9, 94.75)
+scale = Vector2(4470, 190.5)
 texture = SubResource("PlaceholderTexture2D_avisv")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
