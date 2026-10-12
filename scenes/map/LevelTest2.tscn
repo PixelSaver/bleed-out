@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cydaxb5ff3l6v" path="res://scenes/grapple/grapple_test.gd" id="1_h5d3w"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_h5d3w"]
 [ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="2_qm85a"]
+[ext_resource type="PackedScene" uid="uid://cu8jwbro0xqn8" path="res://scenes/enemy/moving_enemy.tscn" id="3_7tlvu"]
 [ext_resource type="PackedScene" uid="uid://1pcpqa3u0tdt" path="res://scenes/enemy/enemy.tscn" id="3_vhltf"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_u5kr3"]
 [ext_resource type="PackedScene" uid="uid://d35x4mdw18nyq" path="res://scenes/map/background.tscn" id="6_dtyx1"]
@@ -21,26 +22,17 @@ metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 script = ExtResource("2_qm85a")
 
-[node name="Enemy" parent="EnemyManager" unique_id=1871561913 instance=ExtResource("3_vhltf")]
-position = Vector2(412, 369)
+[node name="MovingEnemy" parent="EnemyManager" unique_id=1871561913 instance=ExtResource("3_7tlvu")]
+position = Vector2(-130, 163)
 
-[node name="Enemy2" parent="EnemyManager" unique_id=206726785 instance=ExtResource("3_vhltf")]
-position = Vector2(776, 279)
+[node name="MovingEnemy2" parent="EnemyManager" unique_id=1631169125 instance=ExtResource("3_7tlvu")]
+position = Vector2(-417, 409)
 
-[node name="Enemy3" parent="EnemyManager" unique_id=1737922587 instance=ExtResource("3_vhltf")]
-position = Vector2(307, 47)
-
-[node name="Enemy4" parent="EnemyManager" unique_id=195335146 instance=ExtResource("3_vhltf")]
-position = Vector2(1180, 123)
-
-[node name="Enemy5" parent="EnemyManager" unique_id=1312404207 instance=ExtResource("3_vhltf")]
-position = Vector2(1223, 459)
-
-[node name="Enemy6" parent="EnemyManager" unique_id=1818259750 instance=ExtResource("3_vhltf")]
-position = Vector2(88, 412)
+[node name="MovingEnemy3" parent="EnemyManager" unique_id=1977591789 instance=ExtResource("3_7tlvu")]
+position = Vector2(260, 351)
 
 [node name="Enemy7" parent="EnemyManager" unique_id=1809148246 instance=ExtResource("3_vhltf")]
-position = Vector2(614, 113)
+position = Vector2(506, 458)
 
 [node name="Player" parent="." unique_id=1594943802 instance=ExtResource("4_u5kr3")]
 position = Vector2(573, 607)

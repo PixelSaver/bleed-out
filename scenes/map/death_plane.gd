@@ -8,6 +8,6 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		body._on_death()
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	speed += acceleration * delta
-	self.position += Vector2(0, -1 * speed * delta)
+	position.y += -1 * speed * delta

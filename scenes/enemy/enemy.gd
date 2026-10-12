@@ -4,7 +4,6 @@ class_name Enemy
 @export var grapple_point: GrapplePoint
 @export var health_component: HealthComponent
 
-
 func _ready() -> void:
 	health_component.death.connect(_on_death)
 
