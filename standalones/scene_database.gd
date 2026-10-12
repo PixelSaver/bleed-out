@@ -3,11 +3,15 @@ extends Node
 const DEFAULT_SCENE = Scene.START
 enum Scene {
 	START,
-	TWEENABLE_SHOWCASE,
+	SETTINGS,
+	GRAPPLE_TEST,
+	GAME,
 }
 
 var scenes = {
-	#Scene.START: preload("res://scenes/examples/start_screen.tscn"),
+	Scene.START: preload("res://scenes/start/start_screen.tscn"),
+	Scene.SETTINGS: preload("res://scenes/start/settings_screen.tscn"),
+	Scene.GRAPPLE_TEST: preload("res://scenes/grapple/grapple_test.tscn"),
 	#Scene.TWEENABLE_SHOWCASE: preload("res://scenes/examples/tweenable_showcase.tscn"),
 }
 func get_scene(scene:Scene) -> PackedScene:
