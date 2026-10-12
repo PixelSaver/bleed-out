@@ -8,6 +8,7 @@
 
 [node name="DeathPlane" type="Area2D" unique_id=2126560236]
 script = ExtResource("1_8276u")
+starting_speed = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=426851509]
 shape = SubResource("WorldBoundaryShape2D_p4ttq")

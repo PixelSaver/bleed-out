@@ -6,6 +6,7 @@ class_name Player
 @export var grapple_ray: RayCast2D
 @export var health_component: HealthComponent
 @export var player_movement_component: PlayerMovementComponent
+@export var respawn_delay: float = 0.2
 
 
 
@@ -14,7 +15,7 @@ func _ready() -> void:
 	health_component.death.connect(_on_death)
 
 func _on_death() -> void:
-	await get_tree().create_timer(.2).timeout
+	await get_tree().create_timer(respawn_delay).timeout
 	_reload_level()
 	
 func _reload_level() -> void:
