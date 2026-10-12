@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="2_qm85a"]
 [ext_resource type="PackedScene" uid="uid://1pcpqa3u0tdt" path="res://scenes/enemy/enemy.tscn" id="3_vhltf"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_u5kr3"]
-[ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="7_7tlvu"]
+[ext_resource type="PackedScene" uid="uid://d35x4mdw18nyq" path="res://scenes/map/background.tscn" id="6_dtyx1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dtyx1"]
 size = Vector2(2246, 147)
@@ -45,6 +45,8 @@ position = Vector2(614, 113)
 [node name="Player" parent="." unique_id=1594943802 instance=ExtResource("4_u5kr3")]
 position = Vector2(573, 607)
 
+[node name="Parallax2D" parent="." unique_id=1080239753 instance=ExtResource("6_dtyx1")]
+
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1028182488]
 position = Vector2(587, 652)
 
@@ -56,12 +58,3 @@ shape = SubResource("RectangleShape2D_dtyx1")
 position = Vector2(-4, 70)
 scale = Vector2(17.603748, -1.0802966)
 texture = ExtResource("2_h5d3w")
-
-[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1965934539]
-z_index = -10
-repeat_size = Vector2(0, 931)
-repeat_times = 4
-
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=915300473]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_7tlvu")
