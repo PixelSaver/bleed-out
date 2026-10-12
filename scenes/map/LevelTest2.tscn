@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="2_qm85a"]
 [ext_resource type="PackedScene" uid="uid://1pcpqa3u0tdt" path="res://scenes/enemy/enemy.tscn" id="3_vhltf"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_u5kr3"]
+[ext_resource type="PackedScene" uid="uid://dq3musfjnhddb" path="res://scenes/map/death_plane.tscn" id="6_7tlvu"]
 [ext_resource type="PackedScene" uid="uid://d35x4mdw18nyq" path="res://scenes/map/background.tscn" id="6_dtyx1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dtyx1"]
@@ -46,6 +47,11 @@ position = Vector2(614, 113)
 position = Vector2(573, 607)
 
 [node name="Parallax2D" parent="." unique_id=1080239753 instance=ExtResource("6_dtyx1")]
+
+[node name="DeathPlane" parent="." unique_id=2126560236 instance=ExtResource("6_7tlvu")]
+position = Vector2(9, 1049)
+collision_layer = 3
+collision_mask = 3
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1028182488]
 position = Vector2(587, 652)
