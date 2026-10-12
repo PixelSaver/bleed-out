@@ -15,7 +15,8 @@ func _on_button_pressed(_name:String) -> void:
 	match _name.to_lower():
 		"play":
 			#var game_scene = SceneDatabase.get_scene(SceneDatabase.Scene.GAME)
-			var game_scene = SceneDatabase.get_scene(SceneDatabase.Scene.GRAPPLE_TEST)
+			#var game_scene = SceneDatabase.get_scene(SceneDatabase.Scene.GRAPPLE_TEST)
+			var game_scene = SceneDatabase.get_scene(SceneDatabase.Scene.LEVEL_TEST_2)
 			Global.menu_manager.transition_to_scene(game_scene)
 			pass
 		"settings":

@@ -56,12 +56,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 
-[node name="Exit" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=584470528 node_paths=PackedStringArray("tweenable")]
+[node name="Exit" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=584470528]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 mouse_filter = 1
 script = ExtResource("2_82a1w")
-tweenable = NodePath("")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/Exit" unique_id=40868084]
 layout_mode = 1
