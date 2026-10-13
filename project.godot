@@ -38,6 +38,10 @@ folder_colors={
 "res://utilities/": "teal"
 }
 
+[global_group]
+
+Player=""
+
 [gui]
 
 theme/custom="uid://djxds56cenfds"
