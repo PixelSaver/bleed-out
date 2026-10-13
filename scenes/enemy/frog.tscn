@@ -8,19 +8,34 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
 radius = 32.0
 
-[node name="Frog" type="RigidBody2D" unique_id=322635485 node_paths=PackedStringArray("grapple_point", "health_component")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_plx5h"]
+radius = 300.0
+
+[node name="Frog" type="RigidBody2D" unique_id=322635485 node_paths=PackedStringArray("shot_range", "grapple_point", "health_component")]
 collision_layer = 2
 sleeping = true
 can_sleep = false
 lock_rotation = true
 freeze = true
 script = ExtResource("1_iwf47")
+shot_range = NodePath("ShotRange")
+shot_cooldown = 2.0
+projectile_speed = 500.0
+projectile_lifetime = 5.0
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619995234]
 shape = SubResource("CircleShape2D_gkedh")
+
+[node name="ShotRange" type="Area2D" parent="." unique_id=325495681]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShotRange" unique_id=362891713]
+shape = SubResource("CircleShape2D_plx5h")
+debug_color = Color(0, 0.88235295, 0.3372549, 0.41960785)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=824649474]
 scale = Vector2(0.5, 0.5)
@@ -67,3 +82,4 @@ text = "Frog"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+metadata/_edit_use_anchors_ = true

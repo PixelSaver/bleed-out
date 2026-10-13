@@ -53,8 +53,6 @@ func charge(p_ref: Player) -> void:
 	if _charge_cooldown_timer > 0: 
 		return
 	_charge_cooldown_timer = charge_cooldown
-	#DEBUG
-	print("Charging")
 	# play the windup animation
 	await get_tree().create_timer(charge_delay).timeout # could also just await animation.finished
 	# charge at player
