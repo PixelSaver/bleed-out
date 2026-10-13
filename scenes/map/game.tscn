@@ -40,7 +40,7 @@ position = Vector2(945, 332)
 position = Vector2(573, 607)
 camera_bounds = Vector2(-688, 688)
 
-[node name="BouncyPlatform" parent="." unique_id=1957531346 instance=ExtResource("6_xn2fb")]
-position = Vector2(0, 772)
-
 [node name="ParallaxBG" parent="." unique_id=1080239753 instance=ExtResource("5_y2cri")]
+
+[node name="BouncyPlatform" parent="." unique_id=744172332 instance=ExtResource("6_xn2fb")]
+position = Vector2(17, 969)
