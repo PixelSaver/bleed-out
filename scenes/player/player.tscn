@@ -24,7 +24,6 @@ grapple_cone = NodePath("GrappleCone")
 grapple_ray = NodePath("RayCast2D")
 health_component = NodePath("HealthComponent")
 player_movement_component = NodePath("PlayerMovementComponent")
-respawn_delay = null
 metadata/_custom_type_script = "uid://dtvxmu6o1o5s"
 metadata/_edit_group_ = true
 

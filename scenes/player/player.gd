@@ -29,6 +29,7 @@ func damage(atk:Attack) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.player_ref = self
 	health_component.death.connect(_on_death)
 	camera_2d.limit_left = camera_bounds.x
 	camera_2d.limit_right = camera_bounds.y

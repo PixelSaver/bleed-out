@@ -1,11 +1,18 @@
 extends Enemy
+class_name GoblinEnemy
 
-@export var speed: float = 10
 
 var direction = 1
 
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
+
+func _on_death() -> void:
+	pass
+
+func highlight(do_highlight:bool) -> void:
+	super(do_highlight)
+	pass
 
 func _process(delta: float) -> void:
 	if ray_cast_right.is_colliding():

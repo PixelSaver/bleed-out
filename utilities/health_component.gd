@@ -19,6 +19,7 @@ signal death()
 		if val != max_health:
 			max_health = val
 			health_changed.emit(health, max_health)
+@export var invulnerable: bool = false
 ## The node (player/enemy) to own this health bar. If this is
 ## not set, the node will automatically use it's direct parent
 ## if it's a RigidBody2D
@@ -44,6 +45,7 @@ func damage(atk: Attack):
 		call_deferred("_process_pending_damage")
 
 func _process_pending_damage() -> void:
+	if invulnerable: return
 	var tot_damage := 0.0
 	for atk in _pending_atks:
 		tot_damage += atk.damage

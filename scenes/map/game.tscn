@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://djjpk5t0kr1x1"]
+
+[ext_resource type="Script" uid="uid://cydaxb5ff3l6v" path="res://scenes/grapple/grapple_test.gd" id="1_xn2fb"]
+[ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="2_lclk0"]
+[ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_x7wrf"]
+[ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
+[ext_resource type="PackedScene" uid="uid://d35x4mdw18nyq" path="res://scenes/map/background.tscn" id="5_y2cri"]
+[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dtyx1"]
+size = Vector2(2246, 147)
+
+[node name="GrappleTest" type="Control" unique_id=1629713699]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_xn2fb")
+metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
+
+[node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
+script = ExtResource("2_lclk0")
+
+[node name="Goblin" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("3_x7wrf")]
+position = Vector2(250, 416)
+
+[node name="Goblin2" parent="EnemyManager" unique_id=1654437092 instance=ExtResource("3_x7wrf")]
+position = Vector2(541, 346)
+
+[node name="Goblin3" parent="EnemyManager" unique_id=854186910 instance=ExtResource("3_x7wrf")]
+position = Vector2(843, 165)
+
+[node name="Goblin4" parent="EnemyManager" unique_id=50049259 instance=ExtResource("3_x7wrf")]
+position = Vector2(193, 109)
+
+[node name="Goblin5" parent="EnemyManager" unique_id=1948541004 instance=ExtResource("3_x7wrf")]
+position = Vector2(626, 79)
+
+[node name="Goblin6" parent="EnemyManager" unique_id=1811540997 instance=ExtResource("3_x7wrf")]
+position = Vector2(945, 332)
+
+[node name="Player" parent="." unique_id=1594943802 instance=ExtResource("4_1pbiu")]
+position = Vector2(573, 607)
+camera_bounds = Vector2(-688, 688)
+
+[node name="ParallaxBG" parent="." unique_id=1080239753 instance=ExtResource("5_y2cri")]
+scroll_offset = Vector2(234, 139)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1028182488]
+position = Vector2(587, 652)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1149386952]
+position = Vector2(-5, 72.5)
+shape = SubResource("RectangleShape2D_dtyx1")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1592227356]
+position = Vector2(-4, 70)
+scale = Vector2(17.603748, -1.0802966)
+texture = ExtResource("6_sd4cy")
