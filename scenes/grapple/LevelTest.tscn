@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="1_753qe"]
 [ext_resource type="Script" uid="uid://dtvxmu6o1o5s" path="res://scenes/player/player.gd" id="1_fwg13"]
-[ext_resource type="PackedScene" uid="uid://cyf2hd4ljp631" path="res://scenes/grapple/grapple_point.tscn" id="3_j6xcq"]
+[ext_resource type="PackedScene" uid="uid://b11srvd4oom4b" path="res://scenes/grapple/grapple_point.tscn" id="3_j6xcq"]
 [ext_resource type="Script" uid="uid://dvqvjwi36wi03" path="res://scenes/grapple/grapple_manager.gd" id="3_x55vw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cw781"]
@@ -13,12 +13,11 @@ size = Vector2(128, 128)
 
 [node name="Node2D" type="Node2D" unique_id=1845428300]
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=206606452 node_paths=PackedStringArray("grapple_ray", "grapple_visual")]
+[node name="Player" type="CharacterBody2D" parent="." unique_id=206606452 node_paths=PackedStringArray("grapple_ray")]
 position = Vector2(0, 237)
 collision_layer = 2
 script = ExtResource("1_fwg13")
 grapple_ray = NodePath("RayCast2D")
-grapple_visual = NodePath("Line2D")
 metadata/_edit_group_ = true
 
 [node name="Line2D" type="Line2D" parent="Player" unique_id=239085776]

@@ -3,7 +3,7 @@ class_name Player
 
 @export_group("Nodes")
 @export var grapple_cone: GrappleCone
-@export var grapple_ray: RayCast2D
+@export var parry_hitbox: Area2D
 @export var health_component: HealthComponent
 @export var player_movement_component: PlayerMovementComponent
 

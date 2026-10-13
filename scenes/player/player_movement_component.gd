@@ -3,16 +3,23 @@ class_name PlayerMovementComponent
 
 @export var grapple_visual: Line2D
 @export_group("Player Movement Tweaks")
-## Speed at which player walks (duh)
+## Speed at which player walks (gonna be deleted)
 @export var walk_speed = 5000.0
+## Friction at which player fricts (gonna be deleted)
 @export var friction = 8.0
+## Power at which player jumps (gonna be deleted)
 @export var jump_power = -1000.0
+## Constant downwards acceleration (units per second^2)
 @export var gravity = 1000.0
+## Air drift acceleration (units per second^2)
 @export var drift_speed = 500.0
+## Speed cap when only air drifting (units per second)
 @export var max_drift = 300.0
 
+## Amount of towards-momentum converted to angular momentum upon starting grapple (experimental, probably deleting)
 @export var momentum_cheat = 0.0 # 0.5
-@export var damp_transfer = 1.0 # 0.5
+
+@export var damp_transfer = 0.5 # 0.5
 @export var min_swing_speed = 700.0
 @export var max_angular_vel = 20.0
 @export var release_boost_normal = 100.0
@@ -24,6 +31,9 @@ class_name PlayerMovementComponent
 @export var spring_damping = 3.0
 @export var pull_power = 250.0
 @export var pull_duration = 0.25
+
+@export var parry_duration = 0.1
+@export var parry_strength = 500
 
 @export var line_width = 10.0
 @export var max_line_squish = 2.0
@@ -40,6 +50,8 @@ var pull_time
 var pull_vel
 var pull_start_point
 var rope_taut = false
+var parrying = false
+var parry_time
 
 func process_movement(p:Player, delta: float) -> void:
 	var temp_grapple_target = p.search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
@@ -79,14 +91,29 @@ func process_movement(p:Player, delta: float) -> void:
 				pulling = true
 				pull_time = 0.0
 		else:
-			if Input.is_action_just_pressed("grapple"):
-				if temp_grapple_target:
-					grapple_target = temp_grapple_target
-					var grapple_offset = p.global_position - grapple_target.global_position
-					rope_len = max(grapple_offset.length(), min_rope_len)
-					
-					grappling = true
-					grapple_visual.visible = true
+			if parrying:
+				var hit_enemies = p.parry_hitbox.get_overlapping_bodies()
+				if hit_enemies:
+					for enemy in hit_enemies:
+						# Enemy takes damage here
+						pass
+					p.velocity.y = min(0, p.velocity.y) - parry_strength
+					parrying = false
+				parry_time += delta
+				if parry_time > parry_duration:
+					parrying = false
+			else:
+				if Input.is_action_just_pressed("grapple"):
+					if temp_grapple_target:
+						grapple_target = temp_grapple_target
+						var grapple_offset = p.global_position - grapple_target.global_position
+						rope_len = max(grapple_offset.length(), min_rope_len)
+						
+						grappling = true
+						grapple_visual.visible = true
+				elif Input.is_action_just_pressed("attack"):
+					parrying = true
+					parry_time = 0.0
 		
 		if rope_taut:
 			# Radial velocity for the frame
