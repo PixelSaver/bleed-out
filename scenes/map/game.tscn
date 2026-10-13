@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cydaxb5ff3l6v" path="res://scenes/grapple/grapple_test.gd" id="1_xn2fb"]
 [ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="2_lclk0"]
+[ext_resource type="PackedScene" uid="uid://fxfrd8x7u21v" path="res://scenes/enemy/mosquito.tscn" id="3_lclk0"]
 [ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_x7wrf"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
 [ext_resource type="PackedScene" uid="uid://d35x4mdw18nyq" path="res://scenes/map/background.tscn" id="5_y2cri"]
@@ -20,6 +21,8 @@ metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 script = ExtResource("2_lclk0")
+
+[node name="Mosquito" parent="EnemyManager" unique_id=1063827371 instance=ExtResource("3_lclk0")]
 
 [node name="Goblin" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("3_x7wrf")]
 position = Vector2(250, 416)
