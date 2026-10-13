@@ -33,7 +33,8 @@ class_name PlayerMovementComponent
 @export var pull_duration = 0.25
 
 @export var parry_duration = 0.1
-@export var parry_strength = 500
+@export var parry_strength = 300
+@export var parry_min = -500
 
 @export var line_width = 10.0
 @export var max_line_squish = 2.0
@@ -97,7 +98,7 @@ func process_movement(p:Player, delta: float) -> void:
 					for enemy in hit_enemies:
 						# Enemy takes damage here
 						pass
-					p.velocity.y = min(0, p.velocity.y) - parry_strength
+					p.velocity.y = min(parry_min, p.velocity.y - parry_strength)
 					parrying = false
 				parry_time += delta
 				if parry_time > parry_duration:
