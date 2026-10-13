@@ -17,11 +17,14 @@ point_count = 2
 _data = [Vector2(0, 0.50209206), 0.0, 0.0, 0, 0, Vector2(0.50399995, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.50209206), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("grapple_cone", "grapple_ray", "health_component", "player_movement_component")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ym6xy"]
+radius = 62.649822
+
+[node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("grapple_cone", "parry_hitbox", "health_component", "player_movement_component")]
 collision_layer = 2
 script = ExtResource("1_dovo2")
 grapple_cone = NodePath("GrappleCone")
-grapple_ray = NodePath("RayCast2D")
+parry_hitbox = NodePath("ParryHitbox")
 health_component = NodePath("HealthComponent")
 player_movement_component = NodePath("PlayerMovementComponent")
 metadata/_custom_type_script = "uid://dtvxmu6o1o5s"
@@ -38,15 +41,11 @@ texture = ExtResource("2_gmlin")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363614896]
 shape = SubResource("RectangleShape2D_lvxji")
 
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=710715339]
-enabled = false
-target_position = Vector2(500, 0)
-collision_mask = 4
-hit_from_inside = true
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1994130706]
 
 [node name="GrappleCone" type="Area2D" parent="." unique_id=365779222 node_paths=PackedStringArray("cone_col")]
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("3_gmlin")
 cone_col = NodePath("CollisionShape2D")
 cone_radius = 600
@@ -78,3 +77,10 @@ metadata/_custom_type_script = "uid://fj7ykktocnh6"
 script = ExtResource("5_p47bc")
 grapple_visual = NodePath("../Line2D")
 metadata/_custom_type_script = "uid://dxokftqplcdj8"
+
+[node name="ParryHitbox" type="Area2D" parent="." unique_id=911363471]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParryHitbox" unique_id=532882388]
+shape = SubResource("CircleShape2D_ym6xy")
