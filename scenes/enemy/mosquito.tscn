@@ -30,11 +30,10 @@ texture = ExtResource("2_44ico")
 script = ExtResource("3_bcidh")
 metadata/_custom_type_script = "uid://cihaphm0cdl2f"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1465637310 node_paths=PackedStringArray("target")]
+[node name="HealthComponent" type="Node" parent="." unique_id=1465637310]
 script = ExtResource("4_gnjs4")
 health = 1.0
 max_health = 1.0
-target = NodePath("")
 metadata/_custom_type_script = "uid://fj7ykktocnh6"
 
 [node name="MosquitoCOLORPROTOTYPE" type="ColorRect" parent="." unique_id=741564818]
