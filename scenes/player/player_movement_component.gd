@@ -41,9 +41,9 @@ class_name PlayerMovementComponent
 
 var grappling = false
 var grapple_target: GrapplePoint
-var rope_len = 0.
-var grapple_dist = 0.
-var grapple_angle = 0.
+var rope_len = 0.0
+var grapple_dist = 0.0
+var grapple_angle = 0.0
 var angular_vel = Vector2.ZERO
 var radial_vel = Vector2.ZERO
 var pulling = false
