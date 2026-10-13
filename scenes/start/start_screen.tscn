@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://ntda7takqfc0"]
+
+[ext_resource type="Script" uid="uid://cj4pcxg1uy6" path="res://scenes/start/start_menu.gd" id="1_v2r8c"]
+[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_ltrpm"]
+[ext_resource type="Script" uid="uid://wtvudyq1wn44" path="res://scenes/start/start_menu_button.gd" id="2_v2r8c"]
+[ext_resource type="Script" uid="uid://cjmmhbp1b5312" path="res://addons/StyleboxFancy/StyleBorder.gd" id="3_5omtc"]
+[ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="4_ltrpm"]
+[ext_resource type="Script" uid="uid://b4pdlxyjxim6i" path="res://utilities/ui/tweenable.gd" id="5_caj3f"]
+
+[sub_resource type="StyleBox" id="StyleBox_gkedh"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("4_ltrpm")
+color = Color(1, 0, 0, 0.43529412)
+skew = Vector2(-0.2, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
+[node name="StartMenu" type="Control" unique_id=44145697 node_paths=PackedStringArray("buttons")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_v2r8c")
+buttons = [NodePath("HBoxContainer/RightSide/ButtonContainer/Play"), NodePath("HBoxContainer/RightSide/ButtonContainer/Settings")]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1106035721]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PROTOTYPE" type="Control" parent="HBoxContainer" unique_id=470423109]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.75
+
+[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/PROTOTYPE" unique_id=207094451]
+position = Vector2(274, 366)
+rotation = -0.5808028
+texture = ExtResource("2_ltrpm")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/PROTOTYPE" unique_id=1446098887]
+clip_contents = false
+layout_mode = 0
+offset_left = 150.0
+offset_top = 434.0
+offset_right = 418.0
+offset_bottom = 503.0
+bbcode_enabled = true
+text = "[font_size=50][tornado][rainbow]bro  is  fallin"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Line2D" type="Line2D" parent="HBoxContainer/PROTOTYPE" unique_id=1786470921]
+position = Vector2(9, 30)
+points = PackedVector2Array(173, 195, 170, 85)
+
+[node name="Line2D2" type="Line2D" parent="HBoxContainer/PROTOTYPE" unique_id=577494942]
+position = Vector2(135, 44)
+points = PackedVector2Array(173, 195, 170, 85)
+
+[node name="Line2D3" type="Line2D" parent="HBoxContainer/PROTOTYPE" unique_id=276883253]
+position = Vector2(188, 104)
+points = PackedVector2Array(173, 195, 170, 85)
+
+[node name="Line2D4" type="Line2D" parent="HBoxContainer/PROTOTYPE" unique_id=1798871204]
+position = Vector2(70, 79)
+points = PackedVector2Array(173, 195, 170, 85)
+
+[node name="Line2D5" type="Line2D" parent="HBoxContainer/PROTOTYPE" unique_id=114850244]
+position = Vector2(159, -52)
+points = PackedVector2Array(173, 195, 170, 85)
+
+[node name="Line2D6" type="Line2D" parent="HBoxContainer/PROTOTYPE" unique_id=1324397568]
+position = Vector2(89, -76)
+points = PackedVector2Array(173, 195, 170, 85)
+
+[node name="RightSide" type="VBoxContainer" parent="HBoxContainer" unique_id=2047291902]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/RightSide" unique_id=2066984790]
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[font_size=100]Bleed Out"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonContainer" type="VBoxContainer" parent="HBoxContainer/RightSide" unique_id=897704993]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Play" type="Button" parent="HBoxContainer/RightSide/ButtonContainer" unique_id=1833676874 node_paths=PackedStringArray("tweenable")]
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("2_v2r8c")
+tweenable = NodePath("MarginContainer/Panel/Tweenable")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/RightSide/ButtonContainer/Play" unique_id=1890736664]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="HBoxContainer/RightSide/ButtonContainer/Play/MarginContainer" unique_id=1926065338]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(700, 0)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_gkedh")
+
+[node name="Tweenable" type="Node" parent="HBoxContainer/RightSide/ButtonContainer/Play/MarginContainer/Panel" unique_id=324811352]
+script = ExtResource("5_caj3f")
+tween_value = 1.0
+direction = Vector2(1, 0)
+distance = 700.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/RightSide/ButtonContainer/Play" unique_id=1317988937]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Play"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" type="Button" parent="HBoxContainer/RightSide/ButtonContainer" unique_id=410749898 node_paths=PackedStringArray("tweenable")]
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("2_v2r8c")
+tweenable = NodePath("MarginContainer/Panel/Tweenable")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/RightSide/ButtonContainer/Settings" unique_id=137255618]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="HBoxContainer/RightSide/ButtonContainer/Settings/MarginContainer" unique_id=280241332]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(700, 0)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_gkedh")
+
+[node name="Tweenable" type="Node" parent="HBoxContainer/RightSide/ButtonContainer/Settings/MarginContainer/Panel" unique_id=1506112167]
+script = ExtResource("5_caj3f")
+tween_value = 1.0
+direction = Vector2(1, 0)
+distance = 700.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/RightSide/ButtonContainer/Settings" unique_id=722085797]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Settings"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://d35x4mdw18nyq"]
+
+[ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="1_0o812"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p4ttq"]
+normal = Vector2(1, 0)
+distance = -688.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f8y6e"]
+normal = Vector2(-1, 0)
+distance = -688.0
+
+[node name="ParallaxBG" type="Parallax2D" unique_id=1080239753]
+z_index = -10
+repeat_size = Vector2(0, 931)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1135742387]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_0o812")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=717183316]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1932603553]
+shape = SubResource("WorldBoundaryShape2D_p4ttq")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=998670372]
+shape = SubResource("WorldBoundaryShape2D_f8y6e")

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dq3musfjnhddb"]
+
+[ext_resource type="Script" uid="uid://db558cs6e5m4l" path="res://scenes/map/death_plane.gd" id="1_8276u"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p4ttq"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_avisv"]
+
+[node name="DeathPlane" type="Area2D" unique_id=2126560236]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_8276u")
+starting_speed = 50.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=426851509]
+shape = SubResource("WorldBoundaryShape2D_p4ttq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1018574356]
+position = Vector2(9, 94.75)
+scale = Vector2(4470, 190.5)
+texture = SubResource("PlaceholderTexture2D_avisv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
