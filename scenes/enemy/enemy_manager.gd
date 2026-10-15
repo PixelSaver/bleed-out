@@ -5,6 +5,14 @@ class_name EnemyManager
 var enemies: Array[Enemy] = []
 var highlighted_enemy: Enemy = null
 
+@export var difficulty_scaling: float = 0.5
+@export var spawn_radius: float = 40
+@export var despawn_radius: float = 80
+@export var spawn_block_size: float = 5
+
+var top_zone: SpawnZone
+var bot_zone: SpawnZone
+
 #region Scene loading
 enum EnemyType {
 	GOBLIN,
@@ -91,3 +99,8 @@ func get_closest_grapple(global_player_position:Vector2) -> Enemy:
 			out.global_position.distance_to(global_player_position):
 				out = grapple
 	return out if out != null else null
+
+class SpawnZone:
+	var previous: SpawnZone
+	var next: SpawnZone
+	var index: int

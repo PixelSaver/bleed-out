@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var bounce_power: float
+@export var bounce_power: float = 1000
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
