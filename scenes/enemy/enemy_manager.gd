@@ -48,8 +48,6 @@ func _input(event: InputEvent) -> void:
 		var scene = get_enemy_scene(type)
 		var e = scene.instantiate() as Enemy
 		register_enemy(e)
-		#DEBUG
-		print("Spawned type: %s" % EnemyType.keys()[type])
 		e.global_position = Global.player_ref.global_position
 
 #endregion

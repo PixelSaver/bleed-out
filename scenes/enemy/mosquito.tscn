@@ -8,13 +8,19 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
 radius = 32.0
 
-[node name="Mosquito" type="RigidBody2D" unique_id=1063827371 node_paths=PackedStringArray("grapple_point", "health_component")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_plx5h"]
+radius = 250.0
+
+[node name="Mosquito" type="RigidBody2D" unique_id=1063827371 node_paths=PackedStringArray("charge_range", "grapple_point", "health_component")]
 collision_layer = 2
-sleeping = true
+mass = 10.0
+gravity_scale = 0.0
 can_sleep = false
 lock_rotation = true
-freeze = true
+linear_damp = 3.0
 script = ExtResource("1_rt4yc")
+charge_range = NodePath("ChargeRange")
+charge_strength = 15000.0
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
@@ -30,11 +36,10 @@ texture = ExtResource("2_44ico")
 script = ExtResource("3_bcidh")
 metadata/_custom_type_script = "uid://cihaphm0cdl2f"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1465637310 node_paths=PackedStringArray("target")]
+[node name="HealthComponent" type="Node" parent="." unique_id=1465637310]
 script = ExtResource("4_gnjs4")
 health = 1.0
 max_health = 1.0
-target = NodePath("")
 metadata/_custom_type_script = "uid://fj7ykktocnh6"
 
 [node name="MosquitoCOLORPROTOTYPE" type="ColorRect" parent="." unique_id=741564818]
@@ -65,3 +70,10 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ChargeRange" type="Area2D" parent="." unique_id=432366477]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChargeRange" unique_id=2026020791]
+shape = SubResource("CircleShape2D_plx5h")
