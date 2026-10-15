@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://b53fs55duhohl"]
+
+[ext_resource type="Script" uid="uid://xobrv3t4bxwy" path="res://scenes/enemy/projectile/frog_projectile.gd" id="1_dg23v"]
+[ext_resource type="Shader" uid="uid://dxhefiyfbhffg" path="res://shaders/sphere.gdshader" id="3_s3or7"]
+[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="4_jta6b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gkedh"]
+shader = ExtResource("3_s3or7")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/radius = 0.5
+shader_parameter/rotation_speed_x = 0.0
+shader_parameter/rotation_speed_y = 0.3
+shader_parameter/rotation_speed_z = 0.0
+shader_parameter/rotation_offset_x = 0.0
+shader_parameter/rotation_offset_y = 0.0
+shader_parameter/rotation_offset_z = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
+radius = 20.0
+
+[node name="FrogProjectile" type="Area2D" unique_id=1754922851]
+script = ExtResource("1_dg23v")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1670615287]
+material = SubResource("ShaderMaterial_gkedh")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_jta6b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1638454726]
+shape = SubResource("CircleShape2D_gkedh")

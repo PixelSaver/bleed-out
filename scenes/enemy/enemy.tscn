@@ -30,17 +30,17 @@ texture = ExtResource("3_tjssy")
 script = ExtResource("4_tjssy")
 metadata/_custom_type_script = "uid://cihaphm0cdl2f"
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1782595555]
-offset_right = 40.0
-offset_bottom = 40.0
-offset_transform_enabled = true
-offset_transform_position_ratio = Vector2(-0.5, -0.5)
-offset_transform_scale = Vector2(1.5, 1.5)
-color = Color(1, 0, 0, 0)
-
 [node name="HealthComponent" type="Node" parent="." unique_id=1465637310 node_paths=PackedStringArray("target")]
 script = ExtResource("4_gl05p")
 health = 1.0
 max_health = 1.0
 target = NodePath("..")
 metadata/_custom_type_script = "uid://fj7ykktocnh6"
+
+[node name="HighlightPROTOTYPE" type="ColorRect" parent="." unique_id=1098268563]
+offset_right = 40.0
+offset_bottom = 40.0
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(-0.5, -0.5)
+offset_transform_scale = Vector2(1.5, 1.5)
+color = Color(1, 0, 0, 0)

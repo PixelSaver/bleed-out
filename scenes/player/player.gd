@@ -19,6 +19,7 @@ func set_invincibility(time:float) -> void:
 func _process(delta: float) -> void:
 	if invinicibility_counter > 0:
 		invinicibility_counter -= delta
+	grapple_cone.look_at(get_global_mouse_position())
 
 ## Checks if the player is invincible
 func is_invincible() -> bool:
@@ -29,6 +30,7 @@ func damage(atk:Attack) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.player_ref = self
 	health_component.death.connect(_on_death)
 	camera_2d.limit_left = camera_bounds.x
 	camera_2d.limit_right = camera_bounds.y
@@ -50,9 +52,6 @@ func search_grapple_points(points: Array[GrapplePoint]) -> GrapplePoint:
 		SignalBus.highlight_enemy.emit(grapple_point.get_enemy())
 	return grapple_point
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		grapple_cone.look_at(get_global_mouse_position())
 
 func _physics_process(delta: float) -> void:
 	player_movement_component.process_movement(self, delta)
