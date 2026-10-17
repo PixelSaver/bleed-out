@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://cydaxb5ff3l6v" path="res://scenes/grapple/grapple_test.gd" id="1_inf4i"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="2_inf4i"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="3_cbpcd"]
+[ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_inf4i"]
 [ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="4_6x5g0"]
-[ext_resource type="PackedScene" uid="uid://1pcpqa3u0tdt" path="res://scenes/enemy/enemy.tscn" id="5_inf4i"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gkedh"]
 
-[node name="GrappleTest" type="Control" unique_id=1629713699]
+[node name="GrappleTest2" type="Control" unique_id=1629713699]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -19,29 +19,60 @@ metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 script = ExtResource("4_6x5g0")
 
-[node name="Enemy" parent="EnemyManager" unique_id=1871561913 instance=ExtResource("5_inf4i")]
-position = Vector2(412, 369)
+[node name="Goblin" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("3_inf4i")]
+position = Vector2(506, 125)
+collision_layer = 4
+speed = 0.0
 
-[node name="Enemy2" parent="EnemyManager" unique_id=206726785 instance=ExtResource("5_inf4i")]
-position = Vector2(776, 279)
+[node name="Goblin2" parent="EnemyManager" unique_id=1254432185 instance=ExtResource("3_inf4i")]
+position = Vector2(916, -228)
+collision_layer = 4
+speed = 0.0
 
-[node name="Enemy3" parent="EnemyManager" unique_id=1737922587 instance=ExtResource("5_inf4i")]
-position = Vector2(307, 47)
+[node name="Goblin3" parent="EnemyManager" unique_id=922381867 instance=ExtResource("3_inf4i")]
+position = Vector2(382, -92)
+collision_layer = 4
+speed = 0.0
 
-[node name="Enemy4" parent="EnemyManager" unique_id=195335146 instance=ExtResource("5_inf4i")]
-position = Vector2(1180, 123)
+[node name="Goblin4" parent="EnemyManager" unique_id=1643003605 instance=ExtResource("3_inf4i")]
+position = Vector2(-19, -186)
+collision_layer = 4
+speed = 0.0
 
-[node name="Enemy5" parent="EnemyManager" unique_id=1312404207 instance=ExtResource("5_inf4i")]
-position = Vector2(1223, 459)
+[node name="Goblin5" parent="EnemyManager" unique_id=2070188648 instance=ExtResource("3_inf4i")]
+position = Vector2(1190, 236)
+collision_layer = 4
+speed = 0.0
 
-[node name="Enemy6" parent="EnemyManager" unique_id=1818259750 instance=ExtResource("5_inf4i")]
-position = Vector2(88, 412)
+[node name="Goblin6" parent="EnemyManager" unique_id=1049067617 instance=ExtResource("3_inf4i")]
+position = Vector2(1447, -25)
+collision_layer = 4
+speed = 0.0
 
-[node name="Enemy7" parent="EnemyManager" unique_id=1809148246 instance=ExtResource("5_inf4i")]
-position = Vector2(614, 113)
+[node name="Goblin7" parent="EnemyManager" unique_id=1736294844 instance=ExtResource("3_inf4i")]
+position = Vector2(-128, 144)
+collision_layer = 4
+speed = 0.0
+
+[node name="Goblin8" parent="EnemyManager" unique_id=489472819 instance=ExtResource("3_inf4i")]
+position = Vector2(860, -4)
+collision_layer = 4
+speed = 0.0
+
+[node name="Goblin9" parent="EnemyManager" unique_id=1169627746 instance=ExtResource("3_inf4i")]
+position = Vector2(887, 435)
+collision_layer = 4
+speed = 0.0
+
+[node name="Goblin10" parent="EnemyManager" unique_id=1501288908 instance=ExtResource("3_inf4i")]
+position = Vector2(184, 393)
+collision_layer = 4
+speed = 0.0
 
 [node name="Player" parent="." unique_id=1594943802 instance=ExtResource("2_inf4i")]
-position = Vector2(573, 607)
+position = Vector2(573, 200)
+respawn_delay = null
+blood_drain = null
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2034782579]
 
