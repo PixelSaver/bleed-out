@@ -54,10 +54,21 @@ func normalize_weights(d: Dictionary[EnemyType, float]) -> Dictionary[EnemyType,
 	for type in EnemyType.values():
 		d.set(type, d.get(type) / t)
 	return d
+func pick_random_weight(d: Dictionary[EnemyType, float]) -> EnemyType:
+	var r = randf()
+	if r < d.get(EnemyType.EYEBALL):
+		return EnemyType.EYEBALL
+	elif r < d.get(EnemyType.EYEBALL) + d.get(EnemyType.FROG):
+		return EnemyType.EYEBALL
+	elif r < d.get(EnemyType.EYEBALL) + d.get(EnemyType.FROG) + d.get(EnemyType.MOSQUITO):
+		return EnemyType.MOSQUITO
+	else:
+		return EnemyType.GOBLIN
 	
 ## Use the player y level to modulate difficulty and stuff
-func pick_enemy_type(_y:float) -> EnemyType:
-	return EnemyType.values().pick_random()
+func pick_enemy_type(y:float) -> EnemyType:
+	var weights := get_spawn_weights(y)
+	return pick_random_weight(weights)
 
 ## Adds the enemy to the scene and registers it with the enemy manager
 func register_enemy(e:Enemy) -> void:
