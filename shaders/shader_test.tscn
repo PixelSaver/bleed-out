@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://indanqxcqfxk"]
+
+[ext_resource type="Shader" uid="uid://c4ld5frarb7xj" path="res://shaders/rings.gdshader" id="1_6c22e"]
+[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_xm5k1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y2cri"]
+shader = ExtResource("1_6c22e")
+shader_parameter/half_mode = 1
+shader_parameter/gold_color = Color(0.83, 0.61, 0.22, 1)
+shader_parameter/eye_color = Color(1, 1, 1, 1)
+shader_parameter/pupil_color = Color(0.01, 0.01, 0.01, 1)
+shader_parameter/background_alpha = 0.0
+shader_parameter/animation_speed = 1.0
+shader_parameter/ring_speed = Vector3(1, 0.42, 0.29)
+shader_parameter/use_normals = false
+shader_parameter/ring_normal_inner = Vector3(0, 0, -1)
+shader_parameter/ring_normal_middle = Vector3(0, 1, 0)
+shader_parameter/ring_normal_outer = Vector3(1, 0, 0)
+shader_parameter/ring_roll = Vector3(0, 0, 0)
+shader_parameter/ring_radius = Vector3(2.5, 3.3, 4.1)
+shader_parameter/ring_thickness = Vector3(0.1, 0.1, 0.1)
+shader_parameter/ring_height = Vector3(0.3, 0.4, 0.5)
+shader_parameter/eye_counts = Vector3i(9, 12, 16)
+shader_parameter/eye_size = 0.8530000405175
+shader_parameter/eye_flatten = 0.4
+shader_parameter/eye_offset = 0.0
+shader_parameter/show_pupils = true
+shader_parameter/pupil_size = 0.45
+shader_parameter/look_direction = Vector3(0, 0, -1)
+shader_parameter/random_look = true
+shader_parameter/random_look_spread = 0.3
+shader_parameter/random_look_rate = 3.17200015067
+shader_parameter/random_seed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v1u3e"]
+shader = ExtResource("1_6c22e")
+shader_parameter/half_mode = 2
+shader_parameter/gold_color = Color(0.83, 0.61, 0.22, 1)
+shader_parameter/eye_color = Color(1, 1, 1, 1)
+shader_parameter/pupil_color = Color(0.01, 0.01, 0.01, 1)
+shader_parameter/background_alpha = 0.0
+shader_parameter/animation_speed = 1.0
+shader_parameter/ring_speed = Vector3(1, 0.42, 0.29)
+shader_parameter/use_normals = false
+shader_parameter/ring_normal_inner = Vector3(0, 0, -1)
+shader_parameter/ring_normal_middle = Vector3(0, 1, 0)
+shader_parameter/ring_normal_outer = Vector3(1, 0, 0)
+shader_parameter/ring_roll = Vector3(0, 0, 0)
+shader_parameter/ring_radius = Vector3(2.5, 3.3, 4.1)
+shader_parameter/ring_thickness = Vector3(0.1, 0.1, 0.1)
+shader_parameter/ring_height = Vector3(0.3, 0.4, 0.5)
+shader_parameter/eye_counts = Vector3i(9, 12, 16)
+shader_parameter/eye_size = 0.8530000405175
+shader_parameter/eye_flatten = 0.4
+shader_parameter/eye_offset = 0.0
+shader_parameter/show_pupils = true
+shader_parameter/pupil_size = 0.45
+shader_parameter/look_direction = Vector3(0, 0, -1)
+shader_parameter/random_look = true
+shader_parameter/random_look_spread = 0.3
+shader_parameter/random_look_rate = 3.17200015067
+shader_parameter/random_seed = 0.0
+
+[node name="ShaderTest" type="Control" unique_id=2134637497]
+material = SubResource("ShaderMaterial_y2cri")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="ColorRect" parent="." unique_id=145248209]
+material = SubResource("ShaderMaterial_v1u3e")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=255977936]
+layout_mode = 0
+offset_left = 484.00003
+offset_top = 228.0
+offset_right = 612.0
+offset_bottom = 356.0
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_xm5k1")
+
+[node name="Front" type="ColorRect" parent="." unique_id=1069982769]
+material = SubResource("ShaderMaterial_y2cri")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
