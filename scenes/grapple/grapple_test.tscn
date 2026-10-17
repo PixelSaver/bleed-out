@@ -43,6 +43,8 @@ position = Vector2(614, 113)
 [node name="Player" parent="." unique_id=1594943802 instance=ExtResource("2_inf4i")]
 position = Vector2(573, 607)
 
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=2034782579]
+
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1028182488]
 position = Vector2(587, 652)
 
