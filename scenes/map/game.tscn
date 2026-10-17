@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cydaxb5ff3l6v" path="res://scenes/grapple/grapple_test.gd" id="1_xn2fb"]
 [ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="2_lclk0"]
+[ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_sd4cy"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
 [ext_resource type="Script" uid="uid://broyjxtwa1it1" path="res://scenes/enemy/projectile/projectile_manager.gd" id="8_x7wrf"]
@@ -35,6 +36,27 @@ metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 script = ExtResource("2_lclk0")
 
+[node name="Goblin" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("3_sd4cy")]
+position = Vector2(-785, -619)
+
+[node name="Goblin2" parent="EnemyManager" unique_id=960932546 instance=ExtResource("3_sd4cy")]
+position = Vector2(-579, -1359)
+
+[node name="Goblin3" parent="EnemyManager" unique_id=1438187653 instance=ExtResource("3_sd4cy")]
+position = Vector2(-32, -619)
+
+[node name="Goblin4" parent="EnemyManager" unique_id=162327278 instance=ExtResource("3_sd4cy")]
+position = Vector2(470, -1476)
+
+[node name="Goblin5" parent="EnemyManager" unique_id=1111932041 instance=ExtResource("3_sd4cy")]
+position = Vector2(622, -1054)
+
+[node name="Goblin6" parent="EnemyManager" unique_id=2077461481 instance=ExtResource("3_sd4cy")]
+position = Vector2(-100, -1888)
+
+[node name="Goblin7" parent="EnemyManager" unique_id=949213152 instance=ExtResource("3_sd4cy")]
+position = Vector2(85, -24)
+
 [node name="Player" parent="." unique_id=1594943802 groups=["Player"] instance=ExtResource("4_1pbiu")]
 position = Vector2(0, -49)
 
@@ -47,6 +69,8 @@ limit_left = -1300
 limit_right = 1300
 
 [node name="PhantomCameraHost" type="Node" parent="Player/Camera2D2" unique_id=1881965803]
+process_priority = 300
+process_physics_priority = 300
 script = ExtResource("10_tc0lc")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 

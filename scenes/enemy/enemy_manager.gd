@@ -28,7 +28,7 @@ var highlighted_enemy: Enemy = null
 @export var eyeball_max_weight: float = 0.12
 
 
-func get_spawn_weights(h: float) -> Dictionary:
+func get_spawn_weights(h: float) -> Dictionary[EnemyType, float]:
 	var goblin := 0.1 + 0.9 * exp(-h / goblin_decay)
 	var mosquito := 0.2 + 0.8 * (
 		1.0 - exp(-h / mosquito_growth)
@@ -47,6 +47,14 @@ func get_spawn_weights(h: float) -> Dictionary:
 		EnemyType.FROG: frog,
 		EnemyType.EYEBALL: eyeball,
 	}
+func normalize_weights(d: Dictionary[EnemyType, float]) -> Dictionary[EnemyType, float]:
+	var t = 0.;
+	for type in EnemyType.values():
+		t += d.get(type)
+	for type in EnemyType.values():
+		d.set(type, d.get(type) / t)
+	return d
+	
 ## Use the player y level to modulate difficulty and stuff
 func pick_enemy_type(_y:float) -> EnemyType:
 	return EnemyType.values().pick_random()
