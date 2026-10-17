@@ -37,6 +37,9 @@ func _ready() -> void:
 	else:
 		print_tree_pretty()
 		push_error("Health component couldn't find target.")
+		
+func is_dead() -> bool:
+	return health <= 0.0
 
 func damage(atk: Attack):
 	_pending_atks.append(atk)

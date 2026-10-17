@@ -8,11 +8,15 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
 radius = 32.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gkedh"]
+radius = 600.0
+height = 2000.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_plx5h"]
 radius = 250.0
 
-[node name="Mosquito" type="RigidBody2D" unique_id=1063827371 node_paths=PackedStringArray("charge_range", "grapple_point", "health_component")]
-collision_layer = 2
+[node name="Mosquito" type="RigidBody2D" unique_id=1063827371 node_paths=PackedStringArray("charge_range", "vision_range", "grapple_point", "health_component")]
+collision_layer = 4
 mass = 10.0
 gravity_scale = 0.0
 can_sleep = false
@@ -20,6 +24,7 @@ lock_rotation = true
 linear_damp = 3.0
 script = ExtResource("1_rt4yc")
 charge_range = NodePath("ChargeRange")
+vision_range = NodePath("VisionRange")
 charge_strength = 15000.0
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
@@ -71,9 +76,18 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="VisionRange" type="Area2D" parent="." unique_id=556312444]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionRange" unique_id=1383051379]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_gkedh")
+
 [node name="ChargeRange" type="Area2D" parent="." unique_id=432366477]
 collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargeRange" unique_id=2026020791]
 shape = SubResource("CircleShape2D_plx5h")
+debug_color = Color(0.77254903, 0.25882354, 0.12941177, 0.41960785)

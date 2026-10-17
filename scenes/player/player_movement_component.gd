@@ -18,9 +18,10 @@ class_name PlayerMovementComponent
 
 ## Amount of towards-momentum converted to angular momentum upon starting grapple (experimental, probably deleting)
 @export var momentum_cheat = 0.0 # 0.5
-
-@export var damp_transfer = 0.5 # 0.5
+@export var damp_transfer = 0.0 # 0.5
 @export var min_swing_speed = 700.0
+## How fast the angular velocity is corrected if below the min
+@export var min_correct_amount = 1
 @export var max_angular_vel = 20.0
 @export var release_boost_normal = 100.0
 @export var release_boost_tangent = 200.0
@@ -39,6 +40,7 @@ class_name PlayerMovementComponent
 @export var line_width = 10.0
 @export var max_line_squish = 2.0
 
+var prebounce_vel = Vector2.ZERO
 var grappling = false
 var grapple_target: GrapplePoint
 var rope_len = 0.0
@@ -54,20 +56,62 @@ var rope_taut = false
 var parrying = false
 var parry_time
 
+func _initiate_grapple(target: GrapplePoint, p: Player) -> void:
+	var prev_e: Enemy
+	if grapple_target != null:
+		prev_e = grapple_target.get_enemy()
+		if prev_e != null:
+			pass
+	grapple_target = target
+	var grapple_offset = p.global_position - grapple_target.global_position
+	rope_len = max(grapple_offset.length(), min_rope_len)
+	
+	grappling = true
+	grapple_visual.visible = true
+	
+	# Attacking enemy
+	var e = target.get_enemy()
+	if e == null:
+		return
+	var atk = Attack.new()
+	atk.damage = 1
+	e.freeze_enemy(true, atk)
+
+func _ungrapple() -> void:
+	var p := Global.player_ref
+	if rope_taut:
+		# Proper velocity when releasing grapple
+		p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
+					+ (grapple_dist * angular_vel + release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
+		
+		rope_taut = false
+		
+	grappling = false
+	grapple_visual.visible = false
+	if grapple_target != null and grapple_target.get_enemy() != null:
+		grapple_target.get_enemy().freeze_enemy(false)
+
+func _pull(delta: float) -> void:
+	var p := Global.player_ref
+	pull_time += delta
+	var t_norm = min(pull_time / pull_duration, 1.0)
+	# Formula for cubic Hermite interpolation with starting vel of (0,0)
+	# Just google it
+	p.global_position = pull_start_point + (3 * t_norm ** 2 - 2 * t_norm ** 3) * (grapple_target.global_position - pull_start_point) + (t_norm ** 3 - t_norm ** 2) * pull_duration * pull_vel
+	if pull_time > pull_duration:
+		p.velocity = pull_vel
+		pulling = false
+		grappling = false
+		grapple_visual.visible = false
+		rope_taut = false
+		if grapple_target != null and grapple_target.get_enemy() != null:
+			grapple_target.get_enemy().freeze_enemy(false)
+		
+
 func process_movement(p:Player, delta: float) -> void:
 	var temp_grapple_target = p.search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
 	if pulling:
-		pull_time += delta
-		var t_norm = min(pull_time / pull_duration, 1.0)
-		# Formula for cubic Hermite interpolation with starting vel of (0,0)
-		# Just google it
-		p.global_position = pull_start_point + (3 * t_norm ** 2 - 2 * t_norm ** 3) * (grapple_target.global_position - pull_start_point) + (t_norm ** 3 - t_norm ** 2) * pull_duration * pull_vel
-		if pull_time > pull_duration:
-			p.velocity = pull_vel
-			pulling = false
-			grappling = false
-			grapple_visual.visible = false
-			rope_taut = false
+		_pull(delta)
 	else:
 		# Handle grapple/ungrapple
 		if grappling:
@@ -77,16 +121,8 @@ func process_movement(p:Player, delta: float) -> void:
 			if (grapple_offset.length() > rope_len || (grapple_offset.dot(p.velocity) < 0 && grapple_offset.length() >= min_rope_len)):
 				slack_to_taut(p, grapple_offset.length() > rope_len)
 			# Ungrappling if you let go of the button or hit some terrain
-			if Input.is_action_just_released("grapple") or p.get_slide_collision_count() > 0:
-				if rope_taut:
-					# Proper velocity when releasing grapple
-					p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
-								+ (grapple_dist * angular_vel + release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
-					
-					rope_taut = false
-					
-				grappling = false
-				grapple_visual.visible = false
+			if Input.is_action_just_released("grapple"):
+				_ungrapple()
 			elif Input.is_action_just_pressed("attack"):
 				pull_vel = (grapple_target.global_position - p.global_position).normalized() * pull_power * log(1.0 + grapple_dist)
 				pulling = true
@@ -96,8 +132,11 @@ func process_movement(p:Player, delta: float) -> void:
 				var hit_enemies = p.parry_hitbox.get_overlapping_bodies()
 				if hit_enemies:
 					for enemy in hit_enemies:
-						# Enemy takes damage here
-						pass
+						if enemy == null:
+							return
+						var atk = Attack.new()
+						atk.damage = 1
+						enemy.damage(atk)
 					p.velocity.y = min(parry_min, p.velocity.y - parry_strength)
 					parrying = false
 				parry_time += delta
@@ -106,12 +145,7 @@ func process_movement(p:Player, delta: float) -> void:
 			else:
 				if Input.is_action_just_pressed("grapple"):
 					if temp_grapple_target:
-						grapple_target = temp_grapple_target
-						var grapple_offset = p.global_position - grapple_target.global_position
-						rope_len = max(grapple_offset.length(), min_rope_len)
-						
-						grappling = true
-						grapple_visual.visible = true
+						_initiate_grapple(temp_grapple_target, p)
 				elif Input.is_action_just_pressed("attack"):
 					parrying = true
 					parry_time = 0.0
@@ -151,9 +185,12 @@ func process_movement(p:Player, delta: float) -> void:
 			
 			# Apply angular velocity
 			# There is a minimum angular velocity
-			#angular_vel = sign(angular_vel) * max(abs(angular_vel), min_swing_speed / grapple_dist)
 			angular_vel = sign(angular_vel) * clamp(abs(angular_vel), min_swing_speed / grapple_dist, max_angular_vel)
-			#angular_vel = sign(angular_vel) * maxf(abs(angular_vel), min_angular_vel)
+			#if abs(angular_vel) < min_swing_speed / grapple_dist:
+				#angular_vel += sign(angular_vel) * (min_swing_speed / grapple_dist - abs(angular_vel)) * min_correct_amount * delta
+			#angular_vel = sign(angular_vel) * min(abs(angular_vel), max_angular_vel)
+			if p.get_slide_collision_count() > 0:
+				angular_vel *= -1
 			grapple_angle += angular_vel * delta
 			var swing_to = grapple_target.global_position + grapple_dist * Vector2(cos(grapple_angle), sin(grapple_angle))
 			p.velocity = (swing_to - p.global_position) / delta
@@ -166,18 +203,24 @@ func process_movement(p:Player, delta: float) -> void:
 			if Input.is_action_just_pressed("jump") and p.is_on_floor():
 				p.velocity.y = jump_power
 				
+			#if p.is_on_floor():
+				## Walking/friction
+				#p.velocity.x += Input.get_axis("left", "right") * walk_speed * delta
+				#p.velocity.x *= exp(-friction * delta)
+			#else:
+				## Drifting in the air, very limited control
+				#var acceleration = Input.get_axis("left", "right") * drift_speed * delta
+				#if abs(p.velocity.x) < max_drift or sign(acceleration) != sign(p.velocity.x):
+					#p.velocity.x += acceleration
+					#var limit = max(max_drift, abs(p.velocity.x - acceleration))
+					#p.velocity.x = clampf(p.velocity.x, -limit, limit)
+					
 			if p.is_on_floor():
-				# Walking/friction
-				p.velocity.x += Input.get_axis("left", "right") * walk_speed * delta
-				p.velocity.x *= exp(-friction * delta)
-			else:
-				# Drifting in the air, very limited control
-				var acceleration = Input.get_axis("left", "right") * drift_speed * delta
-				if abs(p.velocity.x) < max_drift or sign(acceleration) != sign(p.velocity.x):
-					p.velocity.x += acceleration
-					var limit = max(max_drift, abs(p.velocity.x - acceleration))
-					p.velocity.x = clampf(p.velocity.x, -limit, limit)
+				p.velocity.y = jump_power
+			if p.is_on_wall():
+				p.velocity.x = prebounce_vel.x * -1
 		
+		prebounce_vel = p.velocity
 		p.move_and_slide()
 		pull_start_point = p.global_position
 	
@@ -196,10 +239,10 @@ func slack_to_taut(p: Player, use_old_len: bool):
 	grapple_angle = grapple_offset.angle()
 	var radial_dir = grapple_offset.normalized()
 	radial_vel = p.velocity.dot(radial_dir)
-	var inward_vel = max(0.0, -p.velocity.dot(radial_dir))
 	angular_vel = grapple_offset.cross(p.velocity) / grapple_offset.length_squared()
 	# Convert a little momentum in the direction of the GrapplePoint to angular momentum
 	# Technically not physically accurate, but feels funner
+	var inward_vel = max(0.0, -p.velocity.dot(radial_dir))
 	angular_vel += sign(angular_vel) * inward_vel / grapple_dist * momentum_cheat
 	
 	rope_taut = true

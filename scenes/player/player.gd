@@ -7,18 +7,20 @@ class_name Player
 @export var health_component: HealthComponent
 @export var player_movement_component: PlayerMovementComponent
 @export var respawn_delay: float = 0.2
+@export var blood_drain: float = 10.0
 var invinicibility_counter: float = 0.0
-
-@onready var camera_2d: Camera2D = $Camera2D
-@export var camera_bounds: Vector2 = Vector2(-10000, 10000)
 
 ## Set the time the player is invincible for in seconds
 func set_invincibility(time:float) -> void:
-	invinicibility_counter = time
+	if time > invinicibility_counter:
+		invinicibility_counter = time
 
 func _process(delta: float) -> void:
 	if invinicibility_counter > 0:
 		invinicibility_counter -= delta
+	#var atk = Attack.new()
+	#atk.damage = blood_drain * delta
+	#health_component.damage(atk)
 	grapple_cone.look_at(get_global_mouse_position())
 
 ## Checks if the player is invincible
@@ -32,8 +34,6 @@ func damage(atk:Attack) -> void:
 func _ready() -> void:
 	Global.player_ref = self
 	health_component.death.connect(_on_death)
-	camera_2d.limit_left = camera_bounds.x
-	camera_2d.limit_right = camera_bounds.y
 
 func _on_death() -> void:
 	await get_tree().create_timer(respawn_delay).timeout
