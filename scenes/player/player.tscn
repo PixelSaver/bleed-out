@@ -42,20 +42,18 @@ texture = ExtResource("2_gmlin")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363614896]
 shape = SubResource("RectangleShape2D_lvxji")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1994130706]
-
 [node name="GrappleCone" type="Area2D" parent="." unique_id=365779222 node_paths=PackedStringArray("cone_col")]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("3_gmlin")
 cone_col = NodePath("CollisionShape2D")
-cone_radius = 600
+cone_radius = 500
 cone_resolution = 10
 cone_angle = 2.356
 angle_penalty_falloff = SubResource("Curve_gmlin")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="GrappleCone" unique_id=1495496377]
-polygon = PackedVector2Array(0, 0, 229.66399, -554.30536, 456.26633, -389.6422, 583.4247, -140.05588, 583.4247, 140.05588, 456.26633, 389.6422, 229.66399, 554.30536)
+polygon = PackedVector2Array(0, 0, 191.38666, -461.92114, 293.9241, -404.48563, 380.22192, -324.70184, 445.5121, -226.97792, 486.18723, -116.71323, 500, 0, 486.18723, 116.71323, 445.5121, 226.97792, 380.22192, 324.70184, 293.9241, 404.48563, 191.38666, 461.92114)
 
 [node name="DirectionPointer" type="Line2D" parent="GrappleCone" unique_id=606065029]
 z_index = 100

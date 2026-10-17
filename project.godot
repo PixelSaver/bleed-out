@@ -21,15 +21,15 @@ config/icon="res://assets/icon.svg"
 Global="*uid://cw2cid6mippjr"
 SignalBus="*uid://76heinnvc1fe"
 SceneDatabase="*uid://b7w6r5xa8o86w"
+PhantomCameraManager="*uid://duq6jhf6unyis"
 
 [display]
 
-window/size/viewport_width=1728
-window/size/viewport_height=972
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/StyleboxFancy/plugin.cfg")
+enabled=PackedStringArray("res://addons/StyleboxFancy/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
 
 [file_customization]
 

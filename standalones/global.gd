@@ -10,3 +10,4 @@ var projectile_man: ProjectileManager
 var enemy_man: EnemyManager
 
 var player_ref: Player
+var max_y: float = 0.

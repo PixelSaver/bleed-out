@@ -55,20 +55,62 @@ var rope_taut = false
 var parrying = false
 var parry_time
 
+func _initiate_grapple(target: GrapplePoint, p: Player) -> void:
+	var prev_e: Enemy
+	if grapple_target != null:
+		prev_e = grapple_target.get_enemy()
+		if prev_e != null:
+			pass
+	grapple_target = target
+	var grapple_offset = p.global_position - grapple_target.global_position
+	rope_len = max(grapple_offset.length(), min_rope_len)
+	
+	grappling = true
+	grapple_visual.visible = true
+	
+	# Attacking enemy
+	var e = target.get_enemy()
+	if e == null:
+		return
+	var atk = Attack.new()
+	atk.damage = 1
+	e.freeze_enemy(true, atk)
+
+func _ungrapple() -> void:
+	var p := Global.player_ref
+	if rope_taut:
+		# Proper velocity when releasing grapple
+		p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
+					+ (grapple_dist * angular_vel + release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
+		
+		rope_taut = false
+		
+	grappling = false
+	grapple_visual.visible = false
+	if grapple_target != null and grapple_target.get_enemy() != null:
+		grapple_target.get_enemy().freeze_enemy(false)
+
+func _pull(delta: float) -> void:
+	var p := Global.player_ref
+	pull_time += delta
+	var t_norm = min(pull_time / pull_duration, 1.0)
+	# Formula for cubic Hermite interpolation with starting vel of (0,0)
+	# Just google it
+	p.global_position = pull_start_point + (3 * t_norm ** 2 - 2 * t_norm ** 3) * (grapple_target.global_position - pull_start_point) + (t_norm ** 3 - t_norm ** 2) * pull_duration * pull_vel
+	if pull_time > pull_duration:
+		p.velocity = pull_vel
+		pulling = false
+		grappling = false
+		grapple_visual.visible = false
+		rope_taut = false
+		if grapple_target != null and grapple_target.get_enemy() != null:
+			grapple_target.get_enemy().freeze_enemy(false)
+		
+
 func process_movement(p:Player, delta: float) -> void:
 	var temp_grapple_target = p.search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
 	if pulling:
-		pull_time += delta
-		var t_norm = min(pull_time / pull_duration, 1.0)
-		# Formula for cubic Hermite interpolation with starting vel of (0,0)
-		# Just google it
-		p.global_position = pull_start_point + (3 * t_norm ** 2 - 2 * t_norm ** 3) * (grapple_target.global_position - pull_start_point) + (t_norm ** 3 - t_norm ** 2) * pull_duration * pull_vel
-		if pull_time > pull_duration:
-			p.velocity = pull_vel
-			pulling = false
-			grappling = false
-			grapple_visual.visible = false
-			rope_taut = false
+		_pull(delta)
 	else:
 		# Handle grapple/ungrapple
 		if grappling:
@@ -79,15 +121,7 @@ func process_movement(p:Player, delta: float) -> void:
 				slack_to_taut(p, grapple_offset.length() > rope_len)
 			# Ungrappling if you let go of the button or hit some terrain
 			if Input.is_action_just_released("grapple") or p.get_slide_collision_count() > 0:
-				if rope_taut:
-					# Proper velocity when releasing grapple
-					p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
-								+ (grapple_dist * angular_vel + release_boost_tangent * sign(angular_vel)) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
-					
-					rope_taut = false
-					
-				grappling = false
-				grapple_visual.visible = false
+				_ungrapple()
 			elif Input.is_action_just_pressed("attack"):
 				pull_vel = (grapple_target.global_position - p.global_position).normalized() * pull_power * log(1.0 + grapple_dist)
 				pulling = true
@@ -107,12 +141,7 @@ func process_movement(p:Player, delta: float) -> void:
 			else:
 				if Input.is_action_just_pressed("grapple"):
 					if temp_grapple_target:
-						grapple_target = temp_grapple_target
-						var grapple_offset = p.global_position - grapple_target.global_position
-						rope_len = max(grapple_offset.length(), min_rope_len)
-						
-						grappling = true
-						grapple_visual.visible = true
+						_initiate_grapple(temp_grapple_target, p)
 				elif Input.is_action_just_pressed("attack"):
 					parrying = true
 					parry_time = 0.0
