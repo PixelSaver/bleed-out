@@ -8,7 +8,7 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gkedh"]
 
-[node name="GrappleTest" type="Control" unique_id=1629713699]
+[node name="GrappleTest2" type="Control" unique_id=1629713699]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -70,7 +70,7 @@ collision_layer = 4
 speed = 0.0
 
 [node name="Player" parent="." unique_id=1594943802 instance=ExtResource("2_inf4i")]
-position = Vector2(573, 607)
+position = Vector2(573, 200)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2034782579]
 
