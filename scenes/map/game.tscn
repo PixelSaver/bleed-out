@@ -29,10 +29,52 @@ script = ExtResource("2_lclk0")
 [node name="Frog" parent="EnemyManager" unique_id=322635485 instance=ExtResource("4_y2cri")]
 position = Vector2(135, 331)
 
-[node name="Goblin" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("3_x7wrf")]
-position = Vector2(746, 285)
+[node name="Goblin2" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("3_x7wrf")]
+position = Vector2(835, -59)
 
-[node name="Player" parent="." unique_id=1594943802 instance=ExtResource("4_1pbiu")]
+[node name="Goblin" parent="EnemyManager" unique_id=202384135 instance=ExtResource("3_x7wrf")]
+position = Vector2(1163, 118)
+
+[node name="Goblin3" parent="EnemyManager" unique_id=1225645343 instance=ExtResource("3_x7wrf")]
+position = Vector2(315, -255)
+
+[node name="Goblin4" parent="EnemyManager" unique_id=2112882297 instance=ExtResource("3_x7wrf")]
+position = Vector2(621, -423)
+
+[node name="Goblin5" parent="EnemyManager" unique_id=144368335 instance=ExtResource("3_x7wrf")]
+position = Vector2(-212, -423)
+
+[node name="Goblin6" parent="EnemyManager" unique_id=1477998705 instance=ExtResource("3_x7wrf")]
+position = Vector2(-50, -999)
+
+[node name="Goblin7" parent="EnemyManager" unique_id=300826735 instance=ExtResource("3_x7wrf")]
+position = Vector2(468, -806)
+
+[node name="Goblin8" parent="EnemyManager" unique_id=740593583 instance=ExtResource("3_x7wrf")]
+position = Vector2(823, -1354)
+
+[node name="Goblin9" parent="EnemyManager" unique_id=1638706791 instance=ExtResource("3_x7wrf")]
+position = Vector2(-283, -1483)
+
+[node name="Goblin10" parent="EnemyManager" unique_id=1460338761 instance=ExtResource("3_x7wrf")]
+position = Vector2(275, -1789)
+
+[node name="Goblin11" parent="EnemyManager" unique_id=1140929362 instance=ExtResource("3_x7wrf")]
+position = Vector2(-235, -2473)
+
+[node name="Goblin12" parent="EnemyManager" unique_id=215720341 instance=ExtResource("3_x7wrf")]
+position = Vector2(698, -2766)
+
+[node name="Goblin13" parent="EnemyManager" unique_id=1881109773 instance=ExtResource("3_x7wrf")]
+position = Vector2(698, -2766)
+
+[node name="Goblin14" parent="EnemyManager" unique_id=1560425358 instance=ExtResource("3_x7wrf")]
+position = Vector2(-187, -3689)
+
+[node name="Goblin15" parent="EnemyManager" unique_id=1059268909 instance=ExtResource("3_x7wrf")]
+position = Vector2(660, -4248)
+
+[node name="Player" parent="." unique_id=1594943802 groups=["Player"] instance=ExtResource("4_1pbiu")]
 position = Vector2(573, 607)
 camera_bounds = Vector2(-688, 688)
 
