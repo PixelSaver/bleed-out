@@ -9,15 +9,23 @@
 [ext_resource type="PackedScene" uid="uid://d35x4mdw18nyq" path="res://scenes/map/background.tscn" id="5_y2cri"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
 [ext_resource type="Script" uid="uid://broyjxtwa1it1" path="res://scenes/enemy/projectile/projectile_manager.gd" id="8_x7wrf"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="10_tc0lc"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="11_p1buo"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_mysg8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dtyx1"]
 size = Vector2(2246, 147)
 
+[sub_resource type="Resource" id="Resource_ry5pk"]
+script = ExtResource("12_mysg8")
+
 [node name="GrappleTest" type="Control" unique_id=1629713699]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -579.0
+offset_top = -149.0
+offset_right = -539.0
+offset_bottom = -109.0
 script = ExtResource("1_xn2fb")
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
@@ -76,7 +84,20 @@ position = Vector2(660, -4248)
 
 [node name="Player" parent="." unique_id=1594943802 groups=["Player"] instance=ExtResource("4_1pbiu")]
 position = Vector2(573, 607)
-camera_bounds = Vector2(-688, 688)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1176660890]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(-6, 458)
+limit_left = -1000
+limit_right = 1000
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Player/Camera2D" unique_id=97064717]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("10_tc0lc")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="ParallaxBG" parent="." unique_id=1080239753 instance=ExtResource("5_y2cri")]
 scroll_offset = Vector2(234, 139)
@@ -95,3 +116,24 @@ texture = ExtResource("6_sd4cy")
 
 [node name="ProjectileManager" type="Node2D" parent="." unique_id=1876552924]
 script = ExtResource("8_x7wrf")
+
+[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1360670085 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(-6, 458)
+script = ExtResource("11_p1buo")
+follow_mode = 2
+follow_target = NodePath("../Player")
+tween_resource = SubResource("Resource_ry5pk")
+follow_damping = true
+follow_damping_value = Vector2(0.2, 0.2)
+lookahead = true
+lookahead_time = Vector2(0.1, 0.1)
+lookahead_max = true
+lookahead_max_value = Vector2(50, 50)
+dead_zone_width = 0.1
+dead_zone_height = 0.1
+show_viewfinder_in_play = true
+draw_limits = true
+limit_left = -1000
+limit_right = 1000
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"

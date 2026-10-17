@@ -9,9 +9,6 @@ class_name Player
 @export var respawn_delay: float = 0.2
 var invinicibility_counter: float = 0.0
 
-@onready var camera_2d: Camera2D = $Camera2D
-@export var camera_bounds: Vector2 = Vector2(-10000, 10000)
-
 ## Set the time the player is invincible for in seconds
 func set_invincibility(time:float) -> void:
 	invinicibility_counter = time
@@ -32,8 +29,6 @@ func damage(atk:Attack) -> void:
 func _ready() -> void:
 	Global.player_ref = self
 	health_component.death.connect(_on_death)
-	camera_2d.limit_left = camera_bounds.x
-	camera_2d.limit_right = camera_bounds.y
 
 func _on_death() -> void:
 	await get_tree().create_timer(respawn_delay).timeout
