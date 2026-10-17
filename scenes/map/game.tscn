@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cydaxb5ff3l6v" path="res://scenes/grapple/grapple_test.gd" id="1_xn2fb"]
 [ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="2_lclk0"]
+[ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_sd4cy"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
 [ext_resource type="Script" uid="uid://broyjxtwa1it1" path="res://scenes/enemy/projectile/projectile_manager.gd" id="8_x7wrf"]
@@ -34,7 +35,21 @@ metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 script = ExtResource("2_lclk0")
-starting_y = -600.0
+starting_y = -2000.0
+
+[node name="Goblin2" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("3_sd4cy")]
+position = Vector2(0, -906)
+speed = 0.0
+
+[node name="HealthComponent" parent="EnemyManager/Goblin2" index="5" unique_id=1465637310]
+invulnerable = true
+
+[node name="Goblin" parent="EnemyManager" unique_id=1952827553 instance=ExtResource("3_sd4cy")]
+position = Vector2(0, -584)
+speed = 0.0
+
+[node name="HealthComponent" parent="EnemyManager/Goblin" index="5" unique_id=1465637310]
+invulnerable = true
 
 [node name="Player" parent="." unique_id=1594943802 groups=["Player"] instance=ExtResource("4_1pbiu")]
 position = Vector2(0, -49)
@@ -112,3 +127,34 @@ shape = SubResource("WorldBoundaryShape2D_whhis")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Borders" unique_id=422549170]
 shape = SubResource("WorldBoundaryShape2D_4hwui")
+
+[node name="Label" type="Label" parent="World" unique_id=566309671]
+z_index = -9
+offset_left = -241.0
+offset_top = -543.0
+offset_right = 251.0
+offset_bottom = -488.0
+text = "Left Click or Shift to Parry"
+
+[node name="Label2" type="Label" parent="World" unique_id=1267084679]
+z_index = -9
+offset_left = -354.0
+offset_top = -859.0
+offset_right = 339.0
+offset_bottom = -746.0
+text = "Hold Right Click
+or Space to Grapple"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="World" unique_id=585601426]
+z_index = -9
+offset_left = -359.0
+offset_top = -1216.0
+offset_right = 334.0
+offset_bottom = -1103.0
+text = "Press Left Click or Shift
+while grappling to dash"
+horizontal_alignment = 1
+
+[editable path="EnemyManager/Goblin2"]
+[editable path="EnemyManager/Goblin"]
