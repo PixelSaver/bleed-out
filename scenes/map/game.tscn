@@ -3,49 +3,14 @@
 [ext_resource type="Script" uid="uid://cydaxb5ff3l6v" path="res://scenes/grapple/grapple_test.gd" id="1_xn2fb"]
 [ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="2_lclk0"]
 [ext_resource type="PackedScene" uid="uid://fxfrd8x7u21v" path="res://scenes/enemy/mosquito.tscn" id="3_lclk0"]
-[ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_x7wrf"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
-[ext_resource type="PackedScene" uid="uid://cs3ikp0wcqwmh" path="res://scenes/enemy/frog.tscn" id="4_y2cri"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
-[ext_resource type="Texture2D" uid="uid://l25715al180n" path="res://assets/waterfall/w1.png" id="8_i0sqq"]
 [ext_resource type="Script" uid="uid://broyjxtwa1it1" path="res://scenes/enemy/projectile/projectile_manager.gd" id="8_x7wrf"]
-[ext_resource type="Texture2D" uid="uid://c7qx51k4gykl6" path="res://assets/waterfall/w2.png" id="9_whhis"]
-[ext_resource type="Texture2D" uid="uid://fdi00dqriylg" path="res://assets/waterfall/w3.png" id="10_4hwui"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="10_tc0lc"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="11_p1buo"]
-[ext_resource type="Texture2D" uid="uid://dtic1gs70vu4e" path="res://assets/waterfall/w4.png" id="11_qxpgi"]
-[ext_resource type="Texture2D" uid="uid://c674ngj7kb5f5" path="res://assets/waterfall/w5.png" id="12_hjt0h"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_mysg8"]
-[ext_resource type="Texture2D" uid="uid://upbhit3rm5c3" path="res://assets/waterfall/w6.png" id="13_mcwih"]
-[ext_resource type="Script" uid="uid://cnqnu0u7223i0" path="res://scenes/map/waterfall.gd" id="14_whhis"]
 [ext_resource type="Script" uid="uid://dra14veup3c7j" path="res://scenes/map/camera_follow_point.gd" id="15_4hwui"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("8_i0sqq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_whhis")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_4hwui")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_qxpgi")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_hjt0h")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_mcwih")
-}],
-"loop": 1,
-"name": &"waterfall",
-"speed": 11.0
-}]
 
 [sub_resource type="Resource" id="Resource_ry5pk"]
 script = ExtResource("12_mysg8")
@@ -72,60 +37,24 @@ metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 script = ExtResource("2_lclk0")
 
 [node name="Mosquito" parent="EnemyManager" unique_id=1063827371 instance=ExtResource("3_lclk0")]
-position = Vector2(-230, -1216)
+position = Vector2(-368, -1063)
 
-[node name="Frog" parent="EnemyManager" unique_id=322635485 instance=ExtResource("4_y2cri")]
-position = Vector2(-95, -885)
+[node name="Mosquito2" parent="EnemyManager" unique_id=488600263 instance=ExtResource("3_lclk0")]
+position = Vector2(480, -1695)
 
-[node name="Goblin2" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("3_x7wrf")]
-position = Vector2(605, -1275)
+[node name="Mosquito3" parent="EnemyManager" unique_id=1433591096 instance=ExtResource("3_lclk0")]
+position = Vector2(834, -363)
 
-[node name="Goblin" parent="EnemyManager" unique_id=202384135 instance=ExtResource("3_x7wrf")]
-position = Vector2(933, -1098)
+[node name="Mosquito4" parent="EnemyManager" unique_id=509975573 instance=ExtResource("3_lclk0")]
+position = Vector2(-574, -2153)
 
-[node name="Goblin3" parent="EnemyManager" unique_id=1225645343 instance=ExtResource("3_x7wrf")]
-position = Vector2(85, -1471)
-
-[node name="Goblin4" parent="EnemyManager" unique_id=2112882297 instance=ExtResource("3_x7wrf")]
-position = Vector2(391, -1639)
-
-[node name="Goblin5" parent="EnemyManager" unique_id=144368335 instance=ExtResource("3_x7wrf")]
-position = Vector2(-442, -1639)
-
-[node name="Goblin6" parent="EnemyManager" unique_id=1477998705 instance=ExtResource("3_x7wrf")]
-position = Vector2(-280, -2215)
-
-[node name="Goblin7" parent="EnemyManager" unique_id=300826735 instance=ExtResource("3_x7wrf")]
-position = Vector2(238, -2022)
-
-[node name="Goblin8" parent="EnemyManager" unique_id=740593583 instance=ExtResource("3_x7wrf")]
-position = Vector2(593, -2570)
-
-[node name="Goblin9" parent="EnemyManager" unique_id=1638706791 instance=ExtResource("3_x7wrf")]
-position = Vector2(-513, -2699)
-
-[node name="Goblin10" parent="EnemyManager" unique_id=1460338761 instance=ExtResource("3_x7wrf")]
-position = Vector2(45, -3005)
-
-[node name="Goblin11" parent="EnemyManager" unique_id=1140929362 instance=ExtResource("3_x7wrf")]
-position = Vector2(-465, -3689)
-
-[node name="Goblin12" parent="EnemyManager" unique_id=215720341 instance=ExtResource("3_x7wrf")]
-position = Vector2(468, -3982)
-
-[node name="Goblin13" parent="EnemyManager" unique_id=1881109773 instance=ExtResource("3_x7wrf")]
-position = Vector2(468, -3982)
-
-[node name="Goblin14" parent="EnemyManager" unique_id=1560425358 instance=ExtResource("3_x7wrf")]
-position = Vector2(-417, -4905)
-
-[node name="Goblin15" parent="EnemyManager" unique_id=1059268909 instance=ExtResource("3_x7wrf")]
-position = Vector2(430, -5464)
+[node name="Mosquito5" parent="EnemyManager" unique_id=798615629 instance=ExtResource("3_lclk0")]
+position = Vector2(-587, -395)
 
 [node name="Player" parent="." unique_id=1594943802 groups=["Player"] instance=ExtResource("4_1pbiu")]
 position = Vector2(0, -49)
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1176660890]
+[node name="Camera2D2" type="Camera2D" parent="Player" unique_id=1176660890]
 physics_interpolation_mode = 1
 top_level = true
 position = Vector2(0, -49)
@@ -133,20 +62,9 @@ zoom = Vector2(1.1, 1.1)
 limit_left = -1300
 limit_right = 1300
 
-[node name="PhantomCameraHost" type="Node" parent="Player/Camera2D" unique_id=97064717]
-process_priority = 300
-process_physics_priority = 300
+[node name="PhantomCameraHost" type="Node" parent="Player/Camera2D2" unique_id=1881965803]
 script = ExtResource("10_tc0lc")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/Camera2D" unique_id=1930083245]
-z_index = -9
-scale = Vector2(0.4, 0.4)
-sprite_frames = SubResource("SpriteFrames_gkedh")
-animation = &"waterfall"
-autoplay = "waterfall"
-frame_progress = 0.72755367
-script = ExtResource("14_whhis")
 
 [node name="CameraFollowPoint" type="Node2D" parent="Player" unique_id=1148747602]
 script = ExtResource("15_4hwui")

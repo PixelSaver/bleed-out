@@ -63,7 +63,6 @@ func try_charge_again() -> void:
 				charge(body as Player)
 
 func _on_death() -> void:
-	print("MOsquito ded")
 	super()
 	pass
 
