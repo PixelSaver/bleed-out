@@ -16,7 +16,7 @@ height = 2000.0
 radius = 700.0
 
 [node name="Frog" type="RigidBody2D" unique_id=322635485 node_paths=PackedStringArray("shot_range", "vision_range", "grapple_point", "health_component")]
-collision_layer = 2
+collision_layer = 4
 mass = 10.0
 gravity_scale = 0.0
 can_sleep = false
