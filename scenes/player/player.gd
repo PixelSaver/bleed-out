@@ -7,6 +7,7 @@ class_name Player
 @export var health_component: HealthComponent
 @export var player_movement_component: PlayerMovementComponent
 @export var respawn_delay: float = 0.2
+@export var blood_drain: float = 10.0
 var invinicibility_counter: float = 0.0
 
 ## Set the time the player is invincible for in seconds

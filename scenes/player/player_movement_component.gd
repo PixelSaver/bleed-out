@@ -131,8 +131,11 @@ func process_movement(p:Player, delta: float) -> void:
 				var hit_enemies = p.parry_hitbox.get_overlapping_bodies()
 				if hit_enemies:
 					for enemy in hit_enemies:
-						# Enemy takes damage here
-						pass
+						if enemy == null:
+							return
+						var atk = Attack.new()
+						atk.damage = 1
+						enemy.damage(atk)
 					p.velocity.y = min(parry_min, p.velocity.y - parry_strength)
 					parrying = false
 				parry_time += delta
