@@ -11,7 +11,8 @@ var invinicibility_counter: float = 0.0
 
 ## Set the time the player is invincible for in seconds
 func set_invincibility(time:float) -> void:
-	invinicibility_counter = time
+	if time > invinicibility_counter:
+		invinicibility_counter = time
 
 func _process(delta: float) -> void:
 	if invinicibility_counter > 0:
