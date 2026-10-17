@@ -6,7 +6,7 @@ var enemies: Array[Enemy] = []
 var highlighted_enemy: Enemy = null
 
 #region Enemy Spawning
-
+@export var debug_spawn_toggle: bool = false
 @export_group("Spawn Distribution")
 ## Height above player which enemies will spawn 
 @export var spawn_buffer: float = 1500.
@@ -108,6 +108,7 @@ func _input(event: InputEvent) -> void:
 		e.global_position = Global.player_ref.global_position
 
 func _process(_delta: float) -> void:
+	if OS.is_debug_build() and debug_spawn_toggle == true: return
 	var p = Global.player_ref
 	if p == null: return
 	var current_chunk: int = floori(
