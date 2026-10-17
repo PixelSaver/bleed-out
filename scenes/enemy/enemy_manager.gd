@@ -11,17 +11,17 @@ var highlighted_enemy: Enemy = null
 ## Height above player which enemies will spawn 
 @export var spawn_buffer: float = 1500.
 ## Spawn enemies called per chunk
-@export var spawn_chunk_size: float = 1000.
-@export var starting_y: float = 0.0
+@export var spawn_chunk_size: float = 500.
+@export var starting_y: float = 00.
 
 ## How quickly goblins become rare.
 @export var goblin_decay: float = 2000.0
 
 ## How quickly mosquitos become common.
-@export var mosquito_growth: float = 1500.0
+@export var mosquito_growth: float = 100.0
 
 ## Frog introduction and growth.
-@export var frog_start_height: float = 1500.0
+@export var frog_start_height: float = 3000.0
 @export var frog_growth: float = 1800.0
 @export var frog_max_weight: float = 0.8
 
@@ -103,21 +103,21 @@ func _process(delta: float) -> void:
 	var p = Global.player_ref
 	if p == null: return
 	var current_chunk: int = floori(
-	(starting_y - p.global_position.y + spawn_buffer)
-	/ spawn_chunk_size
-)
-	while current_chunk > max(starting_y * spawn_chunk_size, last_spawn_chunk):
+		(starting_y - p.global_position.y + spawn_buffer)
+		/ spawn_chunk_size
+	)
+	while current_chunk > last_spawn_chunk:
 		# spawn enemy chunk
 		var height := last_spawn_chunk * spawn_chunk_size
-		var chunk_y := -starting_y - height
+		var chunk_y := starting_y - height
 		## number of enemies per chunk, might functionize later
-		var n = 3
+		var n = 10
 		for i in range(n):
 			var type = pick_enemy_type(height)
 			var scene = get_enemy_scene(type)
 			var e = scene.instantiate() as Enemy
 			register_enemy(e)
-			e.global_position = Vector2(randf_range(-500, 500), chunk_y - randf() * spawn_chunk_size )
+			e.global_position = Vector2(randf_range(-500, 500), chunk_y - clampf(randfn(spawn_chunk_size * .5, 100), 0.0, spawn_chunk_size) )
 		last_spawn_chunk += 1
 		
 #endregion

@@ -34,6 +34,7 @@ metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 script = ExtResource("2_lclk0")
+starting_y = -600.0
 
 [node name="Player" parent="." unique_id=1594943802 groups=["Player"] instance=ExtResource("4_1pbiu")]
 position = Vector2(0, -49)
