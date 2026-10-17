@@ -12,34 +12,42 @@ var highlighted_enemy: Enemy = null
 @export var spawn_buffer: float = 1500.
 ## Spawn enemies called per chunk
 @export var spawn_chunk_size: float = 500.
-@export var starting_y: float = 00.
+@export var starting_y: float = 000.
 
+@export var goblin_dropoff: float = 3000.
 ## How quickly goblins become rare.
 @export var goblin_decay: float = 2000.0
 
+@export var mosquito_dropoff: float = 3700.
 ## How quickly mosquitos become common.
-@export var mosquito_growth: float = 100.0
+@export var mosquito_growth: float = 3000.0
 
 ## Frog introduction and growth.
-@export var frog_start_height: float = 3000.0
-@export var frog_growth: float = 1800.0
-@export var frog_max_weight: float = 0.8
+@export var frog_start_height: float = 7000.0
+@export var frog_growth: float = 8000.0
+@export var frog_max_weight: float = 0.4
 
 ## Eyeball introduction and growth.
-@export var eyeball_start_height: float = 5000.0
-@export var eyeball_growth: float = 2500.0
+@export var eyeball_start_height: float = 10000.0
+@export var eyeball_growth: float = 8000.0
 @export var eyeball_max_weight: float = 0.12
 var last_spawn_chunk: int = 0
 
 
 func get_spawn_weights(h: float) -> Dictionary[EnemyType, float]:
-	var goblin := 0.1 + 0.9 * exp(-h / goblin_decay)
-	var mosquito := 0.2 + 0.8 * (
-		1.0 - exp(-h / mosquito_growth)
+	var goblin := 0.1 + 0.9 * exp(-(h-goblin_dropoff) / goblin_decay)
+	var mosquito := minf(
+		0.2 + 0.8 * (
+			1.0 - exp(-(h-mosquito_dropoff) / mosquito_growth)
+		),
+		1.0
 	)
 	var frog_height := maxf(0.0, h - frog_start_height)
-	var frog := frog_max_weight * (
-		1.0 - exp(-frog_height / frog_growth)
+	var frog := maxf(
+		frog_max_weight * (
+			1.0 - exp(-frog_height / frog_growth)
+		),
+		0.0
 	)
 	var eyeball_height := maxf(0.0, h - eyeball_start_height)
 	var eyeball := eyeball_max_weight * (
@@ -99,7 +107,7 @@ func _input(event: InputEvent) -> void:
 		register_enemy(e)
 		e.global_position = Global.player_ref.global_position
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var p = Global.player_ref
 	if p == null: return
 	var current_chunk: int = floori(
@@ -111,13 +119,13 @@ func _process(delta: float) -> void:
 		var height := last_spawn_chunk * spawn_chunk_size
 		var chunk_y := starting_y - height
 		## number of enemies per chunk, might functionize later
-		var n = 10
+		var n = 2
 		for i in range(n):
 			var type = pick_enemy_type(height)
 			var scene = get_enemy_scene(type)
 			var e = scene.instantiate() as Enemy
 			register_enemy(e)
-			e.global_position = Vector2(randf_range(-500, 500), chunk_y - clampf(randfn(spawn_chunk_size * .5, 100), 0.0, spawn_chunk_size) )
+			e.global_position = Vector2(randf_range(-500, 500), chunk_y - clampf(randfn(spawn_chunk_size * .5, spawn_chunk_size*.3), 0.0, spawn_chunk_size) )
 		last_spawn_chunk += 1
 		
 #endregion
