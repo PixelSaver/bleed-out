@@ -17,6 +17,9 @@ func set_invincibility(time:float) -> void:
 func _process(delta: float) -> void:
 	if invinicibility_counter > 0:
 		invinicibility_counter -= delta
+	#var atk = Attack.new()
+	#atk.damage = blood_drain * delta
+	#health_component.damage(atk)
 	grapple_cone.look_at(get_global_mouse_position())
 
 ## Checks if the player is invincible

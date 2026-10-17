@@ -71,6 +71,8 @@ speed = 0.0
 
 [node name="Player" parent="." unique_id=1594943802 instance=ExtResource("2_inf4i")]
 position = Vector2(573, 200)
+respawn_delay = null
+blood_drain = null
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2034782579]
 
