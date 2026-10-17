@@ -10,10 +10,9 @@ radius = 32.0
 
 [node name="Goblin" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("grapple_point", "health_component")]
 collision_layer = 2
-sleeping = true
 can_sleep = false
 lock_rotation = true
-freeze = true
+linear_damp = 3.0
 script = ExtResource("1_w31j5")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
@@ -46,11 +45,10 @@ offset_transform_position_ratio = Vector2(-0.5, -0.5)
 offset_transform_scale = Vector2(1.5, 1.5)
 color = Color(1, 0, 0, 0)
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1465637310 node_paths=PackedStringArray("target")]
+[node name="HealthComponent" type="Node" parent="." unique_id=1465637310]
 script = ExtResource("4_8cg1g")
 health = 1.0
 max_health = 1.0
-target = NodePath("")
 metadata/_custom_type_script = "uid://fj7ykktocnh6"
 
 [node name="RayCastRight" type="RayCast2D" parent="." unique_id=1883369008]

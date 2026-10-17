@@ -46,6 +46,7 @@ func try_shoot_again() -> void:
 				shoot(body as Player)
 
 func _on_death() -> void:
+	super()
 	pass
 
 func highlight(do_highlight:bool) -> void:

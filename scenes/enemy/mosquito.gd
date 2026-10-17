@@ -34,7 +34,7 @@ func _on_vision_body_exited(body: Node2D) -> void:
 	var p = body as Player
 	if p == null: return
 	can_see_player = false
-	
+
 
 func _on_charge_body_entered(body: Node2D) -> void:
 	if body is not Player: return
@@ -42,7 +42,7 @@ func _on_charge_body_entered(body: Node2D) -> void:
 	charge(p)
 
 func _physics_process(delta: float) -> void:
-	if not can_see_player or _charge_cooldown_timer > 0: return
+	if not can_see_player or _charge_cooldown_timer > 0 or freeze: return
 	var alpha = 0.2
 	var dir = Global.player_ref.global_position + Global.player_ref.velocity * alpha - self.global_position
 	dir = dir.normalized()
@@ -63,6 +63,8 @@ func try_charge_again() -> void:
 				charge(body as Player)
 
 func _on_death() -> void:
+	print("MOsquito ded")
+	super()
 	pass
 
 func highlight(do_highlight:bool) -> void:

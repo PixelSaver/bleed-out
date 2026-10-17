@@ -41,6 +41,10 @@ func register_enemy(e:Enemy) -> void:
 		add_child(e)
 	enemies.append(e)
 
+func unregister_enemy(e:Enemy) -> void:
+	if enemies.has(e):
+		enemies.erase(e)
+
 func _input(event: InputEvent) -> void:
 	if not OS.is_debug_build(): return
 	if event.is_action_pressed("debug"):
