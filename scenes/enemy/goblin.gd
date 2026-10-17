@@ -15,6 +15,10 @@ func highlight(do_highlight:bool) -> void:
 	super(do_highlight)
 	pass
 
+func _ready() -> void:
+	super()
+	self.direction = [1, -1].pick_random()
+
 func _process(delta: float) -> void:
 	if freeze: return
 	if ray_cast_right.is_colliding():

@@ -21,7 +21,6 @@ mass = 10.0
 gravity_scale = 0.0
 can_sleep = false
 lock_rotation = true
-freeze_mode = 1
 linear_damp = 3.0
 script = ExtResource("1_iwf47")
 shot_range = NodePath("ShotRange")

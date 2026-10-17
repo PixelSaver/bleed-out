@@ -8,7 +8,10 @@ var highlighted_enemy: Enemy = null
 #region Enemy Spawning
 
 @export_group("Spawn Distribution")
-
+## Height above player which enemies will spawn 
+@export var spawn_buffer: float = 1500.
+## Spawn enemies called per chunk
+@export var spawn_chunk_size: float = 1000.
 @export var starting_y: float = 0.0
 
 ## How quickly goblins become rare.
@@ -26,6 +29,7 @@ var highlighted_enemy: Enemy = null
 @export var eyeball_start_height: float = 5000.0
 @export var eyeball_growth: float = 2500.0
 @export var eyeball_max_weight: float = 0.12
+var last_spawn_chunk: int = 0
 
 
 func get_spawn_weights(h: float) -> Dictionary[EnemyType, float]:
@@ -54,16 +58,20 @@ func normalize_weights(d: Dictionary[EnemyType, float]) -> Dictionary[EnemyType,
 	for type in EnemyType.values():
 		d.set(type, d.get(type) / t)
 	return d
-func pick_random_weight(d: Dictionary[EnemyType, float]) -> EnemyType:
-	var r = randf()
-	if r < d.get(EnemyType.EYEBALL):
-		return EnemyType.EYEBALL
-	elif r < d.get(EnemyType.EYEBALL) + d.get(EnemyType.FROG):
-		return EnemyType.EYEBALL
-	elif r < d.get(EnemyType.EYEBALL) + d.get(EnemyType.FROG) + d.get(EnemyType.MOSQUITO):
-		return EnemyType.MOSQUITO
-	else:
-		return EnemyType.GOBLIN
+func pick_random_weight(
+	d: Dictionary[EnemyType, float]
+) -> EnemyType:
+	var total := 0.0
+	for weight in d.values():
+		total += weight
+	if total <= 0.0:
+		return DEFAULT_ENEMY_SCENE
+	var r := randf() * total
+	for type in EnemyType.values():
+		r -= d.get(type, 0.0)
+		if r < 0.0:
+			return type
+	return DEFAULT_ENEMY_SCENE
 	
 ## Use the player y level to modulate difficulty and stuff
 func pick_enemy_type(y:float) -> EnemyType:
@@ -91,6 +99,27 @@ func _input(event: InputEvent) -> void:
 		register_enemy(e)
 		e.global_position = Global.player_ref.global_position
 
+func _process(delta: float) -> void:
+	var p = Global.player_ref
+	if p == null: return
+	var current_chunk: int = floori(
+	(starting_y - p.global_position.y + spawn_buffer)
+	/ spawn_chunk_size
+)
+	while current_chunk > max(starting_y * spawn_chunk_size, last_spawn_chunk):
+		# spawn enemy chunk
+		var height := last_spawn_chunk * spawn_chunk_size
+		var chunk_y := -starting_y - height
+		## number of enemies per chunk, might functionize later
+		var n = 3
+		for i in range(n):
+			var type = pick_enemy_type(height)
+			var scene = get_enemy_scene(type)
+			var e = scene.instantiate() as Enemy
+			register_enemy(e)
+			e.global_position = Vector2(randf_range(-500, 500), chunk_y - randf() * spawn_chunk_size )
+		last_spawn_chunk += 1
+		
 #endregion
 
 #region Scene loading
