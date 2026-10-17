@@ -5,30 +5,48 @@ class_name EnemyManager
 var enemies: Array[Enemy] = []
 var highlighted_enemy: Enemy = null
 
-#region Scene loading
-enum EnemyType {
-	GOBLIN,
-	MOSQUITO,
-	FROG,
-	EYEBALL,
-}
-const DEFAULT_ENEMY_SCENE = EnemyType.GOBLIN
-var enemy_scenes: Dictionary[EnemyType, PackedScene] = {
-	EnemyType.GOBLIN: preload("res://scenes/enemy/goblin.tscn"),
-	EnemyType.MOSQUITO: preload("res://scenes/enemy/mosquito.tscn"),
-	EnemyType.FROG: preload("res://scenes/enemy/frog.tscn"),
-	EnemyType.EYEBALL: preload("res://scenes/enemy/eyeball.tscn"),
-}
-## To spawn an enemy, get the scene, instantiate it, and use EnemyManager.register_enemy(scene)
-func get_enemy_scene(type: EnemyType) -> PackedScene:
-	if enemy_scenes.has(type):
-		return enemy_scenes.get(type)
-	else: 
-		print("Failed to get enemy scene #(%s), returning scene#(%s)" % [type, DEFAULT_ENEMY_SCENE])
-		return enemy_scenes.get(DEFAULT_ENEMY_SCENE)
-#endregion
-
 #region Enemy Spawning
+
+@export_group("Spawn Distribution")
+
+@export var starting_y: float = 0.0
+
+## How quickly goblins become rare.
+@export var goblin_decay: float = 2000.0
+
+## How quickly mosquitos become common.
+@export var mosquito_growth: float = 1500.0
+
+## Frog introduction and growth.
+@export var frog_start_height: float = 1500.0
+@export var frog_growth: float = 1800.0
+@export var frog_max_weight: float = 0.8
+
+## Eyeball introduction and growth.
+@export var eyeball_start_height: float = 5000.0
+@export var eyeball_growth: float = 2500.0
+@export var eyeball_max_weight: float = 0.12
+
+
+func get_spawn_weights(h: float) -> Dictionary:
+	var goblin := 0.1 + 0.9 * exp(-h / goblin_decay)
+	var mosquito := 0.2 + 0.8 * (
+		1.0 - exp(-h / mosquito_growth)
+	)
+	var frog_height := maxf(0.0, h - frog_start_height)
+	var frog := frog_max_weight * (
+		1.0 - exp(-frog_height / frog_growth)
+	)
+	var eyeball_height := maxf(0.0, h - eyeball_start_height)
+	var eyeball := eyeball_max_weight * (
+		1.0 - exp(-eyeball_height / eyeball_growth)
+	)
+	return {
+		EnemyType.GOBLIN: goblin,
+		EnemyType.MOSQUITO: mosquito,
+		EnemyType.FROG: frog,
+		EnemyType.EYEBALL: eyeball,
+	}
 ## Use the player y level to modulate difficulty and stuff
 func pick_enemy_type(_y:float) -> EnemyType:
 	return EnemyType.values().pick_random()
@@ -54,6 +72,29 @@ func _input(event: InputEvent) -> void:
 		register_enemy(e)
 		e.global_position = Global.player_ref.global_position
 
+#endregion
+
+#region Scene loading
+enum EnemyType {
+	GOBLIN,
+	MOSQUITO,
+	FROG,
+	EYEBALL,
+}
+const DEFAULT_ENEMY_SCENE = EnemyType.GOBLIN
+var enemy_scenes: Dictionary[EnemyType, PackedScene] = {
+	EnemyType.GOBLIN: preload("res://scenes/enemy/goblin.tscn"),
+	EnemyType.MOSQUITO: preload("res://scenes/enemy/mosquito.tscn"),
+	EnemyType.FROG: preload("res://scenes/enemy/frog.tscn"),
+	EnemyType.EYEBALL: preload("res://scenes/enemy/eyeball.tscn"),
+}
+## To spawn an enemy, get the scene, instantiate it, and use EnemyManager.register_enemy(scene)
+func get_enemy_scene(type: EnemyType) -> PackedScene:
+	if enemy_scenes.has(type):
+		return enemy_scenes.get(type)
+	else: 
+		print("Failed to get enemy scene #(%s), returning scene#(%s)" % [type, DEFAULT_ENEMY_SCENE])
+		return enemy_scenes.get(DEFAULT_ENEMY_SCENE)
 #endregion
 
 func _ready() -> void:
