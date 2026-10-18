@@ -27,7 +27,8 @@ func _process(delta: float) -> void:
 	var atk = Attack.new()
 	atk.damage = blood_drain * delta
 	health_component.damage(atk)
-	print(health_component.health)
+	#DEBUG
+	#print(health_component.health)
 	grapple_cone.look_at(get_global_mouse_position())
 
 func drink():
