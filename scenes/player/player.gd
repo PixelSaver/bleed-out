@@ -8,7 +8,7 @@ class_name Player
 @export var player_movement_component: PlayerMovementComponent
 @export var respawn_delay: float = 0.2
 @export var blood_drain: float = 10.0
-@export var drink_amount: float = 3.0
+@export var drink_amount: float = 30.0
 @export var invincibilty_duration: float = 1.5
 @export var flicker_duration: float = 1.0
 var invincibility_counter: float = 0.0

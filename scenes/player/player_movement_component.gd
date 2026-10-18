@@ -41,10 +41,10 @@ class_name PlayerMovementComponent
 @export var line_width = 10.0
 @export var max_line_squish = 2.0
 
-@export var pull_required = 3.0
-@export var pull_cost = 2.0
-@export var parry_required = 3.0
-@export var parry_cost = 2.0
+@export var pull_required = 30.0
+@export var pull_cost = 10.0
+@export var parry_required = 30.0
+@export var parry_cost = 10.0
 
 var prebounce_vel = Vector2.ZERO
 var grappling = false
