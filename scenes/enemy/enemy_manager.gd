@@ -162,13 +162,12 @@ func _ready() -> void:
 	SignalBus.highlight_enemy.connect(_on_enemy_highlight)
 
 func _on_enemy_highlight(e:Enemy) -> void:
-	if e == null:
-		if highlighted_enemy:
-			highlighted_enemy.highlight(false)
-			highlighted_enemy = null
-		return
-	if highlighted_enemy != null:
+	if e == highlighted_enemy: return
+	if highlighted_enemy:
 		highlighted_enemy.highlight(false)
+		highlighted_enemy = null
+	if e == null:
+		return
 	e.highlight(true)
 	highlighted_enemy = e
 

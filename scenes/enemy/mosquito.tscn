@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_44ico"]
 [ext_resource type="Script" uid="uid://cihaphm0cdl2f" path="res://scenes/grapple/grapple_point.gd" id="3_bcidh"]
 [ext_resource type="Script" uid="uid://fj7ykktocnh6" path="res://utilities/health_component.gd" id="4_gnjs4"]
+[ext_resource type="Texture2D" uid="uid://bbrf3us7xl4aa" path="res://assets/grappleMark spritesheet.png" id="5_44ico"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
 radius = 32.0
@@ -14,6 +15,45 @@ height = 2000.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_plx5h"]
 radius = 250.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcidh"]
+atlas = ExtResource("5_44ico")
+region = Rect2(0, 0, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnjs4"]
+atlas = ExtResource("5_44ico")
+region = Rect2(2049, 0, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc7gd"]
+atlas = ExtResource("5_44ico")
+region = Rect2(0, 2049, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxaow"]
+atlas = ExtResource("5_44ico")
+region = Rect2(2049, 2049, 2049, 2049)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcidh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnjs4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gc7gd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxaow")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 24.0
+}]
 
 [node name="Mosquito" type="RigidBody2D" unique_id=1063827371 node_paths=PackedStringArray("charge_range", "vision_range", "grapple_point", "health_component")]
 collision_layer = 4
@@ -92,3 +132,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargeRange" unique_id=2026020791]
 shape = SubResource("CircleShape2D_plx5h")
 debug_color = Color(0.77254903, 0.25882354, 0.12941177, 0.41960785)
+
+[node name="Marked" type="AnimatedSprite2D" parent="." unique_id=1593461560]
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_gkedh")
