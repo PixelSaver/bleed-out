@@ -1,5 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://djxds56cenfds"]
 
+[ext_resource type="FontFile" uid="uid://etyyoqpv0cqf" path="res://assets/fonts/chomsky/Chomsky.otf" id="1_qew4h"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gkedh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_plx5h"]
@@ -21,3 +23,4 @@ MarginContainer/constants/margin_bottom = 20
 MarginContainer/constants/margin_left = 20
 MarginContainer/constants/margin_right = 20
 MarginContainer/constants/margin_top = 20
+RichTextLabel/fonts/normal_font = ExtResource("1_qew4h")

@@ -1,6 +1,7 @@
 extends PixelMenu
 class_name StartMenu
 
+@export var cont: Container
 @export var buttons: Array[StartMenuButton]
 var all_t : Array[Tweenable] = []
 var t: Tween 
@@ -14,18 +15,29 @@ func _ready() -> void:
 func _on_button_pressed(_name:String) -> void:
 	match _name.to_lower():
 		"play":
-			#var game_scene = SceneDatabase.get_scene(SceneDatabase.Scene.GAME)
-			#var game_scene = SceneDatabase.get_scene(SceneDatabase.Scene.GRAPPLE_TEST)
+			if t and t.is_running(): t.kill()
+			t = default_tween()
+			t.tween_property(cont, "offset_transform_position_ratio:x", 0.375/2, 0.7)
+			await get_tree().create_timer(0.7).timeout
 			var game_scene = SceneDatabase.get_scene(SceneDatabase.Scene.GAME)
 			Global.menu_manager.transition_to_scene(game_scene)
 			pass
 		"settings":
-			var settings_scene = SceneDatabase.get_scene(SceneDatabase.Scene.SETTINGS)
-			Global.menu_manager.transition_to_scene(settings_scene)
+			if t and t.is_running(): t.kill()
+			t = default_tween()
+			t.tween_property(cont, "offset_transform_position_ratio:x", 0.375, 0.7)
+			#var settings_scene = SceneDatabase.get_scene(SceneDatabase.Scene.SETTINGS)
+			#Global.menu_manager.transition_to_scene(settings_scene)
+		"back":
+			if t and t.is_running(): t.kill()
+			t = default_tween()
+			t.tween_property(cont, "offset_transform_position_ratio:x", 0.0, 0.7)
 			
 		_:
 			push_warning("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
 			#Log.warn("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
+
+
 
 func start_anim() -> void: pass
 func end_anim() -> void: 

@@ -25,6 +25,7 @@ PhantomCameraManager="*uid://duq6jhf6unyis"
 
 [display]
 
+window/hdr/request_hdr_output=true
 window/stretch/mode="canvas_items"
 
 [editor_plugins]
@@ -98,3 +99,4 @@ debug={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/hdr_2d=true

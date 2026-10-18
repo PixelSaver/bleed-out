@@ -120,7 +120,7 @@ func _process(_delta: float) -> void:
 		var height := last_spawn_chunk * spawn_chunk_size
 		var chunk_y := starting_y - height
 		## number of enemies per chunk, might functionize later
-		var n = 2
+		var n = 5
 		for i in range(n):
 			var type = pick_enemy_type(height)
 			var scene = get_enemy_scene(type)
