@@ -14,6 +14,7 @@ class_name EyeballEnemy
 ## The line that shows player where it's going to shoot.
 @export var lazer_line_promise: Line2D
 @export var lazer_line: Line2D
+@export var marked: AnimatedSprite2D
 ## If the eye is following player position
 var is_following: bool = false
 var can_shoot_player: bool = false
@@ -159,17 +160,20 @@ func _process(delta: float) -> void:
 		lazer()
 
 func _physics_process(delta: float) -> void:
-	var target = self.global_position - Global.player_ref.global_position
-	target = target.normalized() * 800.
-	target = target + Global.player_ref.global_position
-	var dir = target - self.global_position
-	dir = dir.normalized()
-	self.apply_central_force(dir * 10000.)
+	var below = self.global_position.y - Global.player_ref.global_position.y  > 800
+	var offset = Global.player_ref.global_position - self.global_position
+	var distance = offset.length()
+	var dir = offset.normalized()
+
+	if distance > 800.0:
+		self.apply_central_force(dir * 10000.0 * (10. if below else 1.))
+	elif distance < 800.0:
+		self.apply_central_force(-dir * 10000.0 )
 
 func _on_death() -> void:
+	super()
 	pass
 
-@onready var marked: AnimatedSprite2D = $Marked
 var is_highlighted = false
 func highlight(do_highlight:bool) -> void:
 	if do_highlight and not is_highlighted:

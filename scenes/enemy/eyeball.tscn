@@ -51,45 +51,13 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("4_v8eww")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"red",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gkedh"]
 size = Vector2(10000, 10)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_26m1p"]
-shader = ExtResource("2_v8eww")
-shader_parameter/half_mode = 1
-shader_parameter/gold_color = Color(0.83, 0.61, 0.22, 1)
-shader_parameter/eye_color = Color(1, 1, 1, 1)
-shader_parameter/pupil_color = Color(0.01, 0.01, 0.01, 1)
-shader_parameter/background_alpha = 0.0
-shader_parameter/animation_speed = 1.0
-shader_parameter/ring_speed = Vector3(1, 0.42, 0.29)
-shader_parameter/use_normals = false
-shader_parameter/ring_normal_inner = Vector3(0, 0, -1)
-shader_parameter/ring_normal_middle = Vector3(0, 1, 0)
-shader_parameter/ring_normal_outer = Vector3(1, 0, 0)
-shader_parameter/ring_roll = Vector3(1.25, -0.75, 0)
-shader_parameter/ring_radius = Vector3(2.8, 3.3, 3.8)
-shader_parameter/ring_thickness = Vector3(0.05, 0.05, 0.05)
-shader_parameter/ring_height = Vector3(0.3, 0.35, 0.4)
-shader_parameter/eye_counts = Vector3i(9, 12, 16)
-shader_parameter/eye_size = 0.8530000405175
-shader_parameter/eye_flatten = 0.4
-shader_parameter/eye_offset = 0.0
-shader_parameter/show_pupils = true
-shader_parameter/pupil_size = 0.45
-shader_parameter/look_direction = Vector3(0, 0, -1)
-shader_parameter/random_look = true
-shader_parameter/random_look_spread = 0.3
-shader_parameter/random_look_rate = 3.17200015067
-shader_parameter/random_seed = 0.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
-radius = 32.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bcidh"]
 atlas = ExtResource("5_e6ehl")
@@ -130,11 +98,80 @@ animations = [{
 "speed": 24.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_26m1p"]
+shader = ExtResource("2_v8eww")
+shader_parameter/half_mode = 1
+shader_parameter/gold_color = Color(0.83, 0.61, 0.22, 1)
+shader_parameter/eye_color = Color(1, 1, 1, 1)
+shader_parameter/pupil_color = Color(0.01, 0.01, 0.01, 1)
+shader_parameter/background_alpha = 0.0
+shader_parameter/animation_speed = 1.0
+shader_parameter/ring_speed = Vector3(1, 0.42, 0.29)
+shader_parameter/use_normals = false
+shader_parameter/ring_normal_inner = Vector3(0, 0, -1)
+shader_parameter/ring_normal_middle = Vector3(0, 1, 0)
+shader_parameter/ring_normal_outer = Vector3(1, 0, 0)
+shader_parameter/ring_roll = Vector3(1.25, -0.75, 0)
+shader_parameter/ring_radius = Vector3(2.8, 3.3, 3.8)
+shader_parameter/ring_thickness = Vector3(0.05, 0.05, 0.05)
+shader_parameter/ring_height = Vector3(0.3, 0.35, 0.4)
+shader_parameter/eye_counts = Vector3i(9, 12, 16)
+shader_parameter/eye_size = 0.8530000405175
+shader_parameter/eye_flatten = 0.4
+shader_parameter/eye_offset = 0.0
+shader_parameter/show_pupils = true
+shader_parameter/pupil_size = 0.45
+shader_parameter/look_direction = Vector3(0, 0, -1)
+shader_parameter/random_look = true
+shader_parameter/random_look_spread = 0.3
+shader_parameter/random_look_rate = 3.17200015067
+shader_parameter/random_seed = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
+radius = 76.05919
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v8eww"]
 radius = 600.0
 height = 2000.0
 
-[node name="Eyeball" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("pupil", "shoot_range", "eye_background", "back_rect", "front_rect", "lazer_area", "lazer_line_promise", "lazer_line", "grapple_point", "health_component")]
+[sub_resource type="Gradient" id="Gradient_v8eww"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gkedh"]
+gradient = SubResource("Gradient_v8eww")
+width = 1
+use_hdr = true
+
+[sub_resource type="Gradient" id="Gradient_qebto"]
+colors = PackedColorArray(4.490334, 3.5242152, 0.6258595, 1, 0.32337573, 0.5378322, 1.0382308, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rfxp3"]
+gradient = SubResource("Gradient_qebto")
+
+[sub_resource type="Curve" id="Curve_jw8os"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2562358, 1), 0.0, 0.0, 0, 0, Vector2(0.7256235, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_c7qcy"]
+curve = SubResource("Curve_jw8os")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_plx5h"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 198.06999
+initial_velocity_max = 198.06999
+gravity = Vector3(0, 98, 0)
+scale_min = 6.0
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_c7qcy")
+color_ramp = SubResource("GradientTexture1D_rfxp3")
+turbulence_enabled = true
+
+[node name="Eyeball" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("pupil", "shoot_range", "eye_background", "back_rect", "front_rect", "lazer_area", "lazer_line_promise", "lazer_line", "marked", "grapple_point", "health_component")]
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
@@ -151,6 +188,7 @@ front_rect = NodePath("Visual/Front")
 lazer_area = NodePath("Visual/Pupil/Lazer")
 lazer_line_promise = NodePath("Visual/Pupil/Lazer/LinePromise")
 lazer_line = NodePath("Visual/Pupil/Lazer/LineReal")
+marked = NodePath("Visual/Marked")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
@@ -205,6 +243,12 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
+[node name="Marked" type="AnimatedSprite2D" parent="Visual" unique_id=1930101909]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_u4ht0")
+frame = 4
+frame_progress = 1.0
+
 [node name="Front" type="ColorRect" parent="Visual" unique_id=805719373]
 material = SubResource("ShaderMaterial_26m1p")
 custom_minimum_size = Vector2(500, 500)
@@ -219,7 +263,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619995234]
-visible = false
 shape = SubResource("CircleShape2D_gkedh")
 
 [node name="GrapplePoint" type="Node2D" parent="." unique_id=1850899063]
@@ -228,19 +271,20 @@ metadata/_custom_type_script = "uid://cihaphm0cdl2f"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1465637310]
 script = ExtResource("4_q8k0b")
-health = 1.0
-max_health = 1.0
-invulnerable = true
+health = 3.0
+max_health = 3.0
 metadata/_custom_type_script = "uid://fj7ykktocnh6"
-
-[node name="Marked" type="AnimatedSprite2D" parent="." unique_id=1930101909]
-scale = Vector2(0.15, 0.15)
-sprite_frames = SubResource("SpriteFrames_u4ht0")
 
 [node name="ShootRange" type="Area2D" parent="." unique_id=2004791906]
 collision_layer = 4
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShootRange" unique_id=1415435530]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_v8eww")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1243264605]
+texture = SubResource("GradientTexture1D_gkedh")
+randomness = 0.22
+process_material = SubResource("ParticleProcessMaterial_plx5h")

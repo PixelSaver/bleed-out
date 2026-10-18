@@ -21,6 +21,7 @@ func _ready() -> void:
 	)
 	vision_range.body_entered.connect(_on_vision_body_entered)
 	vision_range.body_exited.connect(_on_vision_body_exited)
+	_shot_cooldown = shot_cooldown * randf()
 	
 func _on_vision_body_entered(body: Node2D) -> void:
 	if body is not Player: return
