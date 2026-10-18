@@ -20,6 +20,8 @@ class_name PlayerMovementComponent
 ## Amount of towards-momentum converted to angular momentum upon starting grapple (experimental, probably deleting)
 @export var momentum_cheat = 0.0 # 0.5
 @export var damp_transfer = 0.0 # 0.5
+# Increase gravity while swinging downwards
+@export var gravity_boost = 2
 @export var min_swing_speed = 700.0
 ## How fast the angular velocity is corrected if below the min
 @export var min_correct_amount = 1
@@ -179,7 +181,11 @@ func process_movement(p:Player, delta: float) -> void:
 				grapple_dist = max(grapple_dist, min(min_grapple_dist, old_dist))
 			
 			# Apply gravity to spin
-			angular_vel += gravity * cos(grapple_angle) / grapple_dist * delta
+			if angular_vel * cos(grapple_angle) > 0:
+				# Extra gravity when going down
+				angular_vel += gravity * gravity_boost * cos(grapple_angle) / grapple_dist * delta
+			else:
+				angular_vel += gravity * cos(grapple_angle) / grapple_dist * delta
 			
 			# That effect where figure skaters spin faster without their arms out
 			angular_vel *= (old_dist / grapple_dist) ** 2
