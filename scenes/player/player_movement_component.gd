@@ -41,6 +41,11 @@ class_name PlayerMovementComponent
 @export var line_width = 10.0
 @export var max_line_squish = 2.0
 
+@export var pull_required = 30.0
+@export var pull_cost = 10.0
+@export var parry_required = 30.0
+@export var parry_cost = 10.0
+
 var prebounce_vel = Vector2.ZERO
 var grappling = false
 var grapple_target: GrapplePoint
@@ -77,13 +82,15 @@ func _initiate_grapple(target: GrapplePoint, p: Player) -> void:
 	var atk = Attack.new()
 	atk.damage = 1
 	e.freeze_enemy(true, atk)
+	
+	p.drink()
 
 func _ungrapple() -> void:
 	var p := Global.player_ref
 	if rope_taut:
 		# Proper velocity when releasing grapple
 		p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
-					+ (grapple_dist * angular_vel + release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
+					+ (grapple_dist * angular_vel + sign(angular_vel) * release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
 		
 		rope_taut = false
 		
@@ -124,7 +131,7 @@ func process_movement(p:Player, delta: float) -> void:
 			# Ungrappling if you let go of the button or hit some terrain
 			if Input.is_action_just_released("grapple"):
 				_ungrapple()
-			elif Input.is_action_just_pressed("attack"):
+			elif Input.is_action_just_pressed("attack") and p.spend_blood(pull_required, pull_cost):
 				pull_vel = (grapple_target.global_position - p.global_position).normalized() * pull_power * log(1.0 + grapple_dist)
 				pulling = true
 				pull_time = 0.0
@@ -147,7 +154,7 @@ func process_movement(p:Player, delta: float) -> void:
 				if Input.is_action_just_pressed("grapple"):
 					if temp_grapple_target:
 						_initiate_grapple(temp_grapple_target, p)
-				elif Input.is_action_just_pressed("attack"):
+				elif Input.is_action_just_pressed("attack") and p.spend_blood(parry_required, parry_cost):
 					parrying = true
 					parry_time = 0.0
 		
