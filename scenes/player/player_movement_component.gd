@@ -83,7 +83,7 @@ func _ungrapple() -> void:
 	if rope_taut:
 		# Proper velocity when releasing grapple
 		p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
-					+ (grapple_dist * angular_vel + release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
+					+ (grapple_dist * angular_vel + sign(angular_vel) * release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
 		
 		rope_taut = false
 		
