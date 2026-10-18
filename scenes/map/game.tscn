@@ -5,12 +5,77 @@
 [ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_sd4cy"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
+[ext_resource type="Texture2D" uid="uid://l25715al180n" path="res://assets/waterfall/w1.png" id="7_jsmvi"]
+[ext_resource type="Texture2D" uid="uid://c7qx51k4gykl6" path="res://assets/waterfall/w2.png" id="8_i0sqq"]
 [ext_resource type="Script" uid="uid://broyjxtwa1it1" path="res://scenes/enemy/projectile/projectile_manager.gd" id="8_x7wrf"]
+[ext_resource type="Texture2D" uid="uid://fdi00dqriylg" path="res://assets/waterfall/w3.png" id="9_whhis"]
+[ext_resource type="Texture2D" uid="uid://dtic1gs70vu4e" path="res://assets/waterfall/w4.png" id="10_4hwui"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="10_tc0lc"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="11_p1buo"]
+[ext_resource type="Texture2D" uid="uid://c674ngj7kb5f5" path="res://assets/waterfall/w5.png" id="11_qxpgi"]
+[ext_resource type="Texture2D" uid="uid://upbhit3rm5c3" path="res://assets/waterfall/w6.png" id="12_hjt0h"]
+[ext_resource type="Script" uid="uid://b1x2ln2tjgux" path="res://scenes/map/animated_sprite_2d.gd" id="12_i0sqq"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_mysg8"]
 [ext_resource type="Script" uid="uid://dra14veup3c7j" path="res://scenes/map/camera_follow_point.gd" id="15_4hwui"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_jsmvi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_i0sqq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_whhis")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_4hwui")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_qxpgi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_hjt0h")
+}],
+"loop": 1,
+"name": &"waterfall",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_jsmvi"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(2.8619382, 7.944, 6.5961537, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gkedh"]
+gradient = SubResource("Gradient_jsmvi")
+width = 1
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_i0sqq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.26757368, 1), 0.0, 0.0, 0, 0, Vector2(0.802721, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_c7qcy"]
+curve = SubResource("Curve_i0sqq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_plx5h"]
+lifetime_randomness = 0.25
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2000, 1000, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 170.34
+initial_velocity_max = 358.72
+angular_velocity_min = -455.95
+angular_velocity_max = 519.44
+gravity = Vector3(0, 98, 0)
+radial_accel_min = -37.68
+radial_accel_max = 18.839998
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_c7qcy")
 
 [sub_resource type="Resource" id="Resource_ry5pk"]
 script = ExtResource("12_mysg8")
@@ -24,6 +89,11 @@ distance = -800.0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4hwui"]
 normal = Vector2(-1, 0)
 distance = -800.0
+
+[sub_resource type="Environment" id="Environment_gkedh"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.52
 
 [node name="GrappleTest" type="Control" unique_id=1629713699]
 layout_mode = 3
@@ -56,6 +126,31 @@ process_priority = 300
 process_physics_priority = 300
 script = ExtResource("10_tc0lc")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/Camera2D2" unique_id=633394892]
+z_index = -9
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_gkedh")
+animation = &"waterfall"
+autoplay = "waterfall"
+script = ExtResource("12_i0sqq")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Player/Camera2D2/AnimatedSprite2D" unique_id=573285597]
+texture = SubResource("GradientTexture1D_gkedh")
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_plx5h")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Player/Camera2D2/AnimatedSprite2D" unique_id=1196421015]
+visible = false
+texture = SubResource("GradientTexture1D_gkedh")
+lifetime = 3.0
+lifetime_randomness = 0.25
+fixed_fps = 30
+draw_order = 1
+emission_shape = 3
+emission_rect_extents = Vector2(1500, 1000)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 98)
 
 [node name="CameraFollowPoint" type="Node2D" parent="Player" unique_id=1148747602]
 position = Vector2(0, -150)
@@ -116,3 +211,6 @@ shape = SubResource("WorldBoundaryShape2D_whhis")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Borders" unique_id=422549170]
 shape = SubResource("WorldBoundaryShape2D_4hwui")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1574700136]
+environment = SubResource("Environment_gkedh")
