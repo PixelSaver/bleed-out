@@ -1,10 +1,92 @@
 [gd_scene format=3 uid="uid://bm55smahjyywv"]
 
 [ext_resource type="Script" uid="uid://dh2qkc6vrtjfv" path="res://scenes/enemy/eyeball.gd" id="1_rg0m3"]
-[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_e6ehl"]
+[ext_resource type="Texture2D" uid="uid://b8kfxp5r8rqcj" path="res://assets/eyeball/eye1.png" id="2_q8k0b"]
+[ext_resource type="Shader" uid="uid://c4ld5frarb7xj" path="res://shaders/rings.gdshader" id="2_v8eww"]
+[ext_resource type="Texture2D" uid="uid://da0yb4rcmlkwi" path="res://assets/eyeball/eye2.png" id="3_dxavw"]
 [ext_resource type="Script" uid="uid://cihaphm0cdl2f" path="res://scenes/grapple/grapple_point.gd" id="3_u4ht0"]
 [ext_resource type="Script" uid="uid://fj7ykktocnh6" path="res://utilities/health_component.gd" id="4_q8k0b"]
+[ext_resource type="Texture2D" uid="uid://dmrai2d8i8h33" path="res://assets/eyeball/eye3.png" id="4_v8eww"]
 [ext_resource type="Texture2D" uid="uid://bbrf3us7xl4aa" path="res://assets/grappleMark spritesheet.png" id="5_e6ehl"]
+[ext_resource type="Texture2D" uid="uid://bkvsdycf8tsy" path="res://assets/eyeball/pupil.png" id="6_qebto"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jw8os"]
+shader = ExtResource("2_v8eww")
+shader_parameter/half_mode = 2
+shader_parameter/gold_color = Color(0.83, 0.61, 0.22, 1)
+shader_parameter/eye_color = Color(1, 1, 1, 1)
+shader_parameter/pupil_color = Color(0.01, 0.01, 0.01, 1)
+shader_parameter/background_alpha = 0.0
+shader_parameter/animation_speed = 1.0
+shader_parameter/ring_speed = Vector3(1, 0.42, 0.29)
+shader_parameter/use_normals = false
+shader_parameter/ring_normal_inner = Vector3(0, 0, -1)
+shader_parameter/ring_normal_middle = Vector3(0, 1, 0)
+shader_parameter/ring_normal_outer = Vector3(1, 0, 0)
+shader_parameter/ring_roll = Vector3(1.25, -0.75, 0)
+shader_parameter/ring_radius = Vector3(2.8, 3.3, 3.8)
+shader_parameter/ring_thickness = Vector3(0.05, 0.05, 0.05)
+shader_parameter/ring_height = Vector3(0.3, 0.35, 0.4)
+shader_parameter/eye_counts = Vector3i(9, 12, 16)
+shader_parameter/eye_size = 0.8530000405175
+shader_parameter/eye_flatten = 0.4
+shader_parameter/eye_offset = 0.0
+shader_parameter/show_pupils = true
+shader_parameter/pupil_size = 0.45
+shader_parameter/look_direction = Vector3(0, 0, -1)
+shader_parameter/random_look = true
+shader_parameter/random_look_spread = 0.3
+shader_parameter/random_look_rate = 3.17200015067
+shader_parameter/random_seed = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_q8k0b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dxavw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_v8eww")
+}],
+"loop": 1,
+"name": &"red",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gkedh"]
+size = Vector2(10000, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_26m1p"]
+shader = ExtResource("2_v8eww")
+shader_parameter/half_mode = 1
+shader_parameter/gold_color = Color(0.83, 0.61, 0.22, 1)
+shader_parameter/eye_color = Color(1, 1, 1, 1)
+shader_parameter/pupil_color = Color(0.01, 0.01, 0.01, 1)
+shader_parameter/background_alpha = 0.0
+shader_parameter/animation_speed = 1.0
+shader_parameter/ring_speed = Vector3(1, 0.42, 0.29)
+shader_parameter/use_normals = false
+shader_parameter/ring_normal_inner = Vector3(0, 0, -1)
+shader_parameter/ring_normal_middle = Vector3(0, 1, 0)
+shader_parameter/ring_normal_outer = Vector3(1, 0, 0)
+shader_parameter/ring_roll = Vector3(1.25, -0.75, 0)
+shader_parameter/ring_radius = Vector3(2.8, 3.3, 3.8)
+shader_parameter/ring_thickness = Vector3(0.05, 0.05, 0.05)
+shader_parameter/ring_height = Vector3(0.3, 0.35, 0.4)
+shader_parameter/eye_counts = Vector3i(9, 12, 16)
+shader_parameter/eye_size = 0.8530000405175
+shader_parameter/eye_flatten = 0.4
+shader_parameter/eye_offset = 0.0
+shader_parameter/show_pupils = true
+shader_parameter/pupil_size = 0.45
+shader_parameter/look_direction = Vector3(0, 0, -1)
+shader_parameter/random_look = true
+shader_parameter/random_look_spread = 0.3
+shader_parameter/random_look_rate = 3.17200015067
+shader_parameter/random_seed = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
 radius = 32.0
@@ -48,7 +130,7 @@ animations = [{
 "speed": 24.0
 }]
 
-[node name="Eyeball" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("grapple_point", "health_component")]
+[node name="Eyeball" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("pupil", "lazer_area", "lazer_line_promise", "lazer_line", "grapple_point", "health_component")]
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
@@ -56,36 +138,85 @@ gravity_scale = 0.0
 can_sleep = false
 lock_rotation = true
 script = ExtResource("1_rg0m3")
+lazer_delay = null
+pupil = NodePath("Visual/Pupil")
+lazer_area = NodePath("Visual/Pupil/Lazer")
+lazer_line_promise = NodePath("Visual/Pupil/Lazer/LinePromise")
+lazer_line = NodePath("Visual/Pupil/Lazer/LineReal")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
+speed = null
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619995234]
-shape = SubResource("CircleShape2D_gkedh")
+[node name="Visual" type="Node2D" parent="." unique_id=1760369924]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=824649474]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_e6ehl")
+[node name="Back" type="ColorRect" parent="Visual" unique_id=651054303]
+material = SubResource("ShaderMaterial_jw8os")
+custom_minimum_size = Vector2(250, 250)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EyeBackground" type="AnimatedSprite2D" parent="Visual" unique_id=1712953706]
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_gkedh")
+animation = &"red"
+
+[node name="Pupil" type="Sprite2D" parent="Visual" unique_id=13228388]
+position = Vector2(-12.999999, 0)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("6_qebto")
+
+[node name="Lazer" type="Area2D" parent="Visual/Pupil" unique_id=732763054]
+scale = Vector2(19.999998, 19.999998)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visual/Pupil/Lazer" unique_id=488349907]
+position = Vector2(4999.9995, 0)
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_gkedh")
+
+[node name="LinePromise" type="Line2D" parent="Visual/Pupil/Lazer" unique_id=458365573]
+position = Vector2(5, 0)
+points = PackedVector2Array(0, 0, 10000, 0)
+default_color = Color(0.9, 0.765, 0.225, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LineReal" type="Line2D" parent="Visual/Pupil/Lazer" unique_id=1901841693]
+visible = false
+position = Vector2(5, 0)
+points = PackedVector2Array(0, 0, 10000, 0)
+default_color = Color(0.9, 0.765, 0.225, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Front" type="ColorRect" parent="Visual" unique_id=805719373]
+material = SubResource("ShaderMaterial_26m1p")
+custom_minimum_size = Vector2(250, 250)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -125.0
+offset_right = 125.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619995234]
+visible = false
+shape = SubResource("CircleShape2D_gkedh")
 
 [node name="GrapplePoint" type="Node2D" parent="." unique_id=1850899063]
 script = ExtResource("3_u4ht0")
 metadata/_custom_type_script = "uid://cihaphm0cdl2f"
-
-[node name="EyeballCOLORPROTOTYPE" type="ColorRect" parent="." unique_id=110610704]
-offset_right = 40.0
-offset_bottom = 40.0
-offset_transform_enabled = true
-offset_transform_position_ratio = Vector2(-0.5, -0.5)
-offset_transform_scale = Vector2(1.5, 1.5)
-color = Color(0.8498864, 0.8147041, 0.84722817, 0.2784314)
-
-[node name="HighlightPROTOTYPE" type="ColorRect" parent="." unique_id=1782595555]
-offset_right = 40.0
-offset_bottom = 40.0
-offset_transform_enabled = true
-offset_transform_position_ratio = Vector2(-0.5, -0.5)
-offset_transform_scale = Vector2(1.5, 1.5)
-color = Color(1, 0, 0, 0)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1465637310]
 script = ExtResource("4_q8k0b")
@@ -94,25 +225,9 @@ max_health = 1.0
 invulnerable = true
 metadata/_custom_type_script = "uid://fj7ykktocnh6"
 
-[node name="RayCastRight" type="RayCast2D" parent="." unique_id=1883369008]
-target_position = Vector2(55, 0)
-
-[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1996236376]
-target_position = Vector2(-55, 0)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1850697949]
-offset_left = -78.0
-offset_top = -30.0
-offset_right = 83.0
-offset_bottom = 25.0
-bbcode_enabled = true
-text = "[font_size=30]Eyeball"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Marked" type="AnimatedSprite2D" parent="." unique_id=1930101909]
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_u4ht0")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=424615912]
+zoom = Vector2(3, 3)

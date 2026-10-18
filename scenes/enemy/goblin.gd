@@ -17,7 +17,7 @@ func highlight(do_highlight:bool) -> void:
 	elif do_highlight == false and is_highlighted == true:
 		is_highlighted = false
 		marked.set_frame(0)
-		marked.play_backwards("default")
+		marked.play("default", -2., true)
 
 func _on_death() -> void:
 	super()
