@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://woxy6ajjjbk6"]
+[gd_scene format=3 uid="uid://cwig3aj17twov"]
 
-[ext_resource type="Script" path="res://scenes/map/bouncy_platform.gd" id="1_moc2l"]
+[ext_resource type="Script" uid="uid://bpwl244kg0txw" path="res://scenes/map/bouncy_platform.gd" id="1_moc2l"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="1_ogjmx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p4ttq"]
@@ -8,6 +8,7 @@ size = Vector2(1838, 125)
 
 [node name="BouncyPlatform" type="Node2D" unique_id=744172332]
 script = ExtResource("1_moc2l")
+bounce_power = 1000.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1969802727]
 scale = Vector2(14.3203125, 1)
