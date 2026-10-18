@@ -219,7 +219,10 @@ func process_movement(p:Player, delta: float) -> void:
 			if p.is_on_floor():
 				p.velocity.y = jump_power
 			if p.is_on_wall():
-				p.velocity.x = prebounce_vel.x * -1 * bounce_damp
+				if parrying:
+					p.velocity.x = prebounce_vel.x * -1
+				else:
+					p.velocity.x = prebounce_vel.x * -1 * bounce_damp
 		
 		prebounce_vel = p.velocity
 		p.move_and_slide()
