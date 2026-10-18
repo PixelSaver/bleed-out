@@ -8,16 +8,25 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
 radius = 32.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4ttq"]
+size = Vector2(2000, 20)
+
 [node name="Eyeball" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("grapple_point", "health_component")]
 collision_layer = 4
 mass = 10.0
 gravity_scale = 0.0
 can_sleep = false
 lock_rotation = true
+linear_damp = 1.0
+angular_damp = 3.0
 script = ExtResource("1_rg0m3")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
+
+[node name="FireCycleTimer" type="Timer" parent="." unique_id=1321611525]
+wait_time = 5.0
+autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619995234]
 shape = SubResource("CircleShape2D_gkedh")
@@ -71,3 +80,20 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1134118904]
+visible = false
+z_index = -1
+points = PackedVector2Array(0, 0, 2000, 0)
+width = 20.0
+default_color = Color(0.85, 0, 0.014166451, 1)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=574987634]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=598218292]
+position = Vector2(1000, 0)
+shape = SubResource("RectangleShape2D_p4ttq")
+
+[connection signal="timeout" from="FireCycleTimer" to="." method="_on_fire_cycle_timer_timeout"]

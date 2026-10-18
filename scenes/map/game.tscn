@@ -40,8 +40,13 @@ starting_y = -1200.0
 
 [node name="Eyeball" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("3_tc0lc")]
 position = Vector2(215, -635)
-lazer_delay = 1.0
-speed = 10.0
+tracking_time = null
+tracking_opacity = null
+fire_delay = null
+despawn_time = null
+force_multiplier = null
+hover_radius = 400
+speed = null
 
 [node name="Goblin2" parent="EnemyManager" unique_id=1626915586 instance=ExtResource("3_sd4cy")]
 position = Vector2(0, -906)

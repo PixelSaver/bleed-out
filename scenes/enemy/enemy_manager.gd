@@ -98,14 +98,14 @@ func unregister_enemy(e:Enemy) -> void:
 	if enemies.has(e):
 		enemies.erase(e)
 
-func _input(event: InputEvent) -> void:
-	if not OS.is_debug_build(): return
-	if event.is_action_pressed("debug"):
-		var type = pick_enemy_type(0)
-		var scene = get_enemy_scene(type)
-		var e = scene.instantiate() as Enemy
-		register_enemy(e)
-		e.global_position = Global.player_ref.global_position
+#func _input(event: InputEvent) -> void:
+	#if not OS.is_debug_build(): return
+	#if event.is_action_pressed("debug"):
+		#var type = pick_enemy_type(0)
+		#var scene = get_enemy_scene(type)
+		#var e = scene.instantiate() as Enemy
+		#register_enemy(e)
+		#e.global_position = Global.player_ref.global_position
 
 func _process(_delta: float) -> void:
 	if OS.is_debug_build() and debug_spawn_toggle == true: return
