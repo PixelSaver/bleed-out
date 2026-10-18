@@ -35,8 +35,9 @@ class_name PlayerMovementComponent
 @export var spring_damping = 3.0
 @export var pull_power = 250.0
 @export var pull_duration = 0.25
-
+@export var pull_invuln = 0.3
 @export var parry_duration = 0.1
+@export var parry_invuln = 0.15
 @export var parry_strength = 300
 @export var parry_min = -800
 
@@ -137,6 +138,7 @@ func process_movement(p:Player, delta: float) -> void:
 				pull_vel = (grapple_target.global_position - p.global_position).normalized() * pull_power * log(1.0 + grapple_dist)
 				pulling = true
 				pull_time = 0.0
+				p.set_invincibility(pull_invuln)
 		else:
 			if parrying:
 				var hit_enemies = p.parry_hitbox.get_overlapping_bodies()
@@ -160,6 +162,7 @@ func process_movement(p:Player, delta: float) -> void:
 				elif Input.is_action_just_pressed("attack") and p.spend_blood(parry_required, parry_cost):
 					parrying = true
 					parry_time = 0.0
+					p.set_invincibility(parry_invuln)
 		
 		if rope_taut:
 			# Radial velocity for the frame
