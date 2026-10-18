@@ -109,7 +109,7 @@ func _pull(delta: float) -> void:
 	# Formula for cubic Hermite interpolation with starting vel of (0,0)
 	# Just google it
 	p.global_position = pull_start_point + (3 * t_norm ** 2 - 2 * t_norm ** 3) * (grapple_target.global_position - pull_start_point) + (t_norm ** 3 - t_norm ** 2) * pull_duration * pull_vel
-	if pull_time > pull_duration:
+	if pull_time >= pull_duration:
 		p.velocity = pull_vel
 		pulling = false
 		grappling = false
@@ -135,7 +135,8 @@ func process_movement(p:Player, delta: float) -> void:
 			if Input.is_action_just_released("grapple"):
 				_ungrapple()
 			elif Input.is_action_just_pressed("attack") and p.spend_blood(pull_required, pull_cost):
-				pull_vel = (grapple_target.global_position - p.global_position).normalized() * pull_power * log(1.0 + grapple_dist)
+				var offset = grapple_target.global_position - p.global_position
+				pull_vel = offset.normalized() * pull_power * log(1.0 + offset.length())
 				pulling = true
 				pull_time = 0.0
 				p.set_invincibility(pull_invuln)
