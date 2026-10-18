@@ -8,27 +8,46 @@ class_name Player
 @export var player_movement_component: PlayerMovementComponent
 @export var respawn_delay: float = 0.2
 @export var blood_drain: float = 10.0
-var invinicibility_counter: float = 0.0
+@export var drink_amount: float = 30.0
+@export var invincibilty_duration: float = 1.5
+@export var flicker_duration: float = 1.0
+var invincibility_counter: float = 0.0
+var flicker_counter: float = 0.0
 
 ## Set the time the player is invincible for in seconds
 func set_invincibility(time:float) -> void:
-	if time > invinicibility_counter:
-		invinicibility_counter = time
+	if time > invincibility_counter:
+		invincibility_counter = time
 
 func _process(delta: float) -> void:
-	if invinicibility_counter > 0:
-		invinicibility_counter -= delta
-	#var atk = Attack.new()
-	#atk.damage = blood_drain * delta
-	#health_component.damage(atk)
+	if invincibility_counter > 0:
+		invincibility_counter -= delta
+	if flicker_counter > 0:
+		flicker_counter -= delta
+	var atk = Attack.new()
+	atk.damage = blood_drain * delta
+	health_component.damage(atk)
+	print(health_component.health)
 	grapple_cone.look_at(get_global_mouse_position())
+
+func drink():
+	health_component.heal(drink_amount)
+
+func spend_blood(required: float, cost: float):
+	if health_component.health >= required:
+		var atk = Attack.new()
+		atk.damage = cost
+		health_component.damage(atk)
+		return true
 
 ## Checks if the player is invincible
 func is_invincible() -> bool:
-	return invinicibility_counter > 0
+	return invincibility_counter > 0
 
 func damage(atk:Attack) -> void:
 	health_component.damage(atk)
+	set_invincibility(invincibilty_duration)
+	flicker_counter = flicker_duration
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

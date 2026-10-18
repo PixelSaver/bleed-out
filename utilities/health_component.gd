@@ -52,7 +52,7 @@ func _process_pending_damage() -> void:
 	var tot_damage := 0.0
 	for atk in _pending_atks:
 		tot_damage += atk.damage
-		apply_knockback(atk)
+		#apply_knockback(atk)
 	_pending_atks.clear()
 	_processing = false
 	health -= tot_damage
@@ -68,4 +68,6 @@ func apply_knockback(atk:Attack):
 
 func heal(delta:float) -> float:
 	health += delta
+	if health > max_health:
+		health = max_health
 	return health
