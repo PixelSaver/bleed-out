@@ -66,9 +66,17 @@ func _on_death() -> void:
 	super()
 	pass
 
+@onready var marked: AnimatedSprite2D = $Marked
+var is_highlighted = false
 func highlight(do_highlight:bool) -> void:
-	super(do_highlight)
-	pass
+	if do_highlight and not is_highlighted:
+		is_highlighted = true
+		marked.set_frame(0)
+		marked.play("default", 1.)
+	elif do_highlight == false and is_highlighted == true:
+		is_highlighted = false
+		marked.set_frame(0)
+		marked.play_backwards("default")
 
 # Probably add an area2d to check if player is in range, then follow player, and if in charge_range, then
 # call charge at player using Global.player_ref
