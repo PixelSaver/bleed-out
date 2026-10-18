@@ -35,8 +35,9 @@ class_name PlayerMovementComponent
 @export var spring_damping = 3.0
 @export var pull_power = 250.0
 @export var pull_duration = 0.25
-
+@export var pull_invuln = 0.3
 @export var parry_duration = 0.1
+@export var parry_invuln = 0.15
 @export var parry_strength = 300
 @export var parry_min = -800
 
@@ -108,7 +109,7 @@ func _pull(delta: float) -> void:
 	# Formula for cubic Hermite interpolation with starting vel of (0,0)
 	# Just google it
 	p.global_position = pull_start_point + (3 * t_norm ** 2 - 2 * t_norm ** 3) * (grapple_target.global_position - pull_start_point) + (t_norm ** 3 - t_norm ** 2) * pull_duration * pull_vel
-	if pull_time > pull_duration:
+	if pull_time >= pull_duration:
 		p.velocity = pull_vel
 		pulling = false
 		grappling = false
@@ -136,9 +137,11 @@ func process_movement(p:Player, delta: float) -> void:
 			if Input.is_action_just_released("grapple"):
 				_ungrapple()
 			elif Input.is_action_just_pressed("attack") and p.spend_blood(pull_required, pull_cost):
-				pull_vel = (grapple_target.global_position - p.global_position).normalized() * pull_power * log(1.0 + grapple_dist)
+				var offset = grapple_target.global_position - p.global_position
+				pull_vel = offset.normalized() * pull_power * log(1.0 + offset.length())
 				pulling = true
 				pull_time = 0.0
+				p.set_invincibility(pull_invuln)
 		else:
 			if parrying:
 				var hit_enemies = p.parry_hitbox.get_overlapping_bodies()
@@ -162,6 +165,7 @@ func process_movement(p:Player, delta: float) -> void:
 				elif Input.is_action_just_pressed("attack") and p.spend_blood(parry_required, parry_cost):
 					parrying = true
 					parry_time = 0.0
+					p.set_invincibility(parry_invuln)
 		
 		if rope_taut:
 			# Radial velocity for the frame
