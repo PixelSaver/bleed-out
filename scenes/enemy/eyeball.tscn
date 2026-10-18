@@ -130,7 +130,7 @@ animations = [{
 "speed": 24.0
 }]
 
-[node name="Eyeball" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("pupil", "lazer_area", "lazer_line_promise", "lazer_line", "grapple_point", "health_component")]
+[node name="Eyeball" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("pupil", "back_rect", "front_rect", "lazer_area", "lazer_line_promise", "lazer_line", "grapple_point", "health_component")]
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
@@ -138,14 +138,14 @@ gravity_scale = 0.0
 can_sleep = false
 lock_rotation = true
 script = ExtResource("1_rg0m3")
-lazer_delay = null
 pupil = NodePath("Visual/Pupil")
+back_rect = NodePath("Visual/Back")
+front_rect = NodePath("Visual/Front")
 lazer_area = NodePath("Visual/Pupil/Lazer")
 lazer_line_promise = NodePath("Visual/Pupil/Lazer/LinePromise")
 lazer_line = NodePath("Visual/Pupil/Lazer/LineReal")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
-speed = null
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
 
 [node name="Visual" type="Node2D" parent="." unique_id=1760369924]
@@ -189,7 +189,6 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="LineReal" type="Line2D" parent="Visual/Pupil/Lazer" unique_id=1901841693]
-visible = false
 position = Vector2(5, 0)
 points = PackedVector2Array(0, 0, 10000, 0)
 default_color = Color(0.9, 0.765, 0.225, 1)
