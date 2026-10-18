@@ -29,14 +29,14 @@ class_name PlayerMovementComponent
 
 @export var min_rope_len = 100.0
 @export var min_grapple_dist = 100.0
-@export var spring_strength = 100.0
+@export var spring_strength = 80.0
 @export var spring_damping = 3.0
 @export var pull_power = 250.0
 @export var pull_duration = 0.25
 
 @export var parry_duration = 0.1
 @export var parry_strength = 300
-@export var parry_min = -500
+@export var parry_min = -800
 
 @export var line_width = 10.0
 @export var max_line_squish = 2.0
@@ -147,6 +147,7 @@ func process_movement(p:Player, delta: float) -> void:
 						enemy.damage(atk)
 					p.velocity.y = min(parry_min, p.velocity.y - parry_strength)
 					parrying = false
+					p.drink()
 				parry_time += delta
 				if parry_time > parry_duration:
 					parrying = false
@@ -162,8 +163,8 @@ func process_movement(p:Player, delta: float) -> void:
 			# Radial velocity for the frame
 			var spring_radial = -spring_strength * (grapple_dist - rope_len)
 			var gravity_radial = gravity * sin(grapple_angle)
-			#var centrifugal_radial = grapple_dist * angular_vel ** 2
-			radial_vel += (spring_radial + gravity_radial) * delta
+			var centrifugal_radial = grapple_dist * angular_vel ** 2
+			radial_vel += (spring_radial + gravity_radial + centrifugal_radial) * delta
 			# Spring damping
 			# Some lost energy is instead converted to angular momentum
 			var pre_damp = radial_vel
