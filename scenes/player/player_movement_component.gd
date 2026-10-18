@@ -15,6 +15,7 @@ class_name PlayerMovementComponent
 @export var drift_speed = 500.0
 ## Speed cap when only air drifting (units per second)
 @export var max_drift = 300.0
+@export var bounce_damp = 0.8
 
 ## Amount of towards-momentum converted to angular momentum upon starting grapple (experimental, probably deleting)
 @export var momentum_cheat = 0.0 # 0.5
@@ -218,7 +219,7 @@ func process_movement(p:Player, delta: float) -> void:
 			if p.is_on_floor():
 				p.velocity.y = jump_power
 			if p.is_on_wall():
-				p.velocity.x = prebounce_vel.x * -1
+				p.velocity.x = prebounce_vel.x * -1 * bounce_damp
 		
 		prebounce_vel = p.velocity
 		p.move_and_slide()
