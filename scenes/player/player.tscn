@@ -47,13 +47,13 @@ collision_layer = 2
 collision_mask = 4
 script = ExtResource("3_gmlin")
 cone_col = NodePath("CollisionShape2D")
-cone_radius = 500
+cone_radius = 800
 cone_resolution = 10
-cone_angle = 2.356
+cone_angle = 1.571
 angle_penalty_falloff = SubResource("Curve_gmlin")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="GrappleCone" unique_id=1495496377]
-polygon = PackedVector2Array(0, 0, 191.38666, -461.92114, 293.9241, -404.48563, 380.22192, -324.70184, 445.5121, -226.97792, 486.18723, -116.71323, 500, 0, 486.18723, 116.71323, 445.5121, 226.97792, 380.22192, 324.70184, 293.9241, 404.48563, 191.38666, 461.92114)
+polygon = PackedVector2Array(0, 0, 565.6278, -565.74304, 647.1753, -470.28094, 712.783, -363.23596, 760.83514, -247.2446, 790.14813, -125.16367, 800, 0, 790.14813, 125.16367, 760.83514, 247.2446, 712.783, 363.23596, 647.1753, 470.28094, 565.6278, 565.74304)
 
 [node name="DirectionPointer" type="Line2D" parent="GrappleCone" unique_id=606065029]
 z_index = 100

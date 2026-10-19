@@ -24,6 +24,7 @@ var _random_pupil_target: Vector2 = Vector2.ZERO
 var _random_pupil_timer: float = 0.0
 
 func _ready() -> void:
+	super()
 	shoot_range.body_entered.connect(_on_body_entered)
 	shoot_range.body_exited.connect(_on_body_exited)
 	_random_pupil_target = pupil.position
@@ -159,7 +160,7 @@ func _process(delta: float) -> void:
 		print("Shooting lazer")
 		lazer()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var below = self.global_position.y - Global.player_ref.global_position.y  > 800
 	var offset = Global.player_ref.global_position - self.global_position
 	var distance = offset.length()
