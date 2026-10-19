@@ -152,7 +152,7 @@ func process_movement(p:Player, delta: float) -> void:
 				_ungrapple()
 			else:
 				var grapple_offset = grapple_target.global_position - p.global_position
-				if (grapple_offset.length() > rope_len || (grapple_offset.dot(p.velocity) < 0 && grapple_offset.length() >= min_rope_len)):
+				if not rope_taut and (grapple_offset.length() > rope_len or (grapple_offset.dot(p.velocity) < 0 and grapple_offset.length() >= min_rope_len)):
 					slack_to_taut(p, grapple_offset.length() > rope_len)
 				state_time += delta
 				# Ungrappling if you let go of the button
@@ -197,13 +197,12 @@ func process_movement(p:Player, delta: float) -> void:
 				state = State.GRAPPLE
 				# Attacking enemy
 				var e = grapple_target.get_enemy()
-				if e == null:
-					return
-				var atk = Attack.new()
-				atk.damage = 1
-				e.freeze_enemy(true, atk)
-				
-				p.drink()
+				if e != null:
+					var atk = Attack.new()
+					atk.damage = 1
+					e.freeze_enemy(true, atk)
+					
+					p.drink()
 			var t_norm = min(state_time / throw_duration, 1.0)
 			normal_physics(p, delta)
 			rope_to = grapple_target.global_position
@@ -275,10 +274,11 @@ func normal_physics(p: Player, delta: float):
 		# Radial velocity for the frame
 		var spring_radial = -spring_strength * (grapple_dist - rope_len)
 		var gravity_radial
-		if angular_vel * cos(grapple_angle) > 0:
-			gravity_radial = gravity * gravity_boost * sin(grapple_angle)
-		else:
-			gravity_radial = gravity * sin(grapple_angle)
+		#if angular_vel * cos(grapple_angle) > 0:
+			#gravity_radial = gravity * gravity_boost * sin(grapple_angle)
+		#else:
+			#gravity_radial = gravity * sin(grapple_angle)
+		gravity_radial = gravity * sin(grapple_angle)
 		var centrifugal_radial = grapple_dist * angular_vel ** 2
 		radial_vel += (spring_radial + gravity_radial + centrifugal_radial) * delta
 		# Spring damping
