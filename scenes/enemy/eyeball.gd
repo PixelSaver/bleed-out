@@ -2,9 +2,7 @@
 extends Enemy
 class_name EyeballEnemy
 
-## Time in seconds between ghost lazer and actual shot
-@export var lazer_delay: float = 1.
-@export var lazer_cooldown: float = .1
+@export_group("Nodes")
 @export var pupil: Sprite2D
 @export var shoot_range: Area2D
 @export var eye_background: AnimatedSprite2D
@@ -15,6 +13,13 @@ class_name EyeballEnemy
 @export var lazer_line_promise: Line2D
 @export var lazer_line: Line2D
 @export var marked: AnimatedSprite2D
+@export var touch_area: Area2D
+@export_category("Eyeball")
+@export var touch_damage: float = 30.
+@export var lazer_damage: float = 15.
+## Time in seconds between ghost lazer and actual shot
+@export var lazer_delay: float = 1.
+@export var lazer_cooldown: float = .1
 ## If the eye is following player position
 var is_following: bool = false
 var can_shoot_player: bool = false
@@ -28,6 +33,18 @@ func _ready() -> void:
 	shoot_range.body_entered.connect(_on_body_entered)
 	shoot_range.body_exited.connect(_on_body_exited)
 	_random_pupil_target = pupil.position
+	touch_area.body_entered.connect(_on_enemy_body_entered)
+
+func _on_enemy_body_entered(body: Node2D) -> void:
+	if body is not Player: return
+	var p = body as Player
+	if p == null: return
+	var atk = Attack.new()
+	atk.damage = touch_damage
+	var dir = p.global_position - self.global_position
+	dir = dir.normalized()
+	atk.knockback = dir * 500
+	p.damage(atk)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is not Player: return
@@ -55,7 +72,7 @@ func lazer() -> void:
 	eye_background.set_frame_and_progress(0, 0.)
 	t = create_tween().set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT).set_parallel(true)
-	t.tween_property(lazer_line_promise, "width", 10., lazer_delay)
+	t.tween_property(lazer_line_promise, "width", 15., lazer_delay)
 	t.tween_property(lazer_line_promise, "modulate:a", 0.3, lazer_delay/2.)
 	t.tween_callback(func(): eye_background.set_frame_and_progress(1, 0.))
 	t.tween_callback(func(): eye_background.set_frame_and_progress(2, 0.)).set_delay(lazer_delay*2/3.)
@@ -71,19 +88,19 @@ func lazer() -> void:
 	t.tween_interval(0.1)
 	t.chain()
 	# fire lazer
-	t.tween_property(lazer_line, "width", 10., 0.3)
-	t.chain()
+	t.tween_property(lazer_line, "width", 15., 0.3)
 	t.tween_callback(func() -> void:
 		if lazer_area.has_overlapping_bodies():
 			for body in lazer_area.get_overlapping_bodies():
 				if body is Player:
 					var p = body as Player
 					var atk = Attack.new()
-					atk.damage = 1.
+					atk.damage = lazer_damage
 					p.damage(atk)
-	)
-	t.tween_property(lazer_line, "width", 0., 0.3)
-	t.tween_property(lazer_line_promise, "width", 0., 0.3)
+	).set_delay(0.15)
+	t.chain()
+	t.tween_property(lazer_line, "width", 0., 0.4)
+	t.tween_property(lazer_line_promise, "width", 0., 0.7)
 	t.chain()
 	t.tween_callback(func() -> void:
 		is_following = true
@@ -166,9 +183,9 @@ func _physics_process(_delta: float) -> void:
 	var distance = offset.length()
 	var dir = offset.normalized()
 
-	if distance > 800.0:
+	if distance > 1000.0:
 		self.apply_central_force(dir * 10000.0 * (10. if below else 1.))
-	elif distance < 800.0:
+	elif distance < 1000.0:
 		self.apply_central_force(-dir * 10000.0 )
 
 func _on_death() -> void:

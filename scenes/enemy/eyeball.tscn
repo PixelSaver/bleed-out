@@ -57,7 +57,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gkedh"]
-size = Vector2(10000, 10)
+size = Vector2(10000, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bcidh"]
 atlas = ExtResource("5_e6ehl")
@@ -159,7 +159,7 @@ curve = SubResource("Curve_jw8os")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_plx5h"]
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 128.0
+emission_sphere_radius = 79.4
 direction = Vector3(0, -1, 0)
 spread = 180.0
 initial_velocity_min = 198.06999
@@ -171,7 +171,10 @@ scale_curve = SubResource("CurveTexture_c7qcy")
 color_ramp = SubResource("GradientTexture1D_rfxp3")
 turbulence_enabled = true
 
-[node name="Eyeball" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("pupil", "shoot_range", "eye_background", "back_rect", "front_rect", "lazer_area", "lazer_line_promise", "lazer_line", "marked", "grapple_point", "health_component")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_v8eww"]
+radius = 60.0
+
+[node name="Eyeball" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("pupil", "shoot_range", "eye_background", "back_rect", "front_rect", "lazer_area", "lazer_line_promise", "lazer_line", "marked", "touch_area", "grapple_point", "health_component")]
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
@@ -180,8 +183,6 @@ can_sleep = false
 lock_rotation = true
 linear_damp = 3.0
 script = ExtResource("1_rg0m3")
-lazer_delay = null
-lazer_cooldown = null
 pupil = NodePath("Visual/Pupil")
 shoot_range = NodePath("ShootRange")
 eye_background = NodePath("Visual/EyeBackground")
@@ -191,9 +192,9 @@ lazer_area = NodePath("Visual/Pupil/Lazer")
 lazer_line_promise = NodePath("Visual/Pupil/Lazer/LinePromise")
 lazer_line = NodePath("Visual/Pupil/Lazer/LineReal")
 marked = NodePath("Visual/Marked")
+touch_area = NodePath("TouchDamage")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
-speed = null
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
 
 [node name="Visual" type="Node2D" parent="." unique_id=1760369924]
@@ -266,6 +267,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619995234]
+visible = false
 shape = SubResource("CircleShape2D_gkedh")
 
 [node name="GrapplePoint" type="Node2D" parent="." unique_id=1850899063]
@@ -291,3 +293,10 @@ shape = SubResource("CapsuleShape2D_v8eww")
 texture = SubResource("GradientTexture1D_gkedh")
 randomness = 0.22
 process_material = SubResource("ParticleProcessMaterial_plx5h")
+
+[node name="TouchDamage" type="Area2D" parent="." unique_id=1123605269]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TouchDamage" unique_id=307097294]
+shape = SubResource("CircleShape2D_v8eww")

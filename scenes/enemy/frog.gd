@@ -1,13 +1,16 @@
 extends Enemy
 class_name FrogEnemy
 
+@export var touch_area: Area2D
 @export var shot_range: Area2D
 @export var vision_range: Area2D
+@export var touch_damage: float = 10.
+@export var proj_damage: float = 15.
 ## Distance at which the enemy stops following and starts shooting.
-@export var follow_distance: float = 500.
 @export var shot_cooldown: float = 1.0
 @export var projectile_speed: float = 10.
 @export var projectile_lifetime: float = 10.
+@export var follow_distance: float = 500.
 ## Counts down per frame to check if frog can shoot
 var _shot_cooldown = -INF
 var can_see_player: bool = false
@@ -22,6 +25,18 @@ func _ready() -> void:
 	vision_range.body_entered.connect(_on_vision_body_entered)
 	vision_range.body_exited.connect(_on_vision_body_exited)
 	_shot_cooldown = shot_cooldown * randf()
+	touch_area.body_entered.connect(_on_enemy_body_entered)
+
+func _on_enemy_body_entered(body: Node2D) -> void:
+	if body is not Player: return
+	var p = body as Player
+	if p == null: return
+	var atk = Attack.new()
+	atk.damage = touch_damage
+	var dir = p.global_position - self.global_position
+	dir = dir.normalized()
+	atk.knockback = dir * 500
+	p.damage(atk)
 	
 func _on_vision_body_entered(body: Node2D) -> void:
 	if body is not Player: return
@@ -104,7 +119,7 @@ func shoot(p:Player) -> void:
 	var dir = target - global_position
 	dir = dir.normalized()
 	var atk = Attack.new()
-	atk.damage = 1.0
+	atk.damage = proj_damage
 	frog_proj.initialize_movement(dir, projectile_speed, projectile_lifetime, atk)
 	
 	pass

@@ -48,7 +48,7 @@ animations = [{
 "speed": 24.0
 }]
 
-[node name="Goblin" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("grapple_point", "health_component")]
+[node name="Goblin" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("touch_area", "grapple_point", "health_component")]
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
@@ -57,6 +57,7 @@ can_sleep = false
 lock_rotation = true
 linear_damp = 3.0
 script = ExtResource("1_w31j5")
+touch_area = NodePath("TouchDamage")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
@@ -116,3 +117,10 @@ vertical_alignment = 1
 [node name="Marked" type="AnimatedSprite2D" parent="." unique_id=478115290]
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_x0ln3")
+
+[node name="TouchDamage" type="Area2D" parent="." unique_id=1907290922]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TouchDamage" unique_id=1078429922]
+shape = SubResource("CircleShape2D_gkedh")
