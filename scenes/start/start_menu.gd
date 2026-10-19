@@ -12,13 +12,15 @@ func _ready() -> void:
 		but.pressed.connect(_on_button_pressed.bind(but.name))
 
 
+@onready var prototype: Control = $AllContainer/PROTOTYPE
 func _on_button_pressed(_name:String) -> void:
 	match _name.to_lower():
 		"play":
 			if t and t.is_running(): t.kill()
 			t = default_tween()
 			t.tween_property(cont, "offset_transform_position_ratio:x", 0.375/2, 0.7)
-			await get_tree().create_timer(0.7).timeout
+			t.tween_property(prototype, "size_flags_stretch_ratio", 12., 0.7)
+			await t.finished
 			var game_scene = SceneDatabase.get_scene(SceneDatabase.Scene.GAME)
 			Global.menu_manager.transition_to_scene(game_scene)
 			pass

@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://vrvw2yf5p3et"]
+
+[ext_resource type="Texture2D" uid="uid://yg8um0lnvtly" path="res://assets/goblin/goblin1.png" id="1_t1yb7"]
+[ext_resource type="Texture2D" uid="uid://cofmxmkb3a6j1" path="res://assets/goblin/goblin2.png" id="2_u6fc5"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_t1yb7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_u6fc5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]

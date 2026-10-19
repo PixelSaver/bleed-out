@@ -1,13 +1,12 @@
 [gd_scene format=3 uid="uid://dk2cacfp0226"]
 
 [ext_resource type="Script" uid="uid://b3dtvrcaau4id" path="res://scenes/enemy/goblin.gd" id="1_w31j5"]
-[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_jibcn"]
 [ext_resource type="Script" uid="uid://cihaphm0cdl2f" path="res://scenes/grapple/grapple_point.gd" id="3_x0ln3"]
 [ext_resource type="Script" uid="uid://fj7ykktocnh6" path="res://utilities/health_component.gd" id="4_8cg1g"]
 [ext_resource type="Texture2D" uid="uid://bbrf3us7xl4aa" path="res://assets/grappleMark spritesheet.png" id="5_jibcn"]
+[ext_resource type="SpriteFrames" uid="uid://vrvw2yf5p3et" path="res://assets/goblin/goblin_spriteframes.tres" id="5_x0ln3"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
-radius = 32.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_igerp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bcidh"]
 atlas = ExtResource("5_jibcn")
@@ -48,7 +47,11 @@ animations = [{
 "speed": 24.0
 }]
 
-[node name="Goblin" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("grapple_point", "health_component")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pebuv"]
+radius = 30.0
+height = 80.0
+
+[node name="Goblin" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("touch_area", "grapple_point", "health_component")]
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
@@ -57,36 +60,17 @@ can_sleep = false
 lock_rotation = true
 linear_damp = 3.0
 script = ExtResource("1_w31j5")
+touch_area = NodePath("TouchDamage")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619995234]
-shape = SubResource("CircleShape2D_gkedh")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=824649474]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_jibcn")
+shape = SubResource("CapsuleShape2D_igerp")
 
 [node name="GrapplePoint" type="Node2D" parent="." unique_id=1850899063]
 script = ExtResource("3_x0ln3")
 metadata/_custom_type_script = "uid://cihaphm0cdl2f"
-
-[node name="GoblinCOLORPROTOTYPE" type="ColorRect" parent="." unique_id=110610704]
-offset_right = 40.0
-offset_bottom = 40.0
-offset_transform_enabled = true
-offset_transform_position_ratio = Vector2(-0.5, -0.5)
-offset_transform_scale = Vector2(1.5, 1.5)
-color = Color(0, 1, 0, 0.2784314)
-
-[node name="HighlightPROTOTYPE" type="ColorRect" parent="." unique_id=1782595555]
-offset_right = 40.0
-offset_bottom = 40.0
-offset_transform_enabled = true
-offset_transform_position_ratio = Vector2(-0.5, -0.5)
-offset_transform_scale = Vector2(1.5, 1.5)
-color = Color(1, 0, 0, 0)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1465637310]
 script = ExtResource("4_8cg1g")
@@ -100,19 +84,20 @@ target_position = Vector2(55, 0)
 [node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1996236376]
 target_position = Vector2(-55, 0)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1502478328]
-offset_left = -57.0
-offset_top = -30.0
-offset_right = 69.0
-offset_bottom = 25.0
-bbcode_enabled = true
-text = "[font_size=30]Goblin"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="GoblinSprite" type="AnimatedSprite2D" parent="." unique_id=1680985743]
+position = Vector2(5.0000005, -7.9999995)
+scale = Vector2(0.05, 0.05)
+sprite_frames = ExtResource("5_x0ln3")
+autoplay = "default"
+frame_progress = 0.2909224
 
 [node name="Marked" type="AnimatedSprite2D" parent="." unique_id=478115290]
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.1, 0.15)
 sprite_frames = SubResource("SpriteFrames_x0ln3")
+
+[node name="TouchDamage" type="Area2D" parent="." unique_id=1907290922]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TouchDamage" unique_id=1078429922]
+shape = SubResource("CapsuleShape2D_pebuv")

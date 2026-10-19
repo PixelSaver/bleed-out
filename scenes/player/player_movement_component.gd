@@ -2,6 +2,7 @@ extends Node
 class_name PlayerMovementComponent
 
 @export var grapple_visual: Line2D
+@export var player_sprite: AnimatedSprite2D
 @export_group("Player Movement Tweaks")
 ## Speed at which player walks (gonna be deleted)
 @export var walk_speed = 5000.0
@@ -93,6 +94,7 @@ func _initiate_grapple(target: GrapplePoint, p: Player) -> void:
 	state = State.THROW
 	state_time = 0.0
 	grapple_visual.visible = true
+	player_sprite.play("swing")
 
 func _ungrapple() -> void:
 	var p := Global.player_ref
@@ -113,6 +115,7 @@ func _ungrapple() -> void:
 		state_time = 0.0
 		if grapple_target.get_enemy() != null:
 			grapple_target.get_enemy().freeze_enemy(false)
+		player_sprite.play("unswing")
 
 func _pull(delta: float) -> void:
 	var p := Global.player_ref
@@ -217,7 +220,11 @@ func process_movement(p:Player, delta: float) -> void:
 			normal_physics(p, delta)
 			rope_from = p.global_position
 			draw_rope(p, false, 1 - t_norm)
-			
+	if p.velocity.x > 0:
+		player_sprite.flip_h = false
+	elif p.velocity.x < 0:
+		player_sprite.flip_h = true
+		
 	#if pulling:
 		#_pull(delta)
 	#else:

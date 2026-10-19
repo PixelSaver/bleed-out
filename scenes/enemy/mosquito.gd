@@ -1,6 +1,8 @@
 extends Enemy
 class_name MosquitoEnemy
 
+@export var touch_area: Area2D
+@export var touch_damage: float = 10.
 ## Area2d that determines what distance it will try to charge at player
 @export var charge_range: Area2D
 ## The range at which the mosquito will start following the player 
@@ -24,6 +26,18 @@ func _ready() -> void:
 	vision_range.body_entered.connect(_on_vision_body_entered)
 	vision_range.body_exited.connect(_on_vision_body_exited)
 	_charge_cooldown_timer = randf() * charge_cooldown
+	touch_area.body_entered.connect(_on_enemy_body_entered)
+
+func _on_enemy_body_entered(body: Node2D) -> void:
+	if body is not Player: return
+	var p = body as Player
+	if p == null: return
+	var atk = Attack.new()
+	atk.damage = touch_damage
+	var dir = p.global_position - self.global_position
+	dir = dir.normalized()
+	atk.knockback = dir * 500
+	p.damage(atk)
 	
 func _on_vision_body_entered(body: Node2D) -> void:
 	if body is not Player: return

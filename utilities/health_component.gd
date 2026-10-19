@@ -52,7 +52,7 @@ func _process_pending_damage() -> void:
 	var tot_damage := 0.0
 	for atk in _pending_atks:
 		tot_damage += atk.damage
-		#apply_knockback(atk)
+		apply_knockback(atk)
 	_pending_atks.clear()
 	_processing = false
 	health -= tot_damage
@@ -61,10 +61,14 @@ func _process_pending_damage() -> void:
 
 ## Applies knockback unless target has the 'get_knockback_resistance' function
 func apply_knockback(atk:Attack):
+	if atk.knockback.is_equal_approx(Vector2.ZERO): return
 	var kb_res := 0.0
 	if _target.has_method("get_knockback_resistance"):
 		kb_res = _target.knockback_resistance
-	_target.apply_central_impulse(atk.knockback * (1-kb_res))
+	if _target is RigidBody2D:
+		_target.apply_central_impulse(atk.knockback * (1-kb_res))
+	elif _target is Player:
+		_target.velocity = _target.velocity * 0.7 + atk.knockback
 
 func heal(delta:float) -> float:
 	health += delta

@@ -1,0 +1,79 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://btkfwcg0pgoq"]
+
+[ext_resource type="Texture2D" uid="uid://c7qhmni75bhiq" path="res://assets/mc/swing_spritesheet.png" id="1_d0tat"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0m3vu"]
+atlas = ExtResource("1_d0tat")
+region = Rect2(0, 0, 800, 800)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13l06"]
+atlas = ExtResource("1_d0tat")
+region = Rect2(800, 0, 800, 800)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shjfw"]
+atlas = ExtResource("1_d0tat")
+region = Rect2(1600, 0, 800, 800)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o33jp"]
+atlas = ExtResource("1_d0tat")
+region = Rect2(2400, 0, 800, 800)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhtaf"]
+atlas = ExtResource("1_d0tat")
+region = Rect2(2400, 0, 800, 800)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nc3so"]
+atlas = ExtResource("1_d0tat")
+region = Rect2(3200, 0, 800, 800)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shptt"]
+atlas = ExtResource("1_d0tat")
+region = Rect2(4000, 0, 800, 800)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kaujg"]
+atlas = ExtResource("1_d0tat")
+region = Rect2(4800, 0, 800, 800)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vn2jl"]
+atlas = ExtResource("1_d0tat")
+region = Rect2(0, 0, 800, 800)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0m3vu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13l06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shjfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o33jp")
+}],
+"loop": 0,
+"name": &"swing",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhtaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc3so")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shptt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kaujg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vn2jl")
+}],
+"loop": 0,
+"name": &"unswing",
+"speed": 12.0
+}]

@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://djjpk5t0kr1x1"]
 
 [ext_resource type="Script" uid="uid://cydaxb5ff3l6v" path="res://scenes/grapple/grapple_test.gd" id="1_xn2fb"]
+[ext_resource type="Script" uid="uid://tmt1y4soepb2" path="res://scenes/map/hp_bar.gd" id="2_4hwui"]
 [ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="2_lclk0"]
+[ext_resource type="Script" uid="uid://cjmmhbp1b5312" path="res://addons/StyleboxFancy/StyleBorder.gd" id="3_hjt0h"]
 [ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_sd4cy"]
 [ext_resource type="PackedScene" uid="uid://bm55smahjyywv" path="res://scenes/enemy/eyeball.tscn" id="3_tc0lc"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
+[ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="4_mcwih"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
 [ext_resource type="Texture2D" uid="uid://l25715al180n" path="res://assets/waterfall/w1.png" id="7_jsmvi"]
 [ext_resource type="Texture2D" uid="uid://c7qx51k4gykl6" path="res://assets/waterfall/w2.png" id="8_i0sqq"]
@@ -19,6 +22,53 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_mysg8"]
 [ext_resource type="Script" uid="uid://dra14veup3c7j" path="res://scenes/map/camera_follow_point.gd" id="15_4hwui"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
+
+[sub_resource type="StyleBox" id="StyleBox_gkedh"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("4_mcwih")
+color = Color(0.4403357, 0.44033572, 0.4403357, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
+[sub_resource type="StyleBox" id="StyleBox_hjt0h"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+script = ExtResource("4_mcwih")
+color = Color(0.77, 0.107799985, 0.107799985, 0.6)
+corner_detail = 5
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_blur = 0
+
+[sub_resource type="StyleBox" id="StyleBox_mcwih"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+script = ExtResource("4_mcwih")
+color = Color(0.55, 0.12100002, 0.12100002, 1)
+corner_detail = 5
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_blur = 0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -104,6 +154,78 @@ offset_bottom = 40.0
 script = ExtResource("1_xn2fb")
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1955443572]
+
+[node name="VBoxContainer" type="HBoxContainer" parent="UILayer" unique_id=400401990]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Left" type="VBoxContainer" parent="UILayer/VBoxContainer" unique_id=1889974069]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.15
+
+[node name="Control2" type="Control" parent="UILayer/VBoxContainer/Left" unique_id=1396662773]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HPBar" type="MarginContainer" parent="UILayer/VBoxContainer/Left" unique_id=763537494 node_paths=PackedStringArray("back", "front")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+script = ExtResource("2_4hwui")
+back = NodePath("MarginContainer/Back")
+front = NodePath("MarginContainer/Front")
+
+[node name="BG" type="Panel" parent="UILayer/VBoxContainer/Left/HPBar" unique_id=1967218701]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_gkedh")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/VBoxContainer/Left/HPBar" unique_id=1896054230]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Back" type="Panel" parent="UILayer/VBoxContainer/Left/HPBar/MarginContainer" unique_id=1301519379]
+layout_mode = 2
+offset_transform_enabled = true
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_hjt0h")
+
+[node name="Front" type="Panel" parent="UILayer/VBoxContainer/Left/HPBar/MarginContainer" unique_id=1728719437]
+layout_mode = 2
+offset_transform_enabled = true
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_mcwih")
+
+[node name="Control" type="Control" parent="UILayer/VBoxContainer" unique_id=52714807]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="Right" type="HBoxContainer" parent="UILayer/VBoxContainer" unique_id=1651117261]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="UILayer/VBoxContainer/Right" unique_id=442421116]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 script = ExtResource("2_lclk0")
 starting_y = -1200.0
@@ -131,7 +253,7 @@ speed = 0.0
 [node name="HealthComponent" parent="EnemyManager/Goblin" index="5" unique_id=1465637310]
 invulnerable = true
 
-[node name="Player" parent="." unique_id=1594943802 groups=["Player"] instance=ExtResource("4_1pbiu")]
+[node name="Player" parent="." unique_id=1594943802 instance=ExtResource("4_1pbiu")]
 position = Vector2(0, -49)
 
 [node name="Camera2D2" type="Camera2D" parent="Player" unique_id=1176660890]
@@ -264,8 +386,6 @@ horizontal_alignment = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1574700136]
 environment = SubResource("Environment_gkedh")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1955443572]
 
 [editable path="EnemyManager/Goblin2"]
 [editable path="EnemyManager/Goblin"]
