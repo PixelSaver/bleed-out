@@ -2,6 +2,7 @@ extends Node
 class_name PlayerMovementComponent
 
 @export var grapple_visual: Line2D
+@export var sword_visual: Sprite2D
 @export_group("Player Movement Tweaks")
 ## Speed at which player walks (gonna be deleted)
 @export var walk_speed = 5000.0
@@ -47,6 +48,8 @@ class_name PlayerMovementComponent
 
 @export var line_width = 10.0
 @export var max_line_squish = 2.0
+## Distance between the sword's pivot and handle
+@export var sword_len = 0.0
 
 @export var pull_required = 30.0
 @export var pull_cost = 10.0
@@ -92,7 +95,7 @@ func _initiate_grapple(target: GrapplePoint, p: Player) -> void:
 	rope_to = grapple_target.global_position
 	state = State.THROW
 	state_time = 0.0
-	grapple_visual.visible = true
+	update_grapple_visibility(true)
 
 func _ungrapple() -> void:
 	var p := Global.player_ref
@@ -105,7 +108,7 @@ func _ungrapple() -> void:
 	
 	if grapple_target == null:
 		state = State.NORMAL
-		grapple_visual.visible = false
+		update_grapple_visibility(false)
 	else:
 		rope_from = p.global_position
 		rope_to = grapple_target.global_position
@@ -124,7 +127,7 @@ func _pull(delta: float) -> void:
 	if state_time >= pull_duration:
 		p.velocity = pull_vel
 		state = State.NORMAL
-		grapple_visual.visible = false
+		update_grapple_visibility(false)
 		rope_taut = false
 		if grapple_target != null and grapple_target.get_enemy() != null:
 			var e: Enemy = grapple_target.get_enemy()
@@ -192,6 +195,7 @@ func process_movement(p:Player, delta: float) -> void:
 				
 		State.THROW:
 			state_time += delta
+			var t_norm = min(state_time / throw_duration, 1.0)
 			if state_time > throw_duration:
 				state_time = 0.0
 				state = State.GRAPPLE
@@ -203,20 +207,19 @@ func process_movement(p:Player, delta: float) -> void:
 					e.freeze_enemy(true, atk)
 					
 					p.drink()
-			var t_norm = min(state_time / throw_duration, 1.0)
 			normal_physics(p, delta)
 			rope_to = grapple_target.global_position
 			draw_rope(p, false, t_norm)
 			
 		State.RETRIEVE:
 			state_time += delta
+			var t_norm = 1 - min(state_time / retrieve_duration, 1.0)
 			if state_time > retrieve_duration:
 				state = State.NORMAL
-				grapple_visual.visible = false
-			var t_norm = min(state_time / retrieve_duration, 1.0)
+				update_grapple_visibility(false)
 			normal_physics(p, delta)
 			rope_from = p.global_position
-			draw_rope(p, false, 1 - t_norm)
+			draw_rope(p, false, t_norm)
 			
 	#if pulling:
 		#_pull(delta)
@@ -361,9 +364,13 @@ func normal_physics(p: Player, delta: float):
 	pull_start_point = p.global_position
 
 func draw_rope(p: Player, change_width: bool, t: float):
+	var sword_position = lerp(grapple_visual.to_local(rope_from), grapple_visual.to_local(rope_to), t)
+	sword_visual.position = sword_position
+	sword_visual.rotation = sword_position.angle()
+	var handle_position = sword_position - sword_position.normalized() * sword_len
 	if change_width:
-		grapple_visual.width = line_width * min((rope_len / (p.global_position - grapple_target.global_position).length()), max_line_squish)
-	grapple_visual.points = [Vector2.ZERO, lerp(grapple_visual.to_local(rope_from), grapple_visual.to_local(rope_to), t)]
+		grapple_visual.width = line_width * min(((rope_len - sword_len) / (handle_position).length()), max_line_squish)
+	grapple_visual.points = [Vector2.ZERO, handle_position]
 
 func slack_to_taut(p: Player, use_old_len: bool):
 	var grapple_offset = p.global_position - grapple_target.global_position
@@ -380,3 +387,7 @@ func slack_to_taut(p: Player, use_old_len: bool):
 	#angular_vel += sign(angular_vel) * inward_vel / grapple_dist * momentum_cheat
 	
 	rope_taut = true
+
+func update_grapple_visibility(visibility: bool):
+	grapple_visual.visible = visibility
+	sword_visual.visible = visibility

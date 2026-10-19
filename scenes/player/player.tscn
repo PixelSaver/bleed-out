@@ -33,10 +33,12 @@ metadata/_edit_group_ = true
 
 [node name="Line2D" type="Line2D" parent="." unique_id=725335474]
 visible = false
+z_index = -5
 default_color = Color(0.576471, 0, 0, 1)
 
 [node name="Sword" type="Sprite2D" parent="." unique_id=114594902]
 visible = false
+z_index = -5
 scale = Vector2(1, 0.1)
 texture = ExtResource("2_gmlin")
 
@@ -52,13 +54,13 @@ collision_layer = 2
 collision_mask = 4
 script = ExtResource("3_gmlin")
 cone_col = NodePath("CollisionShape2D")
-cone_radius = 500
+cone_radius = 700
 cone_resolution = 10
 cone_angle = 2.356
 angle_penalty_falloff = SubResource("Curve_gmlin")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="GrappleCone" unique_id=1495496377]
-polygon = PackedVector2Array(0, 0, 191.38666, -461.92114, 293.9241, -404.48563, 380.22192, -324.70184, 445.5121, -226.97792, 486.18723, -116.71323, 500, 0, 486.18723, 116.71323, 445.5121, 226.97792, 380.22192, 324.70184, 293.9241, 404.48563, 191.38666, 461.92114)
+polygon = PackedVector2Array(0, 0, 267.9413, -646.68964, 411.49374, -566.27985, 532.3107, -454.58258, 623.7169, -317.76907, 680.6621, -163.39851, 700, 0, 680.6621, 163.39851, 623.7169, 317.76907, 532.3107, 454.58258, 411.49374, 566.27985, 267.9413, 646.68964)
 
 [node name="DirectionPointer" type="Line2D" parent="GrappleCone" unique_id=606065029]
 z_index = 100
@@ -77,9 +79,10 @@ health = 100.0
 max_health = 100.0
 metadata/_custom_type_script = "uid://fj7ykktocnh6"
 
-[node name="PlayerMovementComponent" type="Node" parent="." unique_id=1393850491 node_paths=PackedStringArray("grapple_visual")]
+[node name="PlayerMovementComponent" type="Node" parent="." unique_id=1393850491 node_paths=PackedStringArray("grapple_visual", "sword_visual")]
 script = ExtResource("5_p47bc")
 grapple_visual = NodePath("../Line2D")
+sword_visual = NodePath("../Sword")
 metadata/_custom_type_script = "uid://dxokftqplcdj8"
 
 [node name="ParryHitbox" type="Area2D" parent="." unique_id=911363471]
