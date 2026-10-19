@@ -47,4 +47,4 @@ func _process(delta: float) -> void:
 		direction = -1
 	if ray_cast_left.is_colliding():
 		direction = 1
-	self.apply_central_force(Vector2.RIGHT * speed * 15000 * delta * direction)
+	self.apply_central_force(Vector2.RIGHT * speed * 15000 * delta * direction * randf_range(0.5, 1.5))

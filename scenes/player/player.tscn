@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://dgiajep4rvt4e"]
 
 [ext_resource type="Script" uid="uid://dtvxmu6o1o5s" path="res://scenes/player/player.gd" id="1_dovo2"]
-[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_gmlin"]
 [ext_resource type="Script" uid="uid://7auyfxeuk5gq" path="res://scenes/player/grapple_cone.gd" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://fj7ykktocnh6" path="res://utilities/health_component.gd" id="4_lvxji"]
 [ext_resource type="Script" uid="uid://dxokftqplcdj8" path="res://scenes/player/player_movement_component.gd" id="5_p47bc"]
+[ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="6_75vfm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lvxji"]
-size = Vector2(64, 64)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_75vfm"]
+radius = 40.0
+height = 110.0
 
 [sub_resource type="Curve" id="Curve_gmlin"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -35,12 +36,8 @@ metadata/_edit_group_ = true
 visible = false
 default_color = Color(0.576471, 0, 0, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1215173214]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_gmlin")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363614896]
-shape = SubResource("RectangleShape2D_lvxji")
+shape = SubResource("CapsuleShape2D_75vfm")
 
 [node name="GrappleCone" type="Area2D" parent="." unique_id=365779222 node_paths=PackedStringArray("cone_col")]
 collision_layer = 2
@@ -72,9 +69,10 @@ health = 100.0
 max_health = 100.0
 metadata/_custom_type_script = "uid://fj7ykktocnh6"
 
-[node name="PlayerMovementComponent" type="Node" parent="." unique_id=1393850491 node_paths=PackedStringArray("grapple_visual")]
+[node name="PlayerMovementComponent" type="Node" parent="." unique_id=1393850491 node_paths=PackedStringArray("grapple_visual", "player_sprite")]
 script = ExtResource("5_p47bc")
 grapple_visual = NodePath("../Line2D")
+player_sprite = NodePath("../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://dxokftqplcdj8"
 
 [node name="ParryHitbox" type="Area2D" parent="." unique_id=911363471]
@@ -83,3 +81,10 @@ collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ParryHitbox" unique_id=532882388]
 shape = SubResource("CircleShape2D_ym6xy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1552387881]
+scale = Vector2(0.15, 0.15)
+sprite_frames = ExtResource("6_75vfm")
+animation = &"unswing"
+frame = 4
+frame_progress = 1.0
