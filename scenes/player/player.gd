@@ -6,6 +6,7 @@ class_name Player
 @export var parry_hitbox: Area2D
 @export var health_component: HealthComponent
 @export var player_movement_component: PlayerMovementComponent
+@export_category("Player tweaks")
 @export var respawn_delay: float = 0.2
 @export var blood_drain: float = 15.0
 @export var drink_amount: float = 20.0
