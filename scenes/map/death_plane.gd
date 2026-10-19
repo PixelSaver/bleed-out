@@ -5,7 +5,7 @@ extends Area2D
 var speed = starting_speed
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
+	if body.is_in_group("Player"):
 		body._on_death()
 
 func _process(delta: float) -> void:

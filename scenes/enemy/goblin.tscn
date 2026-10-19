@@ -4,13 +4,55 @@
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_jibcn"]
 [ext_resource type="Script" uid="uid://cihaphm0cdl2f" path="res://scenes/grapple/grapple_point.gd" id="3_x0ln3"]
 [ext_resource type="Script" uid="uid://fj7ykktocnh6" path="res://utilities/health_component.gd" id="4_8cg1g"]
+[ext_resource type="Texture2D" uid="uid://bbrf3us7xl4aa" path="res://assets/grappleMark spritesheet.png" id="5_jibcn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
 radius = 32.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcidh"]
+atlas = ExtResource("5_jibcn")
+region = Rect2(0, 0, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnjs4"]
+atlas = ExtResource("5_jibcn")
+region = Rect2(2049, 0, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc7gd"]
+atlas = ExtResource("5_jibcn")
+region = Rect2(0, 2049, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxaow"]
+atlas = ExtResource("5_jibcn")
+region = Rect2(2049, 2049, 2049, 2049)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x0ln3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcidh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnjs4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gc7gd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxaow")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 24.0
+}]
+
 [node name="Goblin" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("grapple_point", "health_component")]
 collision_layer = 4
 collision_mask = 5
+mass = 10.0
+gravity_scale = 0.0
 can_sleep = false
 lock_rotation = true
 linear_damp = 3.0
@@ -70,3 +112,7 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Marked" type="AnimatedSprite2D" parent="." unique_id=478115290]
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_x0ln3")

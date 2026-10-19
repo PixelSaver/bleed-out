@@ -127,7 +127,9 @@ func _pull(delta: float) -> void:
 		grapple_visual.visible = false
 		rope_taut = false
 		if grapple_target != null and grapple_target.get_enemy() != null:
-			grapple_target.get_enemy().freeze_enemy(false)
+			var e: Enemy = grapple_target.get_enemy()
+			e.freeze_enemy(false)
+			e.apply_central_impulse(pull_vel * -10.)
 		
 
 func process_movement(p:Player, delta: float) -> void:

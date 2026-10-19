@@ -7,13 +7,22 @@ var direction = 1
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
 
+@onready var marked: AnimatedSprite2D = $Marked
+var is_highlighted = false
+func highlight(do_highlight:bool) -> void:
+	if do_highlight and not is_highlighted:
+		is_highlighted = true
+		marked.set_frame(0)
+		marked.play("default", 1.)
+	elif do_highlight == false and is_highlighted == true:
+		is_highlighted = false
+		marked.set_frame(0)
+		marked.play("default", -2., true)
+
 func _on_death() -> void:
 	super()
 	pass
 
-func highlight(do_highlight:bool) -> void:
-	super(do_highlight)
-	pass
 
 func _ready() -> void:
 	super()
@@ -25,5 +34,4 @@ func _process(delta: float) -> void:
 		direction = -1
 	if ray_cast_left.is_colliding():
 		direction = 1
-	
-	position.x += direction * speed * 50 * delta
+	self.apply_central_force(Vector2.RIGHT * speed * 15000 * delta * direction)

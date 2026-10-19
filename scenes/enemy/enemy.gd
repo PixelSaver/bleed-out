@@ -25,6 +25,7 @@ func freeze_enemy(do_freeze: bool=true, queued_atk: Attack=null) -> void:
 		self.damage(_queued_atk)
 
 func _on_freeze(_frozen: bool) -> void:
+	
 	pass
 
 func _on_death() -> void:

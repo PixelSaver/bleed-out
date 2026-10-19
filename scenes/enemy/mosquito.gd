@@ -23,6 +23,7 @@ func _ready() -> void:
 	)
 	vision_range.body_entered.connect(_on_vision_body_entered)
 	vision_range.body_exited.connect(_on_vision_body_exited)
+	_charge_cooldown_timer = randf() * charge_cooldown
 	
 func _on_vision_body_entered(body: Node2D) -> void:
 	if body is not Player: return
@@ -46,7 +47,7 @@ func _physics_process(delta: float) -> void:
 	var alpha = 0.2
 	var dir = Global.player_ref.global_position + Global.player_ref.velocity * alpha - self.global_position
 	dir = dir.normalized()
-	self.apply_central_force(dir * speed * 80000 * delta)
+	self.apply_central_force(dir * speed * 40000 * delta)
 
 func _process(delta: float) -> void:
 	if _charge_cooldown_timer >= 0:
@@ -66,9 +67,17 @@ func _on_death() -> void:
 	super()
 	pass
 
+@onready var marked: AnimatedSprite2D = $Marked
+var is_highlighted = false
 func highlight(do_highlight:bool) -> void:
-	super(do_highlight)
-	pass
+	if do_highlight and not is_highlighted:
+		is_highlighted = true
+		marked.set_frame(0)
+		marked.play("default", 1.)
+	elif do_highlight == false and is_highlighted == true:
+		is_highlighted = false
+		marked.set_frame(0)
+		marked.play("default", -2., true)
 
 # Probably add an area2d to check if player is in range, then follow player, and if in charge_range, then
 # call charge at player using Global.player_ref
