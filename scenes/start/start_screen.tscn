@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://ntda7takqfc0"]
 
 [ext_resource type="Script" uid="uid://cj4pcxg1uy6" path="res://scenes/start/start_menu.gd" id="1_v2r8c"]
-[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_ltrpm"]
 [ext_resource type="Script" uid="uid://wtvudyq1wn44" path="res://scenes/start/start_menu_button.gd" id="2_v2r8c"]
 [ext_resource type="Script" uid="uid://cjmmhbp1b5312" path="res://addons/StyleboxFancy/StyleBorder.gd" id="3_5omtc"]
 [ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="4_ltrpm"]
 [ext_resource type="Script" uid="uid://b4pdlxyjxim6i" path="res://utilities/ui/tweenable.gd" id="5_caj3f"]
+[ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="6_ltrpm"]
 
 [sub_resource type="StyleBox" id="StyleBox_gkedh"]
 resource_local_to_scene = false
@@ -138,33 +138,28 @@ grow_vertical = 2
 [node name="Control" type="Control" parent="AllContainer/PROTOTYPE/CenterContainer" unique_id=964840428]
 layout_mode = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=207094451]
-position = Vector2(-4.799988, 82)
-rotation = -0.5808028
-texture = ExtResource("2_ltrpm")
-
 [node name="Line2D" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=1786470921]
-position = Vector2(-269.8, -254)
+position = Vector2(-267.8, -289)
 points = PackedVector2Array(173, 195, 170, 85)
 
 [node name="Line2D2" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=577494942]
-position = Vector2(-143.79999, -240)
+position = Vector2(-141.79999, -275)
 points = PackedVector2Array(173, 195, 170, 85)
 
 [node name="Line2D3" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=276883253]
-position = Vector2(-90.79999, -180)
+position = Vector2(-88.79999, -215)
 points = PackedVector2Array(173, 195, 170, 85)
 
 [node name="Line2D4" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=1798871204]
-position = Vector2(-208.79999, -205)
+position = Vector2(-206.79999, -240)
 points = PackedVector2Array(173, 195, 170, 85)
 
 [node name="Line2D5" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=114850244]
-position = Vector2(-119.79999, -336)
+position = Vector2(-117.79999, -371)
 points = PackedVector2Array(173, 195, 170, 85)
 
 [node name="Line2D6" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=1324397568]
-position = Vector2(-189.79999, -360)
+position = Vector2(-187.79999, -395)
 points = PackedVector2Array(173, 195, 170, 85)
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=1439746319]
@@ -174,10 +169,16 @@ offset_top = 164.0
 offset_right = 211.20001
 offset_bottom = 215.0
 bbcode_enabled = true
-text = "[font_size=50][tornado][rainbow]Fallin     Fabulouslie"
+text = "[font_size=50][tornado][rainbow][shake][wave]Fallin     Fabulouslie"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=830844533]
+position = Vector2(1.2000122, 41)
+scale = Vector2(0.3, 0.3)
+sprite_frames = ExtResource("6_ltrpm")
+animation = &"swing"
 
 [node name="RightSide" type="VBoxContainer" parent="AllContainer" unique_id=2047291902]
 layout_mode = 2
@@ -189,7 +190,7 @@ alignment = 1
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "[font_size=100]Bleed Out"
+text = "[font_size=100][color=red][shake level=15 rate=10]Bleed Out"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1

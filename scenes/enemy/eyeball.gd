@@ -178,6 +178,7 @@ func _process(delta: float) -> void:
 		lazer()
 
 func _physics_process(_delta: float) -> void:
+	if not Global.player_ref: return
 	var below = self.global_position.y - Global.player_ref.global_position.y  > 800
 	var offset = Global.player_ref.global_position - self.global_position
 	var distance = offset.length()

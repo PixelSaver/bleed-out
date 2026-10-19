@@ -23,53 +23,6 @@
 [ext_resource type="Script" uid="uid://dra14veup3c7j" path="res://scenes/map/camera_follow_point.gd" id="15_4hwui"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
 
-[sub_resource type="StyleBox" id="StyleBox_gkedh"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
-script = ExtResource("4_mcwih")
-color = Color(0.4403357, 0.44033572, 0.4403357, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-metadata/_custom_type_script = "uid://bkl6g25jwb47h"
-
-[sub_resource type="StyleBox" id="StyleBox_hjt0h"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-script = ExtResource("4_mcwih")
-color = Color(0.77, 0.107799985, 0.107799985, 0.6)
-corner_detail = 5
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-shadow_blur = 0
-
-[sub_resource type="StyleBox" id="StyleBox_mcwih"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-script = ExtResource("4_mcwih")
-color = Color(0.55, 0.12100002, 0.12100002, 1)
-corner_detail = 5
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-shadow_blur = 0
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
 "frames": [{
@@ -128,6 +81,53 @@ radial_accel_max = 18.839998
 scale_max = 10.0
 scale_curve = SubResource("CurveTexture_c7qcy")
 
+[sub_resource type="StyleBox" id="StyleBox_gkedh"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("4_mcwih")
+color = Color(0.4403357, 0.44033572, 0.4403357, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
+[sub_resource type="StyleBox" id="StyleBox_hjt0h"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+script = ExtResource("4_mcwih")
+color = Color(0.77, 0.107799985, 0.107799985, 0.6)
+corner_detail = 5
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_blur = 0
+
+[sub_resource type="StyleBox" id="StyleBox_mcwih"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+script = ExtResource("4_mcwih")
+color = Color(0.55, 0.12100002, 0.12100002, 1)
+corner_detail = 5
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_blur = 0
+
 [sub_resource type="Resource" id="Resource_ry5pk"]
 script = ExtResource("12_mysg8")
 
@@ -153,6 +153,55 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_xn2fb")
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
+
+[node name="Player" parent="." unique_id=1594943802 instance=ExtResource("4_1pbiu")]
+position = Vector2(0, -49)
+
+[node name="Camera2D2" type="Camera2D" parent="Player" unique_id=1176660890]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(0, -199)
+zoom = Vector2(0.5, 0.5)
+limit_left = -1300
+limit_right = 1300
+
+[node name="PhantomCameraHost" type="Node" parent="Player/Camera2D2" unique_id=1881965803]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("10_tc0lc")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/Camera2D2" unique_id=633394892]
+z_index = -9
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_gkedh")
+animation = &"waterfall"
+autoplay = "waterfall"
+script = ExtResource("12_i0sqq")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Player/Camera2D2/AnimatedSprite2D" unique_id=573285597]
+texture = SubResource("GradientTexture1D_gkedh")
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_plx5h")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Player/Camera2D2/AnimatedSprite2D" unique_id=1196421015]
+visible = false
+texture = SubResource("GradientTexture1D_gkedh")
+lifetime = 3.0
+lifetime_randomness = 0.25
+fixed_fps = 30
+draw_order = 1
+emission_shape = 3
+emission_rect_extents = Vector2(1500, 1000)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 98)
+
+[node name="CameraFollowPoint" type="Node2D" parent="Player" unique_id=1148747602]
+position = Vector2(0, -150)
+script = ExtResource("15_4hwui")
+camera_limits = Vector2(-500, 500)
+
+[node name="Marker2D" type="Marker2D" parent="Player/CameraFollowPoint" unique_id=920269037]
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=1955443572]
 
@@ -240,7 +289,7 @@ sleeping = true
 freeze = true
 speed = 0.0
 
-[node name="HealthComponent" parent="EnemyManager/Goblin2" index="5" unique_id=1465637310]
+[node name="HealthComponent" parent="EnemyManager/Goblin2" index="2" unique_id=1465637310]
 invulnerable = true
 
 [node name="Goblin" parent="EnemyManager" unique_id=1952827553 instance=ExtResource("3_sd4cy")]
@@ -250,57 +299,8 @@ sleeping = true
 freeze = true
 speed = 0.0
 
-[node name="HealthComponent" parent="EnemyManager/Goblin" index="5" unique_id=1465637310]
+[node name="HealthComponent" parent="EnemyManager/Goblin" index="2" unique_id=1465637310]
 invulnerable = true
-
-[node name="Player" parent="." unique_id=1594943802 instance=ExtResource("4_1pbiu")]
-position = Vector2(0, -49)
-
-[node name="Camera2D2" type="Camera2D" parent="Player" unique_id=1176660890]
-physics_interpolation_mode = 1
-top_level = true
-position = Vector2(0, -199)
-zoom = Vector2(0.5, 0.5)
-limit_left = -1300
-limit_right = 1300
-
-[node name="PhantomCameraHost" type="Node" parent="Player/Camera2D2" unique_id=1881965803]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("10_tc0lc")
-metadata/_custom_type_script = "uid://bd046eokvcnu2"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/Camera2D2" unique_id=633394892]
-z_index = -9
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_gkedh")
-animation = &"waterfall"
-autoplay = "waterfall"
-script = ExtResource("12_i0sqq")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Player/Camera2D2/AnimatedSprite2D" unique_id=573285597]
-texture = SubResource("GradientTexture1D_gkedh")
-lifetime = 3.0
-process_material = SubResource("ParticleProcessMaterial_plx5h")
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Player/Camera2D2/AnimatedSprite2D" unique_id=1196421015]
-visible = false
-texture = SubResource("GradientTexture1D_gkedh")
-lifetime = 3.0
-lifetime_randomness = 0.25
-fixed_fps = 30
-draw_order = 1
-emission_shape = 3
-emission_rect_extents = Vector2(1500, 1000)
-direction = Vector2(0, -1)
-gravity = Vector2(0, 98)
-
-[node name="CameraFollowPoint" type="Node2D" parent="Player" unique_id=1148747602]
-position = Vector2(0, -150)
-script = ExtResource("15_4hwui")
-camera_limits = Vector2(-500, 500)
-
-[node name="Marker2D" type="Marker2D" parent="Player/CameraFollowPoint" unique_id=920269037]
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1215831812]
 z_index = -10

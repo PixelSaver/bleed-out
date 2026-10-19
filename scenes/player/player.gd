@@ -50,6 +50,8 @@ func damage(atk:Attack) -> void:
 	set_invincibility(invincibilty_duration)
 	flicker_counter = flicker_duration
 
+func _enter_tree() -> void:
+	Global.player_ref = self
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Global.player_ref = self
