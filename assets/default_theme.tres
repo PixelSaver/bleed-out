@@ -1,6 +1,8 @@
 [gd_resource type="Theme" format=3 uid="uid://djxds56cenfds"]
 
+[ext_resource type="Script" uid="uid://cjmmhbp1b5312" path="res://addons/StyleboxFancy/StyleBorder.gd" id="1_cs2sx"]
 [ext_resource type="FontFile" uid="uid://etyyoqpv0cqf" path="res://assets/fonts/chomsky/Chomsky.otf" id="1_qew4h"]
+[ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="2_vkpim"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gkedh"]
 
@@ -12,6 +14,42 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fdur0"]
 
+[sub_resource type="Gradient" id="Gradient_203bq"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oal56"]
+gradient = SubResource("Gradient_203bq")
+width = 1
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qlib5"]
+gradient = SubResource("Gradient_203bq")
+width = 1
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xakvy"]
+gradient = SubResource("Gradient_203bq")
+width = 1
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2wygu"]
+gradient = SubResource("Gradient_203bq")
+width = 1
+
+[sub_resource type="StyleBox" id="StyleBox_3hje5"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+script = ExtResource("2_vkpim")
+color = Color(0.65, 0.039, 0.039, 0.7529412)
+corner_detail = 6
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_blur = 0
+
 [resource]
 default_font_size = 40
 Button/styles/disabled = SubResource("StyleBoxEmpty_gkedh")
@@ -19,6 +57,11 @@ Button/styles/focus = SubResource("StyleBoxEmpty_plx5h")
 Button/styles/hover = SubResource("StyleBoxEmpty_c7qcy")
 Button/styles/normal = SubResource("StyleBoxEmpty_rfxp3")
 Button/styles/pressed = SubResource("StyleBoxEmpty_fdur0")
+HSlider/icons/grabber = SubResource("GradientTexture1D_oal56")
+HSlider/icons/grabber_disabled = SubResource("GradientTexture1D_qlib5")
+HSlider/icons/grabber_highlight = SubResource("GradientTexture1D_xakvy")
+HSlider/icons/tick = SubResource("GradientTexture1D_2wygu")
+HSlider/styles/slider = SubResource("StyleBox_3hje5")
 MarginContainer/constants/margin_bottom = 20
 MarginContainer/constants/margin_left = 20
 MarginContainer/constants/margin_right = 20

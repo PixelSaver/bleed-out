@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://od5vuwdj32s3" path="res://scenes/enemy/enemy_manager.gd" id="2_lclk0"]
 [ext_resource type="Script" uid="uid://cjmmhbp1b5312" path="res://addons/StyleboxFancy/StyleBorder.gd" id="3_hjt0h"]
 [ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_sd4cy"]
-[ext_resource type="PackedScene" uid="uid://bm55smahjyywv" path="res://scenes/enemy/eyeball.tscn" id="3_tc0lc"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
 [ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="4_mcwih"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
@@ -22,6 +21,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_mysg8"]
 [ext_resource type="Script" uid="uid://dra14veup3c7j" path="res://scenes/map/camera_follow_point.gd" id="15_4hwui"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
+[ext_resource type="Texture2D" uid="uid://cfjgh5m2ahk2a" path="res://assets/wallBG.png" id="18_hjt0h"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -89,11 +89,18 @@ content_margin_top = -1.0
 content_margin_right = -1.0
 content_margin_bottom = -1.0
 script = ExtResource("4_mcwih")
-color = Color(0.4403357, 0.44033572, 0.4403357, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+color = Color(0.76, 0.76, 0.76, 1)
+metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
+[sub_resource type="StyleBox" id="StyleBox_mm51t"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("4_mcwih")
+color = Color(0.39, 0.39, 0.39, 1)
 metadata/_custom_type_script = "uid://bkl6g25jwb47h"
 
 [sub_resource type="StyleBox" id="StyleBox_hjt0h"]
@@ -106,10 +113,6 @@ content_margin_bottom = 0.0
 script = ExtResource("4_mcwih")
 color = Color(0.77, 0.107799985, 0.107799985, 0.6)
 corner_detail = 5
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 shadow_blur = 0
 
 [sub_resource type="StyleBox" id="StyleBox_mcwih"]
@@ -146,7 +149,7 @@ background_mode = 3
 glow_enabled = true
 glow_intensity = 0.52
 
-[node name="GrappleTest" type="Control" unique_id=1629713699]
+[node name="Game" type="Control" unique_id=1629713699]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -171,20 +174,20 @@ process_physics_priority = 300
 script = ExtResource("10_tc0lc")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/Camera2D2" unique_id=633394892]
+[node name="WaterFall" type="AnimatedSprite2D" parent="Player/Camera2D2" unique_id=633394892]
 z_index = -9
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.38, 0.475)
 sprite_frames = SubResource("SpriteFrames_gkedh")
 animation = &"waterfall"
 autoplay = "waterfall"
 script = ExtResource("12_i0sqq")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Player/Camera2D2/AnimatedSprite2D" unique_id=573285597]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Player/Camera2D2/WaterFall" unique_id=573285597]
 texture = SubResource("GradientTexture1D_gkedh")
 lifetime = 3.0
 process_material = SubResource("ParticleProcessMaterial_plx5h")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Player/Camera2D2/AnimatedSprite2D" unique_id=1196421015]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Player/Camera2D2/WaterFall" unique_id=1196421015]
 visible = false
 texture = SubResource("GradientTexture1D_gkedh")
 lifetime = 3.0
@@ -247,6 +250,11 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
+[node name="BG2" type="Panel" parent="UILayer/VBoxContainer/Left/HPBar/MarginContainer" unique_id=280815358]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_mm51t")
+
 [node name="Back" type="Panel" parent="UILayer/VBoxContainer/Left/HPBar/MarginContainer" unique_id=1301519379]
 layout_mode = 2
 offset_transform_enabled = true
@@ -279,14 +287,12 @@ mouse_filter = 1
 script = ExtResource("2_lclk0")
 starting_y = -1200.0
 
-[node name="Eyeball" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("3_tc0lc")]
-position = Vector2(223, -270)
-
 [node name="Goblin2" parent="EnemyManager" unique_id=1626915586 instance=ExtResource("3_sd4cy")]
 position = Vector2(0, -906)
 mass = 10000000000000.0
 sleeping = true
 freeze = true
+touch_damage = 0.0
 speed = 0.0
 
 [node name="HealthComponent" parent="EnemyManager/Goblin2" index="2" unique_id=1465637310]
@@ -297,6 +303,7 @@ position = Vector2(0, -584)
 mass = 10000000000000.0
 sleeping = true
 freeze = true
+touch_damage = 0.0
 speed = 0.0
 
 [node name="HealthComponent" parent="EnemyManager/Goblin" index="2" unique_id=1465637310]
@@ -311,6 +318,17 @@ repeat_times = 4
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1001625568]
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("16_4hwui")
+
+[node name="WallRight" type="Sprite2D" parent="Parallax2D" unique_id=1514788801]
+modulate = Color(1.4807141, 1.4807141, 1.4807141, 1)
+position = Vector2(1340, 0)
+texture = ExtResource("18_hjt0h")
+
+[node name="WallLeft" type="Sprite2D" parent="Parallax2D" unique_id=2019260802]
+modulate = Color(1.4807141, 1.4807141, 1.4807141, 1)
+position = Vector2(-1340, 0)
+texture = ExtResource("18_hjt0h")
+flip_h = true
 
 [node name="ProjectileManager" type="Node2D" parent="." unique_id=1876552924]
 script = ExtResource("8_x7wrf")

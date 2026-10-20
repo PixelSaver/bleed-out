@@ -32,7 +32,11 @@ var highlighted_enemy: Enemy = null
 @export var eyeball_growth: float = 8000.0
 @export var eyeball_max_weight: float = 0.12
 var last_spawn_chunk: int = 0
+var should_spawn := false
 
+## Determines if enemies spawn.
+func set_should_spawn(_spawn:bool) -> void:
+	should_spawn = _spawn
 
 func get_spawn_weights(h: float) -> Dictionary[EnemyType, float]:
 	var goblin := 0.1 + 0.9 * exp(-(h-goblin_dropoff) / goblin_decay)

@@ -1,14 +1,59 @@
 [gd_scene format=3 uid="uid://ntda7takqfc0"]
 
 [ext_resource type="Script" uid="uid://cj4pcxg1uy6" path="res://scenes/start/start_menu.gd" id="1_v2r8c"]
+[ext_resource type="Script" uid="uid://cubb0qbqdyf5y" path="res://scenes/start/audio_slider.gd" id="2_pybr3"]
 [ext_resource type="Script" uid="uid://wtvudyq1wn44" path="res://scenes/start/start_menu_button.gd" id="2_v2r8c"]
 [ext_resource type="Script" uid="uid://cjmmhbp1b5312" path="res://addons/StyleboxFancy/StyleBorder.gd" id="3_5omtc"]
+[ext_resource type="Script" uid="uid://bq2qshb4rbuhq" path="res://scenes/start/custom_slider.gd" id="4_a70le"]
 [ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="4_ltrpm"]
 [ext_resource type="Script" uid="uid://b4pdlxyjxim6i" path="res://utilities/ui/tweenable.gd" id="5_caj3f"]
 [ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="6_ltrpm"]
 [ext_resource type="Script" uid="uid://b8syojutrb77h" path="res://scenes/start/background.gd" id="7_hj785"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="8_3aoqy"]
 [ext_resource type="Script" uid="uid://cr4b18ndfw1nd" path="res://scenes/start/player_scene.gd" id="8_a70le"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7qcy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gkedh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_plx5h"]
+
+[sub_resource type="Resource" id="Resource_gkedh"]
+script = ExtResource("3_5omtc")
+color = Color(0.77254903, 0.12941177, 0.13333334, 1)
+blend = true
+width_left = 10
+width_top = 10
+width_right = 10
+width_bottom = 10
+metadata/_custom_type_script = "uid://cjmmhbp1b5312"
+
+[sub_resource type="StyleBox" id="StyleBox_a70le"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+script = ExtResource("4_ltrpm")
+color = Color(0.37254903, 0.05882353, 0.047058824, 1)
+skew = Vector2(1, 0)
+borders = Array[ExtResource("3_5omtc")]([SubResource("Resource_gkedh")])
+corner_detail = 1
+shadow_blur = 0
+
+[sub_resource type="StyleBox" id="StyleBox_63i48"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = -1.0
+content_margin_bottom = 0.0
+script = ExtResource("4_ltrpm")
+color = Color(0.84, 0.76159996, 0.756, 1)
+skew = Vector2(1, 0)
+corner_detail = 1
+shadow_color = Color(1, 1, 1, 0.5411765)
 
 [sub_resource type="StyleBox" id="StyleBox_gkedh"]
 resource_local_to_scene = false
@@ -52,7 +97,7 @@ offset_transform_enabled = true
 mouse_filter = 1
 script = ExtResource("1_v2r8c")
 cont = NodePath("AllContainer")
-buttons = [NodePath("AllContainer/RightSide/ButtonContainer/Play"), NodePath("AllContainer/RightSide/ButtonContainer/Settings"), NodePath("AllContainer/VBoxContainer/ButtonContainer/Back")]
+buttons = [NodePath("AllContainer/RightSide/ButtonContainer/Play"), NodePath("AllContainer/RightSide/ButtonContainer/Settings"), NodePath("AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Back")]
 
 [node name="AllContainer" type="HBoxContainer" parent="." unique_id=1106035721]
 layout_mode = 1
@@ -81,11 +126,140 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonContainer" type="VBoxContainer" parent="AllContainer/VBoxContainer" unique_id=2113576433]
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer" unique_id=828207192]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 0
+
+[node name="ButtonContainer" type="VBoxContainer" parent="AllContainer/VBoxContainer/MarginContainer" unique_id=2113576433]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Back" type="Button" parent="AllContainer/VBoxContainer/ButtonContainer" unique_id=1666951155 node_paths=PackedStringArray("tweenable", "front", "back")]
+[node name="AudioSlider" type="VBoxContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer" unique_id=1741686875 node_paths=PackedStringArray("slider", "label_1", "label_2")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = -10
+script = ExtResource("2_pybr3")
+slider = NodePath("CustomSlider")
+label_1 = NodePath("MarginContainer/HBoxContainer/AudioLevel")
+label_2 = NodePath("MarginContainer/HBoxContainer/AudioLevel/AudioLevel")
+
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider" unique_id=1471758648]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider/MarginContainer" unique_id=767878409]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider/MarginContainer/HBoxContainer" unique_id=1521245225]
+layout_mode = 2
+bbcode_enabled = true
+text = "[shake level=3 rate=5]Audio Volume
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider/MarginContainer/HBoxContainer/RichTextLabel" unique_id=1780960209]
+modulate = Color(0.44, 0.17599998, 0.17599998, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_right = 628.0
+offset_bottom = 41.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(3, 3)
+bbcode_enabled = true
+text = "[shake level=3 rate=5]Audio Volume
+"
+fit_content = true
+scroll_active = false
+
+[node name="Control" type="Control" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider/MarginContainer/HBoxContainer" unique_id=622237503]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AudioLevel" type="RichTextLabel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider/MarginContainer/HBoxContainer" unique_id=1106511644]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[shake level=3 rate=5]100.0%
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="AudioLevel" type="RichTextLabel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider/MarginContainer/HBoxContainer/AudioLevel" unique_id=1940341368]
+modulate = Color(0.44, 0.17599998, 0.17599998, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(3, 3)
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[shake level=3 rate=5]100.0%"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="CustomSlider" type="HSlider" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider" unique_id=1446779698 node_paths=PackedStringArray("slider_progress")]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_visual_only = false
+mouse_filter = 1
+theme_override_styles/slider = SubResource("StyleBoxEmpty_c7qcy")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_gkedh")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_plx5h")
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("4_a70le")
+slider_progress = NodePath("MarginContainer/MarginContainer/Progress")
+
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider/CustomSlider" unique_id=460948892]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="BG" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider/CustomSlider/MarginContainer" unique_id=1983347434]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_a70le")
+
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider/CustomSlider/MarginContainer" unique_id=1144460141]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Progress" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/AudioSlider/CustomSlider/MarginContainer/MarginContainer" unique_id=2117760744]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_pivot_ratio = Vector2(0, 0.5)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_63i48")
+
+[node name="Back" type="Button" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer" unique_id=1666951155 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
 mouse_filter = 1
@@ -94,7 +268,7 @@ tweenable = NodePath("MarginContainer/Panel/Tweenable")
 front = NodePath("FrontText")
 back = NodePath("FrontText/BackText")
 
-[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/ButtonContainer/Back" unique_id=159968790]
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Back" unique_id=159968790]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -106,21 +280,21 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="AllContainer/VBoxContainer/ButtonContainer/Back/MarginContainer" unique_id=677048892]
+[node name="Panel" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Back/MarginContainer" unique_id=677048892]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-700, 0)
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_gkedh")
 
-[node name="Tweenable" type="Node" parent="AllContainer/VBoxContainer/ButtonContainer/Back/MarginContainer/Panel" unique_id=1917916167]
+[node name="Tweenable" type="Node" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Back/MarginContainer/Panel" unique_id=1917916167]
 script = ExtResource("5_caj3f")
 tween_value = 1.0
 direction = Vector2(-1, 0)
 distance = 700.0
 metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
 
-[node name="FrontText" type="RichTextLabel" parent="AllContainer/VBoxContainer/ButtonContainer/Back" unique_id=188210251]
+[node name="FrontText" type="RichTextLabel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Back" unique_id=188210251]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -136,7 +310,7 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BackText" type="RichTextLabel" parent="AllContainer/VBoxContainer/ButtonContainer/Back/FrontText" unique_id=576783438]
+[node name="BackText" type="RichTextLabel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Back/FrontText" unique_id=576783438]
 modulate = Color(0.35, 0.115499996, 0.115499996, 1)
 show_behind_parent = true
 layout_mode = 1
@@ -237,7 +411,7 @@ alignment = 1
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "[font_size=100][color=red][shake level=15 seed=0 rate=10]Bleed Out"
+text = "[font_size=100][color=#c52122][shake level=15 seed=0 rate=10]Bleed Out"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
