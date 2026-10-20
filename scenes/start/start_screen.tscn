@@ -8,6 +8,7 @@
 [ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="6_ltrpm"]
 [ext_resource type="Script" uid="uid://b8syojutrb77h" path="res://scenes/start/background.gd" id="7_hj785"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="8_3aoqy"]
+[ext_resource type="Script" uid="uid://cr4b18ndfw1nd" path="res://scenes/start/player_scene.gd" id="8_a70le"]
 
 [sub_resource type="StyleBox" id="StyleBox_gkedh"]
 resource_local_to_scene = false
@@ -35,6 +36,10 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3aoqy"]
+noise_type = 3
+frequency = 0.4
 
 [node name="StartMenu" type="Control" unique_id=44145697 node_paths=PackedStringArray("cont", "buttons")]
 layout_mode = 3
@@ -80,14 +85,16 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Back" type="Button" parent="AllContainer/VBoxContainer/ButtonContainer" unique_id=667547800 node_paths=PackedStringArray("tweenable")]
+[node name="Back" type="Button" parent="AllContainer/VBoxContainer/ButtonContainer" unique_id=1666951155 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
 mouse_filter = 1
 script = ExtResource("2_v2r8c")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
+front = NodePath("FrontText")
+back = NodePath("FrontText/BackText")
 
-[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/ButtonContainer/Back" unique_id=586259139]
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/ButtonContainer/Back" unique_id=159968790]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,21 +106,21 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="AllContainer/VBoxContainer/ButtonContainer/Back/MarginContainer" unique_id=572841454]
+[node name="Panel" type="Panel" parent="AllContainer/VBoxContainer/ButtonContainer/Back/MarginContainer" unique_id=677048892]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(-700, 0)
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_gkedh")
 
-[node name="Tweenable" type="Node" parent="AllContainer/VBoxContainer/ButtonContainer/Back/MarginContainer/Panel" unique_id=757333270]
+[node name="Tweenable" type="Node" parent="AllContainer/VBoxContainer/ButtonContainer/Back/MarginContainer/Panel" unique_id=1917916167]
 script = ExtResource("5_caj3f")
 tween_value = 1.0
 direction = Vector2(-1, 0)
 distance = 700.0
 metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="AllContainer/VBoxContainer/ButtonContainer/Back" unique_id=1283532124]
+[node name="FrontText" type="RichTextLabel" parent="AllContainer/VBoxContainer/ButtonContainer/Back" unique_id=188210251]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -122,7 +129,27 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "Back"
+text = "[shake rate=10 level=10]Back
+"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackText" type="RichTextLabel" parent="AllContainer/VBoxContainer/ButtonContainer/Back/FrontText" unique_id=576783438]
+modulate = Color(0.35, 0.115499996, 0.115499996, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Back
+"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
@@ -174,58 +201,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="AllContainer/PROTOTYPE/CenterContainer" unique_id=964840428]
+[node name="PlayerScene" type="Control" parent="AllContainer/PROTOTYPE/CenterContainer" unique_id=964840428 node_paths=PackedStringArray("player_pos")]
 layout_mode = 2
+script = ExtResource("8_a70le")
+player_pos = NodePath("Vampire/PositionOffset")
+noise = SubResource("FastNoiseLite_3aoqy")
 
-[node name="Line2D" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=1786470921]
-position = Vector2(-267.8, -289)
-points = PackedVector2Array(173, 195, 170, 85)
+[node name="Vampire" type="Node2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene" unique_id=1460236357]
+position = Vector2(-5.799988, 22.999992)
+scale = Vector2(4, 4)
 
-[node name="Line2D2" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=577494942]
-position = Vector2(-141.79999, -275)
-points = PackedVector2Array(173, 195, 170, 85)
+[node name="PositionOffset" type="Node2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire" unique_id=1249261663]
 
-[node name="Line2D3" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=276883253]
-position = Vector2(-88.79999, -215)
-points = PackedVector2Array(173, 195, 170, 85)
-
-[node name="Line2D4" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=1798871204]
-position = Vector2(-206.79999, -240)
-points = PackedVector2Array(173, 195, 170, 85)
-
-[node name="Line2D5" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=114850244]
-position = Vector2(-117.79999, -371)
-points = PackedVector2Array(173, 195, 170, 85)
-
-[node name="Line2D6" type="Line2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=1324397568]
-position = Vector2(-187.79999, -395)
-points = PackedVector2Array(173, 195, 170, 85)
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=1439746319]
-layout_mode = 0
-offset_left = -186.79999
-offset_top = 217.0
-offset_right = 207.20001
-offset_bottom = 268.0
-bbcode_enabled = true
-text = "[font_size=50][tornado][rainbow][shake][wave]Fallin     Fabulouslie"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-
-[node name="Vampire" type="Node2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=1460236357]
-position = Vector2(-18.799986, 102)
-scale = Vector2(2.5, 2.5)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control/Vampire" unique_id=830844533]
-scale = Vector2(0.463, 0.463)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire/PositionOffset" unique_id=830844533]
+scale = Vector2(0.46299994, 0.46299994)
 sprite_frames = ExtResource("6_ltrpm")
 animation = &"falling"
 autoplay = "falling"
 frame_progress = 0.12793078
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control/Vampire" unique_id=291601782]
-scale = Vector2(0.1, 0.1)
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire/PositionOffset" unique_id=291601782]
+scale = Vector2(0.09999999, 0.09999999)
 sprite_frames = ExtResource("6_ltrpm")
 animation = &"falling_eyes"
 autoplay = "falling_eyes"
@@ -237,11 +233,30 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.5
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="AllContainer/RightSide" unique_id=2066984790]
+[node name="Title" type="RichTextLabel" parent="AllContainer/RightSide" unique_id=2066984790]
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "[font_size=100][color=red][shake level=15 rate=10]Bleed Out"
+text = "[font_size=100][color=red][shake level=15 seed=0 rate=10]Bleed Out"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="RichTextLabel" parent="AllContainer/RightSide/Title" unique_id=1243938944]
+modulate = Color(0.45, 0.45, 0.45, 1)
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[font_size=100][color=red][shake level=15 seed=0 rate=10]Bleed Out"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
@@ -251,12 +266,14 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Play" type="Button" parent="AllContainer/RightSide/ButtonContainer" unique_id=1833676874 node_paths=PackedStringArray("tweenable")]
+[node name="Play" type="Button" parent="AllContainer/RightSide/ButtonContainer" unique_id=1833676874 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
 mouse_filter = 1
 script = ExtResource("2_v2r8c")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
+front = NodePath("FrontText")
+back = NodePath("FrontText/BackText")
 
 [node name="MarginContainer" type="MarginContainer" parent="AllContainer/RightSide/ButtonContainer/Play" unique_id=1890736664]
 layout_mode = 1
@@ -284,7 +301,7 @@ direction = Vector2(1, 0)
 distance = 700.0
 metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="AllContainer/RightSide/ButtonContainer/Play" unique_id=1317988937]
+[node name="FrontText" type="RichTextLabel" parent="AllContainer/RightSide/ButtonContainer/Play" unique_id=1317988937]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -293,20 +310,40 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 bbcode_enabled = true
+text = "[shake rate=10 level=10]Play"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackText" type="RichTextLabel" parent="AllContainer/RightSide/ButtonContainer/Play/FrontText" unique_id=1838160508]
+modulate = Color(0.35, 0.115499996, 0.115499996, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 1
+bbcode_enabled = true
 text = "Play"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Settings" type="Button" parent="AllContainer/RightSide/ButtonContainer" unique_id=410749898 node_paths=PackedStringArray("tweenable")]
+[node name="Settings" type="Button" parent="AllContainer/RightSide/ButtonContainer" unique_id=767454773 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
 mouse_filter = 1
 script = ExtResource("2_v2r8c")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
+front = NodePath("FrontText")
+back = NodePath("FrontText/BackText")
 
-[node name="MarginContainer" type="MarginContainer" parent="AllContainer/RightSide/ButtonContainer/Settings" unique_id=137255618]
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/RightSide/ButtonContainer/Settings" unique_id=1100125724]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -318,21 +355,21 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="AllContainer/RightSide/ButtonContainer/Settings/MarginContainer" unique_id=280241332]
+[node name="Panel" type="Panel" parent="AllContainer/RightSide/ButtonContainer/Settings/MarginContainer" unique_id=1310692003]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(700, 0)
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_gkedh")
 
-[node name="Tweenable" type="Node" parent="AllContainer/RightSide/ButtonContainer/Settings/MarginContainer/Panel" unique_id=1506112167]
+[node name="Tweenable" type="Node" parent="AllContainer/RightSide/ButtonContainer/Settings/MarginContainer/Panel" unique_id=998412319]
 script = ExtResource("5_caj3f")
 tween_value = 1.0
 direction = Vector2(1, 0)
 distance = 700.0
 metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="AllContainer/RightSide/ButtonContainer/Settings" unique_id=722085797]
+[node name="FrontText" type="RichTextLabel" parent="AllContainer/RightSide/ButtonContainer/Settings" unique_id=1646328783]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -341,7 +378,25 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "Settings"
+text = "[shake rate=10 level=10]Settings"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackText" type="RichTextLabel" parent="AllContainer/RightSide/ButtonContainer/Settings/FrontText" unique_id=891850521]
+modulate = Color(0.35, 0.115499996, 0.115499996, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Settings"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
