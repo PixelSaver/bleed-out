@@ -3,6 +3,7 @@ class_name PlayerMovementComponent
 
 @export var grapple_visual: Line2D
 @export var player_sprite: AnimatedSprite2D
+@export var sword_visual: Node2D
 @export_group("Player Movement Tweaks")
 ## Speed at which player walks (gonna be deleted)
 @export var walk_speed = 5000.0
@@ -48,6 +49,8 @@ class_name PlayerMovementComponent
 
 @export var line_width = 10.0
 @export var max_line_squish = 2.0
+## Distance between the sword's pivot and handle
+@export var sword_len = 0.0
 
 @export var pull_required = 30.0
 @export var pull_cost = 10.0
@@ -88,13 +91,13 @@ func _initiate_grapple(target: GrapplePoint, p: Player) -> void:
 	grapple_target = target
 	var grapple_offset = p.global_position - grapple_target.global_position
 	rope_len = max(grapple_offset.length(), min_rope_len)
-	
+
 	rope_from = p.global_position
 	rope_to = grapple_target.global_position
 	state = State.THROW
 	state_time = 0.0
-	grapple_visual.visible = true
 	player_sprite.play("swing")
+	update_grapple_visibility(true)
 
 func _ungrapple() -> void:
 	var p := Global.player_ref
@@ -102,12 +105,12 @@ func _ungrapple() -> void:
 		# Proper velocity when releasing grapple
 		p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
 					+ (grapple_dist * angular_vel + sign(angular_vel) * release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
-		
+
 		rope_taut = false
-	
+
 	if grapple_target == null:
 		state = State.NORMAL
-		grapple_visual.visible = false
+		update_grapple_visibility(false)
 	else:
 		rope_from = p.global_position
 		rope_to = grapple_target.global_position
@@ -127,13 +130,13 @@ func _pull(delta: float) -> void:
 	if state_time >= pull_duration:
 		p.velocity = pull_vel
 		state = State.NORMAL
-		grapple_visual.visible = false
+		update_grapple_visibility(false)
 		rope_taut = false
 		if grapple_target != null and grapple_target.get_enemy() != null:
 			var e: Enemy = grapple_target.get_enemy()
 			e.freeze_enemy(false)
 			e.apply_central_impulse(pull_vel * -10.)
-		
+
 
 func process_movement(p:Player, delta: float) -> void:
 	var temp_grapple_target = p.search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
@@ -146,9 +149,9 @@ func process_movement(p:Player, delta: float) -> void:
 				state = State.PARRY
 				state_time = 0.0
 				p.set_invincibility(parry_invuln)
-				
+
 			normal_physics(p, delta)
-				
+
 		State.GRAPPLE:
 			# Checking if rope is taut
 			if grapple_target == null:
@@ -167,14 +170,14 @@ func process_movement(p:Player, delta: float) -> void:
 					state = State.PULL
 					state_time = 0.0
 					p.set_invincibility(pull_invuln)
-			
+
 			normal_physics(p, delta)
 			draw_rope(p, true, 1.0)
-				
+
 		State.PULL:
 			_pull(delta)
 			draw_rope(p, false, 1.0)
-			
+
 		State.PARRY:
 			var hit_enemies = p.parry_hitbox.get_overlapping_bodies()
 			if hit_enemies:
@@ -190,11 +193,12 @@ func process_movement(p:Player, delta: float) -> void:
 			state_time += delta
 			if state_time > parry_duration:
 				state = State.NORMAL
-			
+
 			normal_physics(p, delta)
-				
+
 		State.THROW:
 			state_time += delta
+			var t_norm = min(state_time / throw_duration, 1.0)
 			if state_time > throw_duration:
 				state_time = 0.0
 				state = State.GRAPPLE
@@ -204,27 +208,26 @@ func process_movement(p:Player, delta: float) -> void:
 					var atk = Attack.new()
 					atk.damage = 1
 					e.freeze_enemy(true, atk)
-					
+
 					p.drink()
-			var t_norm = min(state_time / throw_duration, 1.0)
 			normal_physics(p, delta)
 			rope_to = grapple_target.global_position
 			draw_rope(p, false, t_norm)
-			
+
 		State.RETRIEVE:
 			state_time += delta
+			var t_norm = 1 - min(state_time / retrieve_duration, 1.0)
 			if state_time > retrieve_duration:
 				state = State.NORMAL
-				grapple_visual.visible = false
-			var t_norm = min(state_time / retrieve_duration, 1.0)
+				update_grapple_visibility(false)
 			normal_physics(p, delta)
 			rope_from = p.global_position
-			draw_rope(p, false, 1 - t_norm)
+			draw_rope(p, false, t_norm)
 	if p.velocity.x > 0:
 		player_sprite.flip_h = false
 	elif p.velocity.x < 0:
 		player_sprite.flip_h = true
-		
+
 	#if pulling:
 		#_pull(delta)
 	#else:
@@ -268,7 +271,7 @@ func process_movement(p:Player, delta: float) -> void:
 					#parrying = true
 					#state_time = 0.0
 					#p.set_invincibility(parry_invuln)
-	
+
 	# Draw rope
 	#if grappling:
 		#if not pulling:
@@ -293,24 +296,24 @@ func normal_physics(p: Player, delta: float):
 		#var pre_damp = radial_vel
 		radial_vel *= exp(-spring_damping * delta)
 		#var damped_energy = pre_damp ** 2 - radial_vel ** 2
-		
+
 		# Update grapple distance
 		# but make sure you don't get even closer if you're already within the min dist
 		var old_dist = grapple_dist
 		grapple_dist += radial_vel * delta
 		if grapple_dist < old_dist:
 			grapple_dist = max(grapple_dist, min(min_grapple_dist, old_dist))
-		
+
 		# Apply gravity to spin
 		if angular_vel * cos(grapple_angle) > 0:
 			# Extra gravity when going down
 			angular_vel += gravity * gravity_boost * cos(grapple_angle) / grapple_dist * delta
 		else:
 			angular_vel += gravity * cos(grapple_angle) / grapple_dist * delta
-		
+
 		# That effect where figure skaters spin faster without their arms out
 		angular_vel *= (old_dist / grapple_dist) ** 2
-		
+
 		## Transfer damped radial energy into angular momentum
 		## v = rw
 		#var tangent_vel = grapple_dist * angular_vel
@@ -318,7 +321,7 @@ func normal_physics(p: Player, delta: float):
 		## var new_tangent_vel = sqrt(tangent_vel ** 2 + damped_energy * damp_transfer * maxf(0.0, sign(pre_damp)))
 		## w = v/r
 		#angular_vel = sign(angular_vel) * new_tangent_vel / grapple_dist
-		
+
 		# Apply angular velocity
 		# There is a minimum angular velocity
 		angular_vel = sign(angular_vel) * clamp(abs(angular_vel), min_swing_speed / grapple_dist, max_angular_vel)
@@ -334,11 +337,11 @@ func normal_physics(p: Player, delta: float):
 		# Apply gravity
 		if not p.is_on_floor():
 			p.velocity.y += gravity * delta
-		
+
 		# Jump
 		if Input.is_action_just_pressed("jump") and p.is_on_floor():
 			p.velocity.y = jump_power
-			
+
 		#if p.is_on_floor():
 			## Walking/friction
 			#p.velocity.x += Input.get_axis("left", "right") * walk_speed * delta
@@ -350,27 +353,31 @@ func normal_physics(p: Player, delta: float):
 				#p.velocity.x += acceleration
 				#var limit = max(max_drift, abs(p.velocity.x - acceleration))
 				#p.velocity.x = clampf(p.velocity.x, -limit, limit)
-				
+
 		if p.is_on_floor():
 			if state == State.PARRY:
 				p.velocity.y = prebounce_vel.y * -1
 			else:
 				p.velocity.y = jump_power
-			
+
 		if p.is_on_wall():
 			if state == State.PARRY:
 				p.velocity.x = prebounce_vel.x * -1
 			else:
 				p.velocity.x = prebounce_vel.x * -1 * bounce_damp
-		
+
 	prebounce_vel = p.velocity
 	p.move_and_slide()
 	pull_start_point = p.global_position
 
 func draw_rope(p: Player, change_width: bool, t: float):
+	var sword_position = lerp(grapple_visual.to_local(rope_from), grapple_visual.to_local(rope_to), t)
+	sword_visual.position = sword_position
+	sword_visual.rotation = sword_position.angle()
+	var handle_position = sword_position - sword_position.normalized() * sword_len
 	if change_width:
-		grapple_visual.width = line_width * min((rope_len / (p.global_position - grapple_target.global_position).length()), max_line_squish)
-	grapple_visual.points = [Vector2.ZERO, lerp(grapple_visual.to_local(rope_from), grapple_visual.to_local(rope_to), t)]
+		grapple_visual.width = line_width * min(((rope_len - sword_len) / (handle_position).length()), max_line_squish)
+	grapple_visual.points = [Vector2.ZERO, handle_position]
 
 func slack_to_taut(p: Player, use_old_len: bool):
 	var grapple_offset = p.global_position - grapple_target.global_position
@@ -385,5 +392,9 @@ func slack_to_taut(p: Player, use_old_len: bool):
 	## Technically not physically accurate, but feels funner
 	#var inward_vel = max(0.0, -p.velocity.dot(radial_dir))
 	#angular_vel += sign(angular_vel) * inward_vel / grapple_dist * momentum_cheat
-	
+
 	rope_taut = true
+
+func update_grapple_visibility(visibility: bool):
+	grapple_visual.visible = visibility
+	sword_visual.visible = visibility

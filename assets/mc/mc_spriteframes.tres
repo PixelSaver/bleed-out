@@ -1,6 +1,56 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://btkfwcg0pgoq"]
 
+[ext_resource type="Texture2D" uid="uid://umjtbl050e8d" path="res://assets/mc/falling/falling_body.webp" id="1_13l06"]
 [ext_resource type="Texture2D" uid="uid://c7qhmni75bhiq" path="res://assets/mc/swing_spritesheet.png" id="1_d0tat"]
+[ext_resource type="Texture2D" uid="uid://bgnjxhg7kv5eq" path="res://assets/mc/falling/falling_eyes.png" id="2_shjfw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcbj1"]
+atlas = ExtResource("1_13l06")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wsa1"]
+atlas = ExtResource("1_13l06")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih322"]
+atlas = ExtResource("1_13l06")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d41jm"]
+atlas = ExtResource("1_13l06")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ms1rg"]
+atlas = ExtResource("1_13l06")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2kki"]
+atlas = ExtResource("1_13l06")
+region = Rect2(1280, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_defqb"]
+atlas = ExtResource("1_13l06")
+region = Rect2(1536, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryvfk"]
+atlas = ExtResource("1_13l06")
+region = Rect2(1792, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_muci1"]
+atlas = ExtResource("2_shjfw")
+region = Rect2(0, 0, 1200, 1200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjbon"]
+atlas = ExtResource("2_shjfw")
+region = Rect2(1200, 0, 1200, 1200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we3ks"]
+atlas = ExtResource("2_shjfw")
+region = Rect2(2400, 0, 1200, 1200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytt0j"]
+atlas = ExtResource("2_shjfw")
+region = Rect2(3600, 0, 1200, 1200)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0m3vu"]
 atlas = ExtResource("1_d0tat")
@@ -40,6 +90,52 @@ region = Rect2(0, 0, 800, 800)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcbj1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wsa1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ih322")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d41jm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ms1rg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2kki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_defqb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryvfk")
+}],
+"loop": 1,
+"name": &"falling",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 13.0,
+"texture": SubResource("AtlasTexture_muci1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjbon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we3ks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytt0j")
+}],
+"loop": 1,
+"name": &"falling_eyes",
+"speed": 12.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0m3vu")

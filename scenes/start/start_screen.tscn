@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="4_ltrpm"]
 [ext_resource type="Script" uid="uid://b4pdlxyjxim6i" path="res://utilities/ui/tweenable.gd" id="5_caj3f"]
 [ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="6_ltrpm"]
+[ext_resource type="Script" uid="uid://b8syojutrb77h" path="res://scenes/start/background.gd" id="7_hj785"]
+[ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="8_3aoqy"]
 
 [sub_resource type="StyleBox" id="StyleBox_gkedh"]
 resource_local_to_scene = false
@@ -17,11 +19,22 @@ content_margin_bottom = -1.0
 script = ExtResource("4_ltrpm")
 color = Color(1, 0, 0, 0.43529412)
 skew = Vector2(-0.2, 0)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+corner_detail = 1
+shadow_enabled = true
+shadow_offset = Vector2(10, 10)
 metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hj785"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [node name="StartMenu" type="Control" unique_id=44145697 node_paths=PackedStringArray("cont", "buttons")]
 layout_mode = 3
@@ -119,6 +132,18 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Parallax2D" type="Parallax2D" parent="AllContainer/PROTOTYPE" unique_id=1169329522]
+z_index = -10
+scroll_offset = Vector2(300, -912)
+repeat_size = Vector2(0, 931)
+autoscroll = Vector2(0, -3000)
+repeat_times = 4
+script = ExtResource("7_hj785")
+
+[node name="Sprite2D" type="Sprite2D" parent="AllContainer/PROTOTYPE/Parallax2D" unique_id=1912592192]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("8_3aoqy")
+
 [node name="Panel" type="Panel" parent="AllContainer/PROTOTYPE" unique_id=1547303257]
 layout_mode = 1
 anchors_preset = 15
@@ -126,6 +151,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hj785")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="AllContainer/PROTOTYPE" unique_id=1330401165]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="AllContainer/PROTOTYPE/SubViewportContainer" unique_id=1145763799]
+handle_input_locally = false
+render_target_update_mode = 0
 
 [node name="CenterContainer" type="CenterContainer" parent="AllContainer/PROTOTYPE" unique_id=1980019418]
 layout_mode = 1
@@ -164,21 +203,33 @@ points = PackedVector2Array(173, 195, 170, 85)
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=1439746319]
 layout_mode = 0
-offset_left = -182.79999
-offset_top = 164.0
-offset_right = 211.20001
-offset_bottom = 215.0
+offset_left = -186.79999
+offset_top = 217.0
+offset_right = 207.20001
+offset_bottom = 268.0
 bbcode_enabled = true
 text = "[font_size=50][tornado][rainbow][shake][wave]Fallin     Fabulouslie"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=830844533]
-position = Vector2(1.2000122, 41)
-scale = Vector2(0.3, 0.3)
+[node name="Vampire" type="Node2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control" unique_id=1460236357]
+position = Vector2(-18.799986, 102)
+scale = Vector2(2.5, 2.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control/Vampire" unique_id=830844533]
+scale = Vector2(0.463, 0.463)
 sprite_frames = ExtResource("6_ltrpm")
-animation = &"swing"
+animation = &"falling"
+autoplay = "falling"
+frame_progress = 0.12793078
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/Control/Vampire" unique_id=291601782]
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("6_ltrpm")
+animation = &"falling_eyes"
+autoplay = "falling_eyes"
+frame_progress = 0.87803155
 
 [node name="RightSide" type="VBoxContainer" parent="AllContainer" unique_id=2047291902]
 layout_mode = 2
