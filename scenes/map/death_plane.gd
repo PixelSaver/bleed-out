@@ -9,9 +9,9 @@ var speed = starting_speed
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		var atk = Attack.new()
-		atk.damage = 100000000000
+		atk.damage = 100000000000.
 		body.damage(atk)
-	if body is Enemy:
+	if body is Enemy and body is not EyeballEnemy:
 		var atk = Attack.new()
 		atk.damage = 100000000000
 		body.damage(atk)

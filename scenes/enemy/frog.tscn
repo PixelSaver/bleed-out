@@ -1,10 +1,18 @@
 [gd_scene format=3 uid="uid://cs3ikp0wcqwmh"]
 
 [ext_resource type="Script" uid="uid://denpdnnxxl7rg" path="res://scenes/enemy/frog.gd" id="1_iwf47"]
-[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_ypj7g"]
+[ext_resource type="Texture2D" uid="uid://cqyi4mnsdcsdc" path="res://assets/frog/frog_idle/frog5.png" id="2_1mw3a"]
 [ext_resource type="Script" uid="uid://cihaphm0cdl2f" path="res://scenes/grapple/grapple_point.gd" id="3_85b0j"]
+[ext_resource type="Texture2D" uid="uid://hw16pswvlb6o" path="res://assets/frog/frog_idle/frog6.png" id="3_rm08h"]
+[ext_resource type="Texture2D" uid="uid://da856k853xov1" path="res://assets/frog/frog_idle/frog7.png" id="4_1uchc"]
 [ext_resource type="Script" uid="uid://fj7ykktocnh6" path="res://utilities/health_component.gd" id="4_tymyi"]
+[ext_resource type="Texture2D" uid="uid://bmek142teg8mt" path="res://assets/frog/frog_idle/frog9.png" id="5_rtx8b"]
 [ext_resource type="Texture2D" uid="uid://bbrf3us7xl4aa" path="res://assets/grappleMark spritesheet.png" id="5_ypj7g"]
+[ext_resource type="Texture2D" uid="uid://0sd6itrh168a" path="res://assets/frog/frog_idle/frog_8.png" id="6_qja5j"]
+[ext_resource type="Texture2D" uid="uid://bax7kchomhsna" path="res://assets/frog/frog_idle/frog1.png" id="7_fffoi"]
+[ext_resource type="Texture2D" uid="uid://c5jelmhln3ee7" path="res://assets/frog/frog_idle/frog2.png" id="8_wpdoo"]
+[ext_resource type="Texture2D" uid="uid://t5cg8rpub7ww" path="res://assets/frog/frog_idle/frog3.png" id="9_expw4"]
+[ext_resource type="Texture2D" uid="uid://dvetiwm8rnf1c" path="res://assets/frog/frog_idle/frog4.png" id="10_m537c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
 radius = 32.0
@@ -15,6 +23,46 @@ height = 2000.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_plx5h"]
 radius = 700.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1mw3a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rm08h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1uchc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_rtx8b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qja5j")
+}],
+"loop": 0,
+"name": &"fire",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_fffoi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_wpdoo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_expw4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_m537c")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bcidh"]
 atlas = ExtResource("5_ypj7g")
@@ -58,7 +106,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ypj7g"]
 radius = 32.0
 
-[node name="Frog" type="RigidBody2D" unique_id=322635485 node_paths=PackedStringArray("shot_range", "vision_range", "touch_area", "grapple_point", "health_component", "marked")]
+[node name="Frog" type="RigidBody2D" unique_id=322635485 node_paths=PackedStringArray("anim_sprite", "shot_range", "vision_range", "touch_area", "grapple_point", "health_component", "marked")]
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
@@ -67,6 +115,7 @@ can_sleep = false
 lock_rotation = true
 linear_damp = 3.0
 script = ExtResource("1_iwf47")
+anim_sprite = NodePath("FrogAnim")
 shot_range = NodePath("ShotRange")
 vision_range = NodePath("VisionRange")
 shot_cooldown = 2.0
@@ -97,29 +146,16 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_plx5h")
 debug_color = Color(0, 0.88235295, 0.3372549, 0.41960785)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=824649474]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_ypj7g")
+[node name="FrogAnim" type="AnimatedSprite2D" parent="." unique_id=912655337]
+scale = Vector2(0.071, 0.071)
+sprite_frames = SubResource("SpriteFrames_gkedh")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.13285011
 
 [node name="GrapplePoint" type="Node2D" parent="." unique_id=1850899063]
 script = ExtResource("3_85b0j")
 metadata/_custom_type_script = "uid://cihaphm0cdl2f"
-
-[node name="FrogCOLORPROTOTYPE" type="ColorRect" parent="." unique_id=110610704]
-offset_right = 40.0
-offset_bottom = 40.0
-offset_transform_enabled = true
-offset_transform_position_ratio = Vector2(-0.5, -0.5)
-offset_transform_scale = Vector2(1.5, 1.5)
-color = Color(0.7041558, 0.5848075, 0.014404186, 0.2784314)
-
-[node name="HighlightPROTOTYPE" type="ColorRect" parent="." unique_id=1782595555]
-offset_right = 40.0
-offset_bottom = 40.0
-offset_transform_enabled = true
-offset_transform_position_ratio = Vector2(-0.5, -0.5)
-offset_transform_scale = Vector2(1.5, 1.5)
-color = Color(1, 0, 0, 0)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1465637310]
 script = ExtResource("4_tymyi")
@@ -132,17 +168,6 @@ target_position = Vector2(55, 0)
 
 [node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1996236376]
 target_position = Vector2(-55, 0)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=507232982]
-offset_left = -41.0
-offset_top = -29.0
-offset_right = 44.0
-offset_bottom = 26.0
-text = "Frog"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-metadata/_edit_use_anchors_ = true
 
 [node name="Marked" type="AnimatedSprite2D" parent="." unique_id=1508427477]
 scale = Vector2(0.15, 0.15)

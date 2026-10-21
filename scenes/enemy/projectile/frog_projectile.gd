@@ -1,6 +1,7 @@
 extends Projectile
 class_name FrogProjectile
 
+@export var sprite: AnimatedSprite2D
 var attack: Attack 
 var initialized = false
 var movement_vec: Vector2 = Vector2.ZERO
@@ -22,6 +23,7 @@ func initialize_movement(dir:Vector2, speed: float, _lifetime: float, atk: Attac
 	movement_vec = dir * speed
 	lifetime = _lifetime
 	initialized = true
+	self.rotation = randf() * 2 * PI
 
 func _process(delta: float) -> void:
 	if not initialized: return
