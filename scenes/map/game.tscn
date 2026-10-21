@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_mysg8"]
 [ext_resource type="Script" uid="uid://dra14veup3c7j" path="res://scenes/map/camera_follow_point.gd" id="15_4hwui"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
+[ext_resource type="Shader" uid="uid://cud10ewmcrgob" path="res://shaders/background.gdshader" id="17_mcwih"]
 [ext_resource type="Texture2D" uid="uid://cfjgh5m2ahk2a" path="res://assets/wallBG.png" id="18_hjt0h"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
@@ -130,6 +131,11 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 shadow_blur = 0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4ttq"]
+shader = ExtResource("17_mcwih")
+shader_parameter/curvature = 0.9910000470725
+shader_parameter/radius = 0.5
 
 [sub_resource type="Resource" id="Resource_ry5pk"]
 script = ExtResource("12_mysg8")
@@ -283,6 +289,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 
+[node name="DistortionLayer" type="Sprite2D" parent="." unique_id=1291865168]
+z_index = -10
+material = SubResource("ShaderMaterial_p4ttq")
+position = Vector2(0, -199)
+scale = Vector2(18.555288, 10.359013)
+texture = ExtResource("6_sd4cy")
+
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 script = ExtResource("2_lclk0")
 starting_y = -1200.0
@@ -316,16 +329,19 @@ repeat_size = Vector2(0, 931)
 repeat_times = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1001625568]
+z_index = -1
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("16_4hwui")
 
 [node name="WallRight" type="Sprite2D" parent="Parallax2D" unique_id=1514788801]
 modulate = Color(1.4807141, 1.4807141, 1.4807141, 1)
+z_index = 1
 position = Vector2(1340, 0)
 texture = ExtResource("18_hjt0h")
 
 [node name="WallLeft" type="Sprite2D" parent="Parallax2D" unique_id=2019260802]
 modulate = Color(1.4807141, 1.4807141, 1.4807141, 1)
+z_index = 1
 position = Vector2(-1340, 0)
 texture = ExtResource("18_hjt0h")
 flip_h = true
