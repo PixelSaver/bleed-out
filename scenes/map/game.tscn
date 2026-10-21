@@ -30,12 +30,23 @@
 [ext_resource type="Script" uid="uid://dsrnv8ne8iw56" path="res://scenes/map/death_screen.gd" id="19_l5q7t"]
 [ext_resource type="Script" uid="uid://bun8pcbqq8v0n" path="res://scenes/map/final_score.gd" id="22_p87kk"]
 [ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
+[ext_resource type="PackedScene" uid="uid://dq3musfjnhddb" path="res://scenes/map/death_plane.tscn" id="31_l4ess"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xrurs"]
 shader = ExtResource("4_mm51t")
+shader_parameter/liquid_level = 0.5
+shader_parameter/liquid_color = Color(0.2, 0.5, 1, 0.8)
+shader_parameter/foam_color = Color(0.8, 0.9, 1, 0.6)
+shader_parameter/wave_amplitude = 0.01
 shader_parameter/wave_frequency = 15.0
 shader_parameter/wave_speed = 6.0
-shader_parameter/wave_amplitude = 0.01
+shader_parameter/gravity_angle = 0.0
+shader_parameter/gravity_direction = Vector2(0, 1)
+shader_parameter/foam_thickness = 0.02
+shader_parameter/shine_intensity = 0.3
+shader_parameter/add_bubble = true
+shader_parameter/bubble_scale = 10.0
+shader_parameter/bubble_speed = 0.5
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -224,7 +235,6 @@ drink_amount = 20.0
 
 [node name="Camera2D2" type="Camera2D" parent="Player" unique_id=1176660890]
 physics_interpolation_mode = 1
-top_level = true
 position = Vector2(0, -199)
 zoom = Vector2(0.5, 0.5)
 limit_left = -1300
@@ -964,6 +974,8 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="World" type="Node2D" parent="." unique_id=427052286]
 process_mode = 1
+
+[node name="DeathPlane" parent="World" unique_id=2126560236 instance=ExtResource("31_l4ess")]
 
 [node name="Floor" type="StaticBody2D" parent="World" unique_id=1028182488]
 
