@@ -9,7 +9,7 @@ class_name Player
 @export_category("Player tweaks")
 @export var respawn_delay: float = 0.2
 @export var blood_drain: float = 15.0
-@export var drink_amount: float = 20.0
+@export var drink_amount: float = 30.0
 @export var invincibilty_duration: float = 1.5
 @export var flicker_duration: float = 1.0
 var invincibility_counter: float = 0.0
@@ -48,9 +48,10 @@ func is_invincible() -> bool:
 	return invincibility_counter > 0
 
 func damage(atk:Attack) -> void:
-	health_component.damage(atk)
-	set_invincibility(invincibilty_duration)
-	flicker_counter = flicker_duration
+	if not is_invincible():
+		health_component.damage(atk)
+		set_invincibility(invincibilty_duration)
+		flicker_counter = flicker_duration
 
 func _enter_tree() -> void:
 	Global.player_ref = self

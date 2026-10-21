@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_sd4cy"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
 [ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="4_mcwih"]
+[ext_resource type="Shader" uid="uid://6qw121ild8sr" path="res://shaders/water.gdshader" id="4_mm51t"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
 [ext_resource type="Texture2D" uid="uid://l25715al180n" path="res://assets/waterfall/w1.png" id="7_jsmvi"]
 [ext_resource type="Texture2D" uid="uid://c7qx51k4gykl6" path="res://assets/waterfall/w2.png" id="8_i0sqq"]
@@ -22,10 +23,17 @@
 [ext_resource type="Script" uid="uid://dra14veup3c7j" path="res://scenes/map/camera_follow_point.gd" id="15_4hwui"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
 [ext_resource type="Script" uid="uid://b4pdlxyjxim6i" path="res://utilities/ui/tweenable.gd" id="16_mm51t"]
+[ext_resource type="Shader" uid="uid://cud10ewmcrgob" path="res://shaders/background.gdshader" id="17_mcwih"]
 [ext_resource type="Texture2D" uid="uid://cfjgh5m2ahk2a" path="res://assets/wallBG.png" id="18_hjt0h"]
 [ext_resource type="Script" uid="uid://wtvudyq1wn44" path="res://scenes/start/start_menu_button.gd" id="18_xrurs"]
 [ext_resource type="Script" uid="uid://dsrnv8ne8iw56" path="res://scenes/map/death_screen.gd" id="19_l5q7t"]
 [ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xrurs"]
+shader = ExtResource("4_mm51t")
+shader_parameter/wave_frequency = 15.0
+shader_parameter/wave_speed = 6.0
+shader_parameter/wave_amplitude = 0.01
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -94,6 +102,10 @@ content_margin_right = -1.0
 content_margin_bottom = -1.0
 script = ExtResource("4_mcwih")
 color = Color(0.76, 0.76, 0.76, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 metadata/_custom_type_script = "uid://bkl6g25jwb47h"
 
 [sub_resource type="StyleBox" id="StyleBox_mm51t"]
@@ -117,6 +129,10 @@ content_margin_bottom = 0.0
 script = ExtResource("4_mcwih")
 color = Color(0.77, 0.107799985, 0.107799985, 0.6)
 corner_detail = 5
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 shadow_blur = 0
 
 [sub_resource type="StyleBox" id="StyleBox_mcwih"]
@@ -161,6 +177,11 @@ corner_detail = 1
 shadow_enabled = true
 shadow_offset = Vector2(10, 10)
 metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5q7t"]
+shader = ExtResource("17_mcwih")
+shader_parameter/curvature = 0.1590000075525
+shader_parameter/cylinder_x = true
 
 [sub_resource type="Resource" id="Resource_ry5pk"]
 script = ExtResource("12_mysg8")
@@ -219,10 +240,12 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="WaterFall" type="AnimatedSprite2D" parent="Player/Camera2D2" unique_id=633394892]
 z_index = -9
-scale = Vector2(0.38, 0.475)
+material = SubResource("ShaderMaterial_xrurs")
+scale = Vector2(0.21999802, 0.475)
 sprite_frames = SubResource("SpriteFrames_gkedh")
 animation = &"waterfall"
 autoplay = "waterfall"
+speed_scale = 1.5
 script = ExtResource("12_i0sqq")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Player/Camera2D2/WaterFall" unique_id=573285597]
@@ -329,6 +352,7 @@ mouse_filter = 1
 
 [node name="PauseScreen" type="Control" parent="UILayer" unique_id=1338486760 node_paths=PackedStringArray("buttons", "all_t")]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -604,7 +628,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("19_l5q7t")
 buttons = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver")]
-all_t = [NodePath("BG/Tweenable")]
+all_t = [NodePath("BG/Tweenable"), NodePath("MarginContainer/HBoxContainer/Panel/Tweenable")]
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
 [node name="BG" type="TextureRect" parent="UILayer/DeathScreen" unique_id=1389001]
@@ -701,7 +725,7 @@ offset_transform_enabled = true
 offset_transform_position = Vector2(5, 5)
 mouse_filter = 1
 bbcode_enabled = true
-text = "[font_size=80][color=red][shake level=15 rate=10]Game Paused"
+text = "[font_size=80][color=#c52122][shake level=15 seed=0 rate=10]You're dead"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -818,20 +842,31 @@ invulnerable = true
 process_mode = 1
 z_index = -10
 scroll_offset = Vector2(0, -912)
-repeat_size = Vector2(0, 931)
+repeat_size = Vector2(0, 1490)
 repeat_times = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1001625568]
+z_index = -1
+material = SubResource("ShaderMaterial_l5q7t")
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("16_4hwui")
 
-[node name="WallRight" type="Sprite2D" parent="Parallax2D" unique_id=1514788801]
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=2144593752]
+process_mode = 1
+z_index = -10
+scroll_offset = Vector2(0, -912)
+repeat_size = Vector2(0, 1862)
+repeat_times = 4
+
+[node name="WallRight" type="Sprite2D" parent="Parallax2D2" unique_id=810559982]
 modulate = Color(1.4807141, 1.4807141, 1.4807141, 1)
+z_index = 1
 position = Vector2(1340, 0)
 texture = ExtResource("18_hjt0h")
 
-[node name="WallLeft" type="Sprite2D" parent="Parallax2D" unique_id=2019260802]
+[node name="WallLeft" type="Sprite2D" parent="Parallax2D2" unique_id=653616992]
 modulate = Color(1.4807141, 1.4807141, 1.4807141, 1)
+z_index = 1
 position = Vector2(-1340, 0)
 texture = ExtResource("18_hjt0h")
 flip_h = true

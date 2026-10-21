@@ -1,6 +1,13 @@
 [gd_scene format=3 uid="uid://d35x4mdw18nyq"]
 
+[ext_resource type="Shader" uid="uid://cud10ewmcrgob" path="res://shaders/background.gdshader" id="1_0o812"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vdm4t"]
+shader = ExtResource("1_0o812")
+shader_parameter/curvature = 0.5
+
 [node name="ParallaxBG" type="Parallax2D" unique_id=1080239753]
 z_index = -10
+material = SubResource("ShaderMaterial_vdm4t")
 repeat_size = Vector2(0, 931)
 repeat_times = 4

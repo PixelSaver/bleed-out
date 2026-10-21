@@ -12,14 +12,13 @@ class_name EyeballEnemy
 ## The line that shows player where it's going to shoot.
 @export var lazer_line_promise: Line2D
 @export var lazer_line: Line2D
-@export var marked: AnimatedSprite2D
-@export var touch_area: Area2D
 @export_category("Eyeball")
-@export var touch_damage: float = 30.
 @export var lazer_damage: float = 15.
 ## Time in seconds between ghost lazer and actual shot
 @export var lazer_delay: float = 1.
 @export var lazer_cooldown: float = .1
+@export var approach_speed: float = 10000.0
+@export var orbit_speed: float = 10000.0
 ## If the eye is following player position
 var is_following: bool = false
 var can_shoot_player: bool = false
@@ -27,24 +26,15 @@ var _lazer_cooldown: float = 0.0
 var t : Tween
 var _random_pupil_target: Vector2 = Vector2.ZERO
 var _random_pupil_timer: float = 0.0
+var orbit_dir = 1
 
 func _ready() -> void:
 	super()
 	shoot_range.body_entered.connect(_on_body_entered)
 	shoot_range.body_exited.connect(_on_body_exited)
 	_random_pupil_target = pupil.position
-	touch_area.body_entered.connect(_on_enemy_body_entered)
-
-func _on_enemy_body_entered(body: Node2D) -> void:
-	if body is not Player: return
-	var p = body as Player
-	if p == null: return
-	var atk = Attack.new()
-	atk.damage = touch_damage
-	var dir = p.global_position - self.global_position
-	dir = dir.normalized()
-	atk.knockback = dir * 500
-	p.damage(atk)
+	# Randomize orbit direction between clockwise and counterclockwise
+	orbit_dir *= randi_range(0, 1) * 2 - 1
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is not Player: return
@@ -183,23 +173,15 @@ func _physics_process(_delta: float) -> void:
 	var offset = Global.player_ref.global_position - self.global_position
 	var distance = offset.length()
 	var dir = offset.normalized()
+	var tan_dir = Vector2(dir.y, -dir.x) * orbit_dir
 
 	if distance > 1000.0:
-		self.apply_central_force(dir * 10000.0 * (10. if below else 1.))
+		self.apply_central_force(dir * approach_speed * (10. if below else 1.))
 	elif distance < 1000.0:
-		self.apply_central_force(-dir * 10000.0 )
+		self.apply_central_force(-dir * approach_speed )
+	
+	self.apply_central_force(tan_dir * orbit_speed)
 
 func _on_death() -> void:
 	super()
 	pass
-
-var is_highlighted = false
-func highlight(do_highlight:bool) -> void:
-	if do_highlight and not is_highlighted:
-		is_highlighted = true
-		marked.set_frame(0)
-		marked.play("default", 1.)
-	elif do_highlight == false and is_highlighted == true:
-		is_highlighted = false
-		marked.set_frame(0)
-		marked.play("default", -2., true)

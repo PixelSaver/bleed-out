@@ -20,6 +20,7 @@ func _on_button_pressed(_name:String) -> void:
 			push_warning("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
 
 func start_anim() -> void: 
+	get_tree().paused = false
 	self.show()
 	if t and t.is_running(): t.kill()
 	t = default_tween()
