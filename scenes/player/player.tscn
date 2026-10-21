@@ -7,10 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://o5d22m6trnns" path="res://assets/mc/sword.png" id="6_0owmy"]
 [ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="6_75vfm"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_75vfm"]
-radius = 40.0
-height = 110.0
-
 [sub_resource type="Curve" id="Curve_gmlin"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -20,7 +16,10 @@ _data = [Vector2(0, 0.50209206), 0.0, 0.0, 0, 0, Vector2(0.50399995, 1), 0.0, 0.
 point_count = 3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ym6xy"]
-radius = 62.649822
+radius = 103.01942
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
+radius = 30.805843
 
 [node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("grapple_cone", "parry_hitbox", "health_component", "player_movement_component") groups=["Player"]]
 collision_layer = 2
@@ -36,9 +35,6 @@ metadata/_edit_group_ = true
 [node name="Line2D" type="Line2D" parent="." unique_id=725335474]
 visible = false
 default_color = Color(0.576471, 0, 0, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363614896]
-shape = SubResource("CapsuleShape2D_75vfm")
 
 [node name="GrappleCone" type="Area2D" parent="." unique_id=365779222 node_paths=PackedStringArray("cone_col")]
 collision_layer = 2
@@ -85,10 +81,13 @@ collision_mask = 12
 shape = SubResource("CircleShape2D_ym6xy")
 
 [node name="MC" type="AnimatedSprite2D" parent="." unique_id=1552387881]
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.225, 0.225)
 sprite_frames = ExtResource("6_75vfm")
 animation = &"swing"
 offset = Vector2(0, -50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363614896]
+shape = SubResource("CircleShape2D_75vfm")
 
 [node name="SwordPos" type="Node2D" parent="." unique_id=1086623868]
 visible = false
