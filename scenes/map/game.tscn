@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_sd4cy"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
 [ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="4_mcwih"]
+[ext_resource type="Shader" uid="uid://6qw121ild8sr" path="res://shaders/water.gdshader" id="4_mm51t"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
 [ext_resource type="Texture2D" uid="uid://l25715al180n" path="res://assets/waterfall/w1.png" id="7_jsmvi"]
 [ext_resource type="Texture2D" uid="uid://c7qx51k4gykl6" path="res://assets/waterfall/w2.png" id="8_i0sqq"]
@@ -23,6 +24,12 @@
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
 [ext_resource type="Shader" uid="uid://cud10ewmcrgob" path="res://shaders/background.gdshader" id="17_mcwih"]
 [ext_resource type="Texture2D" uid="uid://cfjgh5m2ahk2a" path="res://assets/wallBG.png" id="18_hjt0h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xrurs"]
+shader = ExtResource("4_mm51t")
+shader_parameter/wave_frequency = 10.0
+shader_parameter/wave_speed = 4.0
+shader_parameter/wave_amplitude = 0.005
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -182,10 +189,12 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="WaterFall" type="AnimatedSprite2D" parent="Player/Camera2D2" unique_id=633394892]
 z_index = -9
-scale = Vector2(0.38, 0.475)
+material = SubResource("ShaderMaterial_xrurs")
+scale = Vector2(0.21999802, 0.475)
 sprite_frames = SubResource("SpriteFrames_gkedh")
 animation = &"waterfall"
 autoplay = "waterfall"
+speed_scale = 2.0
 script = ExtResource("12_i0sqq")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Player/Camera2D2/WaterFall" unique_id=573285597]
@@ -290,6 +299,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 
 [node name="DistortionLayer" type="Sprite2D" parent="." unique_id=1291865168]
+visible = false
 z_index = -10
 material = SubResource("ShaderMaterial_p4ttq")
 position = Vector2(0, -199)
