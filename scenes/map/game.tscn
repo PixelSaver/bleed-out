@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_mysg8"]
 [ext_resource type="Script" uid="uid://dra14veup3c7j" path="res://scenes/map/camera_follow_point.gd" id="15_4hwui"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
+[ext_resource type="Script" uid="uid://bydiw3maoamfp" path="res://scenes/map/score_label.gd" id="16_e4r5n"]
 [ext_resource type="Script" uid="uid://b4pdlxyjxim6i" path="res://utilities/ui/tweenable.gd" id="16_mm51t"]
 [ext_resource type="Shader" uid="uid://cud10ewmcrgob" path="res://shaders/background.gdshader" id="17_mcwih"]
 [ext_resource type="Texture2D" uid="uid://cfjgh5m2ahk2a" path="res://assets/wallBG.png" id="18_hjt0h"]
@@ -206,7 +207,7 @@ background_mode = 3
 glow_enabled = true
 glow_intensity = 0.52
 
-[node name="Game" type="Control" unique_id=1629713699 node_paths=PackedStringArray("pause_screen", "death_screen")]
+[node name="Game" type="Control" unique_id=1629713699 node_paths=PackedStringArray("pause_screen", "death_screen", "score_label")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -217,16 +218,13 @@ grow_vertical = 2
 script = ExtResource("1_xn2fb")
 pause_screen = NodePath("UILayer/PauseScreen")
 death_screen = NodePath("UILayer/DeathScreen")
+score_label = NodePath("UILayer/InGameUI/Right/RichTextLabel")
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
 [node name="Player" parent="." unique_id=1594943802 instance=ExtResource("4_1pbiu")]
 process_mode = 1
 position = Vector2(0, -49)
-respawn_delay = 0.2
-blood_drain = 15.0
 drink_amount = 20.0
-invincibilty_duration = 1.5
-flicker_duration = 1.0
 
 [node name="Camera2D2" type="Camera2D" parent="Player" unique_id=1176660890]
 physics_interpolation_mode = 1
@@ -354,6 +352,35 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UILayer/InGameUI/Right" unique_id=1904467983]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=80][color=#c52122]Score: 0  "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("16_e4r5n")
+score_multiplier = 0.01
+
+[node name="Title2" type="RichTextLabel" parent="UILayer/InGameUI/Right/RichTextLabel" unique_id=1839954772]
+process_mode = 3
+modulate = Color(0.45, 0.45, 0.45, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(5, 5)
+mouse_filter = 1
+bbcode_enabled = true
+text = "[font_size=80][color=red]Score: 0  "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [node name="PauseScreen" type="Control" parent="UILayer" unique_id=1338486760 node_paths=PackedStringArray("buttons", "all_t")]
 process_mode = 3
@@ -625,6 +652,7 @@ mouse_filter = 1
 
 [node name="DeathScreen" type="Control" parent="UILayer" unique_id=185172601 node_paths=PackedStringArray("buttons", "all_t")]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -709,7 +737,28 @@ process_mode = 3
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "[font_size=80][color=#c52122][shake level=15 seed=0 rate=10]You're dead"
+text = "[font_size=80][color=#c52122][shake level=15 seed=0 rate=10]You're Dead"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="RichTextLabel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Title" unique_id=1078404261]
+process_mode = 3
+modulate = Color(0.45, 0.45, 0.45, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(5, 5)
+mouse_filter = 1
+bbcode_enabled = true
+text = "[font_size=80][color=red][shake level=15 rate=10]You're Dead"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -794,6 +843,7 @@ process_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
+
 [node name="DistortionLayer" type="Sprite2D" parent="." unique_id=1291865168]
 visible = false
 z_index = -10
