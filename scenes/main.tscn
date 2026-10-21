@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ntda7takqfc0" path="res://scenes/start/start_screen.tscn" id="3_sugp2"]
 
 [node name="PixelMenuManager" type="Control" unique_id=33857186]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
