@@ -871,7 +871,6 @@ mouse_filter = 1
 [node name="DistortionLayer" type="Sprite2D" parent="." unique_id=1291865168]
 visible = false
 z_index = -10
-material = SubResource("ShaderMaterial_p4ttq")
 position = Vector2(0, -199)
 scale = Vector2(18.555288, 10.359013)
 texture = ExtResource("6_sd4cy")
