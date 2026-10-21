@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_sd4cy"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
 [ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="4_mcwih"]
-[ext_resource type="Shader" uid="uid://6qw121ild8sr" path="res://shaders/water.gdshader" id="4_mm51t"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
 [ext_resource type="Texture2D" uid="uid://l25715al180n" path="res://assets/waterfall/w1.png" id="7_jsmvi"]
 [ext_resource type="Texture2D" uid="uid://c7qx51k4gykl6" path="res://assets/waterfall/w2.png" id="8_i0sqq"]
@@ -31,22 +30,6 @@
 [ext_resource type="Script" uid="uid://bun8pcbqq8v0n" path="res://scenes/map/final_score.gd" id="22_p87kk"]
 [ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
 [ext_resource type="PackedScene" uid="uid://dq3musfjnhddb" path="res://scenes/map/death_plane.tscn" id="31_l4ess"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xrurs"]
-shader = ExtResource("4_mm51t")
-shader_parameter/liquid_level = 0.5
-shader_parameter/liquid_color = Color(0.2, 0.5, 1, 0.8)
-shader_parameter/foam_color = Color(0.8, 0.9, 1, 0.6)
-shader_parameter/wave_amplitude = 0.01
-shader_parameter/wave_frequency = 15.0
-shader_parameter/wave_speed = 6.0
-shader_parameter/gravity_angle = 0.0
-shader_parameter/gravity_direction = Vector2(0, 1)
-shader_parameter/foam_thickness = 0.02
-shader_parameter/shine_intensity = 0.3
-shader_parameter/add_bubble = true
-shader_parameter/bubble_scale = 10.0
-shader_parameter/bubble_speed = 0.5
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -235,6 +218,7 @@ drink_amount = 20.0
 
 [node name="Camera2D2" type="Camera2D" parent="Player" unique_id=1176660890]
 physics_interpolation_mode = 1
+top_level = true
 position = Vector2(0, -199)
 zoom = Vector2(0.5, 0.5)
 limit_left = -1300
@@ -249,7 +233,6 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="WaterFall" type="AnimatedSprite2D" parent="Player/Camera2D2" unique_id=633394892]
 z_index = -9
-material = SubResource("ShaderMaterial_xrurs")
 scale = Vector2(0.21999802, 0.475)
 sprite_frames = SubResource("SpriteFrames_gkedh")
 animation = &"waterfall"
@@ -976,6 +959,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 process_mode = 1
 
 [node name="DeathPlane" parent="World" unique_id=2126560236 instance=ExtResource("31_l4ess")]
+position = Vector2(0, 1000)
 
 [node name="Floor" type="StaticBody2D" parent="World" unique_id=1028182488]
 
