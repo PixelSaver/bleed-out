@@ -30,6 +30,7 @@ func _process(_d: float) -> void:
 		pause(not get_tree().paused)
 
 func _on_player_died() -> void:
+	print("on player died called")
 	game_over = true
 	get_tree().paused = true
 	death_screen.start_anim()

@@ -329,6 +329,7 @@ mouse_filter = 1
 
 [node name="PauseScreen" type="Control" parent="UILayer" unique_id=1338486760 node_paths=PackedStringArray("buttons", "all_t")]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -681,27 +682,6 @@ layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
 text = "[font_size=80][color=#c52122][shake level=15 seed=0 rate=10]You're dead"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Title2" type="RichTextLabel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Title" unique_id=432402232]
-process_mode = 3
-modulate = Color(0.45, 0.45, 0.45, 1)
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(5, 5)
-mouse_filter = 1
-bbcode_enabled = true
-text = "[font_size=80][color=red][shake level=15 rate=10]Game Paused"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
