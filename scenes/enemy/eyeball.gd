@@ -17,6 +17,7 @@ class_name EyeballEnemy
 ## Time in seconds between ghost lazer and actual shot
 @export var lazer_delay: float = 1.
 @export var lazer_cooldown: float = .1
+@export var hold_aim_duration: float = 0.2
 @export var approach_speed: float = 10000.0
 @export var orbit_speed: float = 10000.0
 ## If the eye is following player position
@@ -75,7 +76,7 @@ func lazer() -> void:
 	t.tween_callback(func():
 		is_following = false
 	)
-	t.tween_interval(0.1)
+	t.tween_interval(hold_aim_duration)
 	t.chain()
 	# fire lazer
 	t.tween_property(lazer_line, "width", 15., 0.3)
@@ -163,9 +164,9 @@ func _process(delta: float) -> void:
 			_random_pupil_target,
 			delta * 3.0
 		)
-	if Input.is_action_just_pressed("debug"):
-		print("Shooting lazer")
-		lazer()
+	#if Input.is_action_just_pressed("debug"):
+		#print("Shooting lazer")
+		#lazer()
 
 func _physics_process(_delta: float) -> void:
 	if not Global.player_ref: return
