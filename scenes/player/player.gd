@@ -14,6 +14,9 @@ class_name Player
 @export var flicker_duration: float = 1.0
 var invincibility_counter: float = 0.0
 var flicker_counter: float = 0.0
+var using_mouse = false
+var aim_dir = Vector2.UP
+var is_dead := false;
 
 ## Set the time the player is invincible for in seconds
 func set_invincibility(time:float) -> void:
@@ -30,7 +33,19 @@ func _process(delta: float) -> void:
 	health_component.damage(atk)
 	#DEBUG
 	#print(health_component.health)
-	grapple_cone.look_at(get_global_mouse_position())
+	if using_mouse:
+		grapple_cone.look_at(get_global_mouse_position())
+	else:
+		var input_dir = Input.get_vector("left", "right", "up", "down")
+		if input_dir.length() > 0:
+			grapple_cone.rotation = input_dir.angle()
+	
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		using_mouse = true
+	elif ["up", "down", "left", "right"].any(event.is_action_pressed):
+		using_mouse = false
 
 func drink():
 	health_component.heal(drink_amount)
@@ -59,9 +74,13 @@ func _ready() -> void:
 	Global.player_ref = self
 	health_component.death.connect(_on_death)
 
+
+
 func _on_death() -> void:
-	await get_tree().create_timer(respawn_delay).timeout
-	_reload_level()
+	if is_dead:
+		return
+	is_dead = true
+	SignalBus.died.emit()
 	
 func _reload_level() -> void:
 	get_tree().call_deferred("reload_current_scene")

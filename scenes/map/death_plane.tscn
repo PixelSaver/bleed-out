@@ -1,10 +1,25 @@
 [gd_scene format=3 uid="uid://dq3musfjnhddb"]
 
 [ext_resource type="Script" uid="uid://db558cs6e5m4l" path="res://scenes/map/death_plane.gd" id="1_8276u"]
+[ext_resource type="Shader" uid="uid://6qw121ild8sr" path="res://shaders/water.gdshader" id="2_qiijp"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p4ttq"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_avisv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gkedh"]
+shader = ExtResource("2_qiijp")
+shader_parameter/liquid_level = 0.48400002299
+shader_parameter/liquid_color = Color(0.2, 0.5, 1, 0.8)
+shader_parameter/foam_color = Color(0.8, 0.9, 1, 0.6)
+shader_parameter/wave_amplitude = 0.010000000475
+shader_parameter/wave_frequency = 10.0
+shader_parameter/wave_speed = 4.0
+shader_parameter/gravity_angle = 0.0004100308367998018
+shader_parameter/gravity_direction = Vector2(0, 1)
+shader_parameter/foam_thickness = 0.02
+shader_parameter/shine_intensity = 0.3
+shader_parameter/add_bubble = false
+shader_parameter/bubble_scale = 10.0
+shader_parameter/bubble_speed = 0.5
 
 [node name="DeathPlane" type="Area2D" unique_id=2126560236]
 collision_layer = 3
@@ -15,9 +30,13 @@ starting_speed = 50.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=426851509]
 shape = SubResource("WorldBoundaryShape2D_p4ttq")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1018574356]
-position = Vector2(9, 94.75)
-scale = Vector2(4470, 190.5)
-texture = SubResource("PlaceholderTexture2D_avisv")
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1283891882]
+material = SubResource("ShaderMaterial_gkedh")
+custom_minimum_size = Vector2(3000, 3000)
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
