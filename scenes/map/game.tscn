@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://b4pdlxyjxim6i" path="res://utilities/ui/tweenable.gd" id="16_mm51t"]
 [ext_resource type="Texture2D" uid="uid://cfjgh5m2ahk2a" path="res://assets/wallBG.png" id="18_hjt0h"]
 [ext_resource type="Script" uid="uid://wtvudyq1wn44" path="res://scenes/start/start_menu_button.gd" id="18_xrurs"]
+[ext_resource type="Script" uid="uid://dsrnv8ne8iw56" path="res://scenes/map/death_screen.gd" id="19_l5q7t"]
 [ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
@@ -586,6 +587,15 @@ process_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
+
+[node name="DeathScreen" type="Control" parent="UILayer" unique_id=185172601]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("19_l5q7t")
+metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 process_mode = 1
