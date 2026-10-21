@@ -16,6 +16,7 @@ var invincibility_counter: float = 0.0
 var flicker_counter: float = 0.0
 var using_mouse = false
 var aim_dir = Vector2.UP
+var is_dead := false;
 
 ## Set the time the player is invincible for in seconds
 func set_invincibility(time:float) -> void:
@@ -76,8 +77,10 @@ func _ready() -> void:
 
 
 func _on_death() -> void:
-	await get_tree().create_timer(respawn_delay).timeout
-	_reload_level()
+	if is_dead:
+		return
+	is_dead = true
+	SignalBus.died.emit()
 	
 func _reload_level() -> void:
 	get_tree().call_deferred("reload_current_scene")
