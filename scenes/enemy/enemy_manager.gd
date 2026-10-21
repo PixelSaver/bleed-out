@@ -12,6 +12,7 @@ var highlighted_enemy: Enemy = null
 @export var spawn_buffer: float = 1500.
 ## Spawn enemies called per chunk
 @export var spawn_chunk_size: float = 500.
+@export var spawn_chunk_population: int = 5
 @export var starting_y: float = 000.
 
 @export var goblin_dropoff: float = 3000.
@@ -124,7 +125,7 @@ func _process(_delta: float) -> void:
 		var height := last_spawn_chunk * spawn_chunk_size
 		var chunk_y := starting_y - height
 		## number of enemies per chunk, might functionize later
-		var n = 5
+		var n = spawn_chunk_population
 		for i in range(n):
 			var type = pick_enemy_type(height)
 			var scene = get_enemy_scene(type)

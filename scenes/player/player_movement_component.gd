@@ -255,7 +255,7 @@ func normal_physics(p: Player, delta: float):
 			# Extra gravity when going down
 			angular_vel += gravity * gravity_boost * cos(grapple_angle) / grapple_dist * delta
 		else:
-			angular_vel += gravity * cos(grapple_angle) / grapple_dist * delta
+			angular_vel += gravity / gravity_boost * cos(grapple_angle) / grapple_dist * delta
 
 		# That effect where figure skaters spin faster without their arms out
 		angular_vel *= (old_dist / grapple_dist) ** 2
