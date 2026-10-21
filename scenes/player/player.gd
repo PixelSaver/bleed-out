@@ -14,6 +14,7 @@ class_name Player
 @export var flicker_duration: float = 1.0
 var invincibility_counter: float = 0.0
 var flicker_counter: float = 0.0
+var is_dead := false;
 
 ## Set the time the player is invincible for in seconds
 func set_invincibility(time:float) -> void:
@@ -59,8 +60,10 @@ func _ready() -> void:
 	health_component.death.connect(_on_death)
 
 func _on_death() -> void:
-	await get_tree().create_timer(respawn_delay).timeout
-	_reload_level()
+	if is_dead:
+		return
+	is_dead = true
+	SignalBus.died.emit()
 	
 func _reload_level() -> void:
 	get_tree().call_deferred("reload_current_scene")
