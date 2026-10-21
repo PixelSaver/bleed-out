@@ -27,9 +27,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xrurs"]
 shader = ExtResource("4_mm51t")
-shader_parameter/wave_frequency = 10.0
-shader_parameter/wave_speed = 4.0
-shader_parameter/wave_amplitude = 0.005
+shader_parameter/wave_frequency = 15.0
+shader_parameter/wave_speed = 6.0
+shader_parameter/wave_amplitude = 0.01
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -194,7 +194,7 @@ scale = Vector2(0.21999802, 0.475)
 sprite_frames = SubResource("SpriteFrames_gkedh")
 animation = &"waterfall"
 autoplay = "waterfall"
-speed_scale = 2.0
+speed_scale = 1.5
 script = ExtResource("12_i0sqq")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Player/Camera2D2/WaterFall" unique_id=573285597]
