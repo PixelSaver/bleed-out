@@ -8,6 +8,8 @@ enum Sound {
 	WATERFALL_ISOLATED,
 	WATERFALL_LOOP,
 	WATERFALL_CHOIR,
+	UI_CLICK,
+	UI_HOVER,
 }
 const sounds: Dictionary[Sound, AudioStream] = {
 	Sound.DASH: preload("res://assets/sfx/blood_dash.wav"),
@@ -17,6 +19,8 @@ const sounds: Dictionary[Sound, AudioStream] = {
 	Sound.WATERFALL_ISOLATED: preload("res://assets/sfx/holy_waterfall_bg_isolated.wav"),
 	Sound.WATERFALL_LOOP: preload("res://assets/sfx/holy_waterfall_bg_loop.wav"),
 	Sound.WATERFALL_CHOIR: preload("res://assets/sfx/holy_waterfall_bg_choir.wav"),
+	Sound.UI_CLICK: preload("res://assets/sfx/ui_click.wav"),
+	Sound.UI_HOVER: preload("res://assets/sfx/ui_hover.wav"),
 }
 
 func get_audio_stream(s:Sound) -> AudioStream:
