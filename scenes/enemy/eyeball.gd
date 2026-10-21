@@ -17,6 +17,8 @@ class_name EyeballEnemy
 ## Time in seconds between ghost lazer and actual shot
 @export var lazer_delay: float = 1.
 @export var lazer_cooldown: float = .1
+@export var approach_speed: float = 10000.0
+@export var orbit_speed: float = 10000.0
 ## If the eye is following player position
 var is_following: bool = false
 var can_shoot_player: bool = false
@@ -24,12 +26,15 @@ var _lazer_cooldown: float = 0.0
 var t : Tween
 var _random_pupil_target: Vector2 = Vector2.ZERO
 var _random_pupil_timer: float = 0.0
+var orbit_dir = 1
 
 func _ready() -> void:
 	super()
 	shoot_range.body_entered.connect(_on_body_entered)
 	shoot_range.body_exited.connect(_on_body_exited)
 	_random_pupil_target = pupil.position
+	# Randomize orbit direction between clockwise and counterclockwise
+	orbit_dir *= randi_range(0, 1) * 2 - 1
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is not Player: return
@@ -168,11 +173,14 @@ func _physics_process(_delta: float) -> void:
 	var offset = Global.player_ref.global_position - self.global_position
 	var distance = offset.length()
 	var dir = offset.normalized()
+	var tan_dir = Vector2(dir.y, -dir.x) * orbit_dir
 
 	if distance > 1000.0:
-		self.apply_central_force(dir * 10000.0 * (10. if below else 1.))
+		self.apply_central_force(dir * approach_speed * (10. if below else 1.))
 	elif distance < 1000.0:
-		self.apply_central_force(-dir * 10000.0 )
+		self.apply_central_force(-dir * approach_speed )
+	
+	self.apply_central_force(tan_dir * orbit_speed)
 
 func _on_death() -> void:
 	super()

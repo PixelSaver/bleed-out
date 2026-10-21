@@ -295,27 +295,23 @@ mouse_filter = 1
 script = ExtResource("2_lclk0")
 starting_y = -1200.0
 
-[node name="Goblin2" parent="EnemyManager" unique_id=1626915586 node_paths=PackedStringArray("marked") instance=ExtResource("3_sd4cy")]
+[node name="Goblin2" parent="EnemyManager" unique_id=1626915586 instance=ExtResource("3_sd4cy")]
 position = Vector2(0, -906)
 mass = 10000000000000.0
 sleeping = true
 freeze = true
-debug = "Higher gob"
 touch_damage = 0.0
-marked = NodePath("Marked")
 speed = 0.0
 
 [node name="HealthComponent" parent="EnemyManager/Goblin2" index="2" unique_id=1465637310]
 invulnerable = true
 
-[node name="Goblin" parent="EnemyManager" unique_id=1952827553 node_paths=PackedStringArray("marked") instance=ExtResource("3_sd4cy")]
+[node name="Goblin" parent="EnemyManager" unique_id=1952827553 instance=ExtResource("3_sd4cy")]
 position = Vector2(0, -584)
 mass = 10000000000000.0
 sleeping = true
 freeze = true
-debug = "Lower gob"
 touch_damage = 0.0
-marked = NodePath("Marked")
 speed = 0.0
 
 [node name="HealthComponent" parent="EnemyManager/Goblin" index="2" unique_id=1465637310]
