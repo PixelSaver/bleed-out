@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://cfjgh5m2ahk2a" path="res://assets/wallBG.png" id="18_hjt0h"]
 [ext_resource type="Script" uid="uid://wtvudyq1wn44" path="res://scenes/start/start_menu_button.gd" id="18_xrurs"]
 [ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
+[ext_resource type="Shader" uid="uid://c5graavgnaove" path="res://shaders/cylinder_interior.gdshader" id="24_fbu2l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xrurs"]
 shader = ExtResource("4_mm51t")
@@ -183,9 +184,10 @@ shader_parameter/curvature = 0.9910000470725
 shader_parameter/cylinder_x = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l5q7t"]
-shader = ExtResource("17_mcwih")
-shader_parameter/curvature = 0.1590000075525
-shader_parameter/cylinder_x = true
+shader = ExtResource("24_fbu2l")
+shader_parameter/curvature = 1.0000000475
+shader_parameter/radius = 0.5
+shader_parameter/camera_y = 0.0
 
 [sub_resource type="Resource" id="Resource_ry5pk"]
 script = ExtResource("12_mysg8")
@@ -661,7 +663,7 @@ repeat_times = 4
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1001625568]
 z_index = -1
 material = SubResource("ShaderMaterial_l5q7t")
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.65, 0.8)
 texture = ExtResource("16_4hwui")
 
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=2144593752]
