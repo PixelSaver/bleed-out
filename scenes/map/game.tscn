@@ -90,6 +90,10 @@ content_margin_right = -1.0
 content_margin_bottom = -1.0
 script = ExtResource("4_mcwih")
 color = Color(0.76, 0.76, 0.76, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 metadata/_custom_type_script = "uid://bkl6g25jwb47h"
 
 [sub_resource type="StyleBox" id="StyleBox_mm51t"]
@@ -113,6 +117,10 @@ content_margin_bottom = 0.0
 script = ExtResource("4_mcwih")
 color = Color(0.77, 0.107799985, 0.107799985, 0.6)
 corner_detail = 5
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 shadow_blur = 0
 
 [sub_resource type="StyleBox" id="StyleBox_mcwih"]
@@ -287,23 +295,27 @@ mouse_filter = 1
 script = ExtResource("2_lclk0")
 starting_y = -1200.0
 
-[node name="Goblin2" parent="EnemyManager" unique_id=1626915586 instance=ExtResource("3_sd4cy")]
+[node name="Goblin2" parent="EnemyManager" unique_id=1626915586 node_paths=PackedStringArray("marked") instance=ExtResource("3_sd4cy")]
 position = Vector2(0, -906)
 mass = 10000000000000.0
 sleeping = true
 freeze = true
+debug = "Higher gob"
 touch_damage = 0.0
+marked = NodePath("Marked")
 speed = 0.0
 
 [node name="HealthComponent" parent="EnemyManager/Goblin2" index="2" unique_id=1465637310]
 invulnerable = true
 
-[node name="Goblin" parent="EnemyManager" unique_id=1952827553 instance=ExtResource("3_sd4cy")]
+[node name="Goblin" parent="EnemyManager" unique_id=1952827553 node_paths=PackedStringArray("marked") instance=ExtResource("3_sd4cy")]
 position = Vector2(0, -584)
 mass = 10000000000000.0
 sleeping = true
 freeze = true
+debug = "Lower gob"
 touch_damage = 0.0
+marked = NodePath("Marked")
 speed = 0.0
 
 [node name="HealthComponent" parent="EnemyManager/Goblin" index="2" unique_id=1465637310]
