@@ -176,10 +176,16 @@ corner_detail = 1
 shadow_enabled = true
 shadow_offset = Vector2(10, 10)
 metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p4ttq"]
 shader = ExtResource("17_mcwih")
 shader_parameter/curvature = 0.9910000470725
-shader_parameter/radius = 0.5
+shader_parameter/cylinder_x = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5q7t"]
+shader = ExtResource("17_mcwih")
+shader_parameter/curvature = 0.1590000075525
+shader_parameter/cylinder_x = true
 
 [sub_resource type="Resource" id="Resource_ry5pk"]
 script = ExtResource("12_mysg8")
@@ -344,6 +350,7 @@ mouse_filter = 1
 
 [node name="PauseScreen" type="Control" parent="UILayer" unique_id=1338486760 node_paths=PackedStringArray("buttons", "all_t")]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -648,21 +655,29 @@ invulnerable = true
 process_mode = 1
 z_index = -10
 scroll_offset = Vector2(0, -912)
-repeat_size = Vector2(0, 931)
+repeat_size = Vector2(0, 1490)
 repeat_times = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1001625568]
 z_index = -1
+material = SubResource("ShaderMaterial_l5q7t")
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("16_4hwui")
 
-[node name="WallRight" type="Sprite2D" parent="Parallax2D" unique_id=1514788801]
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=2144593752]
+process_mode = 1
+z_index = -10
+scroll_offset = Vector2(0, -912)
+repeat_size = Vector2(0, 1862)
+repeat_times = 4
+
+[node name="WallRight" type="Sprite2D" parent="Parallax2D2" unique_id=810559982]
 modulate = Color(1.4807141, 1.4807141, 1.4807141, 1)
 z_index = 1
 position = Vector2(1340, 0)
 texture = ExtResource("18_hjt0h")
 
-[node name="WallLeft" type="Sprite2D" parent="Parallax2D" unique_id=2019260802]
+[node name="WallLeft" type="Sprite2D" parent="Parallax2D2" unique_id=653616992]
 modulate = Color(1.4807141, 1.4807141, 1.4807141, 1)
 z_index = 1
 position = Vector2(-1340, 0)
