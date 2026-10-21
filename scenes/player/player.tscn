@@ -30,11 +30,6 @@ grapple_cone = NodePath("GrappleCone")
 parry_hitbox = NodePath("ParryHitbox")
 health_component = NodePath("HealthComponent")
 player_movement_component = NodePath("PlayerMovementComponent")
-respawn_delay = null
-blood_drain = null
-drink_amount = null
-invincibilty_duration = null
-flicker_duration = null
 metadata/_custom_type_script = "uid://dtvxmu6o1o5s"
 metadata/_edit_group_ = true
 

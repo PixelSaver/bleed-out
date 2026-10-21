@@ -6,26 +6,26 @@ class_name PlayerMovementComponent
 @export var sword_visual: Node2D
 @export_group("Player Movement Tweaks")
 ## Speed at which player walks (gonna be deleted)
-@export var walk_speed = 5000.0
-## Friction at which player fricts (gonna be deleted)
-@export var friction = 8.0
-## Power at which player jumps (gonna be deleted)
+#@export var walk_speed = 5000.0
+### Friction at which player fricts (gonna be deleted)
+#@export var friction = 8.0
+### Power at which player jumps (gonna be deleted)
 @export var jump_power = -1000.0
 ## Constant downwards acceleration (units per second^2)
 @export var gravity = 1000.0
-## Air drift acceleration (units per second^2)
-@export var drift_speed = 500.0
-## Speed cap when only air drifting (units per second)
-@export var max_drift = 300.0
+### Air drift acceleration (units per second^2)
+#@export var drift_speed = 500.0
+#### Speed cap when only air drifting (units per second)
+#@export var max_drift = 300.0
 @export var bounce_damp = 0.8
 
-### Amount of towards-momentum converted to angular momentum upon starting grapple (experimental, probably deleting)
+# Amount of towards-momentum converted to angular momentum upon starting grapple (experimental, probably deleting)
 #@export var momentum_cheat = 0.0 # 0.5
 #@export var damp_transfer = 0.0 # 0.5
 # Increase gravity while swinging downwards
 @export var gravity_boost = 2
 @export var min_swing_speed = 700.0
-### How fast the angular velocity is corrected if below the min
+# How fast the angular velocity is corrected if below the min
 #@export var min_correct_amount = 1
 @export var max_angular_vel = 20.0
 @export var release_boost_normal = 100.0
@@ -99,8 +99,7 @@ func _initiate_grapple(target: GrapplePoint, p: Player) -> void:
 	player_sprite.play("swing")
 	update_grapple_visibility(true)
 
-func _ungrapple() -> void:
-	var p := Global.player_ref
+func _ungrapple(p:Player) -> void:
 	if rope_taut:
 		# Proper velocity when releasing grapple
 		p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
@@ -120,8 +119,7 @@ func _ungrapple() -> void:
 			grapple_target.get_enemy().freeze_enemy(false)
 		player_sprite.play("unswing")
 
-func _pull(delta: float) -> void:
-	var p := Global.player_ref
+func _pull(p:Player, delta: float) -> void:
 	state_time += delta
 	var t_norm = min(state_time / pull_duration, 1.0)
 	# Formula for cubic Hermite interpolation with starting vel of (0,0)
@@ -155,7 +153,7 @@ func process_movement(p:Player, delta: float) -> void:
 		State.GRAPPLE:
 			# Checking if rope is taut
 			if grapple_target == null:
-				_ungrapple()
+				_ungrapple(p)
 			else:
 				var grapple_offset = grapple_target.global_position - p.global_position
 				if not rope_taut and (grapple_offset.length() > rope_len or (grapple_offset.dot(p.velocity) < 0 and grapple_offset.length() >= min_rope_len)):
@@ -163,7 +161,7 @@ func process_movement(p:Player, delta: float) -> void:
 				state_time += delta
 				# Ungrappling if you let go of the button
 				if not Input.is_action_pressed("grapple") and state_time >= grapple_duration:
-					_ungrapple()
+					_ungrapple(p)
 				elif Input.is_action_just_pressed("attack") and p.spend_blood(pull_required, pull_cost):
 					var offset = grapple_target.global_position - p.global_position
 					pull_vel = offset.normalized() * pull_power * log(1.0 + offset.length())
@@ -175,7 +173,7 @@ func process_movement(p:Player, delta: float) -> void:
 			draw_rope(p, true, 1.0)
 
 		State.PULL:
-			_pull(delta)
+			_pull(p, delta)
 			draw_rope(p, false, 1.0)
 
 		State.PARRY:

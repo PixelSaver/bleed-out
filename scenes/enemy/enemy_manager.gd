@@ -164,6 +164,8 @@ func _ready() -> void:
 		if child is Enemy:
 			register_enemy(child)
 	SignalBus.highlight_enemy.connect(_on_enemy_highlight)
+	# Seed rng
+	randomize()
 
 func _on_enemy_highlight(e:Enemy) -> void:
 	if e == highlighted_enemy: return
