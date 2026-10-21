@@ -58,7 +58,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ypj7g"]
 radius = 32.0
 
-[node name="Frog" type="RigidBody2D" unique_id=322635485 node_paths=PackedStringArray("touch_area", "shot_range", "vision_range", "grapple_point", "health_component")]
+[node name="Frog" type="RigidBody2D" unique_id=322635485 node_paths=PackedStringArray("shot_range", "vision_range", "touch_area", "grapple_point", "health_component", "marked")]
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
@@ -67,14 +67,15 @@ can_sleep = false
 lock_rotation = true
 linear_damp = 3.0
 script = ExtResource("1_iwf47")
-touch_area = NodePath("TouchDamage")
 shot_range = NodePath("ShotRange")
 vision_range = NodePath("VisionRange")
 shot_cooldown = 2.0
 projectile_speed = 500.0
 projectile_lifetime = 5.0
+touch_area = NodePath("TouchDamage")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
+marked = NodePath("Marked")
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=619995234]

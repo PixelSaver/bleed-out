@@ -1,8 +1,6 @@
 extends Enemy
 class_name MosquitoEnemy
 
-@export var touch_area: Area2D
-@export var touch_damage: float = 10.
 ## Area2d that determines what distance it will try to charge at player
 @export var charge_range: Area2D
 ## The range at which the mosquito will start following the player 
@@ -26,19 +24,7 @@ func _ready() -> void:
 	vision_range.body_entered.connect(_on_vision_body_entered)
 	vision_range.body_exited.connect(_on_vision_body_exited)
 	_charge_cooldown_timer = randf() * charge_cooldown
-	touch_area.body_entered.connect(_on_enemy_body_entered)
 
-func _on_enemy_body_entered(body: Node2D) -> void:
-	if body is not Player: return
-	var p = body as Player
-	if p == null: return
-	var atk = Attack.new()
-	atk.damage = touch_damage
-	var dir = p.global_position - self.global_position
-	dir = dir.normalized()
-	atk.knockback = dir * 500
-	p.damage(atk)
-	
 func _on_vision_body_entered(body: Node2D) -> void:
 	if body is not Player: return
 	var p = body as Player
@@ -80,18 +66,6 @@ func try_charge_again() -> void:
 func _on_death() -> void:
 	super()
 	pass
-
-@onready var marked: AnimatedSprite2D = $Marked
-var is_highlighted = false
-func highlight(do_highlight:bool) -> void:
-	if do_highlight and not is_highlighted:
-		is_highlighted = true
-		marked.set_frame(0)
-		marked.play("default", 1.)
-	elif do_highlight == false and is_highlighted == true:
-		is_highlighted = false
-		marked.set_frame(0)
-		marked.play("default", -2., true)
 
 # Probably add an area2d to check if player is in range, then follow player, and if in charge_range, then
 # call charge at player using Global.player_ref

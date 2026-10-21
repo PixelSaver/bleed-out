@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dgiajep4rvt4e"]
 
 [ext_resource type="Script" uid="uid://dtvxmu6o1o5s" path="res://scenes/player/player.gd" id="1_dovo2"]
+[ext_resource type="AudioStream" uid="uid://ckbvmqsif1bk3" path="res://assets/sfx/bloodDash 1.0.mp3" id="3_0owmy"]
 [ext_resource type="Script" uid="uid://7auyfxeuk5gq" path="res://scenes/player/grapple_cone.gd" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://fj7ykktocnh6" path="res://utilities/health_component.gd" id="4_lvxji"]
 [ext_resource type="Script" uid="uid://dxokftqplcdj8" path="res://scenes/player/player_movement_component.gd" id="5_p47bc"]
@@ -30,11 +31,6 @@ grapple_cone = NodePath("GrappleCone")
 parry_hitbox = NodePath("ParryHitbox")
 health_component = NodePath("HealthComponent")
 player_movement_component = NodePath("PlayerMovementComponent")
-respawn_delay = null
-blood_drain = null
-drink_amount = null
-invincibilty_duration = null
-flicker_duration = null
 metadata/_custom_type_script = "uid://dtvxmu6o1o5s"
 metadata/_edit_group_ = true
 
@@ -68,6 +64,7 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=756565011]
+stream = ExtResource("3_0owmy")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1430402067]
 script = ExtResource("4_lvxji")
