@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://cfjgh5m2ahk2a" path="res://assets/wallBG.png" id="18_hjt0h"]
 [ext_resource type="Script" uid="uid://wtvudyq1wn44" path="res://scenes/start/start_menu_button.gd" id="18_xrurs"]
 [ext_resource type="Script" uid="uid://dsrnv8ne8iw56" path="res://scenes/map/death_screen.gd" id="19_l5q7t"]
+[ext_resource type="Script" uid="uid://bun8pcbqq8v0n" path="res://scenes/map/final_score.gd" id="22_p87kk"]
 [ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xrurs"]
@@ -645,9 +646,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 
-[node name="DeathScreen" type="Control" parent="UILayer" unique_id=185172601 node_paths=PackedStringArray("buttons", "all_t")]
+[node name="DeathScreen" type="Control" parent="UILayer" unique_id=185172601 node_paths=PackedStringArray("buttons", "all_t", "score_display")]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -656,7 +656,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("19_l5q7t")
 buttons = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver")]
-all_t = [NodePath("BG/Tweenable"), NodePath("MarginContainer/HBoxContainer/Panel/Tweenable")]
+all_t = [NodePath("BG/Tweenable")]
+score_display = NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer")
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
 [node name="BG" type="TextureRect" parent="UILayer/DeathScreen" unique_id=1389001]
@@ -754,6 +755,34 @@ offset_transform_position = Vector2(5, 5)
 mouse_filter = 1
 bbcode_enabled = true
 text = "[font_size=80][color=#c52122][shake level=15 seed=0 rate=10]You're dead"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=719146015]
+layout_mode = 2
+script = ExtResource("22_p87kk")
+
+[node name="Score" type="RichTextLabel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1340667563]
+process_mode = 3
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[font_size=50][color=white][shake level=15 seed=0 rate=10]Score: 0"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScore" type="RichTextLabel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=2085188305]
+process_mode = 3
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[font_size=50][color=white][shake level=15 seed=0 rate=10]High Score: 0"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0

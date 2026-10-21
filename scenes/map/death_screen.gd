@@ -3,6 +3,8 @@ class_name DeathScreen
 
 @export var buttons: Array[Button]
 @export var all_t : Array[Tweenable] = []
+@export var score_display: FinalScore
+
 var t: Tween 
 
 func _ready() -> void: 
@@ -19,6 +21,11 @@ func _on_button_pressed(_name:String) -> void:
 			Global.menu_manager.transition_to_scene(SceneDatabase.get_scene(SceneDatabase.Scene.START))
 		_:
 			push_warning("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
+
+func start_anim_helper(score: int, highscore: int) -> void:
+	score_display.set_score(score)
+	score_display.set_high_score(highscore)
+	start_anim()
 
 func start_anim() -> void: 
 	get_tree().paused = false
