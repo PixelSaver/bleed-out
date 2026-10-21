@@ -16,6 +16,7 @@ func _on_button_pressed(_name:String) -> void:
 		"resume":
 			SignalBus.request_pause.emit(false)
 		"startover":
+			SignalBus.request_pause.emit(false)
 			Global.menu_manager.transition_to_scene(SceneDatabase.get_scene(SceneDatabase.Scene.START))
 		_:
 			push_warning("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
