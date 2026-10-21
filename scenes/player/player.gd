@@ -56,7 +56,6 @@ func _input(event):
 
 func drink():
 	blood_rate = drink_amount
-	print("DRINK CALLED: ", blood_rate)
 
 func spend_blood(required: float, cost: float):
 	if health_component.health >= required:
