@@ -21,7 +21,10 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_mysg8"]
 [ext_resource type="Script" uid="uid://dra14veup3c7j" path="res://scenes/map/camera_follow_point.gd" id="15_4hwui"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
+[ext_resource type="Script" uid="uid://b4pdlxyjxim6i" path="res://utilities/ui/tweenable.gd" id="16_mm51t"]
 [ext_resource type="Texture2D" uid="uid://cfjgh5m2ahk2a" path="res://assets/wallBG.png" id="18_hjt0h"]
+[ext_resource type="Script" uid="uid://wtvudyq1wn44" path="res://scenes/start/start_menu_button.gd" id="18_xrurs"]
+[ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -131,6 +134,33 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 shadow_blur = 0
 
+[sub_resource type="StyleBox" id="StyleBox_l5q7t"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+script = ExtResource("4_mcwih")
+color = Color(0.17, 0.17, 0.17, 0.6156863)
+corner_detail = 5
+shadow_blur = 0
+
+[sub_resource type="StyleBox" id="StyleBox_wnhga"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("4_mcwih")
+color = Color(1, 0, 0, 0.43529412)
+skew = Vector2(-0.2, 0)
+corner_detail = 1
+shadow_enabled = true
+shadow_offset = Vector2(10, 10)
+metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
 [sub_resource type="Resource" id="Resource_ry5pk"]
 script = ExtResource("12_mysg8")
 
@@ -149,15 +179,20 @@ background_mode = 3
 glow_enabled = true
 glow_intensity = 0.52
 
-[node name="Game" type="Control" unique_id=1629713699]
+[node name="Game" type="Control" unique_id=1629713699 node_paths=PackedStringArray("pause_screen")]
+process_mode = 3
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_xn2fb")
+pause_screen = NodePath("UILayer/PauseScreen")
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
 [node name="Player" parent="." unique_id=1594943802 instance=ExtResource("4_1pbiu")]
+process_mode = 1
 position = Vector2(0, -49)
 
 [node name="Camera2D2" type="Camera2D" parent="Player" unique_id=1176660890]
@@ -167,6 +202,7 @@ position = Vector2(0, -199)
 zoom = Vector2(0.5, 0.5)
 limit_left = -1300
 limit_right = 1300
+editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="Player/Camera2D2" unique_id=1881965803]
 process_priority = 300
@@ -207,25 +243,26 @@ camera_limits = Vector2(-500, 500)
 [node name="Marker2D" type="Marker2D" parent="Player/CameraFollowPoint" unique_id=920269037]
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=1955443572]
+process_mode = 3
 
-[node name="VBoxContainer" type="HBoxContainer" parent="UILayer" unique_id=400401990]
+[node name="InGameUI" type="HBoxContainer" parent="UILayer" unique_id=400401990]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Left" type="VBoxContainer" parent="UILayer/VBoxContainer" unique_id=1889974069]
+[node name="Left" type="VBoxContainer" parent="UILayer/InGameUI" unique_id=1889974069]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.15
 
-[node name="Control2" type="Control" parent="UILayer/VBoxContainer/Left" unique_id=1396662773]
+[node name="Control2" type="Control" parent="UILayer/InGameUI/Left" unique_id=1396662773]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HPBar" type="MarginContainer" parent="UILayer/VBoxContainer/Left" unique_id=763537494 node_paths=PackedStringArray("back", "front")]
+[node name="HPBar" type="MarginContainer" parent="UILayer/InGameUI/Left" unique_id=763537494 node_paths=PackedStringArray("back", "front")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -238,52 +275,320 @@ script = ExtResource("2_4hwui")
 back = NodePath("MarginContainer/Back")
 front = NodePath("MarginContainer/Front")
 
-[node name="BG" type="Panel" parent="UILayer/VBoxContainer/Left/HPBar" unique_id=1967218701]
+[node name="BG" type="Panel" parent="UILayer/InGameUI/Left/HPBar" unique_id=1967218701]
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_gkedh")
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/VBoxContainer/Left/HPBar" unique_id=1896054230]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/InGameUI/Left/HPBar" unique_id=1896054230]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="BG2" type="Panel" parent="UILayer/VBoxContainer/Left/HPBar/MarginContainer" unique_id=280815358]
+[node name="BG2" type="Panel" parent="UILayer/InGameUI/Left/HPBar/MarginContainer" unique_id=280815358]
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_mm51t")
 
-[node name="Back" type="Panel" parent="UILayer/VBoxContainer/Left/HPBar/MarginContainer" unique_id=1301519379]
+[node name="Back" type="Panel" parent="UILayer/InGameUI/Left/HPBar/MarginContainer" unique_id=1301519379]
 layout_mode = 2
 offset_transform_enabled = true
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_hjt0h")
 
-[node name="Front" type="Panel" parent="UILayer/VBoxContainer/Left/HPBar/MarginContainer" unique_id=1728719437]
+[node name="Front" type="Panel" parent="UILayer/InGameUI/Left/HPBar/MarginContainer" unique_id=1728719437]
 layout_mode = 2
 offset_transform_enabled = true
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_mcwih")
 
-[node name="Control" type="Control" parent="UILayer/VBoxContainer" unique_id=52714807]
+[node name="Control" type="Control" parent="UILayer/InGameUI" unique_id=52714807]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="Right" type="HBoxContainer" parent="UILayer/VBoxContainer" unique_id=1651117261]
+[node name="Right" type="HBoxContainer" parent="UILayer/InGameUI" unique_id=1651117261]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Control" type="Control" parent="UILayer/VBoxContainer/Right" unique_id=442421116]
+[node name="Control" type="Control" parent="UILayer/InGameUI/Right" unique_id=442421116]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="PauseScreen" type="Control" parent="UILayer" unique_id=1338486760 node_paths=PackedStringArray("buttons", "all_t")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("23_mcwih")
+buttons = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Resume"), NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver")]
+all_t = [NodePath("BG/Tweenable"), NodePath("MarginContainer/HBoxContainer/Panel/Tweenable")]
+metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
+
+[node name="BG" type="TextureRect" parent="UILayer/PauseScreen" unique_id=1455153059]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+texture = ExtResource("16_4hwui")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Tweenable" type="Node" parent="UILayer/PauseScreen/BG" unique_id=920840035]
+script = ExtResource("16_mm51t")
+direction = Vector2(0, -1)
+distance = 800.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen" unique_id=1958501492]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/PauseScreen/MarginContainer" unique_id=1623404141]
+process_mode = 3
+layout_mode = 2
+alignment = 1
+
+[node name="Spacer" type="Control" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer" unique_id=131556641]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="Panel" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer" unique_id=1219081473]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+offset_transform_enabled = true
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_l5q7t")
+
+[node name="Tweenable" type="Node" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel" unique_id=1478431721]
+script = ExtResource("16_mm51t")
+direction = Vector2(0, 1)
+distance = 800.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel" unique_id=2136647260]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer" unique_id=181056799]
+process_mode = 3
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=1007379217]
+process_mode = 3
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[font_size=80][color=#c52122][shake level=15 seed=0 rate=10]Game Paused"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Title" unique_id=1435557569]
+process_mode = 3
+modulate = Color(0.45, 0.45, 0.45, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(5, 5)
+mouse_filter = 1
+bbcode_enabled = true
+text = "[font_size=80][color=red][shake level=15 rate=10]Game Paused"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Resume" type="Button" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=316943805 node_paths=PackedStringArray("tweenable", "front", "back")]
+process_mode = 3
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("18_xrurs")
+tweenable = NodePath("MarginContainer/Panel/Tweenable")
+front = NodePath("FrontText")
+back = NodePath("FrontText/BackText")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Resume" unique_id=654349725]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Resume/MarginContainer" unique_id=115087164]
+process_mode = 3
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(850, 0)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_wnhga")
+
+[node name="Tweenable" type="Node" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Resume/MarginContainer/Panel" unique_id=69677909]
+script = ExtResource("16_mm51t")
+tween_value = 1.0
+direction = Vector2(1, 0)
+distance = 850.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="FrontText" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Resume" unique_id=811472338]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Resume"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackText" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Resume/FrontText" unique_id=913508494]
+process_mode = 3
+modulate = Color(0.35, 0.115499996, 0.115499996, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Resume"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartOver" type="Button" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=22007997 node_paths=PackedStringArray("tweenable", "front", "back")]
+process_mode = 3
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("18_xrurs")
+tweenable = NodePath("MarginContainer/Panel/Tweenable")
+front = NodePath("FrontText")
+back = NodePath("FrontText/BackText")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver" unique_id=598632537]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver/MarginContainer" unique_id=212875851]
+process_mode = 3
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(850, 0)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_wnhga")
+
+[node name="Tweenable" type="Node" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver/MarginContainer/Panel" unique_id=705278636]
+script = ExtResource("16_mm51t")
+tween_value = 1.0
+direction = Vector2(1, 0)
+distance = 850.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="FrontText" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver" unique_id=2119964855]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Back To Start Menu"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackText" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver/FrontText" unique_id=2080839381]
+process_mode = 3
+modulate = Color(0.35, 0.115499996, 0.115499996, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Back To Start Menu"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer2" type="Control" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer" unique_id=1898518568]
+process_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
+process_mode = 1
 script = ExtResource("2_lclk0")
 starting_y = -1200.0
 
@@ -310,6 +615,7 @@ speed = 0.0
 invulnerable = true
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1215831812]
+process_mode = 1
 z_index = -10
 scroll_offset = Vector2(0, -912)
 repeat_size = Vector2(0, 931)
@@ -331,9 +637,11 @@ texture = ExtResource("18_hjt0h")
 flip_h = true
 
 [node name="ProjectileManager" type="Node2D" parent="." unique_id=1876552924]
+process_mode = 1
 script = ExtResource("8_x7wrf")
 
 [node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1360670085 node_paths=PackedStringArray("follow_target")]
+process_mode = 1
 top_level = true
 position = Vector2(0, -199)
 script = ExtResource("11_p1buo")
@@ -350,11 +658,13 @@ lookahead_max_value = Vector2(50, 50)
 dead_zone_width = 0.1
 dead_zone_height = 0.1
 show_viewfinder_in_play = true
+draw_limits = true
 limit_left = -1300
 limit_right = 1300
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="World" type="Node2D" parent="." unique_id=427052286]
+process_mode = 1
 
 [node name="Floor" type="StaticBody2D" parent="World" unique_id=1028182488]
 
@@ -403,6 +713,7 @@ while grappling to dash"
 horizontal_alignment = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1574700136]
+process_mode = 1
 environment = SubResource("Environment_gkedh")
 
 [editable path="EnemyManager/Goblin2"]
