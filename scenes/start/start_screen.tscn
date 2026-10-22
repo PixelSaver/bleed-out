@@ -993,6 +993,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scroll_vertical_custom_step = 1.0
+horizontal_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Credits/ScrollContainer" unique_id=1009837424]
 layout_mode = 2
@@ -1022,7 +1023,7 @@ text = "[center][font_size=80][color=#c52122]CREDITS[/color][/font_size]
 [font_size=34][color=#a9b9c7]Miscellaneous[/color][/font_size]
 [font_size=26][color=#ffffff]Andrew Le[/color][/font_size]
 [font_size=26][color=#ffffff]Bree Tassinari[/color][/font_size]
-[font_size=26][color=#ffffff]       PixelSaver   [url tooltip=\"Github\" href=\"https://github.com/pixelsaver/\"]>_[/url] [img width=128]{\"res://assets/credits/itchio-textless-white.svg\"}[/img][/color][/font_size]
+[font_size=26][color=#ffffff]       PixelSaver   [url tooltip=\"Github\" href=\"https://github.com/pixelsaver/\"]>_[/url] [/color][/font_size]
 
 
 [font_size=38][color=#c52122]ART & DESIGN[/color][/font_size]
@@ -1046,10 +1047,6 @@ text = "[center][font_size=80][color=#c52122]CREDITS[/color][/font_size]
 [font_size=34][color=#a9b9c7]Splash Screen[/color][/font_size]
 [font_size=26][color=#ffffff][url underline=hover href=\"https://guhnahdahb.itch.io/godot-splash-screen-gnd-pop\"]Guhnahdahb - Godot Splash Screen[/url][/color][/font_size]
 [font_size=26][color=#ffffff]Abdurrahman Syed - Nosebleed Studio Splash Screen[/color][/font_size]
-
-
-[font_size=34][color=#a9b9c7]Music & Composition[/color][/font_size]
-[font_size=26][color=#ffffff]Noah Teng[/color][/font_size]
 
 [font_size=26][color=#a9b9c7]Font[/color][/font_size]
 [font_size=26][color=#ffffff][url underline=hover href=\"https://github.com/ctrlcctrlv/chomsky\"]Frederick Brennan[/url] ([url href=\"https://github.com/ctrlcctrlv/chomsky\"]ctrlcctrlv[/url]) - [url href=\"https://www.dafont.com/chomsky.font\"]Chomsky[/url][/color][/font_size]
