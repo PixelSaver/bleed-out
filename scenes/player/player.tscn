@@ -172,7 +172,8 @@ stream = ExtResource("8_qek5x")
 
 [node name="constant_bleed" parent="." unique_id=1247338773 instance=ExtResource("9_5gtgg")]
 position = Vector2(12, -2)
+amount = 20
 lifetime = 0.38
-scale_amount_min = 0.0
-scale_amount_max = 5.0
-color = Color(0.5764706, 0, 0, 1)
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+color = Color(0.7058824, 0, 0, 1)
