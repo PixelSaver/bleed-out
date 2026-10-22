@@ -13,8 +13,13 @@ config_version=5
 config/name="Bleed Out"
 run/main_scene="uid://ch81su7nh77vx"
 config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://assets/icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://byyql06xnstoo"
 
 [autoload]
 
@@ -136,3 +141,4 @@ rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 viewport/hdr_2d=true
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

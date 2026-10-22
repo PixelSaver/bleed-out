@@ -1,0 +1,12 @@
+License for Guhnahdahb's Godot Splash Animation
+
+Rules:
+- You CAN use it in any of your projects, personal or commercial.
+- You CAN modify, tweak, and edit the files however you need to.
+- You CAN credit me if/when you use it, but not required to credit.
+- You CANNOT repackage and re-sell this as is. It's free, keep it free. 
+
+Thanks for downloading. 
+Have fun, happy Godoting!
+
+
