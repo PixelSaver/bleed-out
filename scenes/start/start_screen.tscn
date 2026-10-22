@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://b8syojutrb77h" path="res://scenes/start/background.gd" id="7_hj785"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="8_3aoqy"]
 [ext_resource type="Script" uid="uid://cr4b18ndfw1nd" path="res://scenes/start/player_scene.gd" id="8_a70le"]
+[ext_resource type="Material" uid="uid://dc67gd317r4nb" path="res://assets/curved_shader_mat.tres" id="9_63i48"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7qcy"]
 
@@ -336,13 +337,16 @@ size_flags_horizontal = 3
 [node name="Parallax2D" type="Parallax2D" parent="AllContainer/PROTOTYPE" unique_id=1169329522]
 z_index = -10
 scroll_offset = Vector2(300, -912)
-repeat_size = Vector2(0, 931)
+repeat_size = Vector2(0, 1620)
 autoscroll = Vector2(0, -3000)
 repeat_times = 4
 script = ExtResource("7_hj785")
 
-[node name="Sprite2D" type="Sprite2D" parent="AllContainer/PROTOTYPE/Parallax2D" unique_id=1912592192]
-scale = Vector2(0.8, 0.8)
+[node name="Sprite2D2" type="Sprite2D" parent="AllContainer/PROTOTYPE/Parallax2D" unique_id=1177167000]
+z_index = -1
+material = ExtResource("9_63i48")
+position = Vector2(-49.799988, 0)
+scale = Vector2(0.7, 0.87)
 texture = ExtResource("8_3aoqy")
 
 [node name="Panel" type="Panel" parent="AllContainer/PROTOTYPE" unique_id=1547303257]

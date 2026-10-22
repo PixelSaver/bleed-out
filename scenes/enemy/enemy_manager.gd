@@ -184,6 +184,9 @@ func get_enemies() -> Array[Enemy]:
 func get_enemy_grapple_points() -> Array[GrapplePoint]:
 	var out: Array[GrapplePoint] = []
 	for e in enemies:
+		if not e:
+			enemies.erase(e)
+			continue
 		out.append(e.grapple_point)
 	return out
 
