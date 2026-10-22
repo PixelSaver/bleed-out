@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://dsrnv8ne8iw56" path="res://scenes/map/death_screen.gd" id="19_l5q7t"]
 [ext_resource type="Script" uid="uid://bun8pcbqq8v0n" path="res://scenes/map/final_score.gd" id="22_p87kk"]
 [ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
+[ext_resource type="PackedScene" uid="uid://bm55smahjyywv" path="res://scenes/enemy/eyeball.tscn" id="25_l4ess"]
 [ext_resource type="Material" uid="uid://dc67gd317r4nb" path="res://assets/curved_shader_mat.tres" id="25_p87kk"]
 [ext_resource type="PackedScene" uid="uid://dq3musfjnhddb" path="res://scenes/map/death_plane.tscn" id="31_l4ess"]
 
@@ -714,6 +715,7 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer" unique_id=1700699988]
 process_mode = 3
 layout_mode = 2
+theme_override_constants/separation = 40
 alignment = 1
 
 [node name="Title" type="RichTextLabel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=561088097]
@@ -757,8 +759,9 @@ script = ExtResource("22_p87kk")
 process_mode = 3
 layout_mode = 2
 mouse_filter = 1
+theme_override_colors/default_color = Color(0.67058825, 0.73333335, 0.7882353, 1)
 bbcode_enabled = true
-text = "[font_size=50][color=white][shake level=15 seed=0 rate=10]Score: 0"
+text = "[font_size=50][shake level=15 seed=0 rate=10]Score: 0"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -769,8 +772,9 @@ vertical_alignment = 1
 process_mode = 3
 layout_mode = 2
 mouse_filter = 1
+theme_override_colors/default_color = Color(0.67058825, 0.73333335, 0.7882353, 1)
 bbcode_enabled = true
-text = "[font_size=50][color=white][shake level=15 seed=0 rate=10]High Score: 0"
+text = "[font_size=50][shake level=15 seed=0 rate=10]Score: 0"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -890,6 +894,9 @@ speed = 0.0
 
 [node name="HealthComponent" parent="EnemyManager/Goblin" index="2" unique_id=1465637310]
 invulnerable = true
+
+[node name="Eyeball" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("25_l4ess")]
+position = Vector2(391, -548)
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1215831812]
 process_mode = 1

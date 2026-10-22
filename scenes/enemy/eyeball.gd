@@ -36,6 +36,39 @@ func _ready() -> void:
 	_random_pupil_target = pupil.position
 	# Randomize orbit direction between clockwise and counterclockwise
 	orbit_dir *= randi_range(0, 1) * 2 - 1
+	health_component.health_changed.connect(_on_health_changed)
+
+func set_rings(n: int) -> void:
+	var thickness := Vector3.ONE * .05
+	var eye_counts := Vector3i(9, 12, 16)
+	n = clampi(n, 0, 3)
+	var bm = (back_rect.material as ShaderMaterial)
+	var fm = (front_rect.material as ShaderMaterial)
+	if n == 3:
+		bm.set_shader_parameter("ring_thickness", thickness)
+		bm.set_shader_parameter("eye_counts", eye_counts)
+		fm.set_shader_parameter("ring_thickness", thickness)
+		fm.set_shader_parameter("eye_counts", eye_counts)
+	elif n == 2:
+		bm.set_shader_parameter("ring_thickness", Vector3(thickness.x, thickness.y, -1.))
+		fm.set_shader_parameter("ring_thickness", Vector3(thickness.x, thickness.y, -1.))
+	elif n == 1:
+		bm.set_shader_parameter("ring_thickness", Vector3(thickness.x, -1., -1.))
+		bm.set_shader_parameter("eye_counts", Vector3i(eye_counts.x, 0, 0))
+		fm.set_shader_parameter("ring_thickness", Vector3(thickness.x, -1., -1.))
+		fm.set_shader_parameter("eye_counts", Vector3i(eye_counts.x, 0, 0))
+	elif n == 0:
+		bm.set_shader_parameter("ring_thickness", Vector3(-1., -1., -1.))
+		bm.set_shader_parameter("eye_counts", Vector3i(0, 0, 0))
+		fm.set_shader_parameter("ring_thickness", Vector3(-1., -1., -1.))
+		fm.set_shader_parameter("eye_counts", Vector3i(0, 0, 0))
+
+
+
+func _on_health_changed(h: float, _mh:float) -> void:
+	if h > 0:
+		AudioManager.play_sfx(AudioManager.Sound.EYEBALL_SHIELD_BREAK, -20)
+	set_rings(int(h))
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is not Player: return
@@ -63,6 +96,12 @@ func lazer() -> void:
 	eye_background.set_frame_and_progress(0, 0.)
 	t = create_tween().set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT).set_parallel(true)
+	t.tween_callback(func():
+		var sound = [
+			AudioManager.Sound.LAZER_CHARGE, 
+		].pick_random()
+		AudioManager.play_sfx(sound, -20)
+	)
 	t.tween_property(lazer_line_promise, "width", 15., lazer_delay)
 	t.tween_property(lazer_line_promise, "modulate:a", 0.3, lazer_delay/2.)
 	t.tween_callback(func(): eye_background.set_frame_and_progress(1, 0.))
@@ -81,6 +120,10 @@ func lazer() -> void:
 	# fire lazer
 	t.tween_property(lazer_line, "width", 15., 0.3)
 	t.tween_callback(func() -> void:
+		var sound = [
+			AudioManager.Sound.LAZER_FIRE, 
+		].pick_random()
+		AudioManager.play_sfx(sound, -20)
 		if lazer_area.has_overlapping_bodies():
 			for body in lazer_area.get_overlapping_bodies():
 				if body is Player:

@@ -74,6 +74,12 @@ func damage(atk:Attack) -> void:
 		set_invincibility(invincibilty_duration)
 		flicker_counter = flicker_duration
 		player_movement_component.let_go(self)
+		var sound = [
+			AudioManager.Sound.HURT_1, 
+			AudioManager.Sound.HURT_2,
+			AudioManager.Sound.HURT_3,
+		].pick_random()
+		AudioManager.play_sfx(sound, -20)
 
 ## Kills player regardless of invincibility
 func force_kill() -> void:
@@ -86,14 +92,27 @@ func _ready() -> void:
 	Global.player_ref = self
 	health_component.death.connect(_on_death)
 	blood_rate = blood_drain
+	self.health_component.health_changed.connect(_on_health)
+	$LowHealth.playing = true
+	$LowHealth.stream_paused = true
 
+func _on_health(h:float, mh:float) -> void:
+	if mh == 0: return
+	var low_health := (h / mh) < 0.1
+	if low_health and $LowHealth.stream_paused == true:
+		$LowHealth.stream_paused = false
+	elif not low_health and not $LowHealth.stream_paused:
+		$LowHealth.stream_paused = true
 
 
 func _on_death() -> void:
 	if is_dead:
 		return
+	var sound = [AudioManager.Sound.DEATH].pick_random()
+	AudioManager.play_sfx(sound, -20)
 	is_dead = true
 	SignalBus.died.emit()
+	$LowHealth.stream_paused = true
 	
 func _reload_level() -> void:
 	get_tree().call_deferred("reload_current_scene")
