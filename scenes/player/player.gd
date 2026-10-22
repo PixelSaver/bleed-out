@@ -12,6 +12,7 @@ class_name Player
 @export var blood_drain: float = -15.0
 @export var drink_amount: float = 60.0
 @export var drink_duration: float = 1.0
+@export var min_blood: float = 10.0
 @export var invincibilty_duration: float = 1.5
 @export var flicker_duration: float = 1.0
 var blood_rate
@@ -61,12 +62,11 @@ func _input(event):
 func drink():
 	blood_rate = drink_amount
 
-func spend_blood(required: float, cost: float):
-	if health_component.health >= required:
+func spend_blood(cost: float):
+	if health_component.health > min_blood:
 		var atk = Attack.new()
-		atk.damage = cost
+		atk.damage = min(cost, health_component.health - min_blood)
 		health_component.damage(atk)
-		return true
 
 ## Checks if the player is invincible
 func is_invincible() -> bool:

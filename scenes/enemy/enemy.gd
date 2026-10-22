@@ -3,7 +3,7 @@ class_name Enemy
 
 #@export var debug = ""
 
-@export var touch_damage: float = 5.
+@export var touch_damage: float = 30.0
 @export var touch_area: Area2D
 
 @export var grapple_point: GrapplePoint

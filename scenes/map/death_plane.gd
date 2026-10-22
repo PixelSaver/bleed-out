@@ -44,10 +44,10 @@ func _process(delta: float) -> void:
 	elapsed_time += delta
 	var rubberband_boost = maxf(global_position.y - p.global_position.y - rubberband_threshold, 0.0) * rubberband_speed
 	var speed = get_speed(elapsed_time) + rubberband_boost
-	print("Base: ", get_speed(elapsed_time),
-	" | Distance: ", global_position.y - p.global_position.y,
-	" | Boost: ", rubberband_boost,
-	" | Total: ", speed)
+	#print("Base: ", get_speed(elapsed_time),
+	#" | Distance: ", global_position.y - p.global_position.y,
+	#" | Boost: ", rubberband_boost,
+	#" | Total: ", speed)
 	position.y -= speed * delta
 	
 	Global.water_y = global_position.y

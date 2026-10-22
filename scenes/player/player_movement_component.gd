@@ -45,10 +45,10 @@ class_name PlayerMovementComponent
 ## Distance between the sword's pivot and handle
 @export var sword_len = 0.0
 
-@export var pull_required = 30.0
-@export var pull_cost = 10.0
-@export var parry_required = 30.0
-@export var parry_cost = 10.0
+#@export var pull_required = 30.0
+@export var pull_cost = 20.0
+#@export var parry_required = 25.0
+@export var parry_cost = 15.0
 
 @export var angle_adjust_speed = 10.0
 
@@ -171,7 +171,8 @@ func process_movement(p:Player, delta: float) -> void:
 			if Input.is_action_just_pressed("grapple"):
 				if temp_grapple_target:
 					_initiate_grapple(temp_grapple_target, p)
-			elif Input.is_action_just_pressed("attack") and parry_time >= parry_cooldown and p.spend_blood(parry_required, parry_cost):
+			elif Input.is_action_just_pressed("attack") and parry_time >= parry_cooldown:
+				p.spend_blood(parry_cost)
 				state = State.PARRY
 				state_time = 0.0
 				p.set_invincibility(parry_invuln)
@@ -192,7 +193,8 @@ func process_movement(p:Player, delta: float) -> void:
 				# Ungrappling if you let go of the button
 				if not Input.is_action_pressed("grapple") and state_time >= grapple_duration:
 					_ungrapple(p, true)
-				elif Input.is_action_just_pressed("attack") and p.spend_blood(pull_required, pull_cost):
+				elif Input.is_action_just_pressed("attack"):
+					p.spend_blood(pull_cost)
 					_initiate_pull(p)
 
 			normal_physics(p, delta)
