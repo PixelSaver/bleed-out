@@ -132,7 +132,6 @@ slash = NodePath("../Slash")
 grapple_visual = NodePath("../Line2D")
 player_sprite = NodePath("../MC")
 sword_visual = NodePath("../SwordPos")
-pull_duration = 1.0
 metadata/_custom_type_script = "uid://dxokftqplcdj8"
 
 [node name="ParryHitbox" type="Area2D" parent="." unique_id=911363471]
