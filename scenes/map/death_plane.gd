@@ -32,4 +32,4 @@ func _process(delta: float) -> void:
 	speed += acceleration * delta
 	speed += (acceleration * delta) if dist > 800 else 0
 	position.y += -1 * speed * delta
-	
+	Global.water_y = global_position.y

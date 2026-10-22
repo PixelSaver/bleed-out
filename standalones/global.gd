@@ -11,3 +11,4 @@ var enemy_man: EnemyManager
 
 var player_ref: Player
 var max_y: float = 0.
+var water_y: float = 0.

@@ -965,6 +965,7 @@ process_mode = 1
 
 [node name="DeathPlane" parent="World" unique_id=2126560236 instance=ExtResource("31_l4ess")]
 position = Vector2(0, 1000)
+min_player_y = 0.0
 
 [node name="Floor" type="StaticBody2D" parent="World" unique_id=1028182488]
 
