@@ -1,6 +1,7 @@
 extends Enemy
 class_name FrogEnemy
 
+@export var anim_sprite: AnimatedSprite2D
 @export var shot_range: Area2D
 @export var vision_range: Area2D
 @export var proj_damage: float = 15.
@@ -23,6 +24,8 @@ func _ready() -> void:
 	vision_range.body_entered.connect(_on_vision_body_entered)
 	vision_range.body_exited.connect(_on_vision_body_exited)
 	_shot_cooldown = shot_cooldown * randf()
+	await get_tree().create_timer(randf()).timeout
+	anim_sprite.play("idle", randf_range(0.9, 1.1))
 	
 func _on_vision_body_entered(body: Node2D) -> void:
 	if body is not Player: return
@@ -82,6 +85,8 @@ func _process(delta: float) -> void:
 ## Takes into account the current player's velocity
 func shoot(p:Player) -> void:
 	if _shot_cooldown > 0.: return
+	anim_sprite.play("fire")
+	await anim_sprite.animation_finished
 	_shot_cooldown = shot_cooldown
 	var frog_proj = Global.projectile_man.spawn_projectile(ProjectileManager.ProjectileType.FROG) as FrogProjectile
 	if frog_proj == null:
@@ -95,5 +100,6 @@ func shoot(p:Player) -> void:
 	var atk = Attack.new()
 	atk.damage = proj_damage
 	frog_proj.initialize_movement(dir, projectile_speed, projectile_lifetime, atk)
-	
+	await get_tree().create_timer(0.3).timeout
+	anim_sprite.play("idle")
 	pass

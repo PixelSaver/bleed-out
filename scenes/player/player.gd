@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 func _input(event):
 	if event is InputEventMouseMotion:
 		using_mouse = true
-	elif ["up", "down", "left", "right"].any(event.is_action_pressed):
+	elif ["ui_up", "ui_down", "ui_left", "ui_right"].any(event.is_action_pressed):
 		using_mouse = false
 
 func drink():
