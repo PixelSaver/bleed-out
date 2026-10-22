@@ -114,6 +114,16 @@ func _ungrapple(p:Player) -> void:
 		player_sprite.play("unswing")
 
 func _pull(p:Player, delta: float) -> void:
+	if player_sprite.animation != "dash":
+		player_sprite.play("dash", 1/pull_duration)
+	var direction = grapple_target.global_position - p.global_position
+	var n_dir = direction.normalized()
+	var angle = direction.angle()
+
+	#player_sprite.flip_h = if n_dir > 
+	#player_sprite.flip_v = direction.x < 0
+	player_sprite.rotation = angle
+	
 	state_time += delta
 	var t_norm = min(state_time / pull_duration, 1.0)
 	# Formula for cubic Hermite interpolation with starting vel of (0,0)
@@ -128,6 +138,7 @@ func _pull(p:Player, delta: float) -> void:
 			var e: Enemy = grapple_target.get_enemy()
 			e.freeze_enemy(false)
 			e.apply_central_impulse(pull_vel * -10.)
+	
 
 
 func process_movement(p:Player, delta: float) -> void:
@@ -174,7 +185,7 @@ func process_movement(p:Player, delta: float) -> void:
 		State.PULL:
 			_pull(p, delta)
 			draw_rope(p, false, 1.0)
-			smooth_upright(delta)
+			#smooth_upright(delta)
 
 		State.PARRY:
 			slash.play("slash")

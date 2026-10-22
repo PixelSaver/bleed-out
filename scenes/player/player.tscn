@@ -132,6 +132,7 @@ slash = NodePath("../Slash")
 grapple_visual = NodePath("../Line2D")
 player_sprite = NodePath("../MC")
 sword_visual = NodePath("../SwordPos")
+pull_duration = 1.0
 metadata/_custom_type_script = "uid://dxokftqplcdj8"
 
 [node name="ParryHitbox" type="Area2D" parent="." unique_id=911363471]
@@ -144,7 +145,7 @@ shape = SubResource("CircleShape2D_ym6xy")
 [node name="MC" type="AnimatedSprite2D" parent="." unique_id=1552387881]
 scale = Vector2(0.225, 0.225)
 sprite_frames = ExtResource("6_75vfm")
-animation = &"swing"
+animation = &"dash"
 offset = Vector2(0, -50)
 
 [node name="Slash" type="AnimatedSprite2D" parent="." unique_id=1862985947]
