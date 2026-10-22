@@ -112,6 +112,7 @@ func _on_death() -> void:
 	AudioManager.play_sfx(sound, -20)
 	is_dead = true
 	SignalBus.died.emit()
+	$LowHealth.stream_paused = true
 	
 func _reload_level() -> void:
 	get_tree().call_deferred("reload_current_scene")
