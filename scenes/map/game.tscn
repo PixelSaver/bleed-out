@@ -28,7 +28,6 @@
 [ext_resource type="Script" uid="uid://dsrnv8ne8iw56" path="res://scenes/map/death_screen.gd" id="19_l5q7t"]
 [ext_resource type="Script" uid="uid://bun8pcbqq8v0n" path="res://scenes/map/final_score.gd" id="22_p87kk"]
 [ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
-[ext_resource type="PackedScene" uid="uid://bm55smahjyywv" path="res://scenes/enemy/eyeball.tscn" id="25_l4ess"]
 [ext_resource type="Material" uid="uid://dc67gd317r4nb" path="res://assets/curved_shader_mat.tres" id="25_p87kk"]
 [ext_resource type="PackedScene" uid="uid://dq3musfjnhddb" path="res://scenes/map/death_plane.tscn" id="31_l4ess"]
 [ext_resource type="Texture2D" uid="uid://uv0jeiidokhg" path="res://assets/floor.png" id="32_qnluy"]
@@ -895,9 +894,6 @@ speed = 0.0
 
 [node name="HealthComponent" parent="EnemyManager/Goblin" index="2" unique_id=1465637310]
 invulnerable = true
-
-[node name="Eyeball" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("25_l4ess")]
-position = Vector2(391, -548)
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1215831812]
 process_mode = 1
