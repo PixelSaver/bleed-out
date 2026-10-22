@@ -49,7 +49,7 @@ func _on_button_pressed(_name:String) -> void:
 			credits.end_anim()
 			if t and t.is_running(): t.kill()
 			t = default_tween()
-			t.tween_property(cont, "offset_transform_position_ratio:x", 0.0, 0.7)
+			t.tween_property(cont, "offset_transform_position_ratio:x", 0.0, 1.2)
 			t.tween_property(cont, "offset_transform_position_ratio:y", 0.0, 0.7)
 			t.tween_property(cont, "offset_transform_scale", Vector2.ONE, 0.7)
 			t.tween_property(prototype, "size_flags_stretch_ratio", 1., 0.7)
