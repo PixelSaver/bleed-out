@@ -55,7 +55,7 @@ func load_score() -> int:
 
 func _on_player_died() -> void:
 	game_over = true
-	pause(not get_tree().paused)
+	pause(true)
 	var highscore = load_score()
 	if score > highscore:
 		highscore = score

@@ -263,7 +263,6 @@ camera_limits = Vector2(-500, 500)
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=1955443572]
 process_mode = 3
-visible = false
 
 [node name="InGameUI" type="HBoxContainer" parent="UILayer" unique_id=400401990]
 anchors_preset = 15
