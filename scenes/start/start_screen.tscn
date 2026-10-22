@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="8_3aoqy"]
 [ext_resource type="Script" uid="uid://cr4b18ndfw1nd" path="res://scenes/start/player_scene.gd" id="8_a70le"]
 [ext_resource type="Material" uid="uid://dc67gd317r4nb" path="res://assets/curved_shader_mat.tres" id="9_63i48"]
+[ext_resource type="Script" uid="uid://du1vv6astgght" path="res://scenes/start/credits.gd" id="13_juusv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7qcy"]
 
@@ -87,7 +88,7 @@ corner_detail = 5
 noise_type = 3
 frequency = 0.4
 
-[node name="StartMenu" type="Control" unique_id=44145697 node_paths=PackedStringArray("cont", "buttons")]
+[node name="StartMenu" type="Control" unique_id=44145697 node_paths=PackedStringArray("credits", "cont", "buttons")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -97,8 +98,9 @@ grow_vertical = 2
 offset_transform_enabled = true
 mouse_filter = 1
 script = ExtResource("1_v2r8c")
+credits = NodePath("Credits")
 cont = NodePath("AllContainer")
-buttons = [NodePath("AllContainer/RightSide/ButtonContainer/Play"), NodePath("AllContainer/RightSide/ButtonContainer/Settings"), NodePath("AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Back")]
+buttons = [NodePath("AllContainer/RightSide/ButtonContainer/Play"), NodePath("AllContainer/RightSide/ButtonContainer/Settings"), NodePath("AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Back"), NodePath("AllContainer/RightSide/ButtonContainer/Credits"), NodePath("Credits/MarginContainer/VBoxContainer2/Top/CreditsBack")]
 
 [node name="AllContainer" type="HBoxContainer" parent="." unique_id=1106035721]
 layout_mode = 1
@@ -579,13 +581,14 @@ vertical_alignment = 1
 [node name="PROTOTYPE" type="Control" parent="AllContainer" unique_id=470423109]
 layout_mode = 2
 size_flags_horizontal = 3
+offset_transform_enabled = true
 
 [node name="Parallax2D" type="Parallax2D" parent="AllContainer/PROTOTYPE" unique_id=1169329522]
 z_index = -10
-scroll_offset = Vector2(300, -912)
+scroll_offset = Vector2(300, 0)
 repeat_size = Vector2(0, 1620)
 autoscroll = Vector2(0, -3000)
-repeat_times = 4
+repeat_times = 5
 ignore_camera_scroll = true
 script = ExtResource("7_hj785")
 
@@ -759,6 +762,74 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Credits" type="Button" parent="AllContainer/RightSide/ButtonContainer" unique_id=1284123189 node_paths=PackedStringArray("tweenable", "front", "back")]
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("2_v2r8c")
+tweenable = NodePath("MarginContainer/Panel/Tweenable")
+front = NodePath("FrontText")
+back = NodePath("FrontText/BackText")
+
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/RightSide/ButtonContainer/Credits" unique_id=738002953]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="AllContainer/RightSide/ButtonContainer/Credits/MarginContainer" unique_id=637195515]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(700, 0)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_gkedh")
+
+[node name="Tweenable" type="Node" parent="AllContainer/RightSide/ButtonContainer/Credits/MarginContainer/Panel" unique_id=1078567302]
+script = ExtResource("5_caj3f")
+tween_value = 1.0
+direction = Vector2(1, 0)
+distance = 700.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="FrontText" type="RichTextLabel" parent="AllContainer/RightSide/ButtonContainer/Credits" unique_id=675965052]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Credits"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackText" type="RichTextLabel" parent="AllContainer/RightSide/ButtonContainer/Credits/FrontText" unique_id=295019182]
+modulate = Color(0.35, 0.115499996, 0.115499996, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Credits"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Settings" type="Button" parent="AllContainer/RightSide/ButtonContainer" unique_id=767454773 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
@@ -822,6 +893,269 @@ offset_transform_enabled = true
 mouse_filter = 1
 bbcode_enabled = true
 text = "[shake rate=10 level=10]Settings"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Credits" type="Control" parent="." unique_id=199756969 node_paths=PackedStringArray("cont", "scroll", "buttons")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 6.1035156e-05
+offset_bottom = -6.1035156e-05
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 1
+script = ExtResource("13_juusv")
+cont = NodePath("../AllContainer")
+scroll = NodePath("ScrollContainer")
+buttons = [NodePath("ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/Top")]
+metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Credits" unique_id=801251552]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_vertical_custom_step = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Credits/ScrollContainer" unique_id=1009837424]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits/ScrollContainer/MarginContainer" unique_id=581326105]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="Credits/ScrollContainer/MarginContainer/VBoxContainer" unique_id=283466221]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Credits" type="RichTextLabel" parent="Credits/ScrollContainer/MarginContainer/VBoxContainer" unique_id=405436144]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][font_size=80][color=#c52122]CREDITS[/color][/font_size] 
+[font_size=42][color=#a9b9c7]THE PEOPLE BEHIND THE GAME[/color][/font_size]
+
+[font_size=38][color=#c52122]PROGRAMMING[/color][/font_size]
+[font_size=34][color=#a9b9c7]Physics & Gamefeel[/color][/font_size]
+[font_size=26][color=#ffffff]Abdurrahman Syed (TobbyTukaywan)[/color][/font_size]
+
+[font_size=34][color=#a9b9c7]Miscellaneous[/color][/font_size]
+[font_size=26][color=#ffffff]Andrew Le[/color][/font_size]
+[font_size=26][color=#ffffff]Bree Tassinari[/color][/font_size]
+[font_size=26][color=#ffffff]       PixelSaver   [url tooltip=\"Github\" href=\"https://github.com/pixelsaver/\"]>_[/url] [img width=128]{\"res://assets/credits/itchio-textless-white.svg\"}[/img][/color][/font_size]
+
+
+[font_size=38][color=#c52122]ART & DESIGN[/color][/font_size]
+[font_size=34][color=#a9b9c7]Character Art[/color][/font_size]
+[font_size=26][color=#ffffff]Helena Le[/color][/font_size]
+
+[font_size=34][color=#a9b9c7]Enemy Art[/color][/font_size]
+[font_size=26][color=#ffffff]Helena Le[/color][/font_size]
+
+[font_size=34][color=#a9b9c7]Weapon & VFX[/color][/font_size]
+[font_size=26][color=#ffffff]Noah Teng[/color][/font_size]
+
+[font_size=38][color=#c52122]AUDIO[/color][/font_size]
+[font_size=34][color=#a9b9c7]Music & Composition[/color][/font_size]
+[font_size=26][color=#ffffff]Noah Teng[/color][/font_size]
+
+[font_size=34][color=#a9b9c7]Sound Design[/color][/font_size]
+[font_size=26][color=#ffffff]Noah Teng[/color][/font_size]
+
+[font_size=38][color=#c52122]ASSETS & RESOURCES[/color][/font_size]
+[font_size=34][color=#a9b9c7]Splash Screen[/color][/font_size]
+[font_size=26][color=#ffffff][url underline=hover href=\"https://guhnahdahb.itch.io/godot-splash-screen-gnd-pop\"]Guhnahdahb - Godot Splash Screen[/url][/color][/font_size]
+[font_size=26][color=#ffffff]Abdurrahman Syed - Nosebleed Studio Splash Screen[/color][/font_size]
+
+
+[font_size=34][color=#a9b9c7]Music & Composition[/color][/font_size]
+[font_size=26][color=#ffffff]Noah Teng[/color][/font_size]
+
+[font_size=26][color=#a9b9c7]Font[/color][/font_size]
+[font_size=26][color=#ffffff][url underline=hover href=\"https://github.com/ctrlcctrlv/chomsky\"]Frederick Brennan[/url] ([url href=\"https://github.com/ctrlcctrlv/chomsky\"]ctrlcctrlv[/url]) - [url href=\"https://www.dafont.com/chomsky.font\"]Chomsky[/url][/color][/font_size]
+
+[font_size=38][color=#c52122]SPECIAL THANKS[/color][/font_size]
+
+[font_size=34][color=#a9b9c7]UCSD [url href=\"https://www.vgdc.dev/\"]Video Game Design Club[/url][/color][/font_size]
+[font_size=26][color=#ffffff]Made to submit to the Tri10ware Game Jam 2026[/color][/font_size]
+
+[font_size=26][color=#ffffff]Our playtesters, friends, and supporters[/color][/font_size]
+
+[font_size=34][color=#c52122]THANK YOU FOR PLAYING[/color][/font_size][font_size=10]
+
+[/font_size][font_size=26][color=#a9b9c7]Made with [/color][color=#478cbf][url href=\"https://godotengine.org/\"]Godot Engine[/url][/color]"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Credits/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1616197487]
+layout_mode = 2
+alignment = 1
+
+[node name="Top" type="Button" parent="Credits/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=969652617 node_paths=PackedStringArray("tweenable", "front", "back")]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("2_v2r8c")
+tweenable = NodePath("MarginContainer/Panel/Tweenable")
+front = NodePath("Title2")
+back = NodePath("Title2/Title2")
+
+[node name="MarginContainer" type="MarginContainer" parent="Credits/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/Top" unique_id=689739782]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="Credits/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/Top/MarginContainer" unique_id=2038795736]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(1200, 0)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_gkedh")
+
+[node name="Tweenable" type="Node" parent="Credits/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/Top/MarginContainer/Panel" unique_id=2054184440]
+script = ExtResource("5_caj3f")
+tween_value = 1.0
+direction = Vector2(1, 0)
+distance = 1200.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="Title2" type="RichTextLabel" parent="Credits/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/Top" unique_id=123908506]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake level=15 seed=0 rate=10]Back to Top ↑"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="RichTextLabel" parent="Credits/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/Top/Title2" unique_id=79471116]
+modulate = Color(0.45, 0.45, 0.45, 1)
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake level=15 seed=0 rate=10]Back to Top ↑"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Credits" unique_id=1711073984]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Credits/MarginContainer" unique_id=136372913]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Top" type="HBoxContainer" parent="Credits/MarginContainer/VBoxContainer2" unique_id=929100035]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="CreditsBack" type="Button" parent="Credits/MarginContainer/VBoxContainer2/Top" unique_id=1320954866 node_paths=PackedStringArray("tweenable", "front", "back")]
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("2_v2r8c")
+tweenable = NodePath("MarginContainer/Panel/Tweenable")
+front = NodePath("Title2")
+back = NodePath("Title2/Title2")
+
+[node name="MarginContainer" type="MarginContainer" parent="Credits/MarginContainer/VBoxContainer2/Top/CreditsBack" unique_id=823482463]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="Credits/MarginContainer/VBoxContainer2/Top/CreditsBack/MarginContainer" unique_id=1794883225]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(700, 0)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_gkedh")
+
+[node name="Tweenable" type="Node" parent="Credits/MarginContainer/VBoxContainer2/Top/CreditsBack/MarginContainer/Panel" unique_id=1630090049]
+script = ExtResource("5_caj3f")
+tween_value = 1.0
+direction = Vector2(1, 0)
+distance = 700.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="Title2" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer2/Top/CreditsBack" unique_id=641271073]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "[shake level=15 seed=0 rate=10]Back ↗"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer2/Top/CreditsBack/Title2" unique_id=249195983]
+modulate = Color(0.45, 0.45, 0.45, 1)
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "[shake level=15 seed=0 rate=10]Back ↗"
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
