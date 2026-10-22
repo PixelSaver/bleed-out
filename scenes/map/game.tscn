@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dk2cacfp0226" path="res://scenes/enemy/goblin.tscn" id="3_sd4cy"]
 [ext_resource type="PackedScene" uid="uid://dgiajep4rvt4e" path="res://scenes/player/player.tscn" id="4_1pbiu"]
 [ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="4_mcwih"]
-[ext_resource type="Shader" uid="uid://6qw121ild8sr" path="res://shaders/water.gdshader" id="4_mm51t"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="6_sd4cy"]
 [ext_resource type="Texture2D" uid="uid://l25715al180n" path="res://assets/waterfall/w1.png" id="7_jsmvi"]
 [ext_resource type="Texture2D" uid="uid://c7qx51k4gykl6" path="res://assets/waterfall/w2.png" id="8_i0sqq"]
@@ -24,18 +23,13 @@
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
 [ext_resource type="Script" uid="uid://bydiw3maoamfp" path="res://scenes/map/score_label.gd" id="16_e4r5n"]
 [ext_resource type="Script" uid="uid://b4pdlxyjxim6i" path="res://utilities/ui/tweenable.gd" id="16_mm51t"]
-[ext_resource type="Shader" uid="uid://cud10ewmcrgob" path="res://shaders/background.gdshader" id="17_mcwih"]
 [ext_resource type="Texture2D" uid="uid://cfjgh5m2ahk2a" path="res://assets/wallBG.png" id="18_hjt0h"]
 [ext_resource type="Script" uid="uid://wtvudyq1wn44" path="res://scenes/start/start_menu_button.gd" id="18_xrurs"]
 [ext_resource type="Script" uid="uid://dsrnv8ne8iw56" path="res://scenes/map/death_screen.gd" id="19_l5q7t"]
 [ext_resource type="Script" uid="uid://bun8pcbqq8v0n" path="res://scenes/map/final_score.gd" id="22_p87kk"]
 [ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xrurs"]
-shader = ExtResource("4_mm51t")
-shader_parameter/wave_frequency = 15.0
-shader_parameter/wave_speed = 6.0
-shader_parameter/wave_amplitude = 0.01
+[ext_resource type="Shader" uid="uid://c5graavgnaove" path="res://shaders/cylinder_interior.gdshader" id="24_fbu2l"]
+[ext_resource type="PackedScene" uid="uid://dq3musfjnhddb" path="res://scenes/map/death_plane.tscn" id="31_l4ess"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -181,9 +175,10 @@ shadow_offset = Vector2(10, 10)
 metadata/_custom_type_script = "uid://bkl6g25jwb47h"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l5q7t"]
-shader = ExtResource("17_mcwih")
-shader_parameter/curvature = 0.1590000075525
-shader_parameter/cylinder_x = true
+shader = ExtResource("24_fbu2l")
+shader_parameter/curvature = 1.0000000475
+shader_parameter/radius = 0.5
+shader_parameter/camera_y = 0.0
 
 [sub_resource type="Resource" id="Resource_ry5pk"]
 script = ExtResource("12_mysg8")
@@ -239,7 +234,6 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="WaterFall" type="AnimatedSprite2D" parent="Player/Camera2D2" unique_id=633394892]
 z_index = -9
-material = SubResource("ShaderMaterial_xrurs")
 scale = Vector2(0.21999802, 0.475)
 sprite_frames = SubResource("SpriteFrames_gkedh")
 animation = &"waterfall"
@@ -913,7 +907,7 @@ repeat_times = 4
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1001625568]
 z_index = -1
 material = SubResource("ShaderMaterial_l5q7t")
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.65, 0.8)
 texture = ExtResource("16_4hwui")
 
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=2144593752]
@@ -965,6 +959,9 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="World" type="Node2D" parent="." unique_id=427052286]
 process_mode = 1
+
+[node name="DeathPlane" parent="World" unique_id=2126560236 instance=ExtResource("31_l4ess")]
+position = Vector2(0, 100)
 
 [node name="Floor" type="StaticBody2D" parent="World" unique_id=1028182488]
 
