@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://bbrf3us7xl4aa" path="res://assets/grappleMark spritesheet.png" id="5_e6ehl"]
 [ext_resource type="Texture2D" uid="uid://bkvsdycf8tsy" path="res://assets/eyeball/pupil.png" id="6_qebto"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v8eww"]
+friction = 0.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jw8os"]
 shader = ExtResource("2_v8eww")
 shader_parameter/half_mode = 2
@@ -178,6 +181,7 @@ radius = 60.0
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
+physics_material_override = SubResource("PhysicsMaterial_v8eww")
 gravity_scale = 0.0
 can_sleep = false
 lock_rotation = true
