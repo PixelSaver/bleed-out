@@ -114,15 +114,16 @@ func _ungrapple(p:Player) -> void:
 		player_sprite.play("unswing")
 
 func _pull(p:Player, delta: float) -> void:
+	if p == null: return
 	if player_sprite.animation != "dash":
 		player_sprite.play("dash", 1/pull_duration)
-	var direction = grapple_target.global_position - p.global_position
-	var n_dir = direction.normalized()
-	var angle = direction.angle()
+	#var direction = grapple_target.global_position - p.global_position
+	#var n_dir = direction.normalized()
+	#var angle = direction.angle()
 
 	#player_sprite.flip_h = if n_dir > 
 	#player_sprite.flip_v = direction.x < 0
-	player_sprite.rotation = angle
+	#player_sprite.rotation = angle
 	
 	state_time += delta
 	var t_norm = min(state_time / pull_duration, 1.0)
@@ -174,13 +175,18 @@ func process_movement(p:Player, delta: float) -> void:
 					state = State.PULL
 					state_time = 0.0
 					p.set_invincibility(pull_invuln)
+					if player_sprite.flip_h:
+						player_sprite.rotate(PI/2)
+					else:
+						player_sprite.rotate(-PI/2)
 
 			normal_physics(p, delta)
 			draw_rope(p, true, 1.0)
-			if rope_taut:
-				player_sprite.rotation = grapple_angle - PI / 2
-			else:
-				smooth_upright(delta)
+			if state != State.PULL:
+				if rope_taut:
+					player_sprite.rotation = grapple_angle - PI / 2
+				else:
+					smooth_upright(delta)
 
 		State.PULL:
 			_pull(p, delta)
