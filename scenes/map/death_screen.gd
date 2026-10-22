@@ -11,6 +11,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	self.visible = false
 	self.modulate.a = 0.
+	self.hide()
 	for but in buttons:
 		but.pressed.connect(_on_button_pressed.bind(but.name))
 

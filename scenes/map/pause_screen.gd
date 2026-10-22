@@ -8,6 +8,8 @@ var t: Tween
 func _ready() -> void: 
 	self.visible = true
 	self.modulate.a = 0.
+	
+	self.hide()
 	for but in buttons:
 		but.pressed.connect(_on_button_pressed.bind(but.name))
 
