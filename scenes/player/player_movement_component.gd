@@ -1,6 +1,7 @@
 extends Node
 class_name PlayerMovementComponent
 
+@export var slash: AnimatedSprite2D
 @export var grapple_visual: Line2D
 @export var player_sprite: AnimatedSprite2D
 @export var sword_visual: Node2D
@@ -176,6 +177,7 @@ func process_movement(p:Player, delta: float) -> void:
 			smooth_upright(delta)
 
 		State.PARRY:
+			slash.play("slash")
 			var hit_enemies = p.parry_hitbox.get_overlapping_bodies()
 			if hit_enemies:
 				for enemy in hit_enemies:
@@ -209,9 +211,10 @@ func process_movement(p:Player, delta: float) -> void:
 
 					p.drink()
 			normal_physics(p, delta)
-			rope_to = grapple_target.global_position
-			draw_rope(p, false, t_norm)
-			smooth_upright(delta)
+			if grapple_target: 
+				rope_to = grapple_target.global_position
+				draw_rope(p, false, t_norm)
+				smooth_upright(delta)
 
 		State.RETRIEVE:
 			state_time += delta

@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
 	if using_mouse:
 		grapple_cone.look_at(get_global_mouse_position())
 	else:
-		var input_dir = Input.get_vector("left", "right", "up", "down")
+		var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		if input_dir.length() > 0:
 			grapple_cone.rotation = input_dir.angle()
 	

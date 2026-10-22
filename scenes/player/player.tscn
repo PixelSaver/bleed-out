@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dxokftqplcdj8" path="res://scenes/player/player_movement_component.gd" id="5_p47bc"]
 [ext_resource type="Texture2D" uid="uid://o5d22m6trnns" path="res://assets/mc/sword.png" id="6_0owmy"]
 [ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="6_75vfm"]
+[ext_resource type="Texture2D" uid="uid://pqbmxenyx2fi" path="res://assets/mc/Slash spritesheet/spritesheet.png" id="7_qek5x"]
 
 [sub_resource type="Curve" id="Curve_gmlin"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -18,6 +19,48 @@ point_count = 3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ym6xy"]
 radius = 103.01942
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gtgg"]
+atlas = ExtResource("7_qek5x")
+region = Rect2(0, 0, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h17s1"]
+atlas = ExtResource("7_qek5x")
+region = Rect2(2049, 0, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_je7p5"]
+atlas = ExtResource("7_qek5x")
+region = Rect2(0, 2049, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm80t"]
+atlas = ExtResource("7_qek5x")
+region = Rect2(2049, 2049, 2049, 2049)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gtgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h17s1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_je7p5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm80t")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": 0,
+"name": &"slash",
+"speed": 12.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
 radius = 30.805843
@@ -87,6 +130,13 @@ scale = Vector2(0.225, 0.225)
 sprite_frames = ExtResource("6_75vfm")
 animation = &"swing"
 offset = Vector2(0, -50)
+
+[node name="Slash" type="AnimatedSprite2D" parent="." unique_id=1862985947]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_gkedh")
+animation = &"slash"
+frame = 5
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363614896]
 shape = SubResource("CircleShape2D_75vfm")
