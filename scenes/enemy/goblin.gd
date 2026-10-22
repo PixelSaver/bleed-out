@@ -3,6 +3,7 @@ class_name GoblinEnemy
 
 
 var direction = 1
+@onready var goblin_sprite: AnimatedSprite2D = $GoblinSprite
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
 
@@ -10,6 +11,9 @@ func _on_death() -> void:
 	super()
 	pass
 
+func _on_freeze(_frozen: bool) -> void:
+	if _frozen:
+		goblin_sprite.pause()
 
 func _ready() -> void:
 	super()

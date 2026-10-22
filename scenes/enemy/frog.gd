@@ -26,7 +26,10 @@ func _ready() -> void:
 	_shot_cooldown = shot_cooldown * randf()
 	await get_tree().create_timer(randf()).timeout
 	anim_sprite.play("idle", randf_range(0.9, 1.1))
-	
+
+func _on_freeze(frozen: bool) -> void:
+	if frozen:
+		anim_sprite.pause()
 func _on_vision_body_entered(body: Node2D) -> void:
 	if body is not Player: return
 	var p = body as Player
@@ -45,6 +48,7 @@ func _on_body_entered(body: Node2D) -> void:
 	
 ## Called at the end of charge to attack player again if they haven't left the range
 func try_shoot_again() -> void:
+	if freeze: return
 	if shot_range.has_overlapping_bodies():
 		for body in shot_range.get_overlapping_bodies():
 			if body is Player:
@@ -55,6 +59,7 @@ func _on_death() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
+	if freeze: return
 	if not can_see_player: return
 	var p_to_e: Vector2 = self.global_position - Global.player_ref.global_position
 	# If too close to player
@@ -84,6 +89,7 @@ func _process(delta: float) -> void:
 
 ## Takes into account the current player's velocity
 func shoot(p:Player) -> void:
+	if freeze: return
 	if _shot_cooldown > 0.: return
 	anim_sprite.play("fire")
 	var sound = [AudioManager.Sound.FROG_FIRE_1, AudioManager.Sound.FROG_FIRE_2].pick_random()

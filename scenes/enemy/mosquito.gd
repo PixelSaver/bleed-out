@@ -58,6 +58,7 @@ func _process(delta: float) -> void:
 
 ## Called at the end of charge to attack player again if they haven't left the range
 func try_charge_again() -> void:
+	if freeze: return
 	if charge_range.has_overlapping_bodies():
 		for body in charge_range.get_overlapping_bodies():
 			if body is Player:

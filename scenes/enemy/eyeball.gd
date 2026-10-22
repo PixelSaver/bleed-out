@@ -40,6 +40,18 @@ func _ready() -> void:
 	orbit_dir *= randi_range(0, 1) * 2 - 1
 	health_component.health_changed.connect(_on_health_changed)
 
+func _on_freeze(frozen: bool) -> void:
+	var bm = (back_rect.material as ShaderMaterial)
+	var fm = (front_rect.material as ShaderMaterial)
+	if frozen:
+		set_rings(int(health_component.health) - 1)
+		bm.set_shader_parameter("animation_speed", 0.0)
+		fm.set_shader_parameter("animation_speed", 0.0)
+	else:
+		set_rings(int(health_component.health))
+		bm.set_shader_parameter("animation_speed", 1.0)
+		fm.set_shader_parameter("animation_speed", 1.0)
+
 func set_rings(n: int) -> void:
 	var thickness := Vector3.ONE * .05
 	var eye_counts := Vector3i(9, 12, 16)
@@ -165,12 +177,15 @@ func eye_look(pos: Vector2, delta: float) -> void:
 
 func try_lazer_again() -> void:
 	if _lazer_cooldown > 0: return
+	if freeze: return
 	if shoot_range.has_overlapping_bodies():
 		for body in shoot_range.get_overlapping_bodies():
 			if body is Player:
 				lazer()
 	
 func _process(delta: float) -> void:
+	if freeze and health_component.health - 1.0 <= 0.: 
+		return
 	if not t or not t.is_running():
 		is_following = can_shoot_player
 	
