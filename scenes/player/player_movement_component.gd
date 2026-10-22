@@ -97,11 +97,15 @@ func _initiate_grapple(target: GrapplePoint, p: Player) -> void:
 	AudioManager.play_sfx(sound, -10)
 	update_grapple_visibility(true)
 
-func _ungrapple(p:Player) -> void:
+func _ungrapple(p:Player, jump:bool) -> void:
 	if rope_taut:
 		# Proper velocity when releasing grapple
-		p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
-					+ (grapple_dist * angular_vel + sign(angular_vel) * release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
+		if jump:
+			p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
+						+ (grapple_dist * angular_vel + sign(angular_vel) * release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
+		else:
+			p.velocity = ((radial_vel) * Vector2(cos(grapple_angle), sin(grapple_angle))
+						+ (grapple_dist * angular_vel) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
 
 		rope_taut = false
 
@@ -179,7 +183,7 @@ func process_movement(p:Player, delta: float) -> void:
 		State.GRAPPLE:
 			# Checking if rope is taut
 			if grapple_target == null:
-				_ungrapple(p)
+				_ungrapple(p, true)
 			else:
 				var grapple_offset = grapple_target.global_position - p.global_position
 				if not rope_taut and (grapple_offset.length() > rope_len or (grapple_offset.dot(p.velocity) < 0 and grapple_offset.length() >= min_rope_len)):
@@ -187,7 +191,7 @@ func process_movement(p:Player, delta: float) -> void:
 				state_time += delta
 				# Ungrappling if you let go of the button
 				if not Input.is_action_pressed("grapple") and state_time >= grapple_duration:
-					_ungrapple(p)
+					_ungrapple(p, true)
 				elif Input.is_action_just_pressed("attack") and p.spend_blood(pull_required, pull_cost):
 					_initiate_pull(p)
 
@@ -360,4 +364,4 @@ func update_grapple_visibility(visibility: bool):
 
 func let_go(p: Player):
 	if state == State.GRAPPLE:
-		_ungrapple(p)
+		_ungrapple(p, false)

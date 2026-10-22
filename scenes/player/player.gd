@@ -74,10 +74,10 @@ func is_invincible() -> bool:
 
 func damage(atk:Attack) -> void:
 	if not is_invincible():
+		player_movement_component.let_go(self)
 		health_component.damage(atk)
 		set_invincibility(invincibilty_duration)
 		flicker_counter = flicker_duration
-		player_movement_component.let_go(self)
 		var sound = [
 			AudioManager.Sound.HURT_1, 
 			AudioManager.Sound.HURT_2,
