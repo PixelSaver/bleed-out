@@ -340,6 +340,7 @@ scroll_offset = Vector2(300, -912)
 repeat_size = Vector2(0, 1620)
 autoscroll = Vector2(0, -3000)
 repeat_times = 4
+ignore_camera_scroll = true
 script = ExtResource("7_hj785")
 
 [node name="Sprite2D2" type="Sprite2D" parent="AllContainer/PROTOTYPE/Parallax2D" unique_id=1177167000]

@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cumfyijgm1xsy"
-path="res://.godot/imported/blood_dash.wav-9fac22ff8f92138e70ff777cddbe9cb9.sample"
+uid="uid://bs82xi5ycoquq"
+path="res://.godot/imported/lazer_fire.wav-6df5d9bad38baca32efe780e5324b46a.sample"
 
 [deps]
 
-source_file="res://assets/sfx/blood_dash.wav"
-dest_files=["res://.godot/imported/blood_dash.wav-9fac22ff8f92138e70ff777cddbe9cb9.sample"]
+source_file="res://assets/sfx/lazer_fire.wav"
+dest_files=["res://.godot/imported/lazer_fire.wav-6df5d9bad38baca32efe780e5324b46a.sample"]
 
 [params]
 

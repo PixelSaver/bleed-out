@@ -91,6 +91,8 @@ func _initiate_grapple(target: GrapplePoint, p: Player) -> void:
 	state = State.THROW
 	state_time = 0.0
 	player_sprite.play("swing")
+	var sound = [AudioManager.Sound.GRAPPLE_1, AudioManager.Sound.GRAPPLE_2].pick_random()
+	AudioManager.play_sfx(sound, -10)
 	update_grapple_visibility(true)
 
 func _ungrapple(p:Player) -> void:
@@ -115,8 +117,6 @@ func _ungrapple(p:Player) -> void:
 
 func _pull(p:Player, delta: float) -> void:
 	if p == null: return
-	if player_sprite.animation != "dash":
-		player_sprite.play("dash", 1/pull_duration)
 	#var direction = grapple_target.global_position - p.global_position
 	#var n_dir = direction.normalized()
 	#var angle = direction.angle()
@@ -139,8 +139,21 @@ func _pull(p:Player, delta: float) -> void:
 			var e: Enemy = grapple_target.get_enemy()
 			e.freeze_enemy(false)
 			e.apply_central_impulse(pull_vel * -10.)
-	
 
+func _initiate_pull(p: Player) -> void:
+	if player_sprite.animation != "dash":
+		player_sprite.play("dash", 1/pull_duration)
+	var sound = [AudioManager.Sound.DASH].pick_random()
+	AudioManager.play_sfx(sound, -20)
+	var offset = grapple_target.global_position - p.global_position
+	pull_vel = offset.normalized() * pull_power * log(1.0 + offset.length())
+	state = State.PULL
+	state_time = 0.0
+	p.set_invincibility(pull_invuln)
+	if player_sprite.flip_h:
+		player_sprite.rotate(PI/2)
+	else:
+		player_sprite.rotate(-PI/2)
 
 func process_movement(p:Player, delta: float) -> void:
 	var temp_grapple_target = p.search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
@@ -153,6 +166,7 @@ func process_movement(p:Player, delta: float) -> void:
 				state = State.PARRY
 				state_time = 0.0
 				p.set_invincibility(parry_invuln)
+				slash.play("slash")
 
 			normal_physics(p, delta)
 			smooth_upright(delta)
@@ -170,15 +184,7 @@ func process_movement(p:Player, delta: float) -> void:
 				if not Input.is_action_pressed("grapple") and state_time >= grapple_duration:
 					_ungrapple(p)
 				elif Input.is_action_just_pressed("attack") and p.spend_blood(pull_required, pull_cost):
-					var offset = grapple_target.global_position - p.global_position
-					pull_vel = offset.normalized() * pull_power * log(1.0 + offset.length())
-					state = State.PULL
-					state_time = 0.0
-					p.set_invincibility(pull_invuln)
-					if player_sprite.flip_h:
-						player_sprite.rotate(PI/2)
-					else:
-						player_sprite.rotate(-PI/2)
+					_initiate_pull(p)
 
 			normal_physics(p, delta)
 			draw_rope(p, true, 1.0)
@@ -194,10 +200,10 @@ func process_movement(p:Player, delta: float) -> void:
 			#smooth_upright(delta)
 
 		State.PARRY:
-			slash.play("slash")
 			
 			var hit_enemies = p.parry_hitbox.get_overlapping_bodies()
 			if hit_enemies:
+				AudioManager.play_sfx(AudioManager.Sound.PARRY_SUCCESS, -15)
 				for enemy in hit_enemies:
 					if enemy == null:
 						return
@@ -210,6 +216,8 @@ func process_movement(p:Player, delta: float) -> void:
 			state_time += delta
 			if state_time > parry_duration:
 				state = State.NORMAL
+				if not hit_enemies:
+					AudioManager.play_sfx(AudioManager.Sound.PARRY, -10)
 
 			normal_physics(p, delta)
 			smooth_upright(delta)
@@ -220,14 +228,15 @@ func process_movement(p:Player, delta: float) -> void:
 			if state_time > throw_duration:
 				state_time = 0.0
 				state = State.GRAPPLE
-				# Attacking enemy
-				var e = grapple_target.get_enemy()
-				if e != null:
-					var atk = Attack.new()
-					atk.damage = 1
-					e.freeze_enemy(true, atk)
+				if grapple_target != null:
+					# Attacking enemy
+					var e = grapple_target.get_enemy()
+					if e != null:
+						var atk = Attack.new()
+						atk.damage = 1
+						e.freeze_enemy(true, atk)
 
-					p.drink()
+						p.drink()
 			normal_physics(p, delta)
 			if grapple_target: 
 				rope_to = grapple_target.global_position

@@ -17,6 +17,7 @@ func _ready() -> void:
 func _on_button_pressed(_name:String) -> void:
 	match _name.to_lower():
 		"startover":
+			AudioManager.kill_sfx(AudioManager.Sound.DEATH)
 			SignalBus.request_pause.emit(false)
 			Global.menu_manager.transition_to_scene(SceneDatabase.get_scene(SceneDatabase.Scene.START))
 		_:
