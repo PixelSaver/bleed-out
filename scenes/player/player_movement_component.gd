@@ -264,19 +264,6 @@ func normal_physics(p: Player, delta: float):
 		# There is a minimum angular velocity
 		angular_vel = sign(angular_vel) * clamp(abs(angular_vel), min_swing_speed / grapple_dist, max_angular_vel)
 		# Bounce off when you hit a wall
-		#if p.is_on_wall() and prebounce_vel.dot(p.get_wall_normal()) < 0:
-			#var radial_dir = Vector2(cos(grapple_angle), sin(grapple_angle))
-			#var tangent_dir = Vector2(-sin(grapple_angle), cos(grapple_angle))
-#
-			## Convert angular/radial motion to Cartesian velocity
-			#var vel = radial_dir * radial_vel + tangent_dir * (angular_vel * grapple_dist)
-#
-			## Reflect horizontal motion
-			#vel.x *= -1
-#
-			## Convert back to radial/angular velocity
-			#radial_vel = vel.dot(radial_dir)
-			#angular_vel = vel.dot(tangent_dir) / grapple_dist
 		if p.is_on_wall() and sign(sin(grapple_angle)) * sign(angular_vel) * sign(p.get_wall_normal().x) > 0:
 			angular_vel *= -1
 		grapple_angle += angular_vel * delta
@@ -334,3 +321,7 @@ func slack_to_taut(p: Player, use_old_len: bool):
 func update_grapple_visibility(visibility: bool):
 	grapple_visual.visible = visibility
 	sword_visual.visible = visibility
+
+func let_go(p: Player):
+	if state == State.GRAPPLE:
+		_ungrapple(p)

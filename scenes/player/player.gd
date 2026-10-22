@@ -73,6 +73,7 @@ func damage(atk:Attack) -> void:
 		health_component.damage(atk)
 		set_invincibility(invincibilty_duration)
 		flicker_counter = flicker_duration
+		player_movement_component.let_go(self)
 
 func _enter_tree() -> void:
 	Global.player_ref = self
