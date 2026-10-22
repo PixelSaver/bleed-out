@@ -18,7 +18,7 @@ func _on_body_entered(body: Node2D) -> void:
 		var atk = Attack.new()
 		atk.damage = 100000000000
 		body.damage(atk)
-	else:
+	elif body is not EyeballEnemy:
 		body.queue_free()
 
 func _process(delta: float) -> void:
