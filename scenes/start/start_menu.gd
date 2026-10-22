@@ -53,6 +53,10 @@ func _on_button_pressed(_name:String) -> void:
 			t.tween_property(cont, "offset_transform_position_ratio:y", 0.0, 0.7)
 			t.tween_property(cont, "offset_transform_scale", Vector2.ONE, 0.7)
 			t.tween_property(prototype, "size_flags_stretch_ratio", 1., 0.7)
+		"splash":
+			Global.menu_manager.transition_to_scene(
+				SceneDatabase.get_scene(SceneDatabase.Scene.SPLASH)
+			)
 		_:
 			push_warning("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
 			#Log.warn("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
