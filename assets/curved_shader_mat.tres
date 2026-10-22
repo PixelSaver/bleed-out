@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dc67gd317r4nb"]
+
+[ext_resource type="Shader" uid="uid://c5graavgnaove" path="res://shaders/cylinder_interior.gdshader" id="1_vf1ic"]
+
+[resource]
+shader = ExtResource("1_vf1ic")
+shader_parameter/curvature = 1.0000000475
+shader_parameter/radius = 0.5
+shader_parameter/camera_y = 0.0
