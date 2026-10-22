@@ -8,10 +8,12 @@ class_name Player
 @export var player_movement_component: PlayerMovementComponent
 @export_category("Player tweaks")
 @export var respawn_delay: float = 0.2
-@export var blood_drain: float = 15.0
-@export var drink_amount: float = 30.0
+@export var blood_drain: float = -15.0
+@export var drink_amount: float = 60.0
+@export var drink_duration: float = 1.0
 @export var invincibilty_duration: float = 1.5
 @export var flicker_duration: float = 1.0
+var blood_rate
 var invincibility_counter: float = 0.0
 var flicker_counter: float = 0.0
 var using_mouse = false
@@ -28,9 +30,14 @@ func _process(delta: float) -> void:
 		invincibility_counter -= delta
 	if flicker_counter > 0:
 		flicker_counter -= delta
-	var atk = Attack.new()
-	atk.damage = blood_drain * delta
-	health_component.damage(atk)
+	if blood_rate > blood_drain:
+		blood_rate = move_toward(blood_rate, blood_drain, (drink_amount - blood_drain) / drink_duration * delta)
+	if blood_rate > 0:
+		health_component.heal(blood_rate * delta)
+	else:
+		var atk = Attack.new()
+		atk.damage = -blood_rate * delta
+		health_component.damage(atk)
 	#DEBUG
 	#print(health_component.health)
 	if using_mouse:
@@ -48,7 +55,7 @@ func _input(event):
 		using_mouse = false
 
 func drink():
-	health_component.heal(drink_amount)
+	blood_rate = drink_amount
 
 func spend_blood(required: float, cost: float):
 	if health_component.health >= required:
@@ -66,6 +73,7 @@ func damage(atk:Attack) -> void:
 		health_component.damage(atk)
 		set_invincibility(invincibilty_duration)
 		flicker_counter = flicker_duration
+		player_movement_component.let_go(self)
 
 func _enter_tree() -> void:
 	Global.player_ref = self
@@ -73,6 +81,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	Global.player_ref = self
 	health_component.death.connect(_on_death)
+	blood_rate = blood_drain
 
 
 

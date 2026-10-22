@@ -215,7 +215,7 @@ metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 [node name="Player" parent="." unique_id=1594943802 instance=ExtResource("4_1pbiu")]
 process_mode = 1
 position = Vector2(0, -49)
-drink_amount = 20.0
+drink_amount = 45.0
 
 [node name="Camera2D2" type="Camera2D" parent="Player" unique_id=1176660890]
 physics_interpolation_mode = 1
@@ -872,6 +872,7 @@ texture = ExtResource("6_sd4cy")
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 process_mode = 1
 script = ExtResource("2_lclk0")
+spawn_chunk_population = 2
 starting_y = -1200.0
 
 [node name="Goblin2" parent="EnemyManager" unique_id=1626915586 instance=ExtResource("3_sd4cy")]
@@ -943,11 +944,11 @@ follow_target = NodePath("../Player/CameraFollowPoint")
 zoom = Vector2(0.5, 0.5)
 tween_resource = SubResource("Resource_ry5pk")
 follow_damping = true
-follow_damping_value = Vector2(0.5, 0.5)
+follow_damping_value = Vector2(0.3, 0.3)
 lookahead = true
-lookahead_time = Vector2(0.7, 0.7)
+lookahead_time = Vector2(0, 1.5)
 lookahead_max = true
-lookahead_max_value = Vector2(50, 50)
+lookahead_max_value = Vector2(100, 100)
 dead_zone_width = 0.1
 dead_zone_height = 0.1
 show_viewfinder_in_play = true

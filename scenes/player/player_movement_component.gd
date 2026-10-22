@@ -255,7 +255,7 @@ func normal_physics(p: Player, delta: float):
 			# Extra gravity when going down
 			angular_vel += gravity * gravity_boost * cos(grapple_angle) / grapple_dist * delta
 		else:
-			angular_vel += gravity * cos(grapple_angle) / grapple_dist * delta
+			angular_vel += gravity / gravity_boost * cos(grapple_angle) / grapple_dist * delta
 
 		# That effect where figure skaters spin faster without their arms out
 		angular_vel *= (old_dist / grapple_dist) ** 2
@@ -263,7 +263,8 @@ func normal_physics(p: Player, delta: float):
 		# Apply angular velocity
 		# There is a minimum angular velocity
 		angular_vel = sign(angular_vel) * clamp(abs(angular_vel), min_swing_speed / grapple_dist, max_angular_vel)
-		if p.get_slide_collision_count() > 0:
+		# Bounce off when you hit a wall
+		if p.is_on_wall() and sign(sin(grapple_angle)) * sign(angular_vel) * sign(p.get_wall_normal().x) > 0:
 			angular_vel *= -1
 		grapple_angle += angular_vel * delta
 		var swing_to = grapple_target.global_position + grapple_dist * Vector2(cos(grapple_angle), sin(grapple_angle))
@@ -320,3 +321,7 @@ func slack_to_taut(p: Player, use_old_len: bool):
 func update_grapple_visibility(visibility: bool):
 	grapple_visual.visible = visibility
 	sword_visual.visible = visibility
+
+func let_go(p: Player):
+	if state == State.GRAPPLE:
+		_ungrapple(p)
