@@ -6,6 +6,7 @@ class_name Player
 @export var parry_hitbox: Area2D
 @export var health_component: HealthComponent
 @export var player_movement_component: PlayerMovementComponent
+@export var player_sprite: AnimatedSprite2D
 @export_category("Player tweaks")
 @export var respawn_delay: float = 0.2
 @export var blood_drain: float = -15.0
@@ -30,6 +31,9 @@ func _process(delta: float) -> void:
 		invincibility_counter -= delta
 	if flicker_counter > 0:
 		flicker_counter -= delta
+		player_sprite.visible = int(flicker_counter * 12) % 2 == 0
+	else:
+		player_sprite.visible = true
 	if blood_rate > blood_drain:
 		blood_rate = move_toward(blood_rate, blood_drain, (drink_amount - blood_drain) / drink_duration * delta)
 	if blood_rate > 0:
