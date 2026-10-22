@@ -38,6 +38,8 @@ var _random_pupil_target: Vector2 = Vector2.ZERO
 var _random_pupil_timer: float = 0.0
 var orbit_dir = 1
 var lazer_active: bool = false
+var bm: ShaderMaterial
+var fm: ShaderMaterial
 
 func _ready() -> void:
 	super()
@@ -51,10 +53,10 @@ func _ready() -> void:
 	sway_noise.seed = randi()
 	sway_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	sway_noise.frequency = 1.0
+	bm = (back_rect.material as ShaderMaterial).duplicate(true)
+	fm = (front_rect.material as ShaderMaterial).duplicate(true)
 
 func _on_freeze(frozen: bool) -> void:
-	var bm = (back_rect.material as ShaderMaterial)
-	var fm = (front_rect.material as ShaderMaterial)
 	if frozen:
 		set_rings(int(health_component.health) - 1)
 		bm.set_shader_parameter("animation_speed", 0.0)
@@ -68,8 +70,6 @@ func set_rings(n: int) -> void:
 	var thickness := Vector3.ONE * .05
 	var eye_counts := Vector3i(9, 12, 16)
 	n = clampi(n, 0, 3)
-	var bm = (back_rect.material as ShaderMaterial)
-	var fm = (front_rect.material as ShaderMaterial)
 	if n == 3:
 		bm.set_shader_parameter("ring_thickness", thickness)
 		bm.set_shader_parameter("eye_counts", eye_counts)

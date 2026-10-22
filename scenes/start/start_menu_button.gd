@@ -1,6 +1,7 @@
 extends Button
 class_name StartMenuButton
 
+@export var text_formatting: String = ""
 @export var tweenable: Tweenable 
 @export var front: RichTextLabel
 @export var back: RichTextLabel
@@ -32,9 +33,11 @@ func _on_pressed() -> void:
 func _hover() -> void:
 	var parsed = front.get_parsed_text()
 	front.clear()
+	front.append_text(text_formatting)
 	front.append_text("[shake rate=15 level=10]")
 	front.append_text(parsed)
 	back.clear()
+	back.append_text(text_formatting)
 	back.append_text("[shake rate=15 level=10]")
 	back.append_text(parsed)
 	if t and t.is_running(): t.kill()
@@ -50,9 +53,11 @@ func _hover() -> void:
 func _unhover() -> void:
 	var parsed = front.get_parsed_text()
 	front.clear()
+	front.append_text(text_formatting)
 	front.append_text("[shake rate=6 level=6]")
 	front.append_text(parsed)
 	back.clear()
+	back.append_text(text_formatting)
 	back.append_text("[shake rate=6 level=6]")
 	back.append_text(parsed)
 	if t and t.is_running(): t.kill()

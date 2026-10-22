@@ -6,6 +6,7 @@ enum Scene {
 	SETTINGS,
 	GRAPPLE_TEST,
 	GAME,
+	SPLASH,
 }
 
 var scenes = {
@@ -13,6 +14,7 @@ var scenes = {
 	Scene.SETTINGS: preload("res://scenes/start/settings_screen.tscn"),
 	Scene.GRAPPLE_TEST: preload("res://scenes/grapple/grapple_test.tscn"),
 	Scene.GAME: preload("res://scenes/map/game.tscn"),
+	Scene.SPLASH: preload("res://scenes/splash/splash_screen.tscn"),
 	#Scene.TWEENABLE_SHOWCASE: preload("res://scenes/examples/tweenable_showcase.tscn"),
 }
 func get_scene(scene:Scene) -> PackedScene:
