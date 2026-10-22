@@ -17,11 +17,18 @@ class_name EyeballEnemy
 ## Time in seconds between ghost lazer and actual shot
 @export var lazer_delay: float = 1.
 @export var lazer_cooldown: float = .1
-@export var hold_aim_duration: float = 0.2
+## Time in seconds that the lazer's hitbox is active
+@export var lazer_duration: float = 0.2
+@export var hold_aim_duration: float = 0.1
 @export var approach_speed: float = 10000.0
 @export var orbit_speed: float = 10000.0
 @export var water_buffer: float = 250.0
 @export var water_avoid_speed: float = 1000.0
+@export var aim_sway: float = 0.4
+@export var aim_sway_speed: float = 0.3
+var sway_noise := FastNoiseLite.new()
+var sway_time: float = 0.0
+var sway_offset: float = 0.0
 ## If the eye is following player position
 var is_following: bool = false
 var can_shoot_player: bool = false
@@ -30,6 +37,7 @@ var t : Tween
 var _random_pupil_target: Vector2 = Vector2.ZERO
 var _random_pupil_timer: float = 0.0
 var orbit_dir = 1
+var lazer_active: bool = false
 
 func _ready() -> void:
 	super()
@@ -39,6 +47,10 @@ func _ready() -> void:
 	# Randomize orbit direction between clockwise and counterclockwise
 	orbit_dir *= randi_range(0, 1) * 2 - 1
 	health_component.health_changed.connect(_on_health_changed)
+	
+	sway_noise.seed = randi()
+	sway_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	sway_noise.frequency = 1.0
 
 func _on_freeze(frozen: bool) -> void:
 	var bm = (back_rect.material as ShaderMaterial)
@@ -138,15 +150,12 @@ func lazer() -> void:
 			AudioManager.Sound.LAZER_FIRE, 
 		].pick_random()
 		AudioManager.play_sfx(sound, -20)
-		if lazer_area.has_overlapping_bodies():
-			for body in lazer_area.get_overlapping_bodies():
-				if body is Player:
-					var p = body as Player
-					var atk = Attack.new()
-					atk.damage = lazer_damage
-					p.damage(atk)
+		lazer_active = true
 	).set_delay(0.15)
 	t.chain()
+	t.tween_interval(lazer_duration)
+	t.chain()
+	t.tween_callback(func(): lazer_active = false)
 	t.tween_property(lazer_line, "width", 0., 0.4)
 	t.tween_property(lazer_line_promise, "width", 0., 0.7)
 	t.chain()
@@ -158,8 +167,8 @@ func lazer() -> void:
 
 ## Look at a positoin using the eye, global position
 func eye_look(pos: Vector2, delta: float) -> void:
-	var dir : Vector2 = pos - self.global_position
-	dir = dir.normalized()
+	var dir: Vector2 = (pos - global_position).normalized()
+	dir = dir.rotated(sway_offset)
 	var angle = dir.angle()
 	dir *= Vector2(15, 10)
 	var target = pupil.position.lerp(dir, delta * 15)
@@ -188,6 +197,9 @@ func _process(delta: float) -> void:
 		return
 	if not t or not t.is_running():
 		is_following = can_shoot_player
+	
+	sway_time += delta * aim_sway_speed
+	sway_offset = sway_noise.get_noise_1d(sway_time) * aim_sway
 	
 	if _lazer_cooldown >= 0:
 		_lazer_cooldown -= delta
@@ -230,6 +242,15 @@ func _process(delta: float) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if not Global.player_ref: return
+	
+	if lazer_active and lazer_area.has_overlapping_bodies():
+		for body in lazer_area.get_overlapping_bodies():
+			if body is Player:
+				var p = body as Player
+				var atk = Attack.new()
+				atk.damage = lazer_damage
+				p.damage(atk)
+	
 	var below = self.global_position.y - Global.player_ref.global_position.y  > 800
 	var offset = Global.player_ref.global_position - self.global_position
 	var distance = offset.length()
