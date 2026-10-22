@@ -7,7 +7,8 @@ var all_t : Array[Tweenable] = []
 var t: Tween 
 
 func _ready() -> void: 
-	pass
+	if not Global.menu_manager:
+		start_anim()
 
 func start_anim() -> void: 
 	reed_splash.modulate.a = 0.0
@@ -18,7 +19,6 @@ func start_anim() -> void:
 	await t.finished
 	splash.play("default")
 	await splash.animation_finished
-	await get_tree().create_timer(1.0).timeout
 	Global.menu_manager.transition_to_scene(
 		SceneDatabase.get_scene(SceneDatabase.Scene.START)
 	)
