@@ -27,7 +27,7 @@ func _on_pressed() -> void:
 	t.set_trans(Tween.TRANS_QUINT)
 	t.tween_property(self, "scale", Vector2.ONE * 0.95, 0.07)
 	t.tween_property(self, "scale", Vector2.ONE * 1.1, 0.07)
-	
+	AudioManager.play_sfx(AudioManager.Sound.UI_CLICK, -20)
 
 func _hover() -> void:
 	var parsed = front.get_parsed_text()
@@ -45,6 +45,7 @@ func _hover() -> void:
 	t.tween_property(back, "modulate:a", 1., 0.7)
 	if tweenable:
 		t.tween_property(tweenable, "tween_value", 0.0, 0.7)
+	AudioManager.play_sfx(AudioManager.Sound.UI_HOVER, -10., .00)
 	
 func _unhover() -> void:
 	var parsed = front.get_parsed_text()

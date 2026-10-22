@@ -1,5 +1,5 @@
 extends Node
-class_name AudioManager
+
 enum Sound {
 	DASH,
 	LAZER,
@@ -30,7 +30,7 @@ func get_audio_stream(s:Sound) -> AudioStream:
 	else:
 		return AudioStream.new()
 
-func play_sfx(sound: Sound, volume_db: float = 0.0) -> void:
+func play_sfx(sound: Sound, volume_db: float = 0.0, start_pos: float = 0.0) -> void:
 	if not sounds.has(sound):
 		push_warning("Unknown sound effect: " + Sound.keys()[sound])
 		return
@@ -38,8 +38,8 @@ func play_sfx(sound: Sound, volume_db: float = 0.0) -> void:
 	var player := AudioStreamPlayer.new()
 	player.stream = get_audio_stream(sound)
 	player.volume_db = volume_db
-	player.bus = "SFX"
 
 	add_child(player)
 	player.finished.connect(player.queue_free)
 	player.play()
+	player.seek(start_pos)
