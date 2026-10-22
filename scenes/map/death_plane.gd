@@ -13,7 +13,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		var atk = Attack.new()
 		atk.damage = 100000000000.
-		body.damage(atk)
+		body.force_kill()
 	elif body is Enemy and body is not EyeballEnemy:
 		var atk = Attack.new()
 		atk.damage = 100000000000
@@ -27,9 +27,7 @@ func _process(delta: float) -> void:
 	if Global.player_ref.global_position.y > -min_player_y: 
 		return
 	if p.global_position.y >= self.global_position.y:
-		var atk = Attack.new()
-		atk.damage = 100000000000.
-		p.damage(atk)
+		p.force_kill()
 	var dist = global_position.y - Global.player_ref.global_position.y 
 	speed += acceleration * delta
 	speed += (acceleration * delta) if dist > 800 else 0

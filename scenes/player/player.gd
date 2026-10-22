@@ -75,6 +75,10 @@ func damage(atk:Attack) -> void:
 		flicker_counter = flicker_duration
 		player_movement_component.let_go(self)
 
+## Kills player regardless of invincibility
+func force_kill() -> void:
+	health_component.health = 0.
+
 func _enter_tree() -> void:
 	Global.player_ref = self
 # Called when the node enters the scene tree for the first time.

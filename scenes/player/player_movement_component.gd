@@ -178,6 +178,7 @@ func process_movement(p:Player, delta: float) -> void:
 
 		State.PARRY:
 			slash.play("slash")
+			
 			var hit_enemies = p.parry_hitbox.get_overlapping_bodies()
 			if hit_enemies:
 				for enemy in hit_enemies:
