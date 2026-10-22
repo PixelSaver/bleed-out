@@ -8,6 +8,7 @@
 [ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="6_75vfm"]
 [ext_resource type="Texture2D" uid="uid://pqbmxenyx2fi" path="res://assets/mc/Slash spritesheet/spritesheet.png" id="7_qek5x"]
 [ext_resource type="AudioStream" uid="uid://dd5kaagce4gxe" path="res://assets/sfx/low_health.wav" id="8_qek5x"]
+[ext_resource type="PackedScene" uid="uid://ca58dlr3a3k4u" path="res://scenes/blood_particle/constant_bleed.tscn" id="9_5gtgg"]
 
 [sub_resource type="Curve" id="Curve_gmlin"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -66,6 +67,7 @@ animations = [{
 radius = 30.805843
 
 [node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("grapple_cone", "parry_hitbox", "health_component", "player_movement_component") groups=["Player"]]
+position = Vector2(34, 19)
 collision_layer = 2
 collision_mask = 11
 script = ExtResource("1_dovo2")
@@ -167,3 +169,9 @@ texture = ExtResource("6_0owmy")
 
 [node name="LowHealth" type="AudioStreamPlayer" parent="." unique_id=186747063]
 stream = ExtResource("8_qek5x")
+
+[node name="constant_bleed" parent="." unique_id=1247338773 instance=ExtResource("9_5gtgg")]
+position = Vector2(12, -2)
+lifetime = 0.38
+scale_amount_min = 0.0
+scale_amount_max = 5.0
