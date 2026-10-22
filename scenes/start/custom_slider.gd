@@ -1,10 +1,8 @@
 extends HSlider
 
 @export var slider_progress: Panel
-@export var hover_sfx_interval := 0.3
 var max_x : float
 var t: Tween
-var hover_sfx_cooldown := 0.0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,18 +13,9 @@ func _ready() -> void:
 	max_x = slider_progress.size.x
 	_on_value_changed(self.value)
 
-func _process(delta: float) -> void:
-	hover_sfx_cooldown = maxf(0.0, hover_sfx_cooldown - delta)
-
-func _play_sfx() -> void:
-	AudioManager.play_sfx(AudioManager.Sound.UI_HOVER, -10)
 
 func _on_value_changed(v: float) -> void:
 	slider_progress.size.x = max_x * v
-
-	if hover_sfx_cooldown <= 0.0:
-		AudioManager.play_sfx(AudioManager.Sound.UI_HOVER, -10)
-		hover_sfx_cooldown = hover_sfx_interval
 
 
 func _notification(what: int) -> void:

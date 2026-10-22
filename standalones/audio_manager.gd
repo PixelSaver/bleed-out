@@ -51,12 +51,13 @@ func get_audio_stream(s:Sound) -> AudioStream:
 		return AudioStream.new()
 
 var sfx_counter := 0
-func play_sfx(sound: Sound, volume_db: float = 0.0, start_pos: float = 0.0) -> void:
+func play_sfx(sound: Sound, volume_db: float = 0.0, start_pos: float = 0.0, bus: String="SFX") -> void:
 	if not sounds.has(sound):
 		push_warning("Unknown sound effect: " + Sound.keys()[sound])
 		return
 
 	var player := AudioStreamPlayer.new()
+	player.bus = bus
 	player.stream = get_audio_stream(sound)
 	player.volume_db = volume_db
 	player.name = "%s_%d" % [Sound.keys()[sound], sfx_counter]
@@ -72,6 +73,7 @@ func play_sfx_2d(node:Node2D, sound: Sound, volume_db: float = 0.0, start_pos: f
 		push_warning("Unknown sound effect: " + Sound.keys()[sound])
 		return
 	var player = AudioStreamPlayer2D.new()
+	player.bus = "SFX"
 	player.stream = get_audio_stream(sound)
 	player.volume_db = volume_db
 	player.name = "%s_%d" % [Sound.keys()[sound], sfx_counter]
