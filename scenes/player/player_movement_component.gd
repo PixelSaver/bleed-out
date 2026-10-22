@@ -29,8 +29,9 @@ class_name PlayerMovementComponent
 @export var spring_damping = 5.0
 @export var pull_power = 250.0
 @export var pull_duration = 0.25
-@export var pull_invuln = 0.3
+@export var pull_invuln = 0.4
 @export var parry_duration = 0.1
+@export var parry_cooldown = 0.4
 @export var parry_invuln = 0.15
 @export var parry_strength = 300
 @export var parry_min = -800
@@ -59,6 +60,7 @@ var grapple_angle = 0.0
 var angular_vel = 0.0
 var radial_vel = 0.0
 var state_time
+var parry_time = 9999.9
 var pull_vel
 var pull_start_point
 var rope_taut = false
@@ -134,10 +136,13 @@ func process_movement(p:Player, delta: float) -> void:
 	var temp_grapple_target = p.search_grapple_points(Global.enemy_man.get_enemy_grapple_points())
 	match state:
 		State.NORMAL:
+			if parry_time < parry_cooldown:
+				parry_time += delta
+			
 			if Input.is_action_just_pressed("grapple"):
 				if temp_grapple_target:
 					_initiate_grapple(temp_grapple_target, p)
-			elif Input.is_action_just_pressed("attack") and p.spend_blood(parry_required, parry_cost):
+			elif Input.is_action_just_pressed("attack") and parry_time >= parry_cooldown and p.spend_blood(parry_required, parry_cost):
 				state = State.PARRY
 				state_time = 0.0
 				p.set_invincibility(parry_invuln)
@@ -193,6 +198,7 @@ func process_movement(p:Player, delta: float) -> void:
 			state_time += delta
 			if state_time > parry_duration:
 				state = State.NORMAL
+				parry_time = 0.0
 
 			normal_physics(p, delta)
 			smooth_upright(delta)
