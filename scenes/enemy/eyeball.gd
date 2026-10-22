@@ -20,7 +20,7 @@ class_name EyeballEnemy
 @export var hold_aim_duration: float = 0.2
 @export var approach_speed: float = 10000.0
 @export var orbit_speed: float = 10000.0
-@export var water_buffer: float = 100.0
+@export var water_buffer: float = 250.0
 @export var water_avoid_speed: float = 1000.0
 ## If the eye is following player position
 var is_following: bool = false
@@ -228,7 +228,7 @@ func _physics_process(_delta: float) -> void:
 	
 	self.apply_central_force(tan_dir * orbit_speed)
 	
-	var over_the_line = global_position.y - (Global.water_y + water_buffer)
+	var over_the_line = global_position.y - (Global.water_y - water_buffer)
 	if over_the_line > 0:
 		apply_central_force(Vector2.UP * water_avoid_speed * over_the_line)
 
