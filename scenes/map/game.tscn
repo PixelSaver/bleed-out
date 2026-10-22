@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://bm55smahjyywv" path="res://scenes/enemy/eyeball.tscn" id="25_l4ess"]
 [ext_resource type="Material" uid="uid://dc67gd317r4nb" path="res://assets/curved_shader_mat.tres" id="25_p87kk"]
 [ext_resource type="PackedScene" uid="uid://dq3musfjnhddb" path="res://scenes/map/death_plane.tscn" id="31_l4ess"]
+[ext_resource type="Texture2D" uid="uid://uv0jeiidokhg" path="res://assets/floor.png" id="32_qnluy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -262,6 +263,7 @@ camera_limits = Vector2(-500, 500)
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=1955443572]
 process_mode = 3
+visible = false
 
 [node name="InGameUI" type="HBoxContainer" parent="UILayer" unique_id=400401990]
 anchors_preset = 15
@@ -913,7 +915,7 @@ texture = ExtResource("16_4hwui")
 
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=2144593752]
 process_mode = 1
-z_index = -10
+z_index = -9
 scroll_offset = Vector2(0, -912)
 repeat_size = Vector2(0, 1862)
 repeat_times = 4
@@ -969,10 +971,16 @@ position = Vector2(0, 1000)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Floor" unique_id=1149386952]
 shape = SubResource("WorldBoundaryShape2D_gkedh")
 
+[node name="Sprite2D2" type="Sprite2D" parent="World/Floor" unique_id=461698160]
+modulate = Color(1.4807141, 1.4807141, 1.4807141, 1)
+z_index = -10
+position = Vector2(-33, 1146)
+texture = ExtResource("16_4hwui")
+
 [node name="Sprite2D" type="Sprite2D" parent="World/Floor" unique_id=1592227356]
 position = Vector2(-4, 70)
-scale = Vector2(17.603748, -1.0802966)
-texture = ExtResource("6_sd4cy")
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("32_qnluy")
 
 [node name="Borders" type="StaticBody2D" parent="World" unique_id=378667906]
 
