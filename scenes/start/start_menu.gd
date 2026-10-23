@@ -11,6 +11,8 @@ var state: State = State.START
 @export var cont: Container
 @export var buttons: Array[StartMenuButton]
 @export var start_first_focus: Control
+@export var settings_first_focus: Control
+@export var credits_first_focus: Control
 @export var nav_mapper: NavMapper
 var all_t : Array[Tweenable] = []
 var t: Tween 
@@ -32,6 +34,14 @@ func _ready() -> void:
 
 func _on_start_focus() -> void:
 	if state == State.START: return
+	elif state == State.CREDITS:
+		credits.end_anim()
+		if t and t.is_running(): t.kill()
+		t = default_tween()
+		t.tween_property(cont, "offset_transform_position_ratio:x", 0.0, 1.2)
+		t.tween_property(cont, "offset_transform_position_ratio:y", 0.0, 0.7)
+		t.tween_property(cont, "offset_transform_scale", Vector2.ONE, 0.7)
+		t.tween_property(prototype, "size_flags_stretch_ratio", 1., 0.7)
 	state = State.START
 	if t and t.is_running(): t.kill()
 	t = default_tween()
@@ -44,12 +54,21 @@ func _on_settings_focus() -> void:
 	if t and t.is_running(): t.kill()
 	t = default_tween()
 	t.tween_property(cont, "offset_transform_position_ratio:x", 0.375, 0.7)
+	settings_first_focus.grab_focus()
 func _on_credits_focus() -> void:
 	if state == State.CREDITS: return
 	state = State.CREDITS
 	if t and t.is_running(): t.kill()
 	t = default_tween()
 	t.tween_property(cont, "offset_transform_position_ratio:x", 0.375, 0.7)
+	credits_first_focus.grab_focus()
+	credits.start_anim()
+	#if t and t.is_running(): t.kill()
+	#t = default_tween()
+	#t.tween_property(cont, "offset_transform_position_ratio:x", 0.375/2, 0.7)
+	#t.tween_property(cont, "offset_transform_position_ratio:y", -0.2, 0.7)
+	#t.tween_property(cont, "offset_transform_scale", Vector2.ONE * 1.1, 0.7)
+	#t.tween_property(prototype, "size_flags_stretch_ratio", 16., 0.7)
 	
 
 @onready var prototype: Control = $AllContainer/PROTOTYPE
@@ -73,21 +92,9 @@ func _on_button_pressed(_name:String) -> void:
 		"back":
 			_on_start_focus()
 		"credits":
-			credits.start_anim()
-			if t and t.is_running(): t.kill()
-			t = default_tween()
-			t.tween_property(cont, "offset_transform_position_ratio:x", 0.375/2, 0.7)
-			t.tween_property(cont, "offset_transform_position_ratio:y", -0.2, 0.7)
-			t.tween_property(cont, "offset_transform_scale", Vector2.ONE * 1.1, 0.7)
-			t.tween_property(prototype, "size_flags_stretch_ratio", 16., 0.7)
+			_on_credits_focus()
 		"creditsback":
-			credits.end_anim()
-			if t and t.is_running(): t.kill()
-			t = default_tween()
-			t.tween_property(cont, "offset_transform_position_ratio:x", 0.0, 1.2)
-			t.tween_property(cont, "offset_transform_position_ratio:y", 0.0, 0.7)
-			t.tween_property(cont, "offset_transform_scale", Vector2.ONE, 0.7)
-			t.tween_property(prototype, "size_flags_stretch_ratio", 1., 0.7)
+			_on_start_focus()
 		"splash":
 			Global.menu_manager.transition_to_scene(
 				SceneDatabase.get_scene(SceneDatabase.Scene.SPLASH)
