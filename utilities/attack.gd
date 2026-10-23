@@ -8,6 +8,7 @@ class_name Attack
 @export var knockback := Vector2.ZERO
 ## Direction attack is going
 @export var direction := Vector2.ZERO
+@export var player_hit := false
 
 ## Set the knockback using the position, normalizes the direction, and then multiplies by the kb_strength
 func calc_knockback(attacker:Node2D, attacked:Node2D, kb_strength:float) -> Vector2:

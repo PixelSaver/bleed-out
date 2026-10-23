@@ -150,7 +150,7 @@ func _initiate_pull(p: Player) -> void:
 	if player_sprite.animation != "dash":
 		player_sprite.play("dash", 1/pull_duration)
 	var sound = [AudioManager.Sound.DASH].pick_random()
-	AudioManager.play_sfx(sound, -20)
+	AudioManager.play_sfx(sound, -10)
 	var offset = grapple_target.global_position - p.global_position
 	pull_vel = offset.normalized() * pull_power * log(1.0 + offset.length())
 	state = State.PULL
@@ -221,6 +221,7 @@ func process_movement(p:Player, delta: float) -> void:
 					var atk = Attack.new()
 					atk.damage = 1
 					atk.direction = (enemy.global_position - p.global_position).normalized()
+					atk.player_hit = true
 					enemy.damage(atk)
 				p.velocity.y = min(parry_min, p.velocity.y - parry_strength)
 				state = State.NORMAL
@@ -229,7 +230,7 @@ func process_movement(p:Player, delta: float) -> void:
 			if state_time > parry_duration:
 				state = State.NORMAL
 				if not hit_enemies:
-					AudioManager.play_sfx(AudioManager.Sound.PARRY, -10)
+					AudioManager.play_sfx(AudioManager.Sound.PARRY, -5)
 				parry_time = 0.0
 
 			normal_physics(p, delta)
@@ -248,6 +249,7 @@ func process_movement(p:Player, delta: float) -> void:
 						var atk = Attack.new()
 						atk.damage = 1
 						atk.direction = (e.global_position - p.global_position).normalized()
+						atk.player_hit = true
 						e.freeze_enemy(true, atk)
 
 						p.drink()

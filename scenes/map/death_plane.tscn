@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://db558cs6e5m4l" path="res://scenes/map/death_plane.gd" id="1_8276u"]
 [ext_resource type="Shader" uid="uid://6qw121ild8sr" path="res://shaders/water.gdshader" id="2_qiijp"]
+[ext_resource type="AudioStream" uid="uid://ct0wy8t37wyap" path="res://assets/sfx/holy_waterfall_bg_loop.wav" id="3_cdjf5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qek5x"]
 size = Vector2(3000, 1500)
@@ -41,3 +42,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1103100512]
+stream = ExtResource("3_cdjf5")
+volume_db = 10.0
+autoplay = true
+attenuation = 3.363585
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2143503005]
+stream = ExtResource("3_cdjf5")
+volume_db = -10.0
+autoplay = true
