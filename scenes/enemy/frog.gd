@@ -93,7 +93,7 @@ func shoot(p:Player) -> void:
 	if _shot_cooldown > 0.: return
 	anim_sprite.play("fire")
 	var sound = [AudioManager.Sound.FROG_FIRE_1, AudioManager.Sound.FROG_FIRE_2].pick_random()
-	AudioManager.play_sfx_2d(self, sound, -20)
+	AudioManager.play_sfx_2d(self, sound, 0)
 	await anim_sprite.animation_finished
 	_shot_cooldown = shot_cooldown
 	var frog_proj = Global.projectile_man.spawn_projectile(ProjectileManager.ProjectileType.FROG) as FrogProjectile

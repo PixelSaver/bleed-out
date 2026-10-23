@@ -45,11 +45,11 @@ grow_vertical = 2
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1103100512]
 stream = ExtResource("3_cdjf5")
-volume_db = 10.0
+volume_db = 8.0
 autoplay = true
 attenuation = 3.363585
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2143503005]
 stream = ExtResource("3_cdjf5")
-volume_db = -10.0
+volume_db = -15.0
 autoplay = true

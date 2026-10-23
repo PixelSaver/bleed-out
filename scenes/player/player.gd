@@ -87,7 +87,7 @@ func damage(atk:Attack) -> void:
 			AudioManager.Sound.HURT_2,
 			AudioManager.Sound.HURT_3,
 		].pick_random()
-		AudioManager.play_sfx(sound, -20)
+		AudioManager.play_sfx(sound, -10)
 
 ## Kills player regardless of invincibility
 func force_kill() -> void:

@@ -21,9 +21,9 @@ class_name EyeballEnemy
 @export var lazer_duration: float = 0.2
 @export var hold_aim_duration: float = 0.1
 @export var approach_speed: float = 10000.0
-@export var orbit_speed: float = 10000.0
-@export var water_buffer: float = 250.0
-@export var water_avoid_speed: float = 1000.0
+@export var orbit_speed: float = 20000.0
+@export var water_buffer: float = 750.0
+@export var water_avoid_speed: float = 100.0
 @export var aim_sway: float = 0.4
 @export var aim_sway_speed: float = 0.3
 var sway_noise := FastNoiseLite.new()
@@ -93,7 +93,7 @@ func set_rings(n: int) -> void:
 
 func _on_health_changed(h: float, _mh:float) -> void:
 	if h > 0:
-		AudioManager.play_sfx(AudioManager.Sound.EYEBALL_SHIELD_BREAK, -20)
+		AudioManager.play_sfx(AudioManager.Sound.EYEBALL_SHIELD_BREAK, -10)
 	set_rings(int(h))
 
 func _on_body_entered(body: Node2D) -> void:
@@ -126,7 +126,7 @@ func lazer() -> void:
 		var sound = [
 			AudioManager.Sound.LAZER_CHARGE, 
 		].pick_random()
-		AudioManager.play_sfx(sound, -20)
+		AudioManager.play_sfx(sound, -10)
 	)
 	t.tween_property(lazer_line_promise, "width", 15., lazer_delay)
 	t.tween_property(lazer_line_promise, "modulate:a", 0.3, lazer_delay/2.)
@@ -149,7 +149,7 @@ func lazer() -> void:
 		var sound = [
 			AudioManager.Sound.LAZER_FIRE, 
 		].pick_random()
-		AudioManager.play_sfx(sound, -20)
+		AudioManager.play_sfx(sound, -10)
 		lazer_active = true
 	).set_delay(0.15)
 	t.chain()

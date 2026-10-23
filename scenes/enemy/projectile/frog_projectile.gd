@@ -7,9 +7,12 @@ var initialized = false
 var movement_vec: Vector2 = Vector2.ZERO
 var lifetime: float = INF
 
-@export var grow_duration: float = 0.5
+@export var grow_duration: float = 1
+@export var shrink_duration: float = 0.3
+@export var homing_strength: float = 1
 
 func _ready() -> void:
+	body_entered.connect(_on_body_entered)
 	scale = Vector2.ZERO
 	create_tween().tween_property(self, "scale", Vector2.ONE, grow_duration).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
@@ -35,7 +38,21 @@ func _process(delta: float) -> void:
 	if not initialized: return
 	lifetime -= delta
 	if lifetime <= 0:
-		end_projectile()
+		set_process(false)
+		set_physics_process(false)
+		monitoring = false
+		var tween = create_tween()
+		tween.tween_property(self, "scale", Vector2.ZERO, shrink_duration).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+		tween.tween_callback(end_projectile)
 
 func _physics_process(delta: float) -> void:
-	self.global_position += movement_vec * delta
+	if not initialized: return
+
+	var speed = movement_vec.length()
+	var target_dir = (Global.player_ref.global_position - global_position).normalized()
+	var current_dir = movement_vec.normalized()
+
+	var new_dir = current_dir.move_toward(target_dir, homing_strength * delta)
+	movement_vec = new_dir.normalized() * speed
+
+	global_position += movement_vec * delta
