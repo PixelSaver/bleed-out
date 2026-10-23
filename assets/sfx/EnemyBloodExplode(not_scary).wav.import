@@ -13,10 +13,10 @@ dest_files=["res://.godot/imported/EnemyBloodExplode(not_scary).wav-9d7158657c72
 [params]
 
 force/8_bit=false
-force/mono=false
-force/max_rate=false
-force/max_rate_hz=44100
-edit/trim=false
+force/mono=true
+force/max_rate=true
+force/max_rate_hz=17544.0
+edit/trim=true
 edit/normalize=false
 edit/loop_mode=0
 edit/loop_begin=0

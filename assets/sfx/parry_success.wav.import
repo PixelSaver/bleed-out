@@ -14,10 +14,10 @@ dest_files=["res://.godot/imported/parry_success.wav-16fb4474f62750c4df5d400bb4a
 
 force/8_bit=false
 force/mono=false
-force/max_rate=false
-force/max_rate_hz=44100
+force/max_rate=true
+force/max_rate_hz=113771.0
 edit/trim=false
-edit/normalize=false
+edit/normalize=true
 edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
