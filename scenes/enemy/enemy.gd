@@ -7,6 +7,8 @@ class_name Enemy
 @export var touch_area: Area2D
 @export var grapple_point: GrapplePoint
 @export var health_component: HealthComponent
+@export var blood_spray: GPUParticles2D
+@export var blood_offset: float = 0.0
 @export var marked: AnimatedSprite2D
 @export var speed: float = 10.
 signal frozen(is_frozen:bool)
@@ -44,6 +46,9 @@ func highlight(do_highlight:bool) -> void:
 
 func damage(atk:Attack) -> void:
 	health_component.damage(atk)
+	blood_spray.global_rotation = atk.direction.angle() + PI
+	position = Vector2(blood_offset, 0).rotated(blood_spray.rotation)
+	blood_spray.restart()
 
 ## Function to toggle freezing of the enemy, stopping AI and special moves. 
 ## Queue an attack to be done when unfrozen

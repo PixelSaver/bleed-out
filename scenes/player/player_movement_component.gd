@@ -214,6 +214,7 @@ func process_movement(p:Player, delta: float) -> void:
 						return
 					var atk = Attack.new()
 					atk.damage = 1
+					atk.direction = (enemy.global_position - p.global_position).normalized()
 					enemy.damage(atk)
 				p.velocity.y = min(parry_min, p.velocity.y - parry_strength)
 				state = State.NORMAL
@@ -240,6 +241,7 @@ func process_movement(p:Player, delta: float) -> void:
 					if e != null:
 						var atk = Attack.new()
 						atk.damage = 1
+						atk.direction = (e.global_position - p.global_position).normalized()
 						e.freeze_enemy(true, atk)
 
 						p.drink()

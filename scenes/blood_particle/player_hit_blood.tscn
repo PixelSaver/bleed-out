@@ -36,9 +36,11 @@ color = Color(0.7058824, 0, 0, 1)
 
 [node name="player_hit_blood" type="GPUParticles2D" unique_id=1283194395]
 position = Vector2(12, -2)
+emitting = false
 amount = 20
 texture = SubResource("GradientTexture2D_1c2yt")
 lifetime = 0.5
+one_shot = true
 explosiveness = 1.0
 fixed_fps = 0
 draw_order = 0

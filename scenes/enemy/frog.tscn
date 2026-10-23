@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c5jelmhln3ee7" path="res://assets/frog/frog_idle/frog2.png" id="8_wpdoo"]
 [ext_resource type="Texture2D" uid="uid://t5cg8rpub7ww" path="res://assets/frog/frog_idle/frog3.png" id="9_expw4"]
 [ext_resource type="Texture2D" uid="uid://dvetiwm8rnf1c" path="res://assets/frog/frog_idle/frog4.png" id="10_m537c"]
+[ext_resource type="PackedScene" uid="uid://cmi57s2iswnm4" path="res://scenes/blood_particle/enemy_hit_blood.tscn" id="14_rm08h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
 radius = 32.0
@@ -106,7 +107,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ypj7g"]
 radius = 32.0
 
-[node name="Frog" type="RigidBody2D" unique_id=322635485 node_paths=PackedStringArray("anim_sprite", "shot_range", "vision_range", "touch_area", "grapple_point", "health_component", "marked")]
+[node name="Frog" type="RigidBody2D" unique_id=322635485 node_paths=PackedStringArray("anim_sprite", "shot_range", "vision_range", "touch_area", "grapple_point", "health_component", "blood_spray", "marked")]
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
@@ -124,6 +125,7 @@ projectile_lifetime = 5.0
 touch_area = NodePath("TouchDamage")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
+blood_spray = NodePath("enemy_hit_blood")
 marked = NodePath("Marked")
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
 
@@ -179,3 +181,5 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TouchDamage" unique_id=2064015077]
 shape = SubResource("CircleShape2D_ypj7g")
+
+[node name="enemy_hit_blood" parent="." unique_id=1283194395 instance=ExtResource("14_rm08h")]
