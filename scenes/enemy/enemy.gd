@@ -46,9 +46,6 @@ func highlight(do_highlight:bool) -> void:
 
 func damage(atk:Attack) -> void:
 	health_component.damage(atk)
-	blood_spray.global_rotation = atk.direction.angle() + PI
-	position = Vector2(blood_offset, 0).rotated(blood_spray.rotation)
-	blood_spray.restart()
 
 ## Function to toggle freezing of the enemy, stopping AI and special moves. 
 ## Queue an attack to be done when unfrozen
@@ -57,6 +54,9 @@ func freeze_enemy(do_freeze: bool=true, queued_atk: Attack=null) -> void:
 	frozen.emit(do_freeze)
 	if do_freeze:
 		_queued_atk = queued_atk
+		blood_spray.global_rotation = queued_atk.direction.angle() + PI
+		blood_spray.position = Vector2(blood_offset, 0).rotated(blood_spray.rotation)
+		blood_spray.restart()
 	elif _queued_atk != null:
 		self.damage(_queued_atk)
 	

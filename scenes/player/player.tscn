@@ -8,7 +8,8 @@
 [ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="6_75vfm"]
 [ext_resource type="Texture2D" uid="uid://pqbmxenyx2fi" path="res://assets/mc/Slash spritesheet/spritesheet.png" id="7_qek5x"]
 [ext_resource type="AudioStream" uid="uid://dd5kaagce4gxe" path="res://assets/sfx/low_health.wav" id="8_qek5x"]
-[ext_resource type="PackedScene" uid="uid://bkr4bdly71dm4" path="res://scenes/blood_particle/temporary.tscn" id="9_5gtgg"]
+[ext_resource type="PackedScene" uid="uid://ca58dlr3a3k4u" path="res://scenes/blood_particle/constant_bleed.tscn" id="9_5gtgg"]
+[ext_resource type="PackedScene" uid="uid://cnxkp83utu6y6" path="res://scenes/blood_particle/player_hit_blood.tscn" id="10_h17s1"]
 
 [sub_resource type="Curve" id="Curve_gmlin"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -66,7 +67,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
 radius = 30.805843
 
-[node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("grapple_cone", "parry_hitbox", "health_component", "player_movement_component", "player_sprite") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("grapple_cone", "parry_hitbox", "health_component", "player_movement_component", "player_sprite", "blood_spray") groups=["Player"]]
 collision_layer = 2
 collision_mask = 11
 script = ExtResource("1_dovo2")
@@ -75,8 +76,11 @@ parry_hitbox = NodePath("ParryHitbox")
 health_component = NodePath("HealthComponent")
 player_movement_component = NodePath("PlayerMovementComponent")
 player_sprite = NodePath("MC")
+blood_spray = NodePath("player_hit_blood")
 metadata/_custom_type_script = "uid://dtvxmu6o1o5s"
 metadata/_edit_group_ = true
+
+[node name="constant_bleed" parent="." unique_id=1034500182 instance=ExtResource("9_5gtgg")]
 
 [node name="Line2D" type="Line2D" parent="." unique_id=725335474]
 visible = false
@@ -170,5 +174,4 @@ texture = ExtResource("6_0owmy")
 [node name="LowHealth" type="AudioStreamPlayer" parent="." unique_id=186747063]
 stream = ExtResource("8_qek5x")
 
-[node name="constant_bleed" parent="." unique_id=1247338773 instance=ExtResource("9_5gtgg")]
-position = Vector2(14, -15)
+[node name="player_hit_blood" parent="." unique_id=1283194395 instance=ExtResource("10_h17s1")]

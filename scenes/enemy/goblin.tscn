@@ -65,6 +65,7 @@ touch_area = NodePath("TouchDamage")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
 blood_spray = NodePath("enemy_hit_blood")
+blood_offset = 27.0
 marked = NodePath("Marked")
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
 

@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://c5f2s23wcevdy"]
 
+[ext_resource type="Texture2D" uid="uid://m86seiuphsol" path="res://scenes/blood_particle/blood_size_curve.tres" id="1_1c2yt"]
+
 [sub_resource type="Gradient" id="Gradient_3l8fg"]
 offsets = PackedFloat32Array(0, 0.944, 0.952)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
@@ -12,13 +14,6 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
-[sub_resource type="Curve" id="Curve_5gtgg"]
-_data = [Vector2(0.049645394, 1), 0.0, 0.0, 0, 0, Vector2(0.98936164, 0.30459774), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_1c2yt"]
-curve = SubResource("Curve_5gtgg")
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3l8fg"]
 lifetime_randomness = 0.5
 particle_flag_disable_z = true
@@ -29,11 +24,10 @@ gravity = Vector3(0, 980, 0)
 damping_min = 100.0
 damping_max = 300.0
 scale_min = 0.5
-scale_curve = SubResource("CurveTexture_1c2yt")
+scale_curve = ExtResource("1_1c2yt")
 color = Color(0.7058824, 0, 0, 1)
 
 [node name="constant_bleed2" type="GPUParticles2D" unique_id=987992223]
-position = Vector2(12, -2)
 amount = 60
 texture = SubResource("GradientTexture2D_1c2yt")
 lifetime = 0.5

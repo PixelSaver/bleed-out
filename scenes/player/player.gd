@@ -7,6 +7,7 @@ class_name Player
 @export var health_component: HealthComponent
 @export var player_movement_component: PlayerMovementComponent
 @export var player_sprite: AnimatedSprite2D
+@export var blood_spray: GPUParticles2D
 @export_category("Player tweaks")
 @export var respawn_delay: float = 0.2
 @export var blood_drain: float = -15.0
@@ -74,6 +75,8 @@ func is_invincible() -> bool:
 
 func damage(atk:Attack) -> void:
 	if not is_invincible():
+		blood_spray.global_rotation = atk.knockback.angle()
+		blood_spray.restart()
 		player_movement_component.let_go(self)
 		health_component.damage(atk)
 		set_invincibility(invincibilty_duration)

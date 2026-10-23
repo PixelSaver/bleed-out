@@ -24,8 +24,8 @@ curve = SubResource("Curve_5gtgg")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xh6rm"]
 lifetime_randomness = 0.5
 particle_flag_disable_z = true
-initial_velocity_min = 20.0
-initial_velocity_max = 500.0
+initial_velocity_min = 520.0
+initial_velocity_max = 1000.0
 gravity = Vector3(0, 980, 0)
 damping_min = 100.0
 damping_max = 300.0
@@ -34,7 +34,6 @@ scale_curve = SubResource("CurveTexture_as2ni")
 color = Color(0.7058824, 0, 0, 1)
 
 [node name="enemy_hit_blood" type="GPUParticles2D" unique_id=1283194395]
-position = Vector2(12, -2)
 emitting = false
 amount = 40
 texture = SubResource("GradientTexture2D_1c2yt")
