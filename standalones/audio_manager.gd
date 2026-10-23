@@ -25,7 +25,10 @@ enum Sound {
 	HEAL,
 	BLOOD_EXPLODE,
 	DADOOM,
-	ACHOO
+	ACHOO,
+	MOSQUITO_CHARGE_1,
+	MOSQUITO_CHARGE_2,
+	MOSQUITO_CHARGE_3,
 }
 const sounds: Dictionary[Sound, AudioStream] = {
 	Sound.DASH: preload("res://assets/sfx/blood_dash.mp3"),
@@ -53,6 +56,9 @@ const sounds: Dictionary[Sound, AudioStream] = {
 	Sound.BLOOD_EXPLODE: preload("res://assets/sfx/EnemyBloodExplode(not_scary).wav"),
 	Sound.DADOOM: preload("res://assets/sfx/dadoomIntro v3.wav"),
 	Sound.ACHOO: preload("res://assets/sfx/NosebleedSplashIntro.wav"),
+	Sound.MOSQUITO_CHARGE_1: preload("res://assets/sfx/mosquitoCharge v1.wav"),
+	Sound.MOSQUITO_CHARGE_2: preload("res://assets/sfx/mosquitoCharge v2.wav"),
+	Sound.MOSQUITO_CHARGE_3: preload("res://assets/sfx/mosquitoCharge v3.wav"),
 }
 
 var TITLE_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Intro Oct21.wav")
