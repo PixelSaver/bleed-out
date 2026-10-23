@@ -1,0 +1,45 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://su0trnb1dvb2"]
+
+[ext_resource type="Texture2D" uid="uid://pqbmxenyx2fi" path="res://assets/mc/Slash spritesheet/spritesheet.png" id="1_xau1k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gtgg"]
+atlas = ExtResource("1_xau1k")
+region = Rect2(0, 0, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h17s1"]
+atlas = ExtResource("1_xau1k")
+region = Rect2(2049, 0, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_je7p5"]
+atlas = ExtResource("1_xau1k")
+region = Rect2(0, 2049, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm80t"]
+atlas = ExtResource("1_xau1k")
+region = Rect2(2049, 2049, 2049, 2049)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gtgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h17s1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_je7p5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm80t")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": 0,
+"name": &"slash",
+"speed": 18.0
+}]

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dxokftqplcdj8" path="res://scenes/player/player_movement_component.gd" id="5_p47bc"]
 [ext_resource type="Texture2D" uid="uid://o5d22m6trnns" path="res://assets/mc/sword.png" id="6_0owmy"]
 [ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="6_75vfm"]
-[ext_resource type="Texture2D" uid="uid://pqbmxenyx2fi" path="res://assets/mc/Slash spritesheet/spritesheet.png" id="7_qek5x"]
+[ext_resource type="SpriteFrames" uid="uid://su0trnb1dvb2" path="res://assets/slash_spriteframes.tres" id="7_h17s1"]
 [ext_resource type="AudioStream" uid="uid://dd5kaagce4gxe" path="res://assets/sfx/low_health.wav" id="8_qek5x"]
 [ext_resource type="PackedScene" uid="uid://ca58dlr3a3k4u" path="res://scenes/blood_particle/constant_bleed.tscn" id="9_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://cnxkp83utu6y6" path="res://scenes/blood_particle/player_hit_blood.tscn" id="10_h17s1"]
@@ -21,48 +21,6 @@ point_count = 3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ym6xy"]
 radius = 103.01942
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5gtgg"]
-atlas = ExtResource("7_qek5x")
-region = Rect2(0, 0, 2049, 2049)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h17s1"]
-atlas = ExtResource("7_qek5x")
-region = Rect2(2049, 0, 2049, 2049)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_je7p5"]
-atlas = ExtResource("7_qek5x")
-region = Rect2(0, 2049, 2049, 2049)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fm80t"]
-atlas = ExtResource("7_qek5x")
-region = Rect2(2049, 2049, 2049, 2049)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5gtgg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h17s1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_je7p5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fm80t")
-}, {
-"duration": 1.0,
-"texture": null
-}],
-"loop": 0,
-"name": &"slash",
-"speed": 18.0
-}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
 radius = 30.805843
@@ -153,7 +111,7 @@ offset = Vector2(0, -50)
 
 [node name="Slash" type="AnimatedSprite2D" parent="." unique_id=1862985947]
 scale = Vector2(0.1, 0.1)
-sprite_frames = SubResource("SpriteFrames_gkedh")
+sprite_frames = ExtResource("7_h17s1")
 animation = &"slash"
 frame = 5
 frame_progress = 1.0

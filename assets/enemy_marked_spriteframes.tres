@@ -1,0 +1,42 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bf8mokn7jwlro"]
+
+[ext_resource type="Texture2D" uid="uid://bbrf3us7xl4aa" path="res://assets/grappleMark spritesheet.png" id="1_25tyg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcidh"]
+atlas = ExtResource("1_25tyg")
+region = Rect2(0, 0, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnjs4"]
+atlas = ExtResource("1_25tyg")
+region = Rect2(2049, 0, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc7gd"]
+atlas = ExtResource("1_25tyg")
+region = Rect2(0, 2049, 2049, 2049)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxaow"]
+atlas = ExtResource("1_25tyg")
+region = Rect2(2049, 2049, 2049, 2049)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcidh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnjs4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gc7gd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxaow")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 24.0
+}]

@@ -37,6 +37,9 @@
 [ext_resource type="PackedScene" uid="uid://dq3musfjnhddb" path="res://scenes/map/death_plane.tscn" id="31_l4ess"]
 [ext_resource type="Texture2D" uid="uid://uv0jeiidokhg" path="res://assets/floor.png" id="32_qnluy"]
 [ext_resource type="Script" uid="uid://d0lw48ny38y8a" path="res://scenes/map/floor.gd" id="34_o7r5d"]
+[ext_resource type="SpriteFrames" uid="uid://bf8mokn7jwlro" path="res://assets/enemy_marked_spriteframes.tres" id="38_5vit5"]
+[ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="39_kyv1c"]
+[ext_resource type="SpriteFrames" uid="uid://su0trnb1dvb2" path="res://assets/slash_spriteframes.tres" id="40_kyv1c"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -1753,6 +1756,84 @@ text = "Hold Right Click
 or Space to Grapple"
 horizontal_alignment = 1
 
+[node name="Label7" type="RichTextLabel" parent="World" unique_id=1362561566]
+modulate = Color(1, 1, 1, 0.4627451)
+z_index = -9
+clip_contents = false
+offset_left = 96.99999
+offset_top = -916.0
+offset_right = 790.0
+offset_bottom = -803.0
+rotation = 0.2617994
+bbcode_enabled = true
+text = "[color=#abbbc9]The crosshair looks
+like               "
+horizontal_alignment = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Label7" unique_id=531252158]
+position = Vector2(388, 80)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("38_5vit5")
+frame = 4
+frame_progress = 1.0
+
+[node name="Label8" type="RichTextLabel" parent="World" unique_id=2062638525]
+modulate = Color(1, 1, 1, 0.4627451)
+z_index = -9
+clip_contents = false
+offset_left = -739.0
+offset_top = -1115.0
+offset_right = -46.0
+offset_bottom = -1002.0
+rotation = -0.2617994
+bbcode_enabled = true
+text = "[color=#abbbc9]Pull into the enemy
+while becoming            "
+horizontal_alignment = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Label8" unique_id=1570144997]
+position = Vector2(455.5716, 73.59722)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("39_kyv1c")
+animation = &"dash"
+frame = 4
+
+[node name="Label9" type="RichTextLabel" parent="World" unique_id=1216054069]
+modulate = Color(1, 1, 1, 0.4627451)
+z_index = -9
+clip_contents = false
+offset_left = -731.0
+offset_top = -558.99994
+offset_right = -38.0
+offset_bottom = -445.99994
+rotation = -0.2617994
+bbcode_enabled = true
+text = "[color=#abbbc9]You can parry the 
+            walls to bounce"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="World/Label9" unique_id=1266394951]
+position = Vector2(-242.73755, 9.529785)
+scale = Vector2(1.0000001, 1.0000001)
+points = PackedVector2Array(429.97363, 222.84851, 155.20728, 89.17905, 414.04816, 73.64264)
+default_color = Color(0.67058825, 0.73333335, 0.7882353, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Label9" unique_id=269708426]
+position = Vector2(226.53488, 82.65704)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("39_kyv1c")
+animation = &"swing"
+
+[node name="Slash" type="AnimatedSprite2D" parent="World/Label9" unique_id=26053582]
+position = Vector2(226.53491, 82.657)
+scale = Vector2(0.044, 0.044)
+sprite_frames = ExtResource("40_kyv1c")
+animation = &"slash"
+frame = 3
+
 [node name="Label3" type="RichTextLabel" parent="World" unique_id=268078032]
 z_index = -9
 offset_left = -359.0
@@ -1787,13 +1868,15 @@ text = "Keep moving up"
 horizontal_alignment = 1
 
 [node name="Label6" type="RichTextLabel" parent="World" unique_id=1756887370]
+modulate = Color(1, 1, 1, 0.4627451)
 z_index = -9
-offset_left = -359.0
-offset_top = -1885.0
-offset_right = 334.0
-offset_bottom = -1714.0
+offset_left = 3.0517578e-05
+offset_top = -1763.0
+offset_right = 693.0
+offset_bottom = -1592.0
+rotation = 0.2617994
 bbcode_enabled = true
-text = "[color=red][shake]Q[/shake][/color] or [color=red][shake]P[/shake][/color] to pause the game"
+text = "[color=#abbbc9][color=red][shake]Q[/shake][/color] or [color=red][shake]P[/shake][/color] to pause the game[/color]"
 horizontal_alignment = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1574700136]
