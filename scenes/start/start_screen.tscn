@@ -15,6 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://ca58dlr3a3k4u" path="res://scenes/blood_particle/constant_bleed.tscn" id="12_rwrtn"]
 [ext_resource type="Texture2D" uid="uid://m86seiuphsol" path="res://scenes/blood_particle/blood_size_curve.tres" id="13_cjsrg"]
 [ext_resource type="Script" uid="uid://du1vv6astgght" path="res://scenes/start/credits.gd" id="13_juusv"]
+[ext_resource type="Script" uid="uid://ie1wat58e7mh" path="res://addons/Spatial navigation mapper/NavMapper.gd" id="16_ns10t"]
+[ext_resource type="Script" uid="uid://dp0koykwijyay" path="res://addons/Spatial navigation mapper/NavMapGroup.gd" id="17_dua76"]
+[ext_resource type="Script" uid="uid://ctag0dds4juca" path="res://addons/Spatial navigation mapper/NavMapReference.gd" id="18_nsw82"]
+[ext_resource type="Texture2D" uid="uid://cl43jp368k5db" path="res://addons/Spatial navigation mapper/ContainerBorder_box_ants.png" id="19_ojs1e"]
+[ext_resource type="Texture2D" uid="uid://cp81xe1h22tlv" path="res://addons/Spatial navigation mapper/arrow.png" id="20_wt1su"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7qcy"]
 
@@ -100,6 +105,31 @@ gravity = Vector3(0, -3000, 0)
 scale_min = 0.5
 scale_curve = ExtResource("13_cjsrg")
 color = Color(0.6666667, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_plx5h"]
+script = ExtResource("17_dua76")
+ElementsToMap = Array[NodePath]([NodePath("../AllContainer/RightSide/ButtonContainer/Play"), NodePath("../AllContainer/RightSide/ButtonContainer/Credits"), NodePath("../AllContainer/RightSide/ButtonContainer/Settings"), NodePath("../AllContainer/RightSide/ButtonContainer/Splash")])
+group_bounding_box_position = Vector2(462.8, 243)
+group_bounding_box_size = Vector2(689.00006, 266)
+metadata/_custom_type_script = "uid://dp0koykwijyay"
+
+[sub_resource type="Resource" id="Resource_rbjef"]
+script = ExtResource("18_nsw82")
+Down = NodePath("../AllContainer/RightSide/ButtonContainer/Splash")
+origin = NodePath("../AllContainer/RightSide/ButtonContainer/Play")
+
+[sub_resource type="Resource" id="Resource_7eklv"]
+script = ExtResource("18_nsw82")
+origin = NodePath("../AllContainer/RightSide/ButtonContainer/Credits")
+
+[sub_resource type="Resource" id="Resource_blt1a"]
+script = ExtResource("18_nsw82")
+origin = NodePath("../AllContainer/RightSide/ButtonContainer/Settings")
+
+[sub_resource type="Resource" id="Resource_4shbm"]
+script = ExtResource("18_nsw82")
+Up = NodePath("../AllContainer/RightSide/ButtonContainer/Play")
+origin = NodePath("../AllContainer/RightSide/ButtonContainer/Splash")
 
 [node name="StartMenu" type="Control" unique_id=44145697 node_paths=PackedStringArray("credits", "cont", "buttons")]
 layout_mode = 3
@@ -713,6 +743,12 @@ theme_override_constants/separation = -18
 [node name="Play" type="Button" parent="AllContainer/RightSide/ButtonContainer" unique_id=1833676874 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../Splash")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 mouse_filter = 1
 script = ExtResource("2_v2r8c")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
@@ -781,6 +817,12 @@ vertical_alignment = 1
 [node name="Credits" type="Button" parent="AllContainer/RightSide/ButtonContainer" unique_id=1284123189 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 mouse_filter = 1
 script = ExtResource("2_v2r8c")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
@@ -849,6 +891,12 @@ vertical_alignment = 1
 [node name="Settings" type="Button" parent="AllContainer/RightSide/ButtonContainer" unique_id=767454773 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 mouse_filter = 1
 script = ExtResource("2_v2r8c")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
@@ -917,6 +965,12 @@ vertical_alignment = 1
 [node name="Splash" type="Button" parent="AllContainer/RightSide/ButtonContainer" unique_id=246283124 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Play")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 mouse_filter = 1
 script = ExtResource("2_v2r8c")
 text_formatting = "[font_size=30][color=#a9b9c7]"
@@ -1246,3 +1300,19 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="UI-navigation-mapper" type="Control" parent="." unique_id=455054830]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("16_ns10t")
+element_groups = Array[ExtResource("17_dua76")]([SubResource("Resource_plx5h")])
+navigation_references = Dictionary[String, ExtResource("18_nsw82")]({
+"Credits": SubResource("Resource_7eklv"),
+"Play": SubResource("Resource_rbjef"),
+"Settings": SubResource("Resource_blt1a"),
+"Splash": SubResource("Resource_4shbm")
+})
+group_container_tex = ExtResource("19_ojs1e")
+arrow_tex = ExtResource("20_wt1su")
+metadata/_custom_type_script = "uid://ie1wat58e7mh"

@@ -1,0 +1,73 @@
+Info about the navmapper node and variables within
+
+## Alt and (key) to hide: input key for visibility toggle hotkey combination (Alt + [key])
+
+## Lock visibility toggle: Controls whether visibility can be toggled via hotkey while at runtime
+
+## Disable auto-update: Disables any automatic in-editor update checks based on node position & scale changes,
+			relying only on manual update calls. At runtime, any position and scale changes are not checked regardless of setting
+
+## Auto-update: Controls whether updates are full re-calculations, or just visualization
+	- All: Allows calculation and updating of all values - This includes overwriting any custom changes to navigation mapping
+	- Visualization: Updates only debug visualization for in-group mapping
+		Note: group-to-group mapping is still calculated and updated, but respects any manually changed mapping between elements of the same group
+
+## Allow base godot focus: (add set self to all to stop all navigation)
+	- Automatically sets base godot focus mode of all mapped nodes to either all or none, to allow for custom navigation control & selection solutions instead
+
+## Allow base godot next and previous:
+	- Controls whether focus targets for next & previous are set to disabled (self), or calculated by godot (empty)
+	- This tool has no custom calculations or debug visuals for either, so 'false' by default
+
+## Limit update frames:
+	- By default element movement and scale change checks happen via physics process update (default: 60 times a second),
+	  'true' limits this by half if for whatever reason the default is too computationally heavy
+
+## Element groups: Control element group array: these store all to-be-mapped target elements, as well as other parameters & data
+	- Elements to map: Array of all elements considered part of this group and used for mapping navigation
+	- Entry selection indexes: Index of element selected when group is entered from another group from direction
+		- defaults to first element in group
+
+## Check resolution: Controls how many calculation points are generated for each edge of potential target element
+	- Currently a flat amount for every edge of element regardless of the size of the edge
+	- Higher amount means more calculations, but <10 is more than reasonable from testing
+
+## Maximum target angle: Maximum allowed angle of calculated points to be considered valid
+
+## Maximum group target angle: Same as maximum target angle, but for group-to-group calculations
+
+## Use left-bias:
+	- Controls whether for vertical mapping (up / down), origin is calculated from center (false: position.x + width.x / 2)
+	  or from a left-biased position (true: position + width / 4) to give control nodes on the left a higher value
+
+
+
+## Navigation references: Custom resources for bringing all focus references to one place
+	- Custom resource used by this node to store and reference calculated mapping data
+	- If to want to manually change calculated in-group pathing, use 'Visualization' auto-update mode
+	- Note that since group-to-group mapping is updated even in visualization-only mode, any nodes outside of node's own group will be removed
+	- Empty sets in-built focus to self, so no navigation can occur in the direction
+
+## Distance cut-off:
+	- Controls maximum distance (pixels/godot units) that a point is allowed to have before it is deemed invalid.
+	- = -1 sets this as infinite, so no target is ever deemed too far.
+
+## Visuals:
+  - Override:
+	- Resource for overriding debug visual colors and other parameters for easier use of custom visual settings through multiple instances.
+	- Note: updating values of override resource does not call a redraw for the parent mapper node it is in
+	- Can easily be set in any new Nav-mapper instance for transferring customization
+
+  - Visuals scaling value
+  - Overall opacity
+  - Colors:
+	- In-group
+	- Group container color
+	- Group-to-group
+  - Group label fontsize
+  - Group container padding
+  - Group container texture
+  - Group container nine-patch margin
+  - Mapping visualization arrows
+  - Draw direction indicator letters on top of arrows
+  - Draw group entry element indicators

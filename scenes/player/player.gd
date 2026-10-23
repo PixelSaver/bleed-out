@@ -72,7 +72,7 @@ func _process(delta: float) -> void:
 	if using_mouse:
 		grapple_cone.look_at(get_global_mouse_position())
 	else:
-		var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+		var input_dir = Input.get_vector("left", "right", "up", "down")
 		if input_dir.length() > 0:
 			grapple_cone.rotation = input_dir.angle()
 	
@@ -80,7 +80,7 @@ func _process(delta: float) -> void:
 func _input(event):
 	if event is InputEventMouseMotion:
 		using_mouse = true
-	elif ["ui_up", "ui_down", "ui_left", "ui_right"].any(event.is_action_pressed):
+	elif ["up", "down", "left", "right"].any(event.is_action_pressed):
 		using_mouse = false
 
 func drink():

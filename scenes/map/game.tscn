@@ -39,6 +39,7 @@
 [ext_resource type="Script" uid="uid://d0lw48ny38y8a" path="res://scenes/map/floor.gd" id="34_o7r5d"]
 [ext_resource type="SpriteFrames" uid="uid://bf8mokn7jwlro" path="res://assets/enemy_marked_spriteframes.tres" id="38_5vit5"]
 [ext_resource type="SpriteFrames" uid="uid://btkfwcg0pgoq" path="res://assets/mc/mc_spriteframes.tres" id="39_kyv1c"]
+[ext_resource type="Texture2D" uid="uid://dgsp3886wwo4e" path="res://assets/white-arrow.png" id="39_ujlqv"]
 [ext_resource type="SpriteFrames" uid="uid://su0trnb1dvb2" path="res://assets/slash_spriteframes.tres" id="40_kyv1c"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
@@ -238,6 +239,28 @@ distance = -800.0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4hwui"]
 normal = Vector2(-1, 0)
 distance = -800.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m3kug"]
+seed = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_digxj"]
+noise = SubResource("FastNoiseLite_m3kug")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aimmo"]
+shader = ExtResource("14_sehht")
+shader_parameter/cutoff = 0.6190000294025
+shader_parameter/noise = SubResource("NoiseTexture2D_digxj")
+shader_parameter/amplitude = 0.030000001425
+shader_parameter/freq = 0.1
+shader_parameter/speed = 0.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ctebp"]
+shader = ExtResource("14_sehht")
+shader_parameter/cutoff = 0.42800002033
+shader_parameter/noise = SubResource("NoiseTexture2D_digxj")
+shader_parameter/amplitude = 0.030000001425
+shader_parameter/freq = 0.1
+shader_parameter/speed = 0.05
 
 [sub_resource type="Environment" id="Environment_gkedh"]
 background_mode = 3
@@ -476,10 +499,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UILayer/PauseScreen/MarginContainer" unique_id=1623404141]
 process_mode = 3
 layout_mode = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="Spacer" type="Control" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer" unique_id=131556641]
@@ -1274,7 +1299,7 @@ mouse_filter = 1
 
 [node name="Control" type="Control" parent="UILayer/PauseScreen/MarginContainer" unique_id=1311553598]
 layout_mode = 2
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="HoverShowBox" type="Panel" parent="UILayer/PauseScreen/MarginContainer/Control" unique_id=7441808]
 layout_mode = 1
@@ -1777,26 +1802,89 @@ sprite_frames = ExtResource("38_5vit5")
 frame = 4
 frame_progress = 1.0
 
-[node name="Label10" type="RichTextLabel" parent="World" unique_id=2080768720]
+[node name="GrappleBlood" type="RichTextLabel" parent="World" unique_id=2080768720]
 modulate = Color(1, 1, 1, 0.4627451)
 z_index = -9
 clip_contents = false
-offset_left = -824.0
-offset_top = -867.0
-offset_right = -131.0
-offset_bottom = -754.0
+offset_left = -880.99994
+offset_top = -773.0
+offset_right = -187.99994
+offset_bottom = -660.0
 rotation = -0.2617994
 bbcode_enabled = true
-text = "[color=#abbbc9]Grappling gets you 
-[color=red]blood[/color]                                 "
+text = "[color=#abbbc9]Grappling gets 
+you [color=red]blood[/color]"
 horizontal_alignment = 1
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Label10" unique_id=333836202]
-position = Vector2(388, 80)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("38_5vit5")
-frame = 4
-frame_progress = 1.0
+[node name="TextureRect" type="TextureRect" parent="World/GrappleBlood" unique_id=930109264]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 124.911194
+offset_top = -141.62404
+offset_right = 124.911194
+offset_bottom = 1131.376
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("13_o7r5d")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="front" type="TextureRect" parent="World/GrappleBlood/TextureRect" unique_id=1760050253]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_aimmo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+texture = ExtResource("15_8e6rg")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="World/GrappleBlood" unique_id=1219085421]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 418.64557
+offset_top = -140.56386
+offset_right = 418.6455
+offset_bottom = 1132.4362
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("13_o7r5d")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="front" type="TextureRect" parent="World/GrappleBlood/TextureRect2" unique_id=539683495]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_ctebp")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+texture = ExtResource("15_8e6rg")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Arrow" type="TextureRect" parent="World/GrappleBlood" unique_id=1968794355]
+modulate = Color(1, 0, 0, 0.654902)
+layout_mode = 0
+offset_left = 256.22543
+offset_top = -90.77713
+offset_right = 1150.2256
+offset_bottom = 803.2229
+scale = Vector2(0.2, 0.15)
+texture = ExtResource("39_ujlqv")
 
 [node name="Label8" type="RichTextLabel" parent="World" unique_id=2062638525]
 modulate = Color(1, 1, 1, 0.4627451)
@@ -1819,21 +1907,21 @@ sprite_frames = ExtResource("39_kyv1c")
 animation = &"dash"
 frame = 4
 
-[node name="Label9" type="RichTextLabel" parent="World" unique_id=1216054069]
+[node name="ParryWall" type="RichTextLabel" parent="World" unique_id=1216054069]
 modulate = Color(1, 1, 1, 0.4627451)
 z_index = -9
 clip_contents = false
-offset_left = -731.0
-offset_top = -558.99994
-offset_right = -38.0
-offset_bottom = -445.99994
+offset_left = -751.0
+offset_top = -405.0
+offset_right = -58.0
+offset_bottom = -292.0
 rotation = -0.2617994
 bbcode_enabled = true
 text = "[color=#abbbc9]You can parry the 
             walls to bounce"
 horizontal_alignment = 1
 
-[node name="Line2D" type="Line2D" parent="World/Label9" unique_id=1266394951]
+[node name="Line2D" type="Line2D" parent="World/ParryWall" unique_id=1266394951]
 position = Vector2(-242.73755, 9.529785)
 scale = Vector2(1.0000001, 1.0000001)
 points = PackedVector2Array(429.97363, 222.84851, 155.20728, 89.17905, 414.04816, 73.64264)
@@ -1842,13 +1930,13 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Label9" unique_id=269708426]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/ParryWall" unique_id=269708426]
 position = Vector2(226.53488, 82.65704)
 scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("39_kyv1c")
 animation = &"swing"
 
-[node name="Slash" type="AnimatedSprite2D" parent="World/Label9" unique_id=26053582]
+[node name="Slash" type="AnimatedSprite2D" parent="World/ParryWall" unique_id=26053582]
 position = Vector2(226.53491, 82.657)
 scale = Vector2(0.044, 0.044)
 sprite_frames = ExtResource("40_kyv1c")
