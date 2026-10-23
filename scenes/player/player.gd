@@ -12,14 +12,14 @@ class_name Player
 @export var respawn_delay: float = 0.2
 @export var drink_amount: float = 60.0
 @export var drink_duration: float = 1.0
-@export var sustained_drink_duration : float = 1.3
+@export var sustained_drink_duration : float = 1.25
 @export var min_blood: float = 10.0
 @export var invincibilty_duration: float = 1.5
 @export var flicker_duration: float = 1.0
 @export var min_player_y: float = 1000.0
 @export var initial_blood_drain: float = -5.0
 @export var max_blood_drain: float = -15.0
-@export var blood_drain_change_time: float = 30.0
+@export var blood_drain_change_time: float = 20.0
 var blood_drain: float = 0.0
 var blood_rate
 var invincibility_counter: float = 0.0

@@ -859,8 +859,6 @@ texture = ExtResource("6_sd4cy")
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 process_mode = 1
 script = ExtResource("2_lclk0")
-spawn_chunk_population = 2
-starting_y = -1200.0
 
 [node name="Goblin2" parent="EnemyManager" unique_id=1626915586 instance=ExtResource("3_sd4cy")]
 position = Vector2(0, -906)
