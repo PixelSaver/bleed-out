@@ -18,9 +18,13 @@ func _notification(what: int) -> void:
 		NOTIFICATION_MOUSE_EXIT:
 			_unhover()
 		NOTIFICATION_FOCUS_ENTER:
-			pass
+			_hover()
 		NOTIFICATION_FOCUS_EXIT:
-			pass
+			_unhover()
+
+#func _input(event: InputEvent) -> void:
+	#if event is InputEventMouseMotion and not has_focus():
+		#_hover()
 
 func _on_pressed() -> void:
 	if t and t.is_running(): t.kill()
@@ -31,6 +35,7 @@ func _on_pressed() -> void:
 	AudioManager.play_sfx(AudioManager.Sound.UI_CLICK, -20)
 
 func _hover() -> void:
+	grab_focus(true)
 	var parsed = front.get_parsed_text()
 	front.clear()
 	front.append_text(text_formatting)
@@ -51,6 +56,7 @@ func _hover() -> void:
 	AudioManager.play_sfx(AudioManager.Sound.UI_HOVER, -10., .00)
 	
 func _unhover() -> void:
+	release_focus()
 	var parsed = front.get_parsed_text()
 	front.clear()
 	front.append_text(text_formatting)

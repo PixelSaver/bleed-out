@@ -1,5 +1,6 @@
 @tool
 extends Control
+class_name NavMapper
 
 @export_tool_button("Map navigation", "CanvasItem") var ClickMeButton = QueueRemap
 

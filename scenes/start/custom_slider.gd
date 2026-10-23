@@ -12,7 +12,6 @@ func _ready() -> void:
 	self.pivot_offset_ratio = Vector2.ONE * 0.5
 	await get_tree().create_timer(.5).timeout
 	max_x = slider_progress.size.x
-	print("Slider max: %s" % max_x)
 
 
 func _on_value_changed(v: float) -> void:
@@ -26,11 +25,12 @@ func _notification(what: int) -> void:
 		NOTIFICATION_MOUSE_EXIT:
 			_unhover()
 		NOTIFICATION_FOCUS_ENTER:
-			pass
+			_hover()
 		NOTIFICATION_FOCUS_EXIT:
-			pass
+			_unhover()
 
 func _hover() -> void:
+	grab_focus()
 	if t and t.is_running(): t.kill()
 	t = create_tween().set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT).set_parallel(true)
@@ -38,6 +38,7 @@ func _hover() -> void:
 	AudioManager.play_sfx(AudioManager.Sound.UI_HOVER, -10)
 	
 func _unhover() -> void:
+	release_focus()
 	if t and t.is_running(): t.kill()
 	t = create_tween().set_ease(Tween.EASE_OUT)
 	t.set_trans(Tween.TRANS_QUINT).set_parallel(true)
