@@ -48,9 +48,12 @@ grow_vertical = 2
 stream = ExtResource("3_cdjf5")
 volume_db = 8.0
 autoplay = true
+max_distance = 2500.0
 attenuation = 3.363585
+bus = &"SFX"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2143503005]
 stream = ExtResource("3_cdjf5")
 volume_db = -12.0
 autoplay = true
+bus = &"SFX"

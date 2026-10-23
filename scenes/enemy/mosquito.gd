@@ -84,6 +84,8 @@ func charge(p_ref: Player) -> void:
 	var target = p_ref.global_position + p_ref.velocity * alpha
 	var dir = target - global_position
 	self.apply_central_impulse(dir.normalized() * charge_strength)
+	var sound = [AudioManager.Sound.MOSQUITO_CHARGE_1, AudioManager.Sound.MOSQUITO_CHARGE_2, AudioManager.Sound.MOSQUITO_CHARGE_3].pick_random()
+	AudioManager.play_sfx_2d(self, sound, 15)
 	# await charge cooldown before moving again
 	await get_tree().create_timer(charge_cooldown).timeout
 	try_charge_again()
