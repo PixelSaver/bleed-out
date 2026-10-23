@@ -13,6 +13,7 @@ class_name Enemy
 @export var speed: float = 10.
 signal frozen(is_frozen:bool)
 var _queued_atk: Attack = null
+var killed_by_player = false
 
 func _ready() -> void:
 	health_component.death.connect(_on_death)
@@ -45,6 +46,7 @@ func highlight(do_highlight:bool) -> void:
 		marked.play("default", -2., true)
 
 func damage(atk:Attack) -> void:
+	killed_by_player = atk.player_hit
 	health_component.damage(atk)
 
 ## Function to toggle freezing of the enemy, stopping AI and special moves. 
@@ -69,12 +71,14 @@ func _on_freeze(_frozen: bool) -> void:
 
 func _on_death() -> void:
 	# Blood explosion
-	var explosion = preload("res://scenes/blood_particle/blood_explosion.tscn").instantiate() as GPUParticles2D
-	get_parent().add_child(explosion)
-	explosion.global_position = global_position
-	explosion.one_shot = true
-	explosion.emitting = true
-	explosion.finished.connect(explosion.queue_free)
+	if killed_by_player:
+		var explosion = preload("res://scenes/blood_particle/blood_explosion.tscn").instantiate() as GPUParticles2D
+		AudioManager.play_sfx(AudioManager.Sound.BLOOD_EXPLODE)
+		get_parent().add_child(explosion)
+		explosion.global_position = global_position
+		explosion.one_shot = true
+		explosion.emitting = true
+		explosion.finished.connect(explosion.queue_free)
 	
 	# Remove enemy
 	Global.enemy_man.unregister_enemy(self)

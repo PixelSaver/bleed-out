@@ -20,6 +20,10 @@ enum Sound {
 	WATERFALL_ISOLATED,
 	WATERFALL_LOOP,
 	WATERFALL_CHOIR,
+	HEAL,
+	BLOOD_EXPLODE,
+	DADOOM,
+	ACHOO
 }
 const sounds: Dictionary[Sound, AudioStream] = {
 	Sound.DASH: preload("res://assets/sfx/blood_dash.mp3"),
@@ -41,6 +45,10 @@ const sounds: Dictionary[Sound, AudioStream] = {
 	Sound.WATERFALL_ISOLATED: preload("res://assets/sfx/holy_waterfall_bg_isolated.wav"),
 	Sound.WATERFALL_LOOP: preload("res://assets/sfx/holy_waterfall_bg_loop.wav"),
 	Sound.WATERFALL_CHOIR: preload("res://assets/sfx/holy_waterfall_bg_choir.wav"),
+	Sound.HEAL: preload("res://assets/sfx/healonKill v1.wav"),
+	Sound.BLOOD_EXPLODE: preload("res://assets/sfx/EnemyBloodExplode(not_scary).wav"),
+	Sound.DADOOM: preload("res://assets/sfx/dadoomIntro v3.wav"),
+	Sound.ACHOO: preload("res://assets/sfx/NosebleedSplashIntro.wav"),
 }
 
 var TITLE_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Intro Oct21.wav")
@@ -49,18 +57,21 @@ var GAME_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Oc
 var music_player: AudioStreamPlayer
 var music_tween: Tween
 
+@export var music_volume_db: float = -1.0
+
 func _ready() -> void:
 	music_player = AudioStreamPlayer.new()
 	music_player.bus = "Music"
 	music_player.name = "MusicPlayer"
 	add_child(music_player)
+	music_player.volume_db = music_volume_db
 
 	TITLE_MUSIC.loop_mode = AudioStreamWAV.LOOP_FORWARD
 	TITLE_MUSIC.loop_begin = 0
 	TITLE_MUSIC.loop_end = roundi(TITLE_MUSIC.get_length() * TITLE_MUSIC.mix_rate)
 
 	GAME_MUSIC.loop_mode = AudioStreamWAV.LOOP_FORWARD
-	GAME_MUSIC.loop_begin = roundi(TITLE_MUSIC.get_length() * GAME_MUSIC.mix_rate)
+	GAME_MUSIC.loop_begin = roundi(TITLE_MUSIC.get_length() / 2.0 * GAME_MUSIC.mix_rate)
 	GAME_MUSIC.loop_end = roundi(GAME_MUSIC.get_length() * GAME_MUSIC.mix_rate)
 
 func get_audio_stream(s:Sound) -> AudioStream:
@@ -120,11 +131,12 @@ func play_title_music() -> void:
 
 
 func transition_to_game_music() -> void:
-	if music_player.playing and music_player.stream == GAME_MUSIC:
-		return
 	cancel_music_fade()
 
-	var pos = music_player.get_playback_position() if music_player.playing else 0.0
+	if music_player.playing and music_player.stream == GAME_MUSIC:
+		return
+
+	var pos = fposmod(music_player.get_playback_position(), TITLE_MUSIC.get_length() / 2.0) if music_player.playing else 0.0
 
 	music_player.stream = GAME_MUSIC
 	music_player.play(pos)
@@ -139,9 +151,9 @@ func stop_music(duration: float = 2.0) -> void:
 	await music_tween.finished
 
 	music_player.stop()
-	music_player.volume_db = 0.0
+	music_player.volume_db = music_volume_db
 	
 func cancel_music_fade() -> void:
 	if music_tween and music_tween.is_running():
 		music_tween.kill()
-	music_player.volume_db = 0.0
+	music_player.volume_db = music_volume_db

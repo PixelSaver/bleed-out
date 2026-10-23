@@ -62,6 +62,7 @@ func _input(event):
 
 func drink():
 	blood_rate = drink_amount
+	AudioManager.play_sfx(AudioManager.Sound.HEAL)
 
 func spend_blood(cost: float):
 	if health_component.health > min_blood:
@@ -116,7 +117,7 @@ func _on_death() -> void:
 	if is_dead:
 		return
 	var sound = [AudioManager.Sound.DEATH].pick_random()
-	AudioManager.play_sfx(sound, -20)
+	AudioManager.play_sfx(sound, -10)
 	is_dead = true
 	SignalBus.died.emit()
 	$LowHealth.stream_paused = true
