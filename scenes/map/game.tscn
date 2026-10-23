@@ -1777,6 +1777,27 @@ sprite_frames = ExtResource("38_5vit5")
 frame = 4
 frame_progress = 1.0
 
+[node name="Label10" type="RichTextLabel" parent="World" unique_id=2080768720]
+modulate = Color(1, 1, 1, 0.4627451)
+z_index = -9
+clip_contents = false
+offset_left = -824.0
+offset_top = -867.0
+offset_right = -131.0
+offset_bottom = -754.0
+rotation = -0.2617994
+bbcode_enabled = true
+text = "[color=#abbbc9]Grappling gets you 
+[color=red]blood[/color]                                 "
+horizontal_alignment = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Label10" unique_id=333836202]
+position = Vector2(388, 80)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("38_5vit5")
+frame = 4
+frame_progress = 1.0
+
 [node name="Label8" type="RichTextLabel" parent="World" unique_id=2062638525]
 modulate = Color(1, 1, 1, 0.4627451)
 z_index = -9
