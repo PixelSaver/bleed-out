@@ -43,6 +43,26 @@ const sounds: Dictionary[Sound, AudioStream] = {
 	Sound.WATERFALL_CHOIR: preload("res://assets/sfx/holy_waterfall_bg_choir.wav"),
 }
 
+var TITLE_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Intro Oct21.wav")
+var GAME_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Oct21.wav")
+
+var music_player: AudioStreamPlayer
+var music_tween: Tween
+
+func _ready() -> void:
+	music_player = AudioStreamPlayer.new()
+	music_player.bus = "Music"
+	music_player.name = "MusicPlayer"
+	add_child(music_player)
+
+	TITLE_MUSIC.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	TITLE_MUSIC.loop_begin = 0
+	TITLE_MUSIC.loop_end = roundi(TITLE_MUSIC.get_length() * TITLE_MUSIC.mix_rate)
+
+	GAME_MUSIC.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	GAME_MUSIC.loop_begin = roundi(TITLE_MUSIC.get_length() * GAME_MUSIC.mix_rate)
+	GAME_MUSIC.loop_end = roundi(GAME_MUSIC.get_length() * GAME_MUSIC.mix_rate)
+
 func get_audio_stream(s:Sound) -> AudioStream:
 	var out = sounds.get(s)
 	if out:
@@ -80,6 +100,7 @@ func play_sfx_2d(node:Node2D, sound: Sound, volume_db: float = 0.0, start_pos: f
 	sfx_counter += 1
 
 	node.add_child(player)
+	player.finished.connect(player.queue_free)
 	player.play()
 	player.seek(start_pos)
 
@@ -88,3 +109,39 @@ func kill_sfx(sound: Sound) -> void:
 	for child in get_children():
 		if child.name.contains(s):
 			child.queue_free()
+
+func play_title_music() -> void:
+	if music_player.playing and music_player.stream == TITLE_MUSIC:
+		return
+	cancel_music_fade()
+
+	music_player.stream = TITLE_MUSIC
+	music_player.play()
+
+
+func transition_to_game_music() -> void:
+	if music_player.playing and music_player.stream == GAME_MUSIC:
+		return
+	cancel_music_fade()
+
+	var pos = music_player.get_playback_position() if music_player.playing else 0.0
+
+	music_player.stream = GAME_MUSIC
+	music_player.play(pos)
+
+
+func stop_music(duration: float = 2.0) -> void:
+	if music_tween and music_tween.is_running():
+		music_tween.kill()
+
+	music_tween = create_tween()
+	music_tween.tween_property(music_player, "volume_db", -80.0, duration)
+	await music_tween.finished
+
+	music_player.stop()
+	music_player.volume_db = 0.0
+	
+func cancel_music_fade() -> void:
+	if music_tween and music_tween.is_running():
+		music_tween.kill()
+	music_player.volume_db = 0.0
