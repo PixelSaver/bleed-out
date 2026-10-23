@@ -66,17 +66,21 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
 radius = 30.805843
 
-[sub_resource type="Gradient" id="Gradient_5gtgg"]
+[sub_resource type="Gradient" id="Gradient_3l8fg"]
 offsets = PackedFloat32Array(0, 0.944, 0.952)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1c2yt"]
-gradient = SubResource("Gradient_5gtgg")
+gradient = SubResource("Gradient_3l8fg")
 width = 16
 height = 16
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Curve" id="Curve_ts7x6"]
+_data = [Vector2(0.031914897, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.29310352), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("grapple_cone", "parry_hitbox", "health_component", "player_movement_component") groups=["Player"]]
 position = Vector2(34, 19)
@@ -188,4 +192,5 @@ amount = 20
 texture = SubResource("GradientTexture2D_1c2yt")
 lifetime = 0.5
 scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_ts7x6")
 color = Color(0.7058824, 0, 0, 1)

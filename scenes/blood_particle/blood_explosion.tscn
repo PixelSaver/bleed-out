@@ -1,29 +1,36 @@
 [gd_scene format=3 uid="uid://c5f2s23wcevdy"]
 
-[sub_resource type="Gradient" id="Gradient_xmpos"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+[ext_resource type="Script" uid="uid://0ulns7xpy6cg" path="res://scenes/blood_particle/constant_bleed.gd" id="1_1c2yt"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_f67s6"]
-gradient = SubResource("Gradient_xmpos")
+[sub_resource type="Gradient" id="Gradient_3l8fg"]
+offsets = PackedFloat32Array(0, 0.944, 0.952)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1c2yt"]
+gradient = SubResource("Gradient_3l8fg")
 width = 16
 height = 16
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
-[sub_resource type="Curve" id="Curve_t1qvo"]
-_data = [Vector2(0.10638299, 1), 0.0, 0.0, 0, 0, Vector2(0.98936164, 0.10344827), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_5gtgg"]
+_data = [Vector2(0.049645394, 1), 0.0, 0.0, 0, 0, Vector2(0.98936164, 0.30459774), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="CPUParticles2D" type="CPUParticles2D" unique_id=703055839]
-amount = 200
-texture = SubResource("GradientTexture2D_f67s6")
+[node name="constant_bleed" type="CPUParticles2D" unique_id=1247338773]
+position = Vector2(12, -2)
+amount = 60
+texture = SubResource("GradientTexture2D_1c2yt")
 lifetime = 0.5
 explosiveness = 1.0
+lifetime_randomness = 0.5
 spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 50.0
-initial_velocity_max = 100.0
+initial_velocity_min = 20.0
+initial_velocity_max = 500.0
+damping_min = 100.0
+damping_max = 300.0
 scale_amount_min = 0.5
-scale_amount_curve = SubResource("Curve_t1qvo")
+scale_amount_curve = SubResource("Curve_5gtgg")
 color = Color(0.7058824, 0, 0, 1)
+script = ExtResource("1_1c2yt")
