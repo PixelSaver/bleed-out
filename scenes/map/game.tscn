@@ -210,6 +210,19 @@ shadow_enabled = true
 shadow_offset = Vector2(10, 10)
 metadata/_custom_type_script = "uid://bkl6g25jwb47h"
 
+[sub_resource type="StyleBox" id="StyleBox_8e6rg"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+script = ExtResource("4_mcwih")
+color = Color(0.6715, 0.7347, 0.79, 0.5137255)
+skew = Vector2(0.1, 0)
+corner_detail = 5
+shadow_blur = 0
+
 [sub_resource type="Resource" id="Resource_ry5pk"]
 script = ExtResource("12_mysg8")
 
@@ -417,7 +430,7 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="PauseScreen" type="Control" parent="UILayer" unique_id=1338486760 node_paths=PackedStringArray("buttons", "all_t", "pause_tweenables")]
+[node name="PauseScreen" type="Control" parent="UILayer" unique_id=1338486760 node_paths=PackedStringArray("buttons", "all_t", "pause_tweenables", "hover_box")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -430,6 +443,7 @@ script = ExtResource("23_mcwih")
 buttons = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Resume"), NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver"), NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Settings"), NodePath("MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Back")]
 all_t = [NodePath("BG/Tweenable"), NodePath("MarginContainer/HBoxContainer/Panel/StartTweenable")]
 pause_tweenables = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/Tweenable"), NodePath("MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/Tweenable")]
+hover_box = NodePath("MarginContainer/Control/HoverShowBox")
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
 [node name="BG" type="TextureRect" parent="UILayer/PauseScreen" unique_id=1455153059]
@@ -1254,6 +1268,36 @@ process_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
+
+[node name="Control" type="Control" parent="UILayer/PauseScreen/MarginContainer" unique_id=1311553598]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="HoverShowBox" type="Panel" parent="UILayer/PauseScreen/MarginContainer/Control" unique_id=7441808]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_8e6rg")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/Control/HoverShowBox" unique_id=902863659]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[font_size=30][color=#000000]Hover to see the game"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="DeathScreen" type="Control" parent="UILayer" unique_id=185172601 node_paths=PackedStringArray("buttons", "all_t", "score_display")]
 process_mode = 3

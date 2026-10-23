@@ -4,6 +4,7 @@ class_name PauseScreen
 @export var buttons: Array[Button]
 @export var all_t : Array[Tweenable] = []
 @export var pause_tweenables: Array[Tweenable] = []
+@export var hover_box: Panel
 var t: Tween 
 
 func _ready() -> void: 
@@ -13,6 +14,15 @@ func _ready() -> void:
 	self.hide()
 	for but in buttons:
 		but.pressed.connect(_on_button_pressed.bind(but.name))
+	hover_box.mouse_entered.connect(_on_hover.bind(true))
+	hover_box.mouse_exited.connect(_on_hover.bind(false))
+
+func _on_hover(mouse_inside: bool) -> void:
+	if t and t.is_running():
+		t.kill()
+	t = default_tween()
+	var a = 0. if mouse_inside else 1.
+	t.tween_property(self, "modulate:a", a, 0.7)
 
 func _on_button_pressed(_name:String) -> void:
 	match _name.to_lower():
