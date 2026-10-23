@@ -14,6 +14,7 @@ func start_anim() -> void:
 	AudioManager.stop_music()
 	AudioManager.play_sfx(AudioManager.Sound.ACHOO)
 	reed_splash.modulate.a = 0.0
+	AudioManager.play_sfx(AudioManager.Sound.INTRO_ACHOO, -20)
 	t = default_tween().set_ease(Tween.EASE_OUT)
 	t.tween_property(reed_splash, "modulate:a", 1.0, 1.0)
 	t.chain()
@@ -21,6 +22,7 @@ func start_anim() -> void:
 	await t.finished
 	AudioManager.play_sfx(AudioManager.Sound.DADOOM)
 	splash.play("default")
+	AudioManager.play_sfx(AudioManager.Sound.INTRO_DADOOM, -20)
 	await splash.animation_finished
 	Global.menu_manager.transition_to_scene(
 		SceneDatabase.get_scene(SceneDatabase.Scene.START)
