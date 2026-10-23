@@ -456,7 +456,7 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="PauseScreen" type="Control" parent="UILayer" unique_id=1338486760 node_paths=PackedStringArray("buttons", "all_t", "pause_tweenables", "hover_box")]
+[node name="PauseScreen" type="Control" parent="UILayer" unique_id=1338486760 node_paths=PackedStringArray("buttons", "all_t", "pause_tweenables", "hover_box", "settings_nodes", "pause_nodes")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -470,6 +470,8 @@ buttons = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxCon
 all_t = [NodePath("BG/Tweenable"), NodePath("MarginContainer/HBoxContainer/Panel/StartTweenable")]
 pause_tweenables = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/Tweenable"), NodePath("MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/Tweenable")]
 hover_box = NodePath("MarginContainer/Control/HoverShowBox")
+settings_nodes = [NodePath("MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Back"), NodePath("MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MasterSlider"), NodePath("MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/SFXSlider"), NodePath("MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/MusicSlider")]
+pause_nodes = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Resume"), NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Settings"), NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver")]
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
 [node name="BG" type="TextureRect" parent="UILayer/PauseScreen" unique_id=1455153059]
@@ -581,6 +583,12 @@ vertical_alignment = 1
 process_mode = 3
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../Settings")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 mouse_filter = 1
 script = ExtResource("18_xrurs")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
@@ -654,6 +662,12 @@ vertical_alignment = 1
 process_mode = 3
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Resume")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../StartOver")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 mouse_filter = 1
 script = ExtResource("18_xrurs")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
@@ -727,6 +741,12 @@ vertical_alignment = 1
 process_mode = 3
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Settings")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 mouse_filter = 1
 script = ExtResource("18_xrurs")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
@@ -857,7 +877,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_constants/separation = -10
 script = ExtResource("24_djfjv")
-slider = NodePath("CustomSlider")
+slider = NodePath("MasterSlider")
 label_1 = NodePath("MarginContainer/HBoxContainer/AudioLevel")
 label_2 = NodePath("MarginContainer/HBoxContainer/AudioLevel/AudioLevel")
 
@@ -928,11 +948,17 @@ scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="CustomSlider" type="HSlider" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio" unique_id=1484954014 node_paths=PackedStringArray("slider_progress")]
+[node name="MasterSlider" type="HSlider" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio" unique_id=1484954014 node_paths=PackedStringArray("slider_progress")]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_visual_only = false
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../SFX/SFXSlider")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 mouse_filter = 1
 theme_override_styles/slider = SubResource("StyleBoxEmpty_kyv1c")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_ujlqv")
@@ -943,7 +969,7 @@ value = 1.0
 script = ExtResource("25_5vit5")
 slider_progress = NodePath("MarginContainer/MarginContainer/Progress")
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider" unique_id=1913804901]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MasterSlider" unique_id=1913804901]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -955,19 +981,19 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 10
 
-[node name="BG" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider/MarginContainer" unique_id=1487505820]
+[node name="BG" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MasterSlider/MarginContainer" unique_id=1487505820]
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_digxj")
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider/MarginContainer" unique_id=496561603]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MasterSlider/MarginContainer" unique_id=496561603]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Progress" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider/MarginContainer/MarginContainer" unique_id=137789365]
+[node name="Progress" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MasterSlider/MarginContainer/MarginContainer" unique_id=137789365]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_pivot_ratio = Vector2(0, 0.5)
@@ -981,7 +1007,7 @@ layout_mode = 2
 theme_override_constants/separation = -10
 script = ExtResource("24_djfjv")
 bus = "SFX"
-slider = NodePath("CustomSlider")
+slider = NodePath("SFXSlider")
 label_1 = NodePath("MarginContainer/HBoxContainer/AudioLevel")
 label_2 = NodePath("MarginContainer/HBoxContainer/AudioLevel/AudioLevel")
 
@@ -1052,11 +1078,17 @@ scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="CustomSlider" type="HSlider" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX" unique_id=1961832234 node_paths=PackedStringArray("slider_progress")]
+[node name="SFXSlider" type="HSlider" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX" unique_id=1961832234 node_paths=PackedStringArray("slider_progress")]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_visual_only = false
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../MasterAudio/MasterSlider")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Music/MusicSlider")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 mouse_filter = 1
 theme_override_styles/slider = SubResource("StyleBoxEmpty_kyv1c")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_ujlqv")
@@ -1067,7 +1099,7 @@ value = 1.0
 script = ExtResource("25_5vit5")
 slider_progress = NodePath("MarginContainer/MarginContainer/Progress")
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider" unique_id=1221272191]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/SFXSlider" unique_id=1221272191]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1079,19 +1111,19 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 10
 
-[node name="BG" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider/MarginContainer" unique_id=773203294]
+[node name="BG" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/SFXSlider/MarginContainer" unique_id=773203294]
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_digxj")
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider/MarginContainer" unique_id=517666130]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/SFXSlider/MarginContainer" unique_id=517666130]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Progress" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider/MarginContainer/MarginContainer" unique_id=1984283476]
+[node name="Progress" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/SFXSlider/MarginContainer/MarginContainer" unique_id=1984283476]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_pivot_ratio = Vector2(0, 0.5)
@@ -1104,7 +1136,7 @@ layout_mode = 2
 theme_override_constants/separation = -10
 script = ExtResource("24_djfjv")
 bus = "Music"
-slider = NodePath("CustomSlider")
+slider = NodePath("MusicSlider")
 label_1 = NodePath("MarginContainer/HBoxContainer/AudioLevel")
 label_2 = NodePath("MarginContainer/HBoxContainer/AudioLevel/AudioLevel")
 
@@ -1175,11 +1207,17 @@ scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="CustomSlider" type="HSlider" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music" unique_id=998431271 node_paths=PackedStringArray("slider_progress")]
+[node name="MusicSlider" type="HSlider" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music" unique_id=998431271 node_paths=PackedStringArray("slider_progress")]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_visual_only = false
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../SFX/SFXSlider")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Back")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 mouse_filter = 1
 theme_override_styles/slider = SubResource("StyleBoxEmpty_kyv1c")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_ujlqv")
@@ -1190,7 +1228,7 @@ value = 1.0
 script = ExtResource("25_5vit5")
 slider_progress = NodePath("MarginContainer/MarginContainer/Progress")
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider" unique_id=1181988656]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/MusicSlider" unique_id=1181988656]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1202,19 +1240,19 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 10
 
-[node name="BG" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider/MarginContainer" unique_id=1770726493]
+[node name="BG" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/MusicSlider/MarginContainer" unique_id=1770726493]
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_digxj")
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider/MarginContainer" unique_id=1196461308]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/MusicSlider/MarginContainer" unique_id=1196461308]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Progress" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider/MarginContainer/MarginContainer" unique_id=198376867]
+[node name="Progress" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/MusicSlider/MarginContainer/MarginContainer" unique_id=198376867]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_pivot_ratio = Vector2(0, 0.5)
@@ -1224,6 +1262,12 @@ theme_override_styles/panel = SubResource("StyleBox_aimmo")
 [node name="Back" type="Button" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer" unique_id=720302299 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Music/MusicSlider")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 mouse_filter = 1
 script = ExtResource("18_xrurs")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
