@@ -195,6 +195,7 @@ front_rect = NodePath("Visual/Front")
 lazer_area = NodePath("Visual/Pupil/Lazer")
 lazer_line_promise = NodePath("Visual/Pupil/Lazer/LinePromise")
 lazer_line = NodePath("Visual/Pupil/Lazer/LineReal")
+lazer_damage = 45.0
 touch_area = NodePath("TouchDamage")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")

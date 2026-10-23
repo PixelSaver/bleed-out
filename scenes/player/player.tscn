@@ -65,7 +65,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
 radius = 30.805843
 
-[node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("grapple_cone", "parry_hitbox", "health_component", "player_movement_component") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("grapple_cone", "parry_hitbox", "health_component", "player_movement_component", "player_sprite") groups=["Player"]]
 collision_layer = 2
 collision_mask = 11
 script = ExtResource("1_dovo2")
@@ -73,6 +73,7 @@ grapple_cone = NodePath("GrappleCone")
 parry_hitbox = NodePath("ParryHitbox")
 health_component = NodePath("HealthComponent")
 player_movement_component = NodePath("PlayerMovementComponent")
+player_sprite = NodePath("MC")
 metadata/_custom_type_script = "uid://dtvxmu6o1o5s"
 metadata/_edit_group_ = true
 

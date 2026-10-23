@@ -6,11 +6,13 @@ class_name Player
 @export var parry_hitbox: Area2D
 @export var health_component: HealthComponent
 @export var player_movement_component: PlayerMovementComponent
+@export var player_sprite: AnimatedSprite2D
 @export_category("Player tweaks")
 @export var respawn_delay: float = 0.2
 @export var blood_drain: float = -15.0
 @export var drink_amount: float = 60.0
 @export var drink_duration: float = 1.0
+@export var min_blood: float = 10.0
 @export var invincibilty_duration: float = 1.5
 @export var flicker_duration: float = 1.0
 var blood_rate
@@ -30,6 +32,9 @@ func _process(delta: float) -> void:
 		invincibility_counter -= delta
 	if flicker_counter > 0:
 		flicker_counter -= delta
+		player_sprite.visible = int(flicker_counter * 12) % 2 == 0
+	else:
+		player_sprite.visible = true
 	if blood_rate > blood_drain:
 		blood_rate = move_toward(blood_rate, blood_drain, (drink_amount - blood_drain) / drink_duration * delta)
 	if blood_rate > 0:
@@ -57,12 +62,11 @@ func _input(event):
 func drink():
 	blood_rate = drink_amount
 
-func spend_blood(required: float, cost: float):
-	if health_component.health >= required:
+func spend_blood(cost: float):
+	if health_component.health > min_blood:
 		var atk = Attack.new()
-		atk.damage = cost
+		atk.damage = min(cost, health_component.health - min_blood)
 		health_component.damage(atk)
-		return true
 
 ## Checks if the player is invincible
 func is_invincible() -> bool:
@@ -70,10 +74,10 @@ func is_invincible() -> bool:
 
 func damage(atk:Attack) -> void:
 	if not is_invincible():
+		player_movement_component.let_go(self)
 		health_component.damage(atk)
 		set_invincibility(invincibilty_duration)
 		flicker_counter = flicker_duration
-		player_movement_component.let_go(self)
 		var sound = [
 			AudioManager.Sound.HURT_1, 
 			AudioManager.Sound.HURT_2,

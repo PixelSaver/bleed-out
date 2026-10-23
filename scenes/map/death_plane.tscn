@@ -9,8 +9,8 @@ size = Vector2(3000, 1500)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gkedh"]
 shader = ExtResource("2_qiijp")
 shader_parameter/liquid_level = 0.48400002299
-shader_parameter/liquid_color = Color(0.2, 0.5, 1, 0.8)
-shader_parameter/foam_color = Color(0.8, 0.9, 1, 0.6)
+shader_parameter/liquid_color = Color(2.1658838e-07, 0.2429505, 0.21359557, 0.8)
+shader_parameter/foam_color = Color(2.4065375e-06, 0.6236171, 0.55220735, 0.8)
 shader_parameter/wave_amplitude = 0.010000000475
 shader_parameter/wave_frequency = 10.0
 shader_parameter/wave_speed = 4.0
@@ -28,7 +28,6 @@ collision_mask = 6
 collision_priority = 10.0
 input_pickable = false
 script = ExtResource("1_8276u")
-starting_speed = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=426851509]
 position = Vector2(0, 750)
