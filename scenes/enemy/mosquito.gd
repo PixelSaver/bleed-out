@@ -8,9 +8,10 @@ class_name MosquitoEnemy
 ## Delay between charging animation and actual charge
 @export var charge_delay: float = 0.5
 ## Impulse strength for charging
-@export var charge_strength: float = 10.
+@export var charge_strength: float = 40.
 ## Delay between the last charge and trying to charge again
-@export var charge_cooldown: float = 2.
+@export var charge_cooldown: float = 2.5
+@export var approach_speed: float = 20000.0
 var _charge_cooldown_timer: float = -INF
 var can_see_player: bool = false
 signal charge_cooldown_ended
@@ -47,7 +48,7 @@ func _physics_process(delta: float) -> void:
 	var alpha = 0.2
 	var dir = Global.player_ref.global_position + Global.player_ref.velocity * alpha - self.global_position
 	dir = dir.normalized()
-	self.apply_central_force(dir * speed * 40000 * delta)
+	self.apply_central_force(dir * speed * approach_speed * delta)
 
 func _process(delta: float) -> void:
 	if _charge_cooldown_timer >= 0:

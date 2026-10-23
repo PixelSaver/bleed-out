@@ -20,9 +20,9 @@ class_name EyeballEnemy
 ## Time in seconds that the lazer's hitbox is active
 @export var lazer_duration: float = 0.2
 @export var hold_aim_duration: float = 0.1
-@export var approach_speed: float = 10000.0
+@export var approach_speed: float = 5000.0
 @export var orbit_speed: float = 20000.0
-@export var water_buffer: float = 750.0
+@export var water_buffer: float = 1500.0
 @export var water_avoid_speed: float = 100.0
 @export var aim_sway: float = 0.4
 @export var aim_sway_speed: float = 0.3
