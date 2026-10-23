@@ -66,35 +66,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
 radius = 30.805843
 
-[sub_resource type="Gradient" id="Gradient_3l8fg"]
-offsets = PackedFloat32Array(0, 0.944, 0.952)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1c2yt"]
-gradient = SubResource("Gradient_3l8fg")
-width = 16
-height = 16
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 0.5)
-
-[sub_resource type="Curve" id="Curve_ts7x6"]
-_data = [Vector2(0.031914897, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.29310352), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_je7p5"]
-curve = SubResource("Curve_ts7x6")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fm80t"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(30, 1, 0)
-inherit_velocity_ratio = 1.0
-gravity = Vector3(0, 980, 0)
-scale_min = 0.5
-scale_curve = SubResource("CurveTexture_je7p5")
-color = Color(0.7058824, 0, 0, 1)
-
 [node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("grapple_cone", "parry_hitbox", "health_component", "player_movement_component") groups=["Player"]]
 position = Vector2(34, 19)
 collision_layer = 2
@@ -199,11 +170,4 @@ texture = ExtResource("6_0owmy")
 [node name="LowHealth" type="AudioStreamPlayer" parent="." unique_id=186747063]
 stream = ExtResource("8_qek5x")
 
-[node name="constant_bleed" type="GPUParticles2D" parent="." unique_id=387149826 instance=ExtResource("9_5gtgg")]
-position = Vector2(12, -2)
-amount = 20
-texture = SubResource("GradientTexture2D_1c2yt")
-lifetime = 0.5
-fixed_fps = 0
-draw_order = 0
-process_material = SubResource("ParticleProcessMaterial_fm80t")
+[node name="constant_bleed" parent="." unique_id=1034500182 instance=ExtResource("9_5gtgg")]
