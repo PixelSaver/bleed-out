@@ -5,7 +5,6 @@ class_name Enemy
 
 @export var touch_damage: float = 5.
 @export var touch_area: Area2D
-
 @export var grapple_point: GrapplePoint
 @export var health_component: HealthComponent
 @export var marked: AnimatedSprite2D
@@ -61,6 +60,15 @@ func _on_freeze(_frozen: bool) -> void:
 	pass
 
 func _on_death() -> void:
+	# Blood explosion
+	var explosion = preload("res://scenes/blood_particle/blood_explosion.tscn").instantiate() as CPUParticles2D
+	get_parent().add_child(explosion)
+	explosion.global_position = global_position
+	explosion.one_shot = true
+	explosion.emitting = true
+	explosion.finished.connect(explosion.queue_free)
+	
+	# Remove enemy
 	Global.enemy_man.unregister_enemy(self)
 	queue_free()
 	pass
