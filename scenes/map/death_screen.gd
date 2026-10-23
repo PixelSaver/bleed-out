@@ -29,7 +29,8 @@ func start_anim_helper(score: int, highscore: int) -> void:
 	score_display.set_high_score(highscore)
 	start_anim()
 
-func start_anim() -> void: 
+func start_anim() -> void:
+	AudioManager.stop_music()
 	get_tree().paused = false
 	self.show()
 	if t and t.is_running(): t.kill()

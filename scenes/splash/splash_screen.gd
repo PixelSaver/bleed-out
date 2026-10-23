@@ -11,6 +11,7 @@ func _ready() -> void:
 		start_anim()
 
 func start_anim() -> void: 
+	AudioManager.stop_music()
 	reed_splash.modulate.a = 0.0
 	t = default_tween().set_ease(Tween.EASE_OUT)
 	t.tween_property(reed_splash, "modulate:a", 1.0, 1.0)

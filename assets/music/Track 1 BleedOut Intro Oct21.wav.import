@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bxjfi3x6uhnwo"
+path="res://.godot/imported/Track 1 BleedOut Intro Oct21.wav-f1171c9b835c33ba5d3615251f1ef111.sample"
+
+[deps]
+
+source_file="res://assets/music/Track 1 BleedOut Intro Oct21.wav"
+dest_files=["res://.godot/imported/Track 1 BleedOut Intro Oct21.wav-f1171c9b835c33ba5d3615251f1ef111.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

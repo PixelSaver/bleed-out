@@ -14,7 +14,8 @@ var game_over := false
 
 var score : int = 0
 
-func start_anim() -> void: pass
+func start_anim() -> void:
+	AudioManager.transition_to_game_music()
 func end_anim() -> void: 
 	self.hide()
 	queue_free()
@@ -22,6 +23,7 @@ func end_anim() -> void:
 func _ready() -> void:
 	SignalBus.request_pause.connect(pause)
 	SignalBus.died.connect(_on_player_died)
+	
 
 func pause(do_pause: bool) -> void:
 	if game_over:

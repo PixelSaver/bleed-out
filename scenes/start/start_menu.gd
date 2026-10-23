@@ -11,6 +11,7 @@ func _ready() -> void:
 	all_t = get_all_tweenables(self)
 	for but in buttons:
 		but.pressed.connect(_on_button_pressed.bind(but.name))
+	AudioManager.play_title_music()
 
 
 @onready var prototype: Control = $AllContainer/PROTOTYPE
