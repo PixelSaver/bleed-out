@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://c5f2s23wcevdy"]
+
+[ext_resource type="Texture2D" uid="uid://m86seiuphsol" path="res://scenes/blood_particle/blood_size_curve.tres" id="1_1c2yt"]
+
+[sub_resource type="Gradient" id="Gradient_3l8fg"]
+offsets = PackedFloat32Array(0, 0.944, 0.952)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1c2yt"]
+gradient = SubResource("Gradient_3l8fg")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3l8fg"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 500.0
+gravity = Vector3(0, 980, 0)
+damping_min = 100.0
+damping_max = 300.0
+scale_min = 0.5
+scale_curve = ExtResource("1_1c2yt")
+color = Color(0.7058824, 0, 0, 1)
+
+[node name="constant_bleed2" type="GPUParticles2D" unique_id=987992223]
+amount = 60
+texture = SubResource("GradientTexture2D_1c2yt")
+lifetime = 0.5
+explosiveness = 1.0
+fixed_fps = 0
+draw_order = 0
+process_material = SubResource("ParticleProcessMaterial_3l8fg")

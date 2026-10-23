@@ -5,9 +5,10 @@ class_name Enemy
 
 @export var touch_damage: float = 30.0
 @export var touch_area: Area2D
-
 @export var grapple_point: GrapplePoint
 @export var health_component: HealthComponent
+@export var blood_spray: GPUParticles2D
+@export var blood_offset: float = 0.0
 @export var marked: AnimatedSprite2D
 @export var speed: float = 10.
 signal frozen(is_frozen:bool)
@@ -53,6 +54,9 @@ func freeze_enemy(do_freeze: bool=true, queued_atk: Attack=null) -> void:
 	frozen.emit(do_freeze)
 	if do_freeze:
 		_queued_atk = queued_atk
+		blood_spray.global_rotation = queued_atk.direction.angle() + PI
+		blood_spray.position = Vector2(blood_offset, 0).rotated(blood_spray.rotation)
+		blood_spray.restart()
 	elif _queued_atk != null:
 		self.damage(_queued_atk)
 	
@@ -64,6 +68,15 @@ func _on_freeze(_frozen: bool) -> void:
 	pass
 
 func _on_death() -> void:
+	# Blood explosion
+	var explosion = preload("res://scenes/blood_particle/blood_explosion.tscn").instantiate() as GPUParticles2D
+	get_parent().add_child(explosion)
+	explosion.global_position = global_position
+	explosion.one_shot = true
+	explosion.emitting = true
+	explosion.finished.connect(explosion.queue_free)
+	
+	# Remove enemy
 	Global.enemy_man.unregister_enemy(self)
 	queue_free()
 	pass

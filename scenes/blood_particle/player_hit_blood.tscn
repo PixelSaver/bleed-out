@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cnxkp83utu6y6"]
+
+[ext_resource type="Script" uid="uid://0ulns7xpy6cg" path="res://scenes/blood_particle/constant_bleed.gd" id="1_rpjly"]
+
+[sub_resource type="Gradient" id="Gradient_3l8fg"]
+offsets = PackedFloat32Array(0, 0.944, 0.952)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1c2yt"]
+gradient = SubResource("Gradient_3l8fg")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Curve" id="Curve_5gtgg"]
+_data = [Vector2(0.049645394, 1), 0.0, 0.0, 0, 0, Vector2(0.98936164, 0.30459774), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_as2ni"]
+curve = SubResource("Curve_5gtgg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xh6rm"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 60.0
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 980, 0)
+damping_min = 100.0
+damping_max = 300.0
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_as2ni")
+color = Color(0.7058824, 0, 0, 1)
+
+[node name="player_hit_blood" type="GPUParticles2D" unique_id=1283194395]
+emitting = false
+amount = 20
+texture = SubResource("GradientTexture2D_1c2yt")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 0
+draw_order = 0
+process_material = SubResource("ParticleProcessMaterial_xh6rm")
+script = ExtResource("1_rpjly")

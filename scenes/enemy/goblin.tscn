@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://fj7ykktocnh6" path="res://utilities/health_component.gd" id="4_8cg1g"]
 [ext_resource type="Texture2D" uid="uid://bbrf3us7xl4aa" path="res://assets/grappleMark spritesheet.png" id="5_jibcn"]
 [ext_resource type="SpriteFrames" uid="uid://vrvw2yf5p3et" path="res://assets/goblin/goblin_spriteframes.tres" id="5_x0ln3"]
+[ext_resource type="PackedScene" uid="uid://cmi57s2iswnm4" path="res://scenes/blood_particle/enemy_hit_blood.tscn" id="6_x0ln3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_igerp"]
 
@@ -51,7 +52,7 @@ animations = [{
 radius = 30.0
 height = 80.0
 
-[node name="Goblin" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("touch_area", "grapple_point", "health_component", "marked")]
+[node name="Goblin" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("touch_area", "grapple_point", "health_component", "blood_spray", "marked")]
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
@@ -63,6 +64,8 @@ script = ExtResource("1_w31j5")
 touch_area = NodePath("TouchDamage")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
+blood_spray = NodePath("enemy_hit_blood")
+blood_offset = 27.0
 marked = NodePath("Marked")
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
 
@@ -102,3 +105,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TouchDamage" unique_id=1078429922]
 shape = SubResource("CapsuleShape2D_pebuv")
+
+[node name="enemy_hit_blood" parent="." unique_id=1283194395 instance=ExtResource("6_x0ln3")]
+position = Vector2(0, -2)

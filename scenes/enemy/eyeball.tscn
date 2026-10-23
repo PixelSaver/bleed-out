@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dmrai2d8i8h33" path="res://assets/eyeball/eye3.png" id="4_v8eww"]
 [ext_resource type="Texture2D" uid="uid://bbrf3us7xl4aa" path="res://assets/grappleMark spritesheet.png" id="5_e6ehl"]
 [ext_resource type="Texture2D" uid="uid://bkvsdycf8tsy" path="res://assets/eyeball/pupil.png" id="6_qebto"]
+[ext_resource type="PackedScene" uid="uid://cmi57s2iswnm4" path="res://scenes/blood_particle/enemy_hit_blood.tscn" id="10_qebto"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v8eww"]
 friction = 0.0
@@ -177,7 +178,7 @@ turbulence_enabled = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_v8eww"]
 radius = 60.0
 
-[node name="Eyeball" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("pupil", "shoot_range", "eye_background", "back_rect", "front_rect", "lazer_area", "lazer_line_promise", "lazer_line", "touch_area", "grapple_point", "health_component", "marked")]
+[node name="Eyeball" type="RigidBody2D" unique_id=1058839955 node_paths=PackedStringArray("pupil", "shoot_range", "eye_background", "back_rect", "front_rect", "lazer_area", "lazer_line_promise", "lazer_line", "touch_area", "grapple_point", "health_component", "blood_spray", "marked")]
 collision_layer = 4
 collision_mask = 5
 mass = 10.0
@@ -199,6 +200,8 @@ lazer_damage = 45.0
 touch_area = NodePath("TouchDamage")
 grapple_point = NodePath("GrapplePoint")
 health_component = NodePath("HealthComponent")
+blood_spray = NodePath("enemy_hit_blood")
+blood_offset = 60.0
 marked = NodePath("Visual/Marked")
 metadata/_custom_type_script = "uid://df1tier0hhuyl"
 
@@ -303,3 +306,5 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TouchDamage" unique_id=307097294]
 shape = SubResource("CircleShape2D_v8eww")
+
+[node name="enemy_hit_blood" parent="." unique_id=1283194395 instance=ExtResource("10_qebto")]
