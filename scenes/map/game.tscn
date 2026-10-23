@@ -625,7 +625,6 @@ mouse_filter = 1
 
 [node name="DeathScreen" type="Control" parent="UILayer" unique_id=185172601 node_paths=PackedStringArray("buttons", "all_t", "score_display")]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -633,7 +632,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("19_l5q7t")
-buttons = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver")]
+buttons = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/StartOver"), NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/PlayAgain")]
 all_t = [NodePath("BG/Tweenable")]
 score_display = NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer")
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
@@ -770,7 +769,11 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StartOver" type="Button" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=853045169 node_paths=PackedStringArray("tweenable", "front", "back")]
+[node name="VBoxContainer2" type="VBoxContainer" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=958292561]
+layout_mode = 2
+theme_override_constants/separation = -10
+
+[node name="PlayAgain" type="Button" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=832048177 node_paths=PackedStringArray("tweenable", "front", "back")]
 process_mode = 3
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
@@ -780,7 +783,7 @@ tweenable = NodePath("MarginContainer/Panel/Tweenable")
 front = NodePath("FrontText")
 back = NodePath("FrontText/BackText")
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver" unique_id=364485277]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/PlayAgain" unique_id=513971168]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 15
@@ -793,7 +796,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver/MarginContainer" unique_id=122983007]
+[node name="Panel" type="Panel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/PlayAgain/MarginContainer" unique_id=1294708961]
 process_mode = 3
 layout_mode = 2
 offset_transform_enabled = true
@@ -801,14 +804,87 @@ offset_transform_position = Vector2(850, 0)
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_wnhga")
 
-[node name="Tweenable" type="Node" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver/MarginContainer/Panel" unique_id=789828508]
+[node name="Tweenable" type="Node" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/PlayAgain/MarginContainer/Panel" unique_id=314437870]
 script = ExtResource("16_mm51t")
 tween_value = 1.0
 direction = Vector2(1, 0)
 distance = 850.0
 metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
 
-[node name="FrontText" type="RichTextLabel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver" unique_id=64950480]
+[node name="FrontText" type="RichTextLabel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/PlayAgain" unique_id=475539533]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Play Again"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackText" type="RichTextLabel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/PlayAgain/FrontText" unique_id=1287350932]
+process_mode = 3
+modulate = Color(0.35, 0.115499996, 0.115499996, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Play Again"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartOver" type="Button" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=853045169 node_paths=PackedStringArray("tweenable", "front", "back")]
+process_mode = 3
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("18_xrurs")
+tweenable = NodePath("MarginContainer/Panel/Tweenable")
+front = NodePath("FrontText")
+back = NodePath("FrontText/BackText")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/StartOver" unique_id=364485277]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/StartOver/MarginContainer" unique_id=122983007]
+process_mode = 3
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(850, 0)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_wnhga")
+
+[node name="Tweenable" type="Node" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/StartOver/MarginContainer/Panel" unique_id=789828508]
+script = ExtResource("16_mm51t")
+tween_value = 1.0
+direction = Vector2(1, 0)
+distance = 850.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="FrontText" type="RichTextLabel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/StartOver" unique_id=64950480]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 15
@@ -824,7 +900,7 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BackText" type="RichTextLabel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver/FrontText" unique_id=1553648724]
+[node name="BackText" type="RichTextLabel" parent="UILayer/DeathScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer2/StartOver/FrontText" unique_id=1553648724]
 process_mode = 3
 modulate = Color(0.35, 0.115499996, 0.115499996, 1)
 show_behind_parent = true
@@ -866,6 +942,7 @@ mass = 10000000000000.0
 sleeping = true
 freeze = true
 touch_damage = 0.0
+blood_offset = 0.0
 speed = 0.0
 
 [node name="HealthComponent" parent="EnemyManager/Goblin2" index="2" unique_id=1465637310]
@@ -877,6 +954,7 @@ mass = 10000000000000.0
 sleeping = true
 freeze = true
 touch_damage = 0.0
+blood_offset = 0.0
 speed = 0.0
 
 [node name="HealthComponent" parent="EnemyManager/Goblin" index="2" unique_id=1465637310]

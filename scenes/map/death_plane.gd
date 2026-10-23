@@ -19,7 +19,11 @@ func get_speed(t: float) -> float:
 
 func _ready() -> void:
 	self.body_entered.connect(_on_body_entered)
+	Global.player_ref.died.connect(_on_player_death)
 
+func _on_player_death() -> void:
+	$AudioStreamPlayer2D.stream_paused = true
+	$AudioStreamPlayer.stream_paused = true
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:

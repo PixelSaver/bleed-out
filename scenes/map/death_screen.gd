@@ -21,6 +21,9 @@ func _on_button_pressed(_name:String) -> void:
 			AudioManager.kill_sfx(AudioManager.Sound.DEATH)
 			SignalBus.request_pause.emit(false)
 			Global.menu_manager.transition_to_scene(SceneDatabase.get_scene(SceneDatabase.Scene.START))
+		"playagain":
+			Global.menu_manager.transition_to_scene(SceneDatabase.get_scene(SceneDatabase.Scene.GAME))
+			SignalBus.request_pause.emit(false)
 		_:
 			push_warning("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
 

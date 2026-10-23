@@ -67,16 +67,28 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
 radius = 30.805843
 
-[node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("grapple_cone", "parry_hitbox", "health_component", "player_movement_component", "player_sprite", "blood_spray") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1683654917 node_paths=PackedStringArray("audio_listener", "grapple_cone", "parry_hitbox", "health_component", "player_movement_component", "player_sprite", "blood_spray") groups=["Player"]]
 collision_layer = 2
 collision_mask = 11
 script = ExtResource("1_dovo2")
+audio_listener = NodePath("AudioListener2D")
 grapple_cone = NodePath("GrappleCone")
 parry_hitbox = NodePath("ParryHitbox")
 health_component = NodePath("HealthComponent")
 player_movement_component = NodePath("PlayerMovementComponent")
 player_sprite = NodePath("MC")
 blood_spray = NodePath("player_hit_blood")
+respawn_delay = null
+drink_amount = null
+drink_duration = null
+sustained_drink_duration = null
+min_blood = null
+invincibilty_duration = null
+flicker_duration = null
+min_player_y = null
+initial_blood_drain = null
+max_blood_drain = null
+blood_drain_change_time = null
 metadata/_custom_type_script = "uid://dtvxmu6o1o5s"
 metadata/_edit_group_ = true
 
@@ -170,6 +182,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("6_0owmy")
 
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1915883551]
+visible = false
 
 [node name="LowHealth" type="AudioStreamPlayer" parent="." unique_id=186747063]
 stream = ExtResource("8_qek5x")

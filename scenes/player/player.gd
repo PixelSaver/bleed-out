@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 @export_group("Nodes")
+@export var audio_listener: AudioListener2D
 @export var grapple_cone: GrappleCone
 @export var parry_hitbox: Area2D
 @export var health_component: HealthComponent
@@ -20,6 +21,7 @@ class_name Player
 @export var initial_blood_drain: float = -5.0
 @export var max_blood_drain: float = -15.0
 @export var blood_drain_change_time: float = 20.0
+signal died()
 var blood_drain: float = 0.0
 var blood_rate
 var invincibility_counter: float = 0.0
@@ -137,6 +139,9 @@ func _on_health(h:float, mh:float) -> void:
 func _on_death() -> void:
 	if is_dead:
 		return
+	if audio_listener:
+		audio_listener.queue_free()
+	died.emit()
 	var sound = [AudioManager.Sound.DEATH].pick_random()
 	AudioManager.play_sfx(sound, -10)
 	is_dead = true
@@ -159,3 +164,5 @@ func search_grapple_points(points: Array[GrapplePoint]) -> GrapplePoint:
 
 func _physics_process(delta: float) -> void:
 	player_movement_component.process_movement(self, delta)
+	if is_dead:
+		$LowHealth.stream_paused = true
