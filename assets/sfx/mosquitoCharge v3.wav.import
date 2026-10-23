@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bn5wyvysmidet"
+path="res://.godot/imported/mosquitoCharge v3.wav-45d488bd28ac8920d24cc242ae7ec598.sample"
+
+[deps]
+
+source_file="res://assets/sfx/mosquitoCharge v3.wav"
+dest_files=["res://.godot/imported/mosquitoCharge v3.wav-45d488bd28ac8920d24cc242ae7ec598.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -56,11 +56,15 @@ const sounds: Dictionary[Sound, AudioStream] = {
 }
 
 var TITLE_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Intro Oct21.wav")
-var GAME_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Oct21.wav")
 var LOOP_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Loop.wav")
+var TRANSITION_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 Transition.wav")
+var FULL_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Oct21.wav")
 
 var music_player: AudioStreamPlayer
 var music_tween: Tween
+
+var transition_queued: bool = false
+var previous_music_pos: float = 0.0
 
 @export var music_volume_db: float = -1.0
 
@@ -75,22 +79,39 @@ func _ready() -> void:
 	TITLE_MUSIC.loop_begin = 0
 	TITLE_MUSIC.loop_end = roundi(TITLE_MUSIC.get_length() * TITLE_MUSIC.mix_rate)
 
-	GAME_MUSIC.loop_mode = AudioStreamWAV.LOOP_DISABLED
+	FULL_MUSIC.loop_mode = AudioStreamWAV.LOOP_DISABLED
 
 	LOOP_MUSIC.loop_mode = AudioStreamWAV.LOOP_FORWARD
 	LOOP_MUSIC.loop_begin = 0
 	LOOP_MUSIC.loop_end = roundi(LOOP_MUSIC.get_length() * LOOP_MUSIC.mix_rate)
 
 func _process(_delta: float) -> void:
-	if not music_player.playing or music_player.stream != GAME_MUSIC:
+	if not music_player.playing:
 		return
 
-	var loop_start = GAME_MUSIC.get_length() - LOOP_MUSIC.get_length()
 	var pos = music_player.get_playback_position()
 
-	if pos >= loop_start:
-		music_player.stream = LOOP_MUSIC
-		music_player.play(pos - loop_start)
+	if music_player.stream == TITLE_MUSIC:
+		var half_length = TITLE_MUSIC.get_length() / 2.0
+
+		if transition_queued:
+			var crossed_half = previous_music_pos < half_length and pos >= half_length
+			var crossed_end = pos < previous_music_pos
+
+			if crossed_half or crossed_end:
+				transition_queued = false
+				music_player.stream = FULL_MUSIC
+				music_player.play(half_length)
+				return
+
+		previous_music_pos = pos
+
+	elif music_player.stream == FULL_MUSIC:
+		var loop_start = TITLE_MUSIC.get_length() / 2.0 + TRANSITION_MUSIC.get_length()
+
+		if pos >= loop_start:
+			music_player.stream = LOOP_MUSIC
+			music_player.play(pos - loop_start)
 
 func get_audio_stream(s:Sound) -> AudioStream:
 	var out = sounds.get(s)
@@ -140,27 +161,29 @@ func kill_sfx(sound: Sound) -> void:
 			child.queue_free()
 
 func play_title_music() -> void:
+	transition_queued = false
+	cancel_music_fade()
+
 	if music_player.playing and music_player.stream == TITLE_MUSIC:
 		return
-	cancel_music_fade()
 
 	music_player.stream = TITLE_MUSIC
 	music_player.play()
+	previous_music_pos = 0.0
 
 
 func transition_to_game_music() -> void:
 	cancel_music_fade()
 
-	if music_player.playing and music_player.stream == GAME_MUSIC:
+	if music_player.stream != TITLE_MUSIC:
 		return
 
-	var pos = fposmod(music_player.get_playback_position(), TITLE_MUSIC.get_length() / 2.0) if music_player.playing else 0.0
-
-	music_player.stream = GAME_MUSIC
-	music_player.play(pos)
+	transition_queued = true
 
 
 func stop_music(duration: float = 2.0) -> void:
+	transition_queued = false
+
 	if music_tween and music_tween.is_running():
 		music_tween.kill()
 
