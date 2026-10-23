@@ -132,7 +132,8 @@ content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
 script = ExtResource("4_mcwih")
-color = Color(0.17, 0.17, 0.17, 0.6156863)
+color = Color(0.09, 0, 0, 0.6156863)
+skew = Vector2(0.1, 0)
 corner_detail = 5
 shadow_blur = 0
 
@@ -1686,54 +1687,69 @@ shape = SubResource("WorldBoundaryShape2D_whhis")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Borders" unique_id=422549170]
 shape = SubResource("WorldBoundaryShape2D_4hwui")
 
-[node name="Label" type="Label" parent="World" unique_id=566309671]
+[node name="Label" type="RichTextLabel" parent="World" unique_id=1980621141]
 z_index = -9
 offset_left = -241.0
 offset_top = -543.0
 offset_right = 251.0
-offset_bottom = -488.0
+offset_bottom = -458.0
+bbcode_enabled = true
 text = "Left Click or Shift to Parry
-(Costs Blood)"
+([color=red]Costs Blood[/color])"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="World" unique_id=1267084679]
+[node name="Label2" type="RichTextLabel" parent="World" unique_id=750142775]
 z_index = -9
 offset_left = -354.0
 offset_top = -859.0
 offset_right = 339.0
 offset_bottom = -746.0
+bbcode_enabled = true
 text = "Hold Right Click
 or Space to Grapple"
 horizontal_alignment = 1
 
-[node name="Label3" type="Label" parent="World" unique_id=585601426]
+[node name="Label3" type="RichTextLabel" parent="World" unique_id=268078032]
 z_index = -9
 offset_left = -359.0
 offset_top = -1216.0
 offset_right = 334.0
 offset_bottom = -1045.0
+bbcode_enabled = true
 text = "Press Left Click or Shift
 while Grappling to Dash
-(Costs Blood)"
+([color=red]Costs Blood[/color])"
 horizontal_alignment = 1
 
-[node name="Label4" type="Label" parent="World" unique_id=980351056]
+[node name="Label4" type="RichTextLabel" parent="World" unique_id=1934876582]
 z_index = -9
 offset_left = -343.0
 offset_top = -1464.0
 offset_right = 350.0
 offset_bottom = -1293.0
+bbcode_enabled = true
 text = "Stab Enemies and Drink Blood to
 stay alive"
 horizontal_alignment = 1
 
-[node name="Label5" type="Label" parent="World" unique_id=145104202]
+[node name="Label5" type="RichTextLabel" parent="World" unique_id=70376591]
 z_index = -9
 offset_left = -347.0
 offset_top = -1664.0
 offset_right = 346.0
 offset_bottom = -1493.0
+bbcode_enabled = true
 text = "Keep moving up"
+horizontal_alignment = 1
+
+[node name="Label6" type="RichTextLabel" parent="World" unique_id=1756887370]
+z_index = -9
+offset_left = -359.0
+offset_top = -1885.0
+offset_right = 334.0
+offset_bottom = -1714.0
+bbcode_enabled = true
+text = "[color=red][shake]Q[/shake][/color] or [color=red][shake]P[/shake][/color] to pause the game"
 horizontal_alignment = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1574700136]

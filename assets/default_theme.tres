@@ -51,6 +51,7 @@ corner_radius_bottom_left = 4
 shadow_blur = 0
 
 [resource]
+default_font = ExtResource("1_qew4h")
 default_font_size = 40
 Button/styles/disabled = SubResource("StyleBoxEmpty_gkedh")
 Button/styles/focus = SubResource("StyleBoxEmpty_plx5h")
