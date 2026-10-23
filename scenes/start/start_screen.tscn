@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="8_3aoqy"]
 [ext_resource type="Script" uid="uid://cr4b18ndfw1nd" path="res://scenes/start/player_scene.gd" id="8_a70le"]
 [ext_resource type="Material" uid="uid://dc67gd317r4nb" path="res://assets/curved_shader_mat.tres" id="9_63i48"]
+[ext_resource type="Texture2D" uid="uid://o5d22m6trnns" path="res://assets/mc/sword.png" id="12_dua76"]
 [ext_resource type="PackedScene" uid="uid://ca58dlr3a3k4u" path="res://scenes/blood_particle/constant_bleed.tscn" id="12_rwrtn"]
 [ext_resource type="Texture2D" uid="uid://m86seiuphsol" path="res://scenes/blood_particle/blood_size_curve.tres" id="13_cjsrg"]
 [ext_resource type="Script" uid="uid://du1vv6astgght" path="res://scenes/start/credits.gd" id="13_juusv"]
@@ -113,12 +114,12 @@ group_bounding_box_position = Vector2(462.8, 243)
 group_bounding_box_size = Vector2(689.00006, 266)
 metadata/_custom_type_script = "uid://dp0koykwijyay"
 
-[sub_resource type="Resource" id="Resource_rbjef"]
+[sub_resource type="Resource" id="Resource_7eklv"]
 script = ExtResource("18_nsw82")
 Down = NodePath("../AllContainer/RightSide/ButtonContainer/Splash")
 origin = NodePath("../AllContainer/RightSide/ButtonContainer/Play")
 
-[sub_resource type="Resource" id="Resource_7eklv"]
+[sub_resource type="Resource" id="Resource_rbjef"]
 script = ExtResource("18_nsw82")
 origin = NodePath("../AllContainer/RightSide/ButtonContainer/Credits")
 
@@ -672,10 +673,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerScene" type="Control" parent="AllContainer/PROTOTYPE/CenterContainer" unique_id=964840428 node_paths=PackedStringArray("player_pos")]
+[node name="PlayerScene" type="Control" parent="AllContainer/PROTOTYPE/CenterContainer" unique_id=964840428 node_paths=PackedStringArray("player_pos", "sword_pos")]
 layout_mode = 2
 script = ExtResource("8_a70le")
 player_pos = NodePath("Vampire/PositionOffset")
+sword_pos = NodePath("Vampire/PositionOffset/SwordPosition/Sword")
 noise = SubResource("FastNoiseLite_3aoqy")
 
 [node name="Vampire" type="Node2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene" unique_id=1460236357]
@@ -700,6 +702,14 @@ sprite_frames = ExtResource("6_ltrpm")
 animation = &"falling_eyes"
 autoplay = "falling_eyes"
 frame_progress = 0.87803155
+
+[node name="SwordPosition" type="Node2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire/PositionOffset" unique_id=1676520836]
+position = Vector2(37.5, 9.75)
+
+[node name="Sword" type="Sprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire/PositionOffset/SwordPosition" unique_id=16300223]
+rotation = -0.3499096
+scale = Vector2(0.054999996, 0.054999996)
+texture = ExtResource("12_dua76")
 
 [node name="RightSide" type="VBoxContainer" parent="AllContainer" unique_id=2047291902]
 layout_mode = 2
