@@ -61,7 +61,7 @@ func _on_freeze(_frozen: bool) -> void:
 
 func _on_death() -> void:
 	# Blood explosion
-	var explosion = preload("res://scenes/blood_particle/blood_explosion.tscn").instantiate() as CPUParticles2D
+	var explosion = preload("res://scenes/blood_particle/blood_explosion.tscn").instantiate() as GPUParticles2D
 	get_parent().add_child(explosion)
 	explosion.global_position = global_position
 	explosion.one_shot = true
