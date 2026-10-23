@@ -48,7 +48,7 @@ class_name PlayerMovementComponent
 #@export var pull_required = 30.0
 @export var pull_cost = 20.0
 #@export var parry_required = 25.0
-@export var parry_cost = 15.0
+@export var parry_cost = 10.0
 
 @export var angle_adjust_speed = 10.0
 
