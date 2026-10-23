@@ -19,7 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://upbhit3rm5c3" path="res://assets/waterfall/w6.png" id="12_hjt0h"]
 [ext_resource type="Script" uid="uid://b1x2ln2tjgux" path="res://scenes/map/animated_sprite_2d.gd" id="12_i0sqq"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_mysg8"]
+[ext_resource type="Texture2D" uid="uid://b87juvr45y1yd" path="res://assets/mc/blood_meter/vial.png" id="13_o7r5d"]
+[ext_resource type="Shader" uid="uid://bkn0i5l62chf7" path="res://shaders/cutoff.gdshader" id="14_sehht"]
 [ext_resource type="Script" uid="uid://dra14veup3c7j" path="res://scenes/map/camera_follow_point.gd" id="15_4hwui"]
+[ext_resource type="Texture2D" uid="uid://rnwgskqu2p5k" path="res://assets/mc/blood_meter/vial_blood.png" id="15_8e6rg"]
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="16_4hwui"]
 [ext_resource type="Script" uid="uid://bydiw3maoamfp" path="res://scenes/map/score_label.gd" id="16_e4r5n"]
 [ext_resource type="Script" uid="uid://b4pdlxyjxim6i" path="res://utilities/ui/tweenable.gd" id="16_mm51t"]
@@ -28,7 +31,6 @@
 [ext_resource type="Script" uid="uid://dsrnv8ne8iw56" path="res://scenes/map/death_screen.gd" id="19_l5q7t"]
 [ext_resource type="Script" uid="uid://bun8pcbqq8v0n" path="res://scenes/map/final_score.gd" id="22_p87kk"]
 [ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
-[ext_resource type="PackedScene" uid="uid://bm55smahjyywv" path="res://scenes/enemy/eyeball.tscn" id="25_l4ess"]
 [ext_resource type="Material" uid="uid://dc67gd317r4nb" path="res://assets/curved_shader_mat.tres" id="25_p87kk"]
 [ext_resource type="PackedScene" uid="uid://dq3musfjnhddb" path="res://scenes/map/death_plane.tscn" id="31_l4ess"]
 [ext_resource type="Texture2D" uid="uid://uv0jeiidokhg" path="res://assets/floor.png" id="32_qnluy"]
@@ -91,63 +93,33 @@ radial_accel_max = 18.839998
 scale_max = 10.0
 scale_curve = SubResource("CurveTexture_c7qcy")
 
-[sub_resource type="StyleBox" id="StyleBox_gkedh"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
-script = ExtResource("4_mcwih")
-color = Color(0.76, 0.76, 0.76, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sehht"]
+seed = 10
 
-[sub_resource type="StyleBox" id="StyleBox_mm51t"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
-script = ExtResource("4_mcwih")
-color = Color(0.39, 0.39, 0.39, 1)
-metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o7r5d"]
+noise = SubResource("FastNoiseLite_sehht")
 
-[sub_resource type="StyleBox" id="StyleBox_hjt0h"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-script = ExtResource("4_mcwih")
-color = Color(0.77, 0.107799985, 0.107799985, 0.6)
-corner_detail = 5
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-shadow_blur = 0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o7r5d"]
+shader = ExtResource("14_sehht")
+shader_parameter/cutoff = 0.250000011875
+shader_parameter/noise = SubResource("NoiseTexture2D_o7r5d")
+shader_parameter/amplitude = 0.04
+shader_parameter/freq = 0.1
+shader_parameter/speed = 0.05
 
-[sub_resource type="StyleBox" id="StyleBox_mcwih"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-script = ExtResource("4_mcwih")
-color = Color(0.55, 0.12100002, 0.12100002, 1)
-corner_detail = 5
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-shadow_blur = 0
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8e6rg"]
+seed = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_djfjv"]
+noise = SubResource("FastNoiseLite_8e6rg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gkedh"]
+shader = ExtResource("14_sehht")
+shader_parameter/cutoff = 0.810000038475
+shader_parameter/noise = SubResource("NoiseTexture2D_djfjv")
+shader_parameter/amplitude = 0.030000001425
+shader_parameter/freq = 0.1
+shader_parameter/speed = 0.05
 
 [sub_resource type="StyleBox" id="StyleBox_l5q7t"]
 resource_local_to_scene = false
@@ -275,7 +247,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.15
+size_flags_stretch_ratio = 0.2
 
 [node name="Control2" type="Control" parent="UILayer/InGameUI/Left" unique_id=1396662773]
 layout_mode = 2
@@ -291,37 +263,52 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 script = ExtResource("2_4hwui")
-back = NodePath("MarginContainer/Back")
-front = NodePath("MarginContainer/Front")
+back = NodePath("Control/TextureRect/back")
+front = NodePath("Control/TextureRect/front")
 
-[node name="BG" type="Panel" parent="UILayer/InGameUI/Left/HPBar" unique_id=1967218701]
+[node name="Control" type="Control" parent="UILayer/InGameUI/Left/HPBar" unique_id=1341849548]
 layout_mode = 2
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBox_gkedh")
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/InGameUI/Left/HPBar" unique_id=1896054230]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+[node name="TextureRect" type="TextureRect" parent="UILayer/InGameUI/Left/HPBar/Control" unique_id=1665002989]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_o7r5d")
+expand_mode = 5
+stretch_mode = 6
 
-[node name="BG2" type="Panel" parent="UILayer/InGameUI/Left/HPBar/MarginContainer" unique_id=280815358]
-layout_mode = 2
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBox_mm51t")
-
-[node name="Back" type="Panel" parent="UILayer/InGameUI/Left/HPBar/MarginContainer" unique_id=1301519379]
-layout_mode = 2
+[node name="back" type="TextureRect" parent="UILayer/InGameUI/Left/HPBar/Control/TextureRect" unique_id=57113198]
+visible = false
+modulate = Color(1, 1, 1, 0.57254905)
+show_behind_parent = true
+material = SubResource("ShaderMaterial_o7r5d")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 offset_transform_enabled = true
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBox_hjt0h")
+texture = ExtResource("15_8e6rg")
+expand_mode = 5
+stretch_mode = 6
 
-[node name="Front" type="Panel" parent="UILayer/InGameUI/Left/HPBar/MarginContainer" unique_id=1728719437]
-layout_mode = 2
+[node name="front" type="TextureRect" parent="UILayer/InGameUI/Left/HPBar/Control/TextureRect" unique_id=922879984]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_gkedh")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 offset_transform_enabled = true
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBox_mcwih")
+texture = ExtResource("15_8e6rg")
+expand_mode = 5
+stretch_mode = 6
 
 [node name="Control" type="Control" parent="UILayer/InGameUI" unique_id=52714807]
 layout_mode = 2
@@ -638,6 +625,7 @@ mouse_filter = 1
 
 [node name="DeathScreen" type="Control" parent="UILayer" unique_id=185172601 node_paths=PackedStringArray("buttons", "all_t", "score_display")]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -895,9 +883,6 @@ speed = 0.0
 
 [node name="HealthComponent" parent="EnemyManager/Goblin" index="2" unique_id=1465637310]
 invulnerable = true
-
-[node name="Eyeball" parent="EnemyManager" unique_id=1058839955 instance=ExtResource("25_l4ess")]
-position = Vector2(391, -548)
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1215831812]
 process_mode = 1

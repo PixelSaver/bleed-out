@@ -3,7 +3,7 @@ class_name Enemy
 
 #@export var debug = ""
 
-@export var touch_damage: float = 5.
+@export var touch_damage: float = 30.0
 @export var touch_area: Area2D
 @export var grapple_point: GrapplePoint
 @export var health_component: HealthComponent
@@ -53,12 +53,15 @@ func damage(atk:Attack) -> void:
 ## Function to toggle freezing of the enemy, stopping AI and special moves. 
 ## Queue an attack to be done when unfrozen
 func freeze_enemy(do_freeze: bool=true, queued_atk: Attack=null) -> void:
-	self.freeze = do_freeze
+	call_deferred("_freeze_self_deferred", do_freeze)
 	frozen.emit(do_freeze)
 	if do_freeze:
 		_queued_atk = queued_atk
 	elif _queued_atk != null:
 		self.damage(_queued_atk)
+	
+func _freeze_self_deferred(do_freeze:bool) -> void:
+	self.freeze = do_freeze
 
 func _on_freeze(_frozen: bool) -> void:
 	

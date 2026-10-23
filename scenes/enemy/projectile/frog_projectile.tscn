@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dc5t7y674aosc" path="res://assets/frog/projectile/proj3.png" id="4_s3or7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gkedh"]
-radius = 20.0
+radius = 60.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gkedh"]
 animations = [{
@@ -36,7 +36,7 @@ shape = SubResource("CircleShape2D_gkedh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1592843098]
 position = Vector2(0, 2.0000002)
-scale = Vector2(0.094, 0.094)
+scale = Vector2(0.282, 0.282)
 sprite_frames = SubResource("SpriteFrames_gkedh")
 autoplay = "default"
 frame_progress = 0.5511917

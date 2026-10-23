@@ -45,10 +45,10 @@ class_name PlayerMovementComponent
 ## Distance between the sword's pivot and handle
 @export var sword_len = 0.0
 
-@export var pull_required = 30.0
-@export var pull_cost = 10.0
-@export var parry_required = 30.0
-@export var parry_cost = 10.0
+#@export var pull_required = 30.0
+@export var pull_cost = 20.0
+#@export var parry_required = 25.0
+@export var parry_cost = 15.0
 
 @export var angle_adjust_speed = 10.0
 
@@ -97,11 +97,15 @@ func _initiate_grapple(target: GrapplePoint, p: Player) -> void:
 	AudioManager.play_sfx(sound, -10)
 	update_grapple_visibility(true)
 
-func _ungrapple(p:Player) -> void:
+func _ungrapple(p:Player, jump:bool) -> void:
 	if rope_taut:
 		# Proper velocity when releasing grapple
-		p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
-					+ (grapple_dist * angular_vel + sign(angular_vel) * release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
+		if jump:
+			p.velocity = ((radial_vel + release_boost_normal) * Vector2(cos(grapple_angle), sin(grapple_angle))
+						+ (grapple_dist * angular_vel + sign(angular_vel) * release_boost_tangent) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
+		else:
+			p.velocity = ((radial_vel) * Vector2(cos(grapple_angle), sin(grapple_angle))
+						+ (grapple_dist * angular_vel) * Vector2(-sin(grapple_angle), cos(grapple_angle)))
 
 		rope_taut = false
 
@@ -167,7 +171,8 @@ func process_movement(p:Player, delta: float) -> void:
 			if Input.is_action_just_pressed("grapple"):
 				if temp_grapple_target:
 					_initiate_grapple(temp_grapple_target, p)
-			elif Input.is_action_just_pressed("attack") and parry_time >= parry_cooldown and p.spend_blood(parry_required, parry_cost):
+			elif Input.is_action_just_pressed("attack") and parry_time >= parry_cooldown:
+				p.spend_blood(parry_cost)
 				state = State.PARRY
 				state_time = 0.0
 				p.set_invincibility(parry_invuln)
@@ -179,7 +184,7 @@ func process_movement(p:Player, delta: float) -> void:
 		State.GRAPPLE:
 			# Checking if rope is taut
 			if grapple_target == null:
-				_ungrapple(p)
+				_ungrapple(p, true)
 			else:
 				var grapple_offset = grapple_target.global_position - p.global_position
 				if not rope_taut and (grapple_offset.length() > rope_len or (grapple_offset.dot(p.velocity) < 0 and grapple_offset.length() >= min_rope_len)):
@@ -187,8 +192,9 @@ func process_movement(p:Player, delta: float) -> void:
 				state_time += delta
 				# Ungrappling if you let go of the button
 				if not Input.is_action_pressed("grapple") and state_time >= grapple_duration:
-					_ungrapple(p)
-				elif Input.is_action_just_pressed("attack") and p.spend_blood(pull_required, pull_cost):
+					_ungrapple(p, true)
+				elif Input.is_action_just_pressed("attack"):
+					p.spend_blood(pull_cost)
 					_initiate_pull(p)
 
 			normal_physics(p, delta)
@@ -362,4 +368,4 @@ func update_grapple_visibility(visibility: bool):
 
 func let_go(p: Player):
 	if state == State.GRAPPLE:
-		_ungrapple(p)
+		_ungrapple(p, false)

@@ -7,6 +7,12 @@ var initialized = false
 var movement_vec: Vector2 = Vector2.ZERO
 var lifetime: float = INF
 
+@export var grow_duration: float = 0.5
+
+func _ready() -> void:
+	scale = Vector2.ZERO
+	create_tween().tween_property(self, "scale", Vector2.ONE, grow_duration).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+
 func _on_body_entered(body:Node2D) -> void:
 	if body is not Player:
 		return
