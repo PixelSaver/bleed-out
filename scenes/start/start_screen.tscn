@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://ch53nxixuke6k" path="res://assets/darkBG.png" id="8_3aoqy"]
 [ext_resource type="Script" uid="uid://cr4b18ndfw1nd" path="res://scenes/start/player_scene.gd" id="8_a70le"]
 [ext_resource type="Material" uid="uid://dc67gd317r4nb" path="res://assets/curved_shader_mat.tres" id="9_63i48"]
+[ext_resource type="PackedScene" uid="uid://ca58dlr3a3k4u" path="res://scenes/blood_particle/constant_bleed.tscn" id="12_rwrtn"]
+[ext_resource type="Texture2D" uid="uid://m86seiuphsol" path="res://scenes/blood_particle/blood_size_curve.tres" id="13_cjsrg"]
 [ext_resource type="Script" uid="uid://du1vv6astgght" path="res://scenes/start/credits.gd" id="13_juusv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7qcy"]
@@ -87,6 +89,17 @@ corner_detail = 5
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_3aoqy"]
 noise_type = 3
 frequency = 0.4
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_42aww"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(30, 1, 0)
+inherit_velocity_ratio = 0.3
+gravity = Vector3(0, -3000, 0)
+scale_min = 0.5
+scale_curve = ExtResource("13_cjsrg")
+color = Color(0.6666667, 0, 0, 1)
 
 [node name="StartMenu" type="Control" unique_id=44145697 node_paths=PackedStringArray("credits", "cont", "buttons")]
 layout_mode = 3
@@ -640,6 +653,9 @@ position = Vector2(-5.799988, 22.999992)
 scale = Vector2(4, 4)
 
 [node name="PositionOffset" type="Node2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire" unique_id=1249261663]
+
+[node name="constant_bleed" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire/PositionOffset" unique_id=1034500182 instance=ExtResource("12_rwrtn")]
+process_material = SubResource("ParticleProcessMaterial_42aww")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire/PositionOffset" unique_id=830844533]
 scale = Vector2(0.46299994, 0.46299994)

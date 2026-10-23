@@ -12,57 +12,66 @@ var highlighted_enemy: Enemy = null
 @export var spawn_buffer: float = 1500.
 ## Spawn enemies called per chunk
 @export var spawn_chunk_size: float = 500.
-@export var spawn_chunk_population: int = 5
-@export var starting_y: float = 000.
+@export var spawn_chunk_population: int = 2
+@export var starting_y: float = -1200.0
 
-@export var goblin_dropoff: float = 3000.
+@export var goblin_dropoff: float = 6000.
 ## How quickly goblins become rare.
-@export var goblin_decay: float = 2000.0
+@export var goblin_decay: float = 80000.0
 
-@export var mosquito_dropoff: float = 3700.
+## Height at which mosquitoes first appear.
+@export var mosquito_start_height: float = 4000.
 ## How quickly mosquitos become common.
-@export var mosquito_growth: float = 3000.0
+@export var mosquito_growth: float = 19000.0
 
 ## Frog introduction and growth.
-@export var frog_start_height: float = 7000.0
-@export var frog_growth: float = 8000.0
+@export var frog_start_height: float = 10000.0
+@export var frog_growth: float = 25000.0
 @export var frog_max_weight: float = 0.4
 
-## Eyeball introduction and growth.
-@export var eyeball_start_height: float = 10000.0
-@export var eyeball_growth: float = 8000.0
-@export var eyeball_max_weight: float = 0.12
+## First eyeball appears around this height.
+@export var eyeball_start_height: float = 26000.0
+
+@export var eyeball_max_spacing: float = 11000.0
+@export var eyeball_final_max_spacing: float = 4500.0
+@export var eyeball_spacing_decay: float = 70000.0
+
+@export var eyeball_initial_noise: float = 1000.0
+@export var eyeball_max_noise: float = 4000.0
+@export var eyeball_noise_growth: float = 60000.0
+@export var eyeball_noise_power: float = 1.6
+
+## Overall eyeball spawn frequency multiplier.
+@export var eyeball_frequency: float = 1.0
 var last_spawn_chunk: int = 0
 var should_spawn := false
+
+var next_eyeball_height: float = -1.0
+
+func get_eyeball_spacing(h: float) -> float:
+	var progress := maxf(0.0, h - eyeball_start_height)
+	var max_spacing := eyeball_final_max_spacing + (eyeball_max_spacing - eyeball_final_max_spacing) * exp(-progress / eyeball_spacing_decay)
+	var noise := eyeball_initial_noise + (eyeball_max_noise - eyeball_initial_noise) * pow(1.0 - exp(-progress / eyeball_noise_growth),eyeball_noise_power)
+	return randf_range(max_spacing - noise, max_spacing) / eyeball_frequency
 
 ## Determines if enemies spawn.
 func set_should_spawn(_spawn:bool) -> void:
 	should_spawn = _spawn
 
 func get_spawn_weights(h: float) -> Dictionary[EnemyType, float]:
-	var goblin := 0.1 + 0.9 * exp(-(h-goblin_dropoff) / goblin_decay)
-	var mosquito := minf(
-		0.2 + 0.8 * (
-			1.0 - exp(-(h-mosquito_dropoff) / mosquito_growth)
-		),
-		1.0
+	var goblin := 0.1 + 0.9 * exp(
+		-maxf(0.0, h - goblin_dropoff) / goblin_decay
 	)
+	var mosquito_height := maxf(0.0, h - mosquito_start_height)
+	var mosquito := 1.0 - exp(-mosquito_height / mosquito_growth)
 	var frog_height := maxf(0.0, h - frog_start_height)
-	var frog := maxf(
-		frog_max_weight * (
-			1.0 - exp(-frog_height / frog_growth)
-		),
-		0.0
-	)
-	var eyeball_height := maxf(0.0, h - eyeball_start_height)
-	var eyeball := eyeball_max_weight * (
-		1.0 - exp(-eyeball_height / eyeball_growth)
+	var frog := frog_max_weight * (
+		1.0 - exp(-frog_height / frog_growth)
 	)
 	return {
 		EnemyType.GOBLIN: goblin,
 		EnemyType.MOSQUITO: mosquito,
 		EnemyType.FROG: frog,
-		EnemyType.EYEBALL: eyeball,
 	}
 func normalize_weights(d: Dictionary[EnemyType, float]) -> Dictionary[EnemyType, float]:
 	var t = 0.;
@@ -127,7 +136,9 @@ func _process(_delta: float) -> void:
 		## number of enemies per chunk, might functionize later
 		var n = spawn_chunk_population
 		for i in range(n):
-			var type = pick_enemy_type(height)
+			var type = EnemyType.EYEBALL if i == 0 and height >= next_eyeball_height else pick_enemy_type(height)
+			if type == EnemyType.EYEBALL:
+				next_eyeball_height = height + get_eyeball_spacing(height)
 			var scene = get_enemy_scene(type)
 			var e = scene.instantiate() as Enemy
 			register_enemy(e)
@@ -167,6 +178,7 @@ func _ready() -> void:
 	SignalBus.highlight_enemy.connect(_on_enemy_highlight)
 	# Seed rng
 	randomize()
+	next_eyeball_height = eyeball_start_height + randf_range(-1000.0, 1000.0)
 
 func _on_enemy_highlight(e:Enemy) -> void:
 	if e == highlighted_enemy: return

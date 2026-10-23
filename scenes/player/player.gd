@@ -10,12 +10,17 @@ class_name Player
 @export var blood_spray: GPUParticles2D
 @export_category("Player tweaks")
 @export var respawn_delay: float = 0.2
-@export var blood_drain: float = -15.0
 @export var drink_amount: float = 60.0
 @export var drink_duration: float = 1.0
+@export var sustained_drink_duration : float = 1.25
 @export var min_blood: float = 10.0
 @export var invincibilty_duration: float = 1.5
 @export var flicker_duration: float = 1.0
+@export var min_player_y: float = 1000.0
+@export var initial_blood_drain: float = -5.0
+@export var max_blood_drain: float = -15.0
+@export var blood_drain_change_time: float = 20.0
+var blood_drain: float = 0.0
 var blood_rate
 var invincibility_counter: float = 0.0
 var flicker_counter: float = 0.0
@@ -23,12 +28,25 @@ var using_mouse = false
 var aim_dir = Vector2.UP
 var is_dead := false;
 
+var debug_timer = 0.0
+
 ## Set the time the player is invincible for in seconds
 func set_invincibility(time:float) -> void:
 	if time > invincibility_counter:
 		invincibility_counter = time
 
 func _process(delta: float) -> void:
+	if global_position.y <= -min_player_y:
+		if blood_drain == 0.0:
+			blood_drain = initial_blood_drain
+		else:
+			blood_drain = move_toward(
+				blood_drain,
+				max_blood_drain,
+				absf(max_blood_drain - initial_blood_drain) / blood_drain_change_time * delta
+			)
+			debug_timer += delta
+			#print("Blood drain:", blood_drain, "\tTimer:", debug_timer)
 	if invincibility_counter > 0:
 		invincibility_counter -= delta
 	if flicker_counter > 0:
@@ -37,7 +55,10 @@ func _process(delta: float) -> void:
 	else:
 		player_sprite.visible = true
 	if blood_rate > blood_drain:
-		blood_rate = move_toward(blood_rate, blood_drain, (drink_amount - blood_drain) / drink_duration * delta)
+		if player_movement_component.state == player_movement_component.State.GRAPPLE:
+			blood_rate = move_toward(blood_rate, blood_drain, (drink_amount - blood_drain) / sustained_drink_duration * delta)
+		else:
+			blood_rate = move_toward(blood_rate, blood_drain, (drink_amount - blood_drain) / drink_duration * delta)
 	if blood_rate > 0:
 		health_component.heal(blood_rate * delta)
 	else:
@@ -87,7 +108,7 @@ func damage(atk:Attack) -> void:
 			AudioManager.Sound.HURT_2,
 			AudioManager.Sound.HURT_3,
 		].pick_random()
-		AudioManager.play_sfx(sound, -20)
+		AudioManager.play_sfx(sound, -10)
 
 ## Kills player regardless of invincibility
 func force_kill() -> void:

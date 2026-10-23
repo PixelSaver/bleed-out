@@ -48,7 +48,7 @@ class_name PlayerMovementComponent
 #@export var pull_required = 30.0
 @export var pull_cost = 20.0
 #@export var parry_required = 25.0
-@export var parry_cost = 15.0
+@export var parry_cost = 10.0
 
 @export var angle_adjust_speed = 10.0
 
@@ -66,6 +66,7 @@ var pull_start_point
 var rope_taut = false
 var rope_from: Vector2
 var rope_to: Vector2
+var pull_buffered = false
 
 enum State {
 	NORMAL,
@@ -92,6 +93,7 @@ func _initiate_grapple(target: GrapplePoint, p: Player) -> void:
 	rope_to = grapple_target.global_position
 	state = State.THROW
 	state_time = 0.0
+	pull_buffered = false
 	player_sprite.play("swing")
 	var sound = [AudioManager.Sound.GRAPPLE_1, AudioManager.Sound.GRAPPLE_2].pick_random()
 	AudioManager.play_sfx(sound, -10)
@@ -193,7 +195,7 @@ func process_movement(p:Player, delta: float) -> void:
 				# Ungrappling if you let go of the button
 				if not Input.is_action_pressed("grapple") and state_time >= grapple_duration:
 					_ungrapple(p, true)
-				elif Input.is_action_just_pressed("attack"):
+				elif Input.is_action_just_pressed("attack") or pull_buffered:
 					p.spend_blood(pull_cost)
 					_initiate_pull(p)
 
@@ -237,6 +239,8 @@ func process_movement(p:Player, delta: float) -> void:
 			smooth_upright(delta)
 
 		State.THROW:
+			if Input.is_action_just_pressed("attack"):
+				pull_buffered = true
 			state_time += delta
 			var t_norm = min(state_time / throw_duration, 1.0)
 			if state_time > throw_duration:

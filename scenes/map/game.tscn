@@ -859,8 +859,6 @@ texture = ExtResource("6_sd4cy")
 [node name="EnemyManager" type="Node2D" parent="." unique_id=1746548924]
 process_mode = 1
 script = ExtResource("2_lclk0")
-spawn_chunk_population = 2
-starting_y = -1200.0
 
 [node name="Goblin2" parent="EnemyManager" unique_id=1626915586 instance=ExtResource("3_sd4cy")]
 position = Vector2(0, -906)
@@ -931,7 +929,7 @@ follow_target = NodePath("../Player/CameraFollowPoint")
 zoom = Vector2(0.5, 0.5)
 tween_resource = SubResource("Resource_ry5pk")
 follow_damping = true
-follow_damping_value = Vector2(0.3, 0.3)
+follow_damping_value = Vector2(0.2, 0.2)
 lookahead = true
 lookahead_time = Vector2(0, 1.5)
 lookahead_max = true
@@ -981,7 +979,9 @@ offset_left = -241.0
 offset_top = -543.0
 offset_right = 251.0
 offset_bottom = -488.0
-text = "Left Click or Shift to Parry"
+text = "Left Click or Shift to Parry
+(Costs Blood)"
+horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="World" unique_id=1267084679]
 z_index = -9
@@ -998,9 +998,29 @@ z_index = -9
 offset_left = -359.0
 offset_top = -1216.0
 offset_right = 334.0
-offset_bottom = -1103.0
+offset_bottom = -1045.0
 text = "Press Left Click or Shift
-while grappling to dash"
+while Grappling to Dash
+(Costs Blood)"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="World" unique_id=980351056]
+z_index = -9
+offset_left = -343.0
+offset_top = -1464.0
+offset_right = 350.0
+offset_bottom = -1293.0
+text = "Stab Enemies and Drink Blood to
+stay alive"
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="World" unique_id=145104202]
+z_index = -9
+offset_left = -347.0
+offset_top = -1664.0
+offset_right = 346.0
+offset_bottom = -1493.0
+text = "Keep moving up"
 horizontal_alignment = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1574700136]
