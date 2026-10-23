@@ -78,17 +78,6 @@ health_component = NodePath("HealthComponent")
 player_movement_component = NodePath("PlayerMovementComponent")
 player_sprite = NodePath("MC")
 blood_spray = NodePath("player_hit_blood")
-respawn_delay = null
-drink_amount = null
-drink_duration = null
-sustained_drink_duration = null
-min_blood = null
-invincibilty_duration = null
-flicker_duration = null
-min_player_y = null
-initial_blood_drain = null
-max_blood_drain = null
-blood_drain_change_time = null
 metadata/_custom_type_script = "uid://dtvxmu6o1o5s"
 metadata/_edit_group_ = true
 

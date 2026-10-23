@@ -336,6 +336,13 @@ func normal_physics(p: Player, delta: float):
 				p.velocity.y = prebounce_vel.y * -1
 			else:
 				p.velocity.y = jump_power
+				var n = p.get_slide_collision_count()
+				if n > 0:
+					for i in range(n):
+						var col = p.get_slide_collision(i)
+						var f = col.get_collider()
+						if f is Floor:
+							f.bounce()
 
 		if p.is_on_wall():
 			if state == State.PARRY:
