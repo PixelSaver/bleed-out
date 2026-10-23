@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b2h70w0t4wkia"
+path="res://.godot/imported/Track 1 BleedOut Loop.wav-6e877f3ab1641f7bd47af2392df486ab.sample"
+
+[deps]
+
+source_file="res://assets/music/Track 1 BleedOut Loop.wav"
+dest_files=["res://.godot/imported/Track 1 BleedOut Loop.wav-6e877f3ab1641f7bd47af2392df486ab.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

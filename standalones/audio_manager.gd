@@ -57,6 +57,7 @@ const sounds: Dictionary[Sound, AudioStream] = {
 
 var TITLE_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Intro Oct21.wav")
 var GAME_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Oct21.wav")
+var LOOP_MUSIC: AudioStreamWAV = preload("res://assets/music/Track 1 BleedOut Loop.wav")
 
 var music_player: AudioStreamPlayer
 var music_tween: Tween
@@ -74,9 +75,22 @@ func _ready() -> void:
 	TITLE_MUSIC.loop_begin = 0
 	TITLE_MUSIC.loop_end = roundi(TITLE_MUSIC.get_length() * TITLE_MUSIC.mix_rate)
 
-	GAME_MUSIC.loop_mode = AudioStreamWAV.LOOP_FORWARD
-	GAME_MUSIC.loop_begin = roundi(TITLE_MUSIC.get_length() / 2.0 * GAME_MUSIC.mix_rate)
-	GAME_MUSIC.loop_end = roundi(GAME_MUSIC.get_length() * GAME_MUSIC.mix_rate)
+	GAME_MUSIC.loop_mode = AudioStreamWAV.LOOP_DISABLED
+
+	LOOP_MUSIC.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	LOOP_MUSIC.loop_begin = 0
+	LOOP_MUSIC.loop_end = roundi(LOOP_MUSIC.get_length() * LOOP_MUSIC.mix_rate)
+
+func _process(_delta: float) -> void:
+	if not music_player.playing or music_player.stream != GAME_MUSIC:
+		return
+
+	var loop_start = GAME_MUSIC.get_length() - LOOP_MUSIC.get_length()
+	var pos = music_player.get_playback_position()
+
+	if pos >= loop_start:
+		music_player.stream = LOOP_MUSIC
+		music_player.play(pos - loop_start)
 
 func get_audio_stream(s:Sound) -> AudioStream:
 	var out = sounds.get(s)
