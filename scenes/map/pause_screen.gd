@@ -3,6 +3,7 @@ class_name PauseScreen
 
 @export var buttons: Array[Button]
 @export var all_t : Array[Tweenable] = []
+@export var pause_tweenables: Array[Tweenable] = []
 var t: Tween 
 
 func _ready() -> void: 
@@ -20,6 +21,17 @@ func _on_button_pressed(_name:String) -> void:
 		"startover":
 			SignalBus.request_pause.emit(false)
 			Global.menu_manager.transition_to_scene(SceneDatabase.get_scene(SceneDatabase.Scene.START))
+		"settings":
+			if t and t.is_running(): t.kill()
+			t = default_tween()
+			for table in pause_tweenables:
+				t.tween_property(table, "tween_value", 1.0, 0.7)
+		"back":
+			if t and t.is_running(): t.kill()
+			t = default_tween()
+			for table in pause_tweenables:
+				t.tween_property(table, "tween_value", 0.0, 0.7)
+			pass
 		_:
 			push_warning("PixelMenu(%s) failed to find button name <%s>" % [self, _name])
 

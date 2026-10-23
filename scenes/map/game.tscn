@@ -31,6 +31,8 @@
 [ext_resource type="Script" uid="uid://dsrnv8ne8iw56" path="res://scenes/map/death_screen.gd" id="19_l5q7t"]
 [ext_resource type="Script" uid="uid://bun8pcbqq8v0n" path="res://scenes/map/final_score.gd" id="22_p87kk"]
 [ext_resource type="Script" uid="uid://56wc5hx06eww" path="res://scenes/map/pause_screen.gd" id="23_mcwih"]
+[ext_resource type="Script" uid="uid://cubb0qbqdyf5y" path="res://scenes/start/audio_slider.gd" id="24_djfjv"]
+[ext_resource type="Script" uid="uid://bq2qshb4rbuhq" path="res://scenes/start/custom_slider.gd" id="25_5vit5"]
 [ext_resource type="Material" uid="uid://dc67gd317r4nb" path="res://assets/curved_shader_mat.tres" id="25_p87kk"]
 [ext_resource type="PackedScene" uid="uid://dq3musfjnhddb" path="res://scenes/map/death_plane.tscn" id="31_l4ess"]
 [ext_resource type="Texture2D" uid="uid://uv0jeiidokhg" path="res://assets/floor.png" id="32_qnluy"]
@@ -135,6 +137,64 @@ corner_detail = 5
 shadow_blur = 0
 
 [sub_resource type="StyleBox" id="StyleBox_wnhga"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("4_mcwih")
+color = Color(1, 0, 0, 0.43529412)
+skew = Vector2(-0.2, 0)
+corner_detail = 1
+shadow_enabled = true
+shadow_offset = Vector2(10, 10)
+metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kyv1c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ujlqv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m3kug"]
+
+[sub_resource type="Resource" id="Resource_gkedh"]
+script = ExtResource("3_hjt0h")
+color = Color(0.77254903, 0.12941177, 0.13333334, 1)
+blend = true
+width_left = 10
+width_top = 10
+width_right = 10
+width_bottom = 10
+metadata/_custom_type_script = "uid://cjmmhbp1b5312"
+
+[sub_resource type="StyleBox" id="StyleBox_digxj"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+script = ExtResource("4_mcwih")
+color = Color(0.37254903, 0.05882353, 0.047058824, 1)
+skew = Vector2(1, 0)
+borders = Array[ExtResource("3_hjt0h")]([SubResource("Resource_gkedh")])
+corner_detail = 1
+shadow_blur = 0
+
+[sub_resource type="StyleBox" id="StyleBox_aimmo"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = -1.0
+content_margin_bottom = 0.0
+script = ExtResource("4_mcwih")
+color = Color(0.84, 0.76159996, 0.756, 1)
+skew = Vector2(1, 0)
+corner_detail = 1
+shadow_color = Color(1, 1, 1, 0.5411765)
+
+[sub_resource type="StyleBox" id="StyleBox_ctebp"]
 resource_local_to_scene = false
 resource_name = ""
 content_margin_left = -1.0
@@ -356,9 +416,8 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="PauseScreen" type="Control" parent="UILayer" unique_id=1338486760 node_paths=PackedStringArray("buttons", "all_t")]
+[node name="PauseScreen" type="Control" parent="UILayer" unique_id=1338486760 node_paths=PackedStringArray("buttons", "all_t", "pause_tweenables")]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -367,8 +426,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("23_mcwih")
-buttons = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Resume"), NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver")]
-all_t = [NodePath("BG/Tweenable"), NodePath("MarginContainer/HBoxContainer/Panel/Tweenable")]
+buttons = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Resume"), NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/StartOver"), NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Settings"), NodePath("MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Back")]
+all_t = [NodePath("BG/Tweenable"), NodePath("MarginContainer/HBoxContainer/Panel/StartTweenable")]
+pause_tweenables = [NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/Tweenable"), NodePath("MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/Tweenable")]
 metadata/_custom_type_script = "uid://e0s6oeo4pcwr"
 
 [node name="BG" type="TextureRect" parent="UILayer/PauseScreen" unique_id=1455153059]
@@ -419,7 +479,7 @@ offset_transform_enabled = true
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_l5q7t")
 
-[node name="Tweenable" type="Node" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel" unique_id=1478431721]
+[node name="StartTweenable" type="Node" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel" unique_id=1478431721]
 script = ExtResource("16_mm51t")
 direction = Vector2(0, 1)
 distance = 800.0
@@ -433,6 +493,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_visual_only = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer" unique_id=181056799]
 process_mode = 3
@@ -545,6 +607,79 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Settings" type="Button" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=571049733 node_paths=PackedStringArray("tweenable", "front", "back")]
+process_mode = 3
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("18_xrurs")
+tweenable = NodePath("MarginContainer/Panel/Tweenable")
+front = NodePath("FrontText")
+back = NodePath("FrontText/BackText")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Settings" unique_id=1985898636]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Settings/MarginContainer" unique_id=841374651]
+process_mode = 3
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(850, 0)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_wnhga")
+
+[node name="Tweenable" type="Node" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Settings/MarginContainer/Panel" unique_id=1828310921]
+script = ExtResource("16_mm51t")
+tween_value = 1.0
+direction = Vector2(1, 0)
+distance = 850.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="FrontText" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Settings" unique_id=1981233582]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Settings"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackText" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer/Settings/FrontText" unique_id=1358060644]
+process_mode = 3
+modulate = Color(0.35, 0.115499996, 0.115499996, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Settings"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="StartOver" type="Button" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer/VBoxContainer" unique_id=22007997 node_paths=PackedStringArray("tweenable", "front", "back")]
 process_mode = 3
 custom_minimum_size = Vector2(150, 80)
@@ -618,6 +753,501 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Tweenable" type="Node" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/MarginContainer" unique_id=1869750731]
+script = ExtResource("16_mm51t")
+direction = Vector2(1, 0)
+distance = 850.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="PauseSettingsScreen" type="Control" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel" unique_id=1295715097]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -850.0
+offset_right = -850.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_visual_only = false
+
+[node name="Tweenable" type="Node" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen" unique_id=1020640860]
+script = ExtResource("16_mm51t")
+direction = Vector2(1, 0)
+distance = 850.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen" unique_id=125860984]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer" unique_id=2012955963]
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[font_size=80]Settings"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer" unique_id=1876855687]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 0
+
+[node name="ButtonContainer" type="VBoxContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer" unique_id=1090145367]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MasterAudio" type="VBoxContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer" unique_id=303029102 node_paths=PackedStringArray("slider", "label_1", "label_2")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = -10
+script = ExtResource("24_djfjv")
+slider = NodePath("CustomSlider")
+label_1 = NodePath("MarginContainer/HBoxContainer/AudioLevel")
+label_2 = NodePath("MarginContainer/HBoxContainer/AudioLevel/AudioLevel")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio" unique_id=855416823]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MarginContainer" unique_id=65669993]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MarginContainer/HBoxContainer" unique_id=1756860558]
+layout_mode = 2
+bbcode_enabled = true
+text = "[shake level=3 rate=5]Master Volume
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MarginContainer/HBoxContainer/RichTextLabel" unique_id=1441330]
+modulate = Color(0.44, 0.17599998, 0.17599998, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_right = 628.0
+offset_bottom = 41.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(3, 3)
+bbcode_enabled = true
+text = "[shake level=3 rate=5]Master Volume
+"
+fit_content = true
+scroll_active = false
+
+[node name="Control" type="Control" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MarginContainer/HBoxContainer" unique_id=1493483162]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AudioLevel" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MarginContainer/HBoxContainer" unique_id=724208784]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[shake level=3 rate=5]100.0%
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="AudioLevel" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MarginContainer/HBoxContainer/AudioLevel" unique_id=674402777]
+modulate = Color(0.44, 0.17599998, 0.17599998, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(3, 3)
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[shake level=3 rate=5]100.0%"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="CustomSlider" type="HSlider" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio" unique_id=1484954014 node_paths=PackedStringArray("slider_progress")]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_visual_only = false
+mouse_filter = 1
+theme_override_styles/slider = SubResource("StyleBoxEmpty_kyv1c")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_ujlqv")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_m3kug")
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("25_5vit5")
+slider_progress = NodePath("MarginContainer/MarginContainer/Progress")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider" unique_id=1913804901]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="BG" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider/MarginContainer" unique_id=1487505820]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_digxj")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider/MarginContainer" unique_id=496561603]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Progress" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider/MarginContainer/MarginContainer" unique_id=137789365]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_pivot_ratio = Vector2(0, 0.5)
+offset_transform_visual_only = false
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_aimmo")
+
+[node name="SFX" type="VBoxContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer" unique_id=861471973 node_paths=PackedStringArray("slider", "label_1", "label_2")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = -10
+script = ExtResource("24_djfjv")
+bus = "SFX"
+slider = NodePath("CustomSlider")
+label_1 = NodePath("MarginContainer/HBoxContainer/AudioLevel")
+label_2 = NodePath("MarginContainer/HBoxContainer/AudioLevel/AudioLevel")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX" unique_id=1234657389]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/MarginContainer" unique_id=562868509]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/MarginContainer/HBoxContainer" unique_id=170282676]
+layout_mode = 2
+bbcode_enabled = true
+text = "[shake level=3 rate=5]Sound Effects
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/MarginContainer/HBoxContainer/RichTextLabel" unique_id=375208083]
+modulate = Color(0.44, 0.17599998, 0.17599998, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_right = 628.0
+offset_bottom = 41.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(3, 3)
+bbcode_enabled = true
+text = "[shake level=3 rate=5]Sound Effects
+"
+fit_content = true
+scroll_active = false
+
+[node name="Control" type="Control" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/MarginContainer/HBoxContainer" unique_id=1390100029]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AudioLevel" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/MarginContainer/HBoxContainer" unique_id=505772625]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[shake level=3 rate=5]100.0%
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="AudioLevel" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/MarginContainer/HBoxContainer/AudioLevel" unique_id=1199177]
+modulate = Color(0.44, 0.17599998, 0.17599998, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(3, 3)
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[shake level=3 rate=5]100.0%"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="CustomSlider" type="HSlider" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX" unique_id=1961832234 node_paths=PackedStringArray("slider_progress")]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_visual_only = false
+mouse_filter = 1
+theme_override_styles/slider = SubResource("StyleBoxEmpty_kyv1c")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_ujlqv")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_m3kug")
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("25_5vit5")
+slider_progress = NodePath("MarginContainer/MarginContainer/Progress")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider" unique_id=1221272191]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="BG" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider/MarginContainer" unique_id=773203294]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_digxj")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider/MarginContainer" unique_id=517666130]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Progress" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider/MarginContainer/MarginContainer" unique_id=1984283476]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_pivot_ratio = Vector2(0, 0.5)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_aimmo")
+
+[node name="Music" type="VBoxContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer" unique_id=267636231 node_paths=PackedStringArray("slider", "label_1", "label_2")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = -10
+script = ExtResource("24_djfjv")
+bus = "Music"
+slider = NodePath("CustomSlider")
+label_1 = NodePath("MarginContainer/HBoxContainer/AudioLevel")
+label_2 = NodePath("MarginContainer/HBoxContainer/AudioLevel/AudioLevel")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music" unique_id=782400560]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/MarginContainer" unique_id=729688702]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/MarginContainer/HBoxContainer" unique_id=1847539744]
+layout_mode = 2
+bbcode_enabled = true
+text = "[shake level=3 rate=5]Music 
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/MarginContainer/HBoxContainer/RichTextLabel" unique_id=961778432]
+modulate = Color(0.44, 0.17599998, 0.17599998, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_right = 628.0
+offset_bottom = 41.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(3, 3)
+bbcode_enabled = true
+text = "[shake level=3 rate=5]Music 
+"
+fit_content = true
+scroll_active = false
+
+[node name="Control" type="Control" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/MarginContainer/HBoxContainer" unique_id=1015926584]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AudioLevel" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/MarginContainer/HBoxContainer" unique_id=1850165893]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[shake level=3 rate=5]100.0%
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="AudioLevel" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/MarginContainer/HBoxContainer/AudioLevel" unique_id=1024449591]
+modulate = Color(0.44, 0.17599998, 0.17599998, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(3, 3)
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[shake level=3 rate=5]100.0%"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="CustomSlider" type="HSlider" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music" unique_id=998431271 node_paths=PackedStringArray("slider_progress")]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_visual_only = false
+mouse_filter = 1
+theme_override_styles/slider = SubResource("StyleBoxEmpty_kyv1c")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_ujlqv")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_m3kug")
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("25_5vit5")
+slider_progress = NodePath("MarginContainer/MarginContainer/Progress")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider" unique_id=1181988656]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="BG" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider/MarginContainer" unique_id=1770726493]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_digxj")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider/MarginContainer" unique_id=1196461308]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Progress" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider/MarginContainer/MarginContainer" unique_id=198376867]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_pivot_ratio = Vector2(0, 0.5)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_aimmo")
+
+[node name="Back" type="Button" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer" unique_id=720302299 node_paths=PackedStringArray("tweenable", "front", "back")]
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("18_xrurs")
+tweenable = NodePath("MarginContainer/Panel/Tweenable")
+front = NodePath("FrontText")
+back = NodePath("FrontText/BackText")
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Back" unique_id=649701659]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Back/MarginContainer" unique_id=1620505950]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-850, 0)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBox_ctebp")
+
+[node name="Tweenable" type="Node" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Back/MarginContainer/Panel" unique_id=248599267]
+script = ExtResource("16_mm51t")
+tween_value = 1.0
+direction = Vector2(-1, 0)
+distance = 850.0
+metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="FrontText" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Back" unique_id=438700394]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Back
+"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackText" type="RichTextLabel" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer/Panel/PauseSettingsScreen/VBoxContainer/MarginContainer/ButtonContainer/Back/FrontText" unique_id=39186297]
+modulate = Color(0.35, 0.115499996, 0.115499996, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 1
+bbcode_enabled = true
+text = "[shake rate=10 level=10]Back
+"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Spacer2" type="Control" parent="UILayer/PauseScreen/MarginContainer/HBoxContainer" unique_id=1898518568]
 process_mode = 3
 layout_mode = 2
@@ -626,6 +1256,7 @@ mouse_filter = 1
 
 [node name="DeathScreen" type="Control" parent="UILayer" unique_id=185172601 node_paths=PackedStringArray("buttons", "all_t", "score_display")]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1042,6 +1673,7 @@ position = Vector2(-33, 1146)
 texture = ExtResource("16_4hwui")
 
 [node name="Mushrooms" type="Sprite2D" parent="World/Floor" unique_id=1592227356]
+z_index = -1
 position = Vector2(-4, 70)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("32_qnluy")

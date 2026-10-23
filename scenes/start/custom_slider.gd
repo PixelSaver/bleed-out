@@ -1,7 +1,7 @@
 extends HSlider
 
 @export var slider_progress: Panel
-var max_x : float
+var max_x : float 
 var t: Tween
 
 
@@ -9,9 +9,10 @@ var t: Tween
 func _ready() -> void:
 	value_changed.connect(_on_value_changed)
 	self.offset_transform_pivot_ratio = Vector2.ONE * 0.5
-	await get_tree().process_frame
+	self.pivot_offset_ratio = Vector2.ONE * 0.5
+	await get_tree().create_timer(.5).timeout
 	max_x = slider_progress.size.x
-	_on_value_changed(self.value)
+	print("Slider max: %s" % max_x)
 
 
 func _on_value_changed(v: float) -> void:
