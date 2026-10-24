@@ -12,6 +12,7 @@ class_name MosquitoEnemy
 ## Delay between the last charge and trying to charge again
 @export var charge_cooldown: float = 2.5
 @export var approach_speed: float = 20000.0
+@export var sprite: Sprite2D
 var _charge_cooldown_timer: float = -INF
 var can_see_player: bool = false
 signal charge_cooldown_ended
@@ -51,6 +52,7 @@ func _physics_process(delta: float) -> void:
 	self.apply_central_force(dir * speed * approach_speed * delta)
 
 func _process(delta: float) -> void:
+	sprite.flip_h = (linear_velocity.x < 0)
 	if _charge_cooldown_timer >= 0:
 		_charge_cooldown_timer -= delta
 		if _charge_cooldown_timer <= 0:
