@@ -30,7 +30,7 @@ var highlighted_enemy: Enemy = null
 @export var frog_max_weight: float = 0.4
 
 ## First eyeball appears around this height.
-@export var eyeball_start_height: float = 26000.0
+@export var eyeball_start_height: float = 20000.0
 
 @export var eyeball_max_spacing: float = 11000.0
 @export var eyeball_final_max_spacing: float = 4500.0
