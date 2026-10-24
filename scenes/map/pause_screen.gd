@@ -20,6 +20,12 @@ func _ready() -> void:
 	hover_box.mouse_entered.connect(_on_hover.bind(true))
 	hover_box.mouse_exited.connect(_on_hover.bind(false))
 
+func _process(_d: float) -> void:
+	if Input.is_action_just_pressed("attack"):
+		_on_hover(true)
+	if Input.is_action_just_released("attack"):
+		_on_hover(false)
+
 func _on_hover(mouse_inside: bool) -> void:
 	if t and t.is_running():
 		t.kill()
