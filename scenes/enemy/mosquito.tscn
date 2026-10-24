@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://fxfrd8x7u21v"]
 
 [ext_resource type="Script" uid="uid://dhay807pamn7c" path="res://scenes/enemy/mosquito.gd" id="1_rt4yc"]
-[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://assets/icon.svg" id="2_44ico"]
+[ext_resource type="Texture2D" uid="uid://b7wbkrqgbgr27" path="res://assets/mosquito/Real_Menacing_Threatening_Evil_Unemployed_B1tchless_Creature.png" id="2_bcidh"]
 [ext_resource type="Script" uid="uid://cihaphm0cdl2f" path="res://scenes/grapple/grapple_point.gd" id="3_bcidh"]
 [ext_resource type="Script" uid="uid://fj7ykktocnh6" path="res://utilities/health_component.gd" id="4_gnjs4"]
 [ext_resource type="Texture2D" uid="uid://bbrf3us7xl4aa" path="res://assets/grappleMark spritesheet.png" id="5_44ico"]
@@ -83,8 +83,8 @@ metadata/_custom_type_script = "uid://df1tier0hhuyl"
 shape = SubResource("CircleShape2D_gkedh")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=824649474]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_44ico")
+scale = Vector2(1.13, 1.13)
+texture = ExtResource("2_bcidh")
 
 [node name="GrapplePoint" type="Node2D" parent="." unique_id=1850899063]
 script = ExtResource("3_bcidh")
@@ -95,35 +95,6 @@ script = ExtResource("4_gnjs4")
 health = 1.0
 max_health = 1.0
 metadata/_custom_type_script = "uid://fj7ykktocnh6"
-
-[node name="MosquitoCOLORPROTOTYPE" type="ColorRect" parent="." unique_id=741564818]
-offset_right = 40.0
-offset_bottom = 40.0
-offset_transform_enabled = true
-offset_transform_position_ratio = Vector2(-0.5, -0.5)
-offset_transform_scale = Vector2(1.5, 1.5)
-color = Color(0, 0.39607844, 0.6, 0.2784314)
-
-[node name="HighlightPROTOTYPE" type="ColorRect" parent="." unique_id=1342619233]
-offset_right = 40.0
-offset_bottom = 40.0
-offset_transform_enabled = true
-offset_transform_position_ratio = Vector2(-0.5, -0.5)
-offset_transform_scale = Vector2(1.5, 1.5)
-color = Color(1, 0, 0, 0)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=938961813]
-offset_left = -78.0
-offset_top = -30.0
-offset_right = 83.0
-offset_bottom = 25.0
-bbcode_enabled = true
-text = "[font_size=20]Mosquito"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="VisionRange" type="Area2D" parent="." unique_id=556312444]
 collision_layer = 4
