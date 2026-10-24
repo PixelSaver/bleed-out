@@ -34,6 +34,7 @@
 [ext_resource type="Script" uid="uid://cubb0qbqdyf5y" path="res://scenes/start/audio_slider.gd" id="24_djfjv"]
 [ext_resource type="Script" uid="uid://bq2qshb4rbuhq" path="res://scenes/start/custom_slider.gd" id="25_5vit5"]
 [ext_resource type="Material" uid="uid://dc67gd317r4nb" path="res://assets/curved_shader_mat.tres" id="25_p87kk"]
+[ext_resource type="Texture2D" uid="uid://cc3g0rgyu1wou" path="res://assets/rip_dracula.png" id="27_m3kug"]
 [ext_resource type="PackedScene" uid="uid://dq3musfjnhddb" path="res://scenes/map/death_plane.tscn" id="31_l4ess"]
 [ext_resource type="Texture2D" uid="uid://uv0jeiidokhg" path="res://assets/floor.png" id="32_qnluy"]
 [ext_resource type="Script" uid="uid://d0lw48ny38y8a" path="res://scenes/map/floor.gd" id="34_o7r5d"]
@@ -1376,7 +1377,6 @@ vertical_alignment = 1
 
 [node name="DeathScreen" type="Control" parent="UILayer" unique_id=185172601 node_paths=PackedStringArray("buttons", "all_t", "score_display")]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1407,6 +1407,16 @@ script = ExtResource("16_mm51t")
 direction = Vector2(0, -1)
 distance = 800.0
 metadata/_custom_type_script = "uid://b4pdlxyjxim6i"
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/DeathScreen/BG" unique_id=345907368]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("27_m3kug")
+stretch_mode = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="UILayer/DeathScreen" unique_id=497600026]
 process_mode = 3
