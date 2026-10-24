@@ -16,11 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://ca58dlr3a3k4u" path="res://scenes/blood_particle/constant_bleed.tscn" id="12_rwrtn"]
 [ext_resource type="Texture2D" uid="uid://m86seiuphsol" path="res://scenes/blood_particle/blood_size_curve.tres" id="13_cjsrg"]
 [ext_resource type="Script" uid="uid://du1vv6astgght" path="res://scenes/start/credits.gd" id="13_juusv"]
-[ext_resource type="Script" uid="uid://ie1wat58e7mh" path="res://addons/Spatial navigation mapper/NavMapper.gd" id="16_ns10t"]
-[ext_resource type="Script" uid="uid://dp0koykwijyay" path="res://addons/Spatial navigation mapper/NavMapGroup.gd" id="17_dua76"]
-[ext_resource type="Script" uid="uid://ctag0dds4juca" path="res://addons/Spatial navigation mapper/NavMapReference.gd" id="18_nsw82"]
-[ext_resource type="Texture2D" uid="uid://cl43jp368k5db" path="res://addons/Spatial navigation mapper/ContainerBorder_box_ants.png" id="19_ojs1e"]
-[ext_resource type="Texture2D" uid="uid://cp81xe1h22tlv" path="res://addons/Spatial navigation mapper/arrow.png" id="20_wt1su"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7qcy"]
 
@@ -107,32 +102,7 @@ scale_min = 0.5
 scale_curve = ExtResource("13_cjsrg")
 color = Color(0.6666667, 0, 0, 1)
 
-[sub_resource type="Resource" id="Resource_plx5h"]
-script = ExtResource("17_dua76")
-ElementsToMap = Array[NodePath]([NodePath("../AllContainer/RightSide/ButtonContainer/Play"), NodePath("../AllContainer/RightSide/ButtonContainer/Credits"), NodePath("../AllContainer/RightSide/ButtonContainer/Settings"), NodePath("../AllContainer/RightSide/ButtonContainer/Splash")])
-group_bounding_box_position = Vector2(462.8, 243)
-group_bounding_box_size = Vector2(689.00006, 266)
-metadata/_custom_type_script = "uid://dp0koykwijyay"
-
-[sub_resource type="Resource" id="Resource_7eklv"]
-script = ExtResource("18_nsw82")
-Down = NodePath("../AllContainer/RightSide/ButtonContainer/Splash")
-origin = NodePath("../AllContainer/RightSide/ButtonContainer/Play")
-
-[sub_resource type="Resource" id="Resource_rbjef"]
-script = ExtResource("18_nsw82")
-origin = NodePath("../AllContainer/RightSide/ButtonContainer/Credits")
-
-[sub_resource type="Resource" id="Resource_blt1a"]
-script = ExtResource("18_nsw82")
-origin = NodePath("../AllContainer/RightSide/ButtonContainer/Settings")
-
-[sub_resource type="Resource" id="Resource_4shbm"]
-script = ExtResource("18_nsw82")
-Up = NodePath("../AllContainer/RightSide/ButtonContainer/Play")
-origin = NodePath("../AllContainer/RightSide/ButtonContainer/Splash")
-
-[node name="StartMenu" type="Control" unique_id=44145697 node_paths=PackedStringArray("credits", "cont", "buttons")]
+[node name="StartMenu" type="Control" unique_id=44145697 node_paths=PackedStringArray("credits", "cont", "buttons", "start_nodes", "settings_nodes", "credits_nodes")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -145,6 +115,9 @@ script = ExtResource("1_v2r8c")
 credits = NodePath("Credits")
 cont = NodePath("AllContainer")
 buttons = [NodePath("AllContainer/RightSide/ButtonContainer/Play"), NodePath("AllContainer/RightSide/ButtonContainer/Settings"), NodePath("AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Back"), NodePath("AllContainer/RightSide/ButtonContainer/Credits"), NodePath("Credits/MarginContainer/VBoxContainer2/Top/CreditsBack"), NodePath("AllContainer/RightSide/ButtonContainer/Splash")]
+start_nodes = [NodePath("AllContainer/RightSide/ButtonContainer/Play"), NodePath("AllContainer/RightSide/ButtonContainer/Credits"), NodePath("AllContainer/RightSide/ButtonContainer/Settings"), NodePath("AllContainer/RightSide/ButtonContainer/Splash")]
+settings_nodes = [NodePath("AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Back"), NodePath("AllContainer/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MasterSlider"), NodePath("AllContainer/VBoxContainer/MarginContainer/ButtonContainer/SFX/SFXSlider"), NodePath("AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Music/MusicSlider")]
+credits_nodes = [NodePath("Credits/MarginContainer/VBoxContainer2/Top/CreditsBack"), NodePath("Credits/ScrollContainer/MarginContainer/VBoxContainer/Credits"), NodePath("Credits/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/Top")]
 
 [node name="AllContainer" type="HBoxContainer" parent="." unique_id=1106035721]
 layout_mode = 1
@@ -189,7 +162,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_constants/separation = -10
 script = ExtResource("2_pybr3")
-slider = NodePath("CustomSlider")
+slider = NodePath("MasterSlider")
 label_1 = NodePath("MarginContainer/HBoxContainer/AudioLevel")
 label_2 = NodePath("MarginContainer/HBoxContainer/AudioLevel/AudioLevel")
 
@@ -260,11 +233,17 @@ scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="CustomSlider" type="HSlider" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio" unique_id=1446779698 node_paths=PackedStringArray("slider_progress")]
+[node name="MasterSlider" type="HSlider" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio" unique_id=1446779698 node_paths=PackedStringArray("slider_progress")]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_visual_only = false
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../SFX/SFXSlider")
+focus_next = NodePath("../../SFX/SFXSlider")
+focus_previous = NodePath(".")
 mouse_filter = 1
 theme_override_styles/slider = SubResource("StyleBoxEmpty_c7qcy")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_gkedh")
@@ -275,7 +254,7 @@ value = 1.0
 script = ExtResource("4_a70le")
 slider_progress = NodePath("MarginContainer/MarginContainer/Progress")
 
-[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider" unique_id=460948892]
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MasterSlider" unique_id=460948892]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -287,19 +266,19 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 10
 
-[node name="BG" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider/MarginContainer" unique_id=1983347434]
+[node name="BG" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MasterSlider/MarginContainer" unique_id=1983347434]
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_a70le")
 
-[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider/MarginContainer" unique_id=1144460141]
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MasterSlider/MarginContainer" unique_id=1144460141]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Progress" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/CustomSlider/MarginContainer/MarginContainer" unique_id=2117760744]
+[node name="Progress" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/MasterAudio/MasterSlider/MarginContainer/MarginContainer" unique_id=2117760744]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_pivot_ratio = Vector2(0, 0.5)
@@ -312,7 +291,7 @@ layout_mode = 2
 theme_override_constants/separation = -10
 script = ExtResource("2_pybr3")
 bus = "SFX"
-slider = NodePath("CustomSlider")
+slider = NodePath("SFXSlider")
 label_1 = NodePath("MarginContainer/HBoxContainer/AudioLevel")
 label_2 = NodePath("MarginContainer/HBoxContainer/AudioLevel/AudioLevel")
 
@@ -383,11 +362,17 @@ scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="CustomSlider" type="HSlider" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/SFX" unique_id=1240653730 node_paths=PackedStringArray("slider_progress")]
+[node name="SFXSlider" type="HSlider" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/SFX" unique_id=1240653730 node_paths=PackedStringArray("slider_progress")]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_visual_only = false
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../MasterAudio/MasterSlider")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Music/MusicSlider")
+focus_next = NodePath("../../Music/MusicSlider")
+focus_previous = NodePath("../../MasterAudio/MasterSlider")
 mouse_filter = 1
 theme_override_styles/slider = SubResource("StyleBoxEmpty_c7qcy")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_gkedh")
@@ -398,7 +383,7 @@ value = 1.0
 script = ExtResource("4_a70le")
 slider_progress = NodePath("MarginContainer/MarginContainer/Progress")
 
-[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider" unique_id=941856877]
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/SFX/SFXSlider" unique_id=941856877]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -410,19 +395,19 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 10
 
-[node name="BG" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider/MarginContainer" unique_id=1928909298]
+[node name="BG" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/SFX/SFXSlider/MarginContainer" unique_id=1928909298]
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_a70le")
 
-[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider/MarginContainer" unique_id=108022908]
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/SFX/SFXSlider/MarginContainer" unique_id=108022908]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Progress" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/SFX/CustomSlider/MarginContainer/MarginContainer" unique_id=838212436]
+[node name="Progress" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/SFX/SFXSlider/MarginContainer/MarginContainer" unique_id=838212436]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_pivot_ratio = Vector2(0, 0.5)
@@ -435,7 +420,7 @@ layout_mode = 2
 theme_override_constants/separation = -10
 script = ExtResource("2_pybr3")
 bus = "Music"
-slider = NodePath("CustomSlider")
+slider = NodePath("MusicSlider")
 label_1 = NodePath("MarginContainer/HBoxContainer/AudioLevel")
 label_2 = NodePath("MarginContainer/HBoxContainer/AudioLevel/AudioLevel")
 
@@ -506,11 +491,17 @@ scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="CustomSlider" type="HSlider" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Music" unique_id=1923077910 node_paths=PackedStringArray("slider_progress")]
+[node name="MusicSlider" type="HSlider" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Music" unique_id=1923077910 node_paths=PackedStringArray("slider_progress")]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_visual_only = false
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../SFX/SFXSlider")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Back")
+focus_next = NodePath("../../Back")
+focus_previous = NodePath("../../SFX/SFXSlider")
 mouse_filter = 1
 theme_override_styles/slider = SubResource("StyleBoxEmpty_c7qcy")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_gkedh")
@@ -521,7 +512,7 @@ value = 1.0
 script = ExtResource("4_a70le")
 slider_progress = NodePath("MarginContainer/MarginContainer/Progress")
 
-[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider" unique_id=1587783623]
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Music/MusicSlider" unique_id=1587783623]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -533,19 +524,19 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 10
 
-[node name="BG" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider/MarginContainer" unique_id=1995823529]
+[node name="BG" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Music/MusicSlider/MarginContainer" unique_id=1995823529]
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBox_a70le")
 
-[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider/MarginContainer" unique_id=1148805867]
+[node name="MarginContainer" type="MarginContainer" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Music/MusicSlider/MarginContainer" unique_id=1148805867]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Progress" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Music/CustomSlider/MarginContainer/MarginContainer" unique_id=1981095368]
+[node name="Progress" type="Panel" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer/Music/MusicSlider/MarginContainer/MarginContainer" unique_id=1981095368]
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_pivot_ratio = Vector2(0, 0.5)
@@ -555,6 +546,12 @@ theme_override_styles/panel = SubResource("StyleBox_63i48")
 [node name="Back" type="Button" parent="AllContainer/VBoxContainer/MarginContainer/ButtonContainer" unique_id=1666951155 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Music/MusicSlider")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath("../Music/MusicSlider")
 mouse_filter = 1
 script = ExtResource("2_v2r8c")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
@@ -677,7 +674,7 @@ grow_vertical = 2
 layout_mode = 2
 script = ExtResource("8_a70le")
 player_pos = NodePath("Vampire/PositionOffset")
-sword_pos = NodePath("Vampire/PositionOffset/SwordPosition/Sword")
+sword_pos = NodePath("Vampire/SwordPosition/Sword")
 noise = SubResource("FastNoiseLite_3aoqy")
 
 [node name="Vampire" type="Node2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene" unique_id=1460236357]
@@ -703,10 +700,10 @@ animation = &"falling_eyes"
 autoplay = "falling_eyes"
 frame_progress = 0.87803155
 
-[node name="SwordPosition" type="Node2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire/PositionOffset" unique_id=1676520836]
+[node name="SwordPosition" type="Node2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire" unique_id=1676520836]
 position = Vector2(37.5, 9.75)
 
-[node name="Sword" type="Sprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire/PositionOffset/SwordPosition" unique_id=16300223]
+[node name="Sword" type="Sprite2D" parent="AllContainer/PROTOTYPE/CenterContainer/PlayerScene/Vampire/SwordPosition" unique_id=16300223]
 rotation = -0.3499096
 scale = Vector2(0.054999996, 0.054999996)
 texture = ExtResource("12_dua76")
@@ -756,9 +753,9 @@ layout_mode = 2
 focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath(".")
 focus_neighbor_right = NodePath(".")
-focus_neighbor_bottom = NodePath("../Splash")
-focus_next = NodePath(".")
-focus_previous = NodePath(".")
+focus_neighbor_bottom = NodePath("../Credits")
+focus_next = NodePath("../Credits")
+focus_previous = NodePath("../Credits")
 mouse_filter = 1
 script = ExtResource("2_v2r8c")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
@@ -828,9 +825,9 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
 focus_neighbor_left = NodePath(".")
-focus_neighbor_top = NodePath(".")
+focus_neighbor_top = NodePath("../Play")
 focus_neighbor_right = NodePath(".")
-focus_neighbor_bottom = NodePath(".")
+focus_neighbor_bottom = NodePath("../Settings")
 focus_next = NodePath(".")
 focus_previous = NodePath(".")
 mouse_filter = 1
@@ -902,9 +899,9 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
 focus_neighbor_left = NodePath(".")
-focus_neighbor_top = NodePath(".")
+focus_neighbor_top = NodePath("../Credits")
 focus_neighbor_right = NodePath(".")
-focus_neighbor_bottom = NodePath(".")
+focus_neighbor_bottom = NodePath("../Splash")
 focus_next = NodePath(".")
 focus_previous = NodePath(".")
 mouse_filter = 1
@@ -976,7 +973,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
 focus_neighbor_left = NodePath(".")
-focus_neighbor_top = NodePath("../Play")
+focus_neighbor_top = NodePath("../Settings")
 focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath(".")
@@ -1092,6 +1089,12 @@ mouse_filter = 1
 
 [node name="Credits" type="RichTextLabel" parent="Credits/ScrollContainer/MarginContainer/VBoxContainer" unique_id=405436144]
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../../../MarginContainer/VBoxContainer2/Top/CreditsBack")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../HBoxContainer/Top")
+focus_next = NodePath("../HBoxContainer/Top")
+focus_previous = NodePath("../../../../MarginContainer/VBoxContainer2/Top/CreditsBack")
 bbcode_enabled = true
 text = "[center][font_size=80][color=#c52122]CREDITS[/color][/font_size] 
 [font_size=42][color=#a9b9c7]THE PEOPLE BEHIND THE GAME[/color][/font_size]
@@ -1155,6 +1158,12 @@ alignment = 1
 [node name="Top" type="Button" parent="Credits/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=969652617 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../Credits")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath("../../Credits")
 mouse_filter = 1
 script = ExtResource("2_v2r8c")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
@@ -1244,6 +1253,12 @@ alignment = 2
 [node name="CreditsBack" type="Button" parent="Credits/MarginContainer/VBoxContainer2/Top" unique_id=1320954866 node_paths=PackedStringArray("tweenable", "front", "back")]
 custom_minimum_size = Vector2(150, 80)
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../../../ScrollContainer/MarginContainer/VBoxContainer/Credits")
+focus_next = NodePath("../../../../ScrollContainer/MarginContainer/VBoxContainer/Credits")
+focus_previous = NodePath(".")
 mouse_filter = 1
 script = ExtResource("2_v2r8c")
 tweenable = NodePath("MarginContainer/Panel/Tweenable")
@@ -1310,19 +1325,3 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="UI-navigation-mapper" type="Control" parent="." unique_id=455054830]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("16_ns10t")
-element_groups = Array[ExtResource("17_dua76")]([SubResource("Resource_plx5h")])
-navigation_references = Dictionary[String, ExtResource("18_nsw82")]({
-"Credits": SubResource("Resource_7eklv"),
-"Play": SubResource("Resource_rbjef"),
-"Settings": SubResource("Resource_blt1a"),
-"Splash": SubResource("Resource_4shbm")
-})
-group_container_tex = ExtResource("19_ojs1e")
-arrow_tex = ExtResource("20_wt1su")
-metadata/_custom_type_script = "uid://ie1wat58e7mh"

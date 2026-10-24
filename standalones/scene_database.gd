@@ -3,16 +3,12 @@ extends Node
 const DEFAULT_SCENE = Scene.START
 enum Scene {
 	START,
-	SETTINGS,
-	GRAPPLE_TEST,
 	GAME,
 	SPLASH,
 }
 
 var scenes = {
 	Scene.START: preload("res://scenes/start/start_screen.tscn"),
-	Scene.SETTINGS: preload("res://scenes/start/settings_screen.tscn"),
-	Scene.GRAPPLE_TEST: preload("res://scenes/grapple/grapple_test.tscn"),
 	Scene.GAME: preload("res://scenes/map/game.tscn"),
 	Scene.SPLASH: preload("res://scenes/splash/splash_screen.tscn"),
 	#Scene.TWEENABLE_SHOWCASE: preload("res://scenes/examples/tweenable_showcase.tscn"),

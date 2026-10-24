@@ -15,6 +15,6 @@ func _process(delta: float) -> void:
 	time += delta
 	player_pos.position.x = noise.get_noise_2d(time, -10.) * 50
 	player_pos.position.y = noise.get_noise_2d(time, 100.) * 50
-	sword_pos.position.x = noise.get_noise_2d(time, 300) * 20
-	sword_pos.position.y = noise.get_noise_2d(time, 400.) * 20
+	sword_pos.position.x = noise.get_noise_3d(time-12390, 300, -388) * 20
+	sword_pos.position.y = noise.get_noise_3d(time-3178, 400., 927) * 20
 	#sword_pos.rotation = noise.get_noise_2d(time, -200.) * 1

@@ -24,6 +24,10 @@ func _on_button_pressed(_name:String) -> void:
 func _process(_d: float) -> void:
 	if visible:
 		cont.offset_transform_position.y = -scroll.scroll_vertical 
+		if Input.is_action_pressed("ui_text_scroll_down") or Input.is_action_pressed("ui_down"):
+			scroll.scroll_vertical += 10
+		if Input.is_action_pressed("ui_text_scroll_up") or Input.is_action_pressed("ui_up"):
+			scroll.scroll_vertical -= 10
 	else:
 		cont.offset_transform_position.y = 0
 
